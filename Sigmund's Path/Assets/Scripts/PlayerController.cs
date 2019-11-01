@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     //MOVIMIENTO HORIZONTAL
     public float movSpeed;
     private int facingRight;
-    private float movDir;
+    private float movInputDir;
+    public float movementForceInAir;
     //JUMP
     public float jumpForce;
     private int maxJumps = 1;
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
         
     }
     void FixedUpdate(){
-        rb2d.velocity = new Vector2(movDir * movSpeed, rb2d.velocity.y);
+        ApplyMovement();
         Jump();
         Dash();
         HardFallingDown();
@@ -67,17 +68,42 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerInput(){
-        movDir = Input.GetAxisRaw("Horizontal");
+        movInputDir = Input.GetAxisRaw("Horizontal");
+    }
+
+    void ApplyMovement()
+    {
+        if (isGrounded)
+        {
+        rb2d.velocity = new Vector2(movInputDir * movSpeed, rb2d.velocity.y);
+        }
+
+        else if(!isGrounded && !isWallSliding && movInputDir != 0)
+        {
+            Vector2 forceToAdd = new Vector2(movementForceInAir * movInputDir, 0);
+            rb2d.AddForce(forceToAdd);
+
+            if(Mathf.Abs(rb2d.velocity.x) > movSpeed)
+            {
+                rb2d.velocity = new Vector2(movSpeed * movInputDir, rb2d.velocity.y);
+            }
+        }
     }
     void Flip(){
-        if(movDir > 0){
-             transform.eulerAngles = new Vector3(0f, 0f, 0f);
-             facingRight = 1;
+        if (!isWallSliding)
+        {
+            if (movInputDir > 0)
+            {
+                transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                facingRight = 1;
+            }
+            else if (movInputDir < 0)
+            {
+                transform.eulerAngles = new Vector3(0f, -180f, 0f);
+                facingRight = -1;
+            }
         }
-        else if(movDir < 0){
-             transform.eulerAngles = new Vector3(0f, -180f, 0f);
-             facingRight = -1;
-        }
+
     }
 
     void CheckIfCanJump()
@@ -171,7 +197,7 @@ public class PlayerController : MonoBehaviour
             wasWallSliding = true;
             if(rb2d.velocity.y < -0.1f)
             {
-                movDir = 0;
+                movInputDir = 0;
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -wallSlideSpeed);
             }
         }
