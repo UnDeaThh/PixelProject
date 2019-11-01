@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     //MOVIMIENTO HORIZONTAL
     public float movSpeed;
-    private int facingRight;
+    private int facingRight = 1;
     private float movInputDir;
     public float movementForceInAir;
     //JUMP
@@ -21,6 +21,13 @@ public class PlayerController : MonoBehaviour
     private float checkRadius = 0.2f;
     public LayerMask whatIsGrounded;
     private bool canJump;
+    //WALLJUMP
+    private Vector2 wallHopDir = new Vector2(1, 1f);
+    private Vector2 wallJumpDir = new Vector2(1, 2);
+    public float wallHopForce;
+    public float wallJumpForce;
+    public float lowWallJumpForce;
+    private int facingDir = 1;
 
     //HARDFALLING DOWN
     public float downForce;
@@ -44,6 +51,8 @@ public class PlayerController : MonoBehaviour
     public bool wasWallSliding;
 
     void Awake(){
+        wallHopDir.Normalize();
+        wallJumpDir.Normalize();
         rb2d = GetComponent<Rigidbody2D>();
         jumpsLeft = maxJumps;
         timeDashing = dashDuration;
@@ -55,13 +64,13 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckIfCanDash();
         PlayerInput();
-        Flip();
-        
+        CheckMovement();
         
     }
     void FixedUpdate(){
         ApplyMovement();
         Jump();
+        LimitVelocity();
         Dash();
         HardFallingDown();
         IsWallSliding();
@@ -71,13 +80,27 @@ public class PlayerController : MonoBehaviour
         movInputDir = Input.GetAxisRaw("Horizontal");
     }
 
+    void CheckMovement()
+    {
+        if(facingRight == 1 && movInputDir < 0)
+        {
+            Flip();
+        }
+        else if (facingRight == -1 && movInputDir > 0)
+        {
+            Flip();
+        }
+    }
+
     void ApplyMovement()
     {
         if (isGrounded)
         {
-        rb2d.velocity = new Vector2(movInputDir * movSpeed, rb2d.velocity.y);
+            rb2d.velocity = new Vector2(movInputDir * movSpeed, rb2d.velocity.y);
+            wasWallSliding = false;
         }
 
+        //FLOTANDO
         else if(!isGrounded && !isWallSliding && movInputDir != 0)
         {
             Vector2 forceToAdd = new Vector2(movementForceInAir * movInputDir, 0);
@@ -89,21 +112,28 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    void LimitVelocity()
+    {
+        if (wasWallSliding)
+        {
+            if(rb2d.velocity.y > 15f)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 15f);
+            }
+            else if(rb2d.velocity.y < -15f)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, -15f);
+            }
+        }
+    }
     void Flip(){
         if (!isWallSliding)
         {
-            if (movInputDir > 0)
-            {
-                transform.eulerAngles = new Vector3(0f, 0f, 0f);
-                facingRight = 1;
-            }
-            else if (movInputDir < 0)
-            {
-                transform.eulerAngles = new Vector3(0f, -180f, 0f);
-                facingRight = -1;
-            }
+            facingDir *= -1;
+            facingRight *= -1;
+            transform.Rotate(0.0f, 180.0f, 0.0f);
         }
-
     }
 
     void CheckIfCanJump()
@@ -126,8 +156,38 @@ public class PlayerController : MonoBehaviour
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
                 jumpsLeft --;
             }
+            //WALLHOP
+             if (isWallSliding && movInputDir == 0f)
+            {
+                isWallSliding = false;
+                Vector2 forceToAdd = new Vector2(wallHopForce * wallHopDir.x * -facingDir, wallHopForce * wallHopDir.y);
+                rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
+                Flip();
+            }
+             //WALLJUMP
+             else if (isWallSliding)
+            {
+                if (facingDir == movInputDir)
+                {
+                    //salto corto
+                    Debug.Log("SaltoCorto");
+                    isWallSliding = false;
+                    Vector2 forceToAdd = new Vector2(lowWallJumpForce * wallJumpDir.x * movInputDir, lowWallJumpForce * wallJumpDir.y);
+                    rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
+                }
+                else if(facingDir != movInputDir)
+                {
+                    //salto largo
+                    isWallSliding = false;
+                    Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDir.x * movInputDir, wallJumpForce * wallJumpDir.y);
+                    rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
+                    Flip();
+                }
+               
+            }
         }
     }
+
     void HardFallingDown()
         {
             if(jumpsLeft <= 0 && Input.GetKeyDown(KeyCode.S) && !isGrounded){
@@ -195,9 +255,14 @@ public class PlayerController : MonoBehaviour
         if(isWallSliding)
         {
             wasWallSliding = true;
-            if(rb2d.velocity.y < -0.1f)
+            if(rb2d.velocity.y < 0f && facingRight == 1 && movInputDir > 0f)
             {
-                movInputDir = 0;
+                rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, -wallSlideSpeed);
+            }
+            else if(rb2d.velocity.y < 0 && facingRight == -1 && movInputDir < 0f)
+            {
+                rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -wallSlideSpeed);
             }
         }
