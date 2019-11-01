@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     {
         Dead();
     }
+
+
     public void TakeDamage(int damage)
     {
         health -= damage;

@@ -13,6 +13,12 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask whatIsEnemie;
     public int damage;
 
+    private Animator anim;
+
+    void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
     void Update()
     {
         CheckIfCanAttack();
@@ -24,11 +30,10 @@ public class PlayerAttack : MonoBehaviour
         if(timeBtwttack <= 0)
         {
             canAttack = true;
-            timeBtwttack = startTimeBtwAttack;
+            
         }
         else
         {
-            canAttack = false;
             timeBtwttack -= Time.deltaTime;
         }
 
@@ -38,10 +43,16 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemie);
-            for(int i = 0; i < enemiesToDamage.Length; i++)
+            if (canAttack)
             {
-                enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
+                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemie);
+                for(int i = 0; i < enemiesToDamage.Length; i++)
+                {
+                    enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
+                }
+                anim.SetTrigger("Attack");
+                canAttack = false;
+                timeBtwttack = startTimeBtwAttack;
             }
         }
     }
