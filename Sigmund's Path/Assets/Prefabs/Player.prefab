@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 666440837}
   - component: {fileID: 666440838}
+  - component: {fileID: 666440839}
   m_Layer: 0
   m_Name: Blade
   m_TagString: Untagged
@@ -80,6 +81,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &666440839
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666440836}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3af80f3f9d2cd7940bb6a55e3648a8bd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1152810501
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2189721344988084301}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.082, y: 0, z: 0}
+  m_LocalPosition: {x: 0.115, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
@@ -358,13 +378,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1b2df419e64d34ba575d422596d091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTimeBtwAttack: 1
-  attackRange: 0.5
+  damage: 1
+  startTimeBtwAttack: 0.5
+  attackRange: 0.9
   attackPos: {fileID: 2937485335393459181}
   whatIsEnemie:
     serializedVersion: 2
     m_Bits: 512
-  damage: 1
 --- !u!114 &1213795563
 MonoBehaviour:
   m_ObjectHideFlags: 0

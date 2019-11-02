@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     //MOVIMIENTO HORIZONTAL
     public float movSpeed;
-    private int facingRight = 1;
+    [HideInInspector] public int facingRight = 1;
     private float movInputDir;
     public float movementForceInAir;
     //JUMP
