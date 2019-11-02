@@ -13,17 +13,19 @@ public class PlayerParry : MonoBehaviour
 
     public Collider2D parryCol;
     private PlayerController plController;
-
+    private Animator anim;
     private void Awake()
     {
         plController = GetComponent<PlayerController>();
         isParry = false;
         parryCol.enabled = false;
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
         CheckIfCanParry();
         Parry();
+        UpdateAnimations();
     }
 
     void CheckIfCanParry()
@@ -45,7 +47,6 @@ public class PlayerParry : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                isParry = true;
                 StartCoroutine(DoingParry());
             }
         }
@@ -54,10 +55,29 @@ public class PlayerParry : MonoBehaviour
 
     IEnumerator DoingParry()
     {
+        isParry = true;
         parryCol.enabled = true;
         yield return new WaitForSeconds(parryDuration);
         parryCol.enabled = false;
         isParry = false;
         timeBtwParry = startTimeBtwParry;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (isParry)
+        {
+            if(other.tag == "EnemyAttack")
+            {
+                other.GetComponentInParent<Enemy>().Stuned();
+            }
+        }
+    }
+
+    void UpdateAnimations()
+    {
+        anim.SetBool("isParry", isParry);
+    }
+
+
 }

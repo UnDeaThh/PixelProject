@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
         isStuned = true;
         col.enabled = false;
         Debug.Log("Estuneado");
+        isStuned = false;
     }
 
     public void Dead()

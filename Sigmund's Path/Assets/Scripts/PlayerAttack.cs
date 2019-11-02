@@ -22,11 +22,11 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerController plController;
     
-    private Animator anim;
+    public Animator anim;
 
     void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
+       // anim = GetComponentInChildren<Animator>();
         playerPos = GetComponent<Transform>();
         plController = GetComponent<PlayerController>();
     }
