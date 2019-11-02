@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     //REFERENCIAS
     private Rigidbody2D rb2d;
+    private PlayerParry plParry;
     //MOVIMIENTO HORIZONTAL
     public float movSpeed;
     [HideInInspector] public int facingRight = 1;
@@ -15,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private int maxJumps = 1;
     private int jumpsLeft;
-    private bool isGrounded;
+    [HideInInspector] public bool isGrounded;
 
     public Transform feetPos;
     private float checkRadius = 0.2f;
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         jumpsLeft = maxJumps;
         timeDashing = dashDuration;
+        plParry = GetComponent<PlayerParry>();
     }
     void Update(){
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded);
@@ -82,11 +84,11 @@ public class PlayerController : MonoBehaviour
 
     void CheckMovement()
     {
-        if(facingRight == 1 && movInputDir < 0)
+        if(facingRight == 1 && movInputDir < 0 && plParry.isParry == false)
         {
             Flip();
         }
-        else if (facingRight == -1 && movInputDir > 0)
+        else if (facingRight == -1 && movInputDir > 0 && plParry.isParry == false)
         {
             Flip();
         }
@@ -94,14 +96,18 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        if (isGrounded)
+        if (isGrounded && plParry.isParry == false)
         {
             rb2d.velocity = new Vector2(movInputDir * movSpeed, rb2d.velocity.y);
             wasWallSliding = false;
         }
+        else if( isGrounded && plParry.isParry == true)
+        {
+            rb2d.velocity = Vector2.zero;
+        }
 
-        //FLOTANDO
-        else if(!isGrounded && !isWallSliding && movInputDir != 0)
+        //SEMI-CONTROL EN EL AIRE
+        else if(!isGrounded && !isWallSliding)
         {
             Vector2 forceToAdd = new Vector2(movementForceInAir * movInputDir, 0);
             rb2d.AddForce(forceToAdd);
