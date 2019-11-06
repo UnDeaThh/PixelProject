@@ -310,12 +310,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &666440839 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 666440839, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-    type: 3}
-  m_PrefabInstance: {fileID: 2851571071130149312}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &718214148
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,31 +497,6 @@ MonoBehaviour:
   whatIsAttack:
     serializedVersion: 2
     m_Bits: 1024
---- !u!1 &1178563457 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2851571069916491046, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-    type: 3}
-  m_PrefabInstance: {fileID: 2851571071130149312}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1178563466
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178563457}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: de9b467bdcfd13c40a334868b2c58578, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1825590496
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,50 +778,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3730924781311067699, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: anim
-      value: 
-      objectReference: {fileID: 666440839}
-    - target: {fileID: 2851571069916491049, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2851571069916491049, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2851571069916491049, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 724702603122163178, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.1375972
-      objectReference: {fileID: 0}
-    - target: {fileID: 724702603122163178, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.1375972
-      objectReference: {fileID: 0}
-    - target: {fileID: 724702603122163178, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.1375972
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944529619844876993, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: startTimeBtwParry
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8299661826070670118, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
+    - target: {fileID: 1213795563, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: lowWallJumpForce
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}

@@ -49,7 +49,9 @@ public class PlayerController : MonoBehaviour
     public float wallSlideSpeed;
     private bool isTouchingWall;
     private bool isWallSliding;
-    public bool wasWallSliding;
+    private bool wasWallSliding;
+
+    
 
     void Awake(){
         wallHopDir.Normalize();
@@ -101,18 +103,19 @@ public class PlayerController : MonoBehaviour
             rb2d.velocity = new Vector2(movInputDir * movSpeed, rb2d.velocity.y);
             wasWallSliding = false;
         }
-        else if( isGrounded && plParry.isParry == true)
+        else if (isGrounded && plParry.isParry == true)
         {
             rb2d.velocity = Vector2.zero;
+            wasWallSliding = false;
         }
 
         //SEMI-CONTROL EN EL AIRE
-        else if(!isGrounded && !isWallSliding)
+        else if (!isGrounded && !isWallSliding)
         {
             Vector2 forceToAdd = new Vector2(movementForceInAir * movInputDir, 0);
             rb2d.AddForce(forceToAdd);
 
-            if(Mathf.Abs(rb2d.velocity.x) > movSpeed)
+            if (Mathf.Abs(rb2d.velocity.x) > movSpeed)
             {
                 rb2d.velocity = new Vector2(movSpeed * movInputDir, rb2d.velocity.y);
             }
@@ -176,23 +179,24 @@ public class PlayerController : MonoBehaviour
                 if (facingDir == movInputDir)
                 {
                     //salto corto
-                    Debug.Log("SaltoCorto");
                     isWallSliding = false;
-                    Vector2 forceToAdd = new Vector2(lowWallJumpForce * wallJumpDir.x * movInputDir, lowWallJumpForce * wallJumpDir.y);
+                    Vector2 forceToAdd = new Vector2(lowWallJumpForce * wallJumpDir.x * -movInputDir, lowWallJumpForce * wallJumpDir.y);
                     rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
-                }
+                    Flip();                }
                 else if(facingDir != movInputDir)
                 {
                     //salto largo
                     isWallSliding = false;
                     Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDir.x * movInputDir, wallJumpForce * wallJumpDir.y);
                     rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
-                    Flip();
+                   // Flip();
                 }
                
             }
         }
     }
+
+
 
     void HardFallingDown()
         {

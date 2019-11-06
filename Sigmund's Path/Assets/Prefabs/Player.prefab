@@ -156,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 257338375548833882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0308, y: 0.0277, z: 0}
-  m_LocalScale: {x: 0.13759717, y: 0.13759717, z: 0.13759717}
+  m_LocalScale: {x: 0.1375972, y: 0.1375972, z: 0.1375972}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
   m_RootOrder: 0
@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 1213795563}
   - component: {fileID: 3944529619844876993}
   - component: {fileID: 8299661826070670118}
+  - component: {fileID: 1178563466}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -387,6 +388,7 @@ MonoBehaviour:
   whatIsEnemie:
     serializedVersion: 2
     m_Bits: 512
+  anim: {fileID: 666440839}
 --- !u!114 &1213795563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +419,7 @@ MonoBehaviour:
   dashDuration: 0.05
   wallCheckPos: {fileID: 4869392952835096927}
   wallSlideSpeed: 3
-  wasWallSliding: 0
+  timeWasWallSliding: 0.1
 --- !u!114 &3944529619844876993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adaa7b232e0d77642a2c826812b86f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTimeBtwParry: 0.1
+  startTimeBtwParry: 0.2
   parryDuration: 1
   isParry: 0
   parryCol: {fileID: 8299661826070670118}
@@ -450,6 +452,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.18, y: 0.16}
   m_Direction: 0
+--- !u!95 &1178563466
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2851571069916491046}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: de9b467bdcfd13c40a334868b2c58578, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4441032602102135772
 GameObject:
   m_ObjectHideFlags: 0
