@@ -7,8 +7,15 @@ public class FlyingEnemy : BaseEnemy
     //REFERENCIAS
     private Rigidbody2D rb2d;
     private PlayerController thePlayer;
+
+    //ATACK
     private bool playerDetected = false;
     public LayerMask whatIsDetected;
+
+    private bool hasAttacked;
+    private float startTimeStill = 1f;
+    private float timeStill;
+
     
 
     private void Awake()
@@ -22,6 +29,7 @@ public class FlyingEnemy : BaseEnemy
         CheckPlayer();
         Chase();
         Dead();
+        StayForMoment();
     }
     void CheckPlayer()
     {
@@ -29,9 +37,6 @@ public class FlyingEnemy : BaseEnemy
         {
             playerDetected = true; ;
         }
-
-       
-        
     }
 
     void Chase()
@@ -39,6 +44,33 @@ public class FlyingEnemy : BaseEnemy
         if (playerDetected)
         {
             transform.position = Vector2.MoveTowards(transform.position ,thePlayer.transform.position, speedX);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.transform.tag == "Player")
+        {
+            other.transform.GetComponent<PlayerController>().Damaged();
+            timeStill = startTimeStill;
+            hasAttacked = true;
+
+        }
+    }
+
+    private void StayForMoment()
+    {
+        if (hasAttacked)
+        {
+            timeStill -= Time.deltaTime;
+            if(timeStill > 0f)
+            {
+                rb2d.velocity = Vector2.zero;
+            }
+            else if(timeStill <= 0)
+            {
+                hasAttacked = false;
+            }
         }
     }
 

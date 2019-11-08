@@ -51,6 +51,9 @@ public class PlayerController : MonoBehaviour
     private bool isWallSliding;
     private bool wasWallSliding;
 
+    //DAMAGED
+    private bool damaged = false;
+
     
 
     void Awake(){
@@ -276,6 +279,12 @@ public class PlayerController : MonoBehaviour
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -wallSlideSpeed);
             }
         }
+    }
+
+    public void Damaged()
+    {
+        damaged = true;
+        Debug.Log("Tocado");
     }
 
     private void OnDrawGizmos(){
