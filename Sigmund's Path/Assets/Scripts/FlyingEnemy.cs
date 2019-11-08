@@ -41,9 +41,9 @@ public class FlyingEnemy : BaseEnemy
 
     void Chase()
     {
-        if (playerDetected)
+        if (playerDetected && !hasAttacked)
         {
-            transform.position = Vector2.MoveTowards(transform.position ,thePlayer.transform.position, speedX);
+            transform.position = Vector2.MoveTowards(transform.position ,thePlayer.transform.position, speedX * Time.deltaTime);
         }
     }
 

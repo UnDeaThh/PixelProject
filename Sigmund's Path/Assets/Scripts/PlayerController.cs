@@ -53,6 +53,11 @@ public class PlayerController : MonoBehaviour
 
     //DAMAGED
     private bool damaged = false;
+    private Transform hiterEnemy;
+    private float invencibleTime;
+    public float startInvincibleTime;
+    public float damagedPushForce;
+
 
     
 
@@ -284,7 +289,42 @@ public class PlayerController : MonoBehaviour
     public void Damaged()
     {
         damaged = true;
-        Debug.Log("Tocado");
+        if (hiterEnemy.position.x < transform.position.x)
+        {
+            Debug.Log("Izquierda");
+            rb2d.AddForce(Vector2.right * damagedPushForce);
+        }
+        else if(hiterEnemy.position.x == transform.position.x)
+        {
+            int direction;
+            direction = Random.Range(0, 1);
+            if(direction == 0)
+            {
+                rb2d.AddForce(Vector2.left * damagedPushForce);
+            }
+            else if(direction == 1)
+            {
+                rb2d.AddForce(Vector2.right * damagedPushForce);
+            }
+            Debug.Log("Centro");
+        }
+        else if(hiterEnemy.position.x > transform.position.x)
+        {
+            rb2d.AddForce(Vector2.left * damagedPushForce);
+            Debug.Log("Derecha");
+        }
+       //Lanzar sonido
+       //Lanzar particulas
+       //Efecto de camara
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.transform.tag == "Enemy")
+        {
+            hiterEnemy = collision.transform;
+            Damaged();
+        }
     }
 
     private void OnDrawGizmos(){

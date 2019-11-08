@@ -471,7 +471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973203232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.47, y: -1.71, z: -2.9369516}
+  m_LocalPosition: {x: 3.47, y: -1.71, z: 0}
   m_LocalScale: {x: 8.679062, y: 8.679062, z: 8.679062}
   m_Children:
   - {fileID: 718214149}
@@ -569,7 +569,7 @@ MonoBehaviour:
   nLifes: 2
   isAlive: 0
   isStuned: 0
-  speedX: 0.1
+  speedX: 5
   detectionRange: 8
   whatIsDetected:
     serializedVersion: 2
@@ -631,7 +631,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1402520695}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.51, y: 2.81, z: -3.53125}
+  m_LocalPosition: {x: 5.51, y: 2.81, z: 0}
   m_LocalScale: {x: 5.1151, y: 5.1151, z: 5.1151}
   m_Children: []
   m_Father: {fileID: 0}
@@ -921,6 +921,14 @@ PrefabInstance:
     - target: {fileID: 1213795563, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
       propertyPath: lowWallJumpForce
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213795563, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: damagedPushForce
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213795563, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: startInvincibleTime
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3730924781311067699, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
