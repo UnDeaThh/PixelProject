@@ -16,6 +16,7 @@ public class FlyingEnemy : BaseEnemy
     private float startTimeStill = 1f;
     private float timeStill;
 
+    private int damage = 1;
     
 
     private void Awake()
@@ -51,7 +52,7 @@ public class FlyingEnemy : BaseEnemy
     {
         if (other.transform.tag == "Player")
         {
-            other.transform.GetComponent<PlayerController>().Damaged();
+            other.transform.GetComponent<PlayerController>().Damaged(damage, transform);
             timeStill = startTimeStill;
             hasAttacked = true;
 

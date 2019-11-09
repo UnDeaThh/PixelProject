@@ -22,11 +22,10 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerController plController;
     
-    public Animator anim;
 
     void Awake()
     {
-       // anim = GetComponentInChildren<Animator>();
+    
         playerPos = GetComponent<Transform>();
         plController = GetComponent<PlayerController>();
     }
@@ -75,7 +74,6 @@ public class PlayerAttack : MonoBehaviour
                     enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
                     }
                 }
-                anim.SetTrigger("Attack");
                 canAttack = false;
                 timeBtwttack = startTimeBtwAttack;
             }
@@ -90,7 +88,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
                 }
-                anim.SetTrigger("Attack");
+
                 canAttack = false;
                 timeBtwttack = startTimeBtwAttack;
             }

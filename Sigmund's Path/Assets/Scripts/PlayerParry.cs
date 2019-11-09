@@ -17,14 +17,17 @@ public class PlayerParry : MonoBehaviour
     private void Awake()
     {
         plController = GetComponent<PlayerController>();
+        anim = GetComponentInChildren<Animator>();
         isParry = false;
         parryCol.enabled = false;
-        anim = GetComponent<Animator>();
+        
     }
     private void Update()
     {
         CheckIfCanParry();
         Parry();
+
+
         UpdateAnimations();
     }
 

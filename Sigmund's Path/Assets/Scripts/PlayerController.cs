@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     //REFERENCIAS
     private Rigidbody2D rb2d;
     private PlayerParry plParry;
+    private Animator anim;
+
     //MOVIMIENTO HORIZONTAL
     public float movSpeed;
     [HideInInspector] public int facingRight = 1;
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isGrounded;
 
     public Transform feetPos;
-    private float checkRadius = 0.2f;
+    private float checkRadius = 0.25f;
     public LayerMask whatIsGrounded;
     private bool canJump;
     //WALLJUMP
@@ -52,16 +54,18 @@ public class PlayerController : MonoBehaviour
     private bool wasWallSliding;
 
     //DAMAGED
+    public int nLifes = 5;
     private bool damaged = false;
-    private Transform hiterEnemy;
+    private bool invecibility = false;
     private float invencibleTime;
-    public float startInvincibleTime;
+    public float startInvencibleTime;
     public float damagedPushForce;
 
 
     
 
     void Awake(){
+        anim = GetComponentInChildren<Animator>();
         wallHopDir.Normalize();
         wallJumpDir.Normalize();
         rb2d = GetComponent<Rigidbody2D>();
@@ -77,7 +81,10 @@ public class PlayerController : MonoBehaviour
         CheckIfCanDash();
         PlayerInput();
         CheckMovement();
-        
+        Invencibility();
+
+
+        UpdateAnimations();
     }
     void FixedUpdate(){
         ApplyMovement();
@@ -286,46 +293,64 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Damaged()
+    public void Damaged(int damage, Transform hitter)
     {
-        damaged = true;
-        if (hiterEnemy.position.x < transform.position.x)
+        if (!invecibility)
         {
-            Debug.Log("Izquierda");
-            rb2d.AddForce(Vector2.right * damagedPushForce);
-        }
-        else if(hiterEnemy.position.x == transform.position.x)
-        {
-            int direction;
-            direction = Random.Range(0, 1);
-            if(direction == 0)
+            invecibility = true;
+            invencibleTime = startInvencibleTime;
+            nLifes -= damage;
+            damaged = true;
+            if (hitter.position.x < transform.position.x)
             {
-                rb2d.AddForce(Vector2.left * damagedPushForce);
-            }
-            else if(direction == 1)
-            {
+                Debug.Log("Izquierda");
                 rb2d.AddForce(Vector2.right * damagedPushForce);
             }
-            Debug.Log("Centro");
+            else if(hitter.position.x == transform.position.x)
+            {
+                int direction;
+                direction = Random.Range(0, 1);
+                if(direction == 0)
+                {
+                    rb2d.AddForce(Vector2.left * damagedPushForce);
+                }
+                else if(direction == 1)
+                {
+                    rb2d.AddForce(Vector2.right * damagedPushForce);
+                }
+                Debug.Log("Centro");
+            }
+            else if(hitter.position.x > transform.position.x)
+            {
+                rb2d.AddForce(Vector2.left * damagedPushForce);
+                Debug.Log("Derecha");
+            }
+           //Lanzar sonido
+           //Lanzar particulas
+           //Efecto de camara
+
         }
-        else if(hiterEnemy.position.x > transform.position.x)
-        {
-            rb2d.AddForce(Vector2.left * damagedPushForce);
-            Debug.Log("Derecha");
-        }
-       //Lanzar sonido
-       //Lanzar particulas
-       //Efecto de camara
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Invencibility()
     {
-        if(collision.transform.tag == "Enemy")
+        if (invecibility)
         {
-            hiterEnemy = collision.transform;
-            Damaged();
+            invencibleTime -= Time.deltaTime;
+            if(invencibleTime <= 0)
+            {
+                invecibility = false;
+            }
         }
+
     }
+
+    private void UpdateAnimations()
+    {
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetFloat("speedX",Mathf.Abs(rb2d.velocity.x));
+    }
+
 
     private void OnDrawGizmos(){
         Gizmos.DrawWireSphere(feetPos.position, checkRadius);
