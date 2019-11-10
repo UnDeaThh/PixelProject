@@ -12,8 +12,8 @@ public class PlayerAttack : MonoBehaviour
 
     private bool canAttack;
 
-    private Vector3 frontAttackPos = new Vector3(1f, 0.0f, 0.0f);
-    private Vector3 upAttackPos = new Vector3(0.0f, 1f, 0.0f);
+    private Vector3 frontAttackPos = new Vector3(1.5f, 0.0f, 0.0f);
+    private Vector3 upAttackPos = new Vector3(0.0f, 2f, 0.0f);
 
     public Transform attackPos;
     private Transform playerPos;

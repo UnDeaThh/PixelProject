@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     private PlayerParry plParry;
     private Animator anim;
+    private SpriteRenderer sprite;
 
     //MOVIMIENTO HORIZONTAL
     public float movSpeed;
@@ -65,13 +66,15 @@ public class PlayerController : MonoBehaviour
     
 
     void Awake(){
+        rb2d = GetComponent<Rigidbody2D>();
+        plParry = GetComponent<PlayerParry>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
+
         wallHopDir.Normalize();
         wallJumpDir.Normalize();
-        rb2d = GetComponent<Rigidbody2D>();
         jumpsLeft = maxJumps;
         timeDashing = dashDuration;
-        plParry = GetComponent<PlayerParry>();
     }
     void Update(){
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded);
@@ -189,7 +192,7 @@ public class PlayerController : MonoBehaviour
                 Flip();
             }
              //WALLJUMP
-             else if (isWallSliding)
+             else if (isWallSliding || (isTouchingWall && !isGrounded))
             {
                 if (facingDir == movInputDir)
                 {
@@ -204,7 +207,6 @@ public class PlayerController : MonoBehaviour
                     isWallSliding = false;
                     Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDir.x * movInputDir, wallJumpForce * wallJumpDir.y);
                     rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
-                   // Flip();
                 }
                
             }
@@ -325,10 +327,23 @@ public class PlayerController : MonoBehaviour
                 rb2d.AddForce(Vector2.left * damagedPushForce);
                 Debug.Log("Derecha");
             }
+            StartCoroutine(Blinking());
            //Lanzar sonido
            //Lanzar particulas
            //Efecto de camara
 
+        }
+    }
+
+    IEnumerator Blinking()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            Debug.Log("SI");
+            sprite.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            sprite.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
