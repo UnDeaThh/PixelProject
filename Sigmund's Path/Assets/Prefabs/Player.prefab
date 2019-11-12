@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2189721344988084301}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.172, y: 0, z: 0}
+  m_LocalPosition: {x: 0.254, y: 0.077, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
@@ -188,7 +188,7 @@ MonoBehaviour:
   wallSlideSpeed: 3
   nLifes: 5
   startInvencibleTime: 1
-  damagedPushForce: 2000
+  damagedPushForce: 100
 --- !u!114 &3944529619844876993
 MonoBehaviour:
   m_ObjectHideFlags: 0

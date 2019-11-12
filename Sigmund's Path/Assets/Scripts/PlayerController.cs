@@ -295,7 +295,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Damaged(int damage, Transform hitter)
+    public void Damaged(int damage, Vector2 normal)
     {
         if (!invecibility)
         {
@@ -303,31 +303,10 @@ public class PlayerController : MonoBehaviour
             invencibleTime = startInvencibleTime;
             nLifes -= damage;
             damaged = true;
-            if (hitter.position.x < transform.position.x)
-            {
-                Debug.Log("Izquierda");
-                rb2d.AddForce(Vector2.right * damagedPushForce);
-            }
-            else if(hitter.position.x == transform.position.x)
-            {
-                int direction;
-                direction = Random.Range(0, 1);
-                if(direction == 0)
-                {
-                    rb2d.AddForce(Vector2.left * damagedPushForce);
-                }
-                else if(direction == 1)
-                {
-                    rb2d.AddForce(Vector2.right * damagedPushForce);
-                }
-                Debug.Log("Centro");
-            }
-            else if(hitter.position.x > transform.position.x)
-            {
-                rb2d.AddForce(Vector2.left * damagedPushForce);
-                Debug.Log("Derecha");
-            }
+
+            transform.Translate(-normal * damagedPushForce);
             StartCoroutine(Blinking());
+            
            //Lanzar sonido
            //Lanzar particulas
            //Efecto de camara
@@ -339,8 +318,7 @@ public class PlayerController : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            Debug.Log("SI");
-            sprite.color = Color.red;
+            sprite.color = Color.gray;
             yield return new WaitForSeconds(0.1f);
             sprite.color = Color.white;
             yield return new WaitForSeconds(0.1f);

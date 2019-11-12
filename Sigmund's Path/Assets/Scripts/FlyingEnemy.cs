@@ -52,7 +52,8 @@ public class FlyingEnemy : BaseEnemy
     {
         if (other.transform.tag == "Player")
         {
-            other.transform.GetComponent<PlayerController>().Damaged(damage, transform);
+            Vector2 normal = other.contacts[0].normal;
+            other.transform.GetComponent<PlayerController>().Damaged(damage, normal);
             timeStill = startTimeStill;
             hasAttacked = true;
 
