@@ -330,8 +330,10 @@ public class PlayerController : MonoBehaviour
         if (invecibility)
         {
             invencibleTime -= Time.deltaTime;
+            Physics2D.IgnoreLayerCollision(9, 10);
             if(invencibleTime <= 0)
             {
+                Physics2D.IgnoreLayerCollision(9, 10, false);
                 invecibility = false;
             }
         }
