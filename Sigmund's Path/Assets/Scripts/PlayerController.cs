@@ -304,7 +304,7 @@ public class PlayerController : MonoBehaviour
             nLifes -= damage;
             damaged = true;
 
-            transform.Translate(-normal * damagedPushForce);
+            rb2d.velocity = -normal * damagedPushForce;
             StartCoroutine(Blinking());
             
            //Lanzar sonido

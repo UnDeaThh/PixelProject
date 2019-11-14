@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     public float attackRange;
 
     private bool canAttack;
+    private bool isAttacking = false;
 
     private Vector3 frontAttackPos = new Vector3(1.5f, 0.0f, 0.0f);
     private Vector3 upAttackPos = new Vector3(0.0f, 2f, 0.0f);
@@ -21,11 +22,12 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask whatIsEnemie;
 
     private PlayerController plController;
+    private Animator anim;
     
 
     void Awake()
     {
-    
+        anim = GetComponentInChildren<Animator>();
         playerPos = GetComponent<Transform>();
         plController = GetComponent<PlayerController>();
     }
@@ -33,6 +35,8 @@ public class PlayerAttack : MonoBehaviour
     {
         CheckIfCanAttack();
         Attack();
+
+        UpdateAnimations();
     }
 
     void CheckIfCanAttack()
@@ -53,8 +57,10 @@ public class PlayerAttack : MonoBehaviour
     {
         if (canAttack)
         {
+            //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
             {
+                isAttacking = true;
                 if (plController.facingRight == 1)
                 {
                     Vector3 finalPos = playerPos.position + frontAttackPos;
@@ -77,8 +83,10 @@ public class PlayerAttack : MonoBehaviour
                 canAttack = false;
                 timeBtwttack = startTimeBtwAttack;
             }
+            //UP ATTACK
             else if(Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.W))
             {
+                isAttacking = true;
                 Debug.Log("UpAttack");
                 Vector3 finalPos = playerPos.position + upAttackPos;
 
@@ -93,6 +101,13 @@ public class PlayerAttack : MonoBehaviour
                 timeBtwttack = startTimeBtwAttack;
             }
         }
+    }
+
+    void UpdateAnimations()
+    {
+            anim.SetBool("isAttacking", isAttacking);
+            isAttacking = false;
+        
     }
 
 
