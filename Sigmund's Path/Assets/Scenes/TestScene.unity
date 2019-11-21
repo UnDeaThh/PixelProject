@@ -571,7 +571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1402520696
 Rigidbody2D:
   serializedVersion: 4
@@ -981,16 +981,54 @@ PrefabInstance:
     - target: {fileID: 3730924781311067699, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
       propertyPath: attackRange
-      value: 1.5
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3730924781311067699, guid: 3f32e89eb2d6ea148884c6a8357c65da,
+        type: 3}
+      propertyPath: attackRange.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3730924781311067699, guid: 3f32e89eb2d6ea148884c6a8357c65da,
+        type: 3}
+      propertyPath: attackRange.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1213795563, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
       propertyPath: damagedPushForce
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1213795563, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: timeTillNextDash
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213795563, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: dashDuration
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 2937485335393459181, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2937485335393459181, guid: 3f32e89eb2d6ea148884c6a8357c65da,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.306
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944529619844876993, guid: 3f32e89eb2d6ea148884c6a8357c65da,
+        type: 3}
+      propertyPath: parryRange.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944529619844876993, guid: 3f32e89eb2d6ea148884c6a8357c65da,
+        type: 3}
+      propertyPath: parryRange.y
+      value: 3.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944529619844876993, guid: 3f32e89eb2d6ea148884c6a8357c65da,
+        type: 3}
+      propertyPath: whatIsEnemie.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}

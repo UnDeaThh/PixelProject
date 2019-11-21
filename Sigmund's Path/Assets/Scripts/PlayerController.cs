@@ -245,14 +245,17 @@ public class PlayerController : MonoBehaviour
             {
                 timeDashing -= Time.fixedDeltaTime;
                 rb2d.velocity = new Vector2(dashDir * dashSpeed, rb2d.velocity.y);
+                Physics2D.IgnoreLayerCollision(9, 10);
             }
             else
             {
                 isDashing = false;
                 timeDashing = dashDuration;
+                
             }
             if(timeDashing < 0)
             {
+                Physics2D.IgnoreLayerCollision(9, 10, false);
                 StartCoroutine(GoNextDash());
             }
         }
@@ -282,12 +285,12 @@ public class PlayerController : MonoBehaviour
         if(isWallSliding)
         {
             wasWallSliding = true;
-            if(rb2d.velocity.y < 0f && facingRight == 1 && movInputDir > 0f)
+            if(rb2d.velocity.y < 0f && facingRight == 1 && movInputDir > 0f) //Pared Derecha
             {
                 rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -wallSlideSpeed);
             }
-            else if(rb2d.velocity.y < 0 && facingRight == -1 && movInputDir < 0f)
+            else if(rb2d.velocity.y < 0 && facingRight == -1 && movInputDir < 0f) //Pared Izquierda
             {
                 rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -wallSlideSpeed);
@@ -305,6 +308,7 @@ public class PlayerController : MonoBehaviour
             damaged = true;
 
             rb2d.velocity = -normal * damagedPushForce;
+            Debug.Log(nLifes);
             StartCoroutine(Blinking());
             
            //Lanzar sonido
@@ -343,7 +347,7 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimations()
     {
         anim.SetBool("isGrounded", isGrounded);
-        anim.SetFloat("speedX",Mathf.Abs(rb2d.velocity.x));
+        anim.SetFloat("speedX", Mathf.Abs(rb2d.velocity.x));
     }
 
 

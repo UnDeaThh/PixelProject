@@ -10,6 +10,9 @@ public class PlayerParry : MonoBehaviour
 
     private bool canParry;
     [HideInInspector] public bool isParry;
+    private bool parryDone = false;
+    public Vector2 parryRange = new Vector2(1f, 1f);
+    public LayerMask whatIsEnemie;
 
     public Collider2D parryCol;
     private PlayerController plController;
@@ -50,13 +53,26 @@ public class PlayerParry : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                StartCoroutine(DoingParry());
+                isParry = true;
+                //StartCoroutine(DoingParry());
+                //if (isParry)
+              //  {
+                   Collider2D[] enemiesToParry = Physics2D.OverlapCapsuleAll(transform.position, parryRange, CapsuleDirection2D.Vertical, 0, whatIsEnemie);
+                    if(enemiesToParry.Length == 0)
+                    {
+                        Debug.Log("nada");
+                    }
+                    else
+                    {
+                        Debug.Log("Enemie");
+                    }
+               // }
             }
         }
 
     }
 
-    IEnumerator DoingParry()
+   /* IEnumerator DoingParry()
     {
         isParry = true;
         parryCol.enabled = true;
@@ -66,21 +82,26 @@ public class PlayerParry : MonoBehaviour
         timeBtwParry = startTimeBtwParry;
     }
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (isParry)
         {
-            if(other.tag == "EnemyAttack")
+            if(other.tag == "Enemy")
             {
                 other.GetComponentInParent<Enemy>().Stuned();
             }
         }
     }
-
+    */
     void UpdateAnimations()
     {
         anim.SetBool("isParry", isParry);
     }
 
-
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position, parryRange);
+    }
 }
