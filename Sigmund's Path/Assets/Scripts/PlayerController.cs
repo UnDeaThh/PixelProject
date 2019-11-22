@@ -116,12 +116,12 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        if (isGrounded && plParry.isParry == false)
+        if (isGrounded && plParry.isParry == false && !plParry.parryFail)
         {
             rb2d.velocity = new Vector2(movInputDir * movSpeed, rb2d.velocity.y);
             wasWallSliding = false;
         }
-        else if (isGrounded && plParry.isParry == true)
+        else if (isGrounded && plParry.isParry == true) 
         {
             rb2d.velocity = Vector2.zero;
             wasWallSliding = false;
