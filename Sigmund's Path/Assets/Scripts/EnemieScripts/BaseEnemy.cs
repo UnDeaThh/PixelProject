@@ -8,7 +8,7 @@ public class BaseEnemy : MonoBehaviour
     [HideInInspector] public bool isAlive;
     [HideInInspector] public bool isStuned;
 
-    public float speedX;
+    public float movSpeed;
 
     public float detectionRange;
 

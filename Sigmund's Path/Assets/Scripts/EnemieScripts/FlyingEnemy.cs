@@ -44,7 +44,7 @@ public class FlyingEnemy : BaseEnemy
     {
         if (playerDetected && !hasAttacked)
         {
-            transform.position = Vector2.MoveTowards(transform.position ,thePlayer.transform.position, speedX * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position ,thePlayer.transform.position, movSpeed * Time.deltaTime);
         }
     }
 

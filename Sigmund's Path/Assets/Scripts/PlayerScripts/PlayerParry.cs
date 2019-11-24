@@ -13,8 +13,9 @@ public class PlayerParry : MonoBehaviour
     private bool canParry;
     public bool isParry;
     private bool parryDone = false;
-    private bool justOneTime;
+    private bool justOneTime = false;
     public bool parryFail = false;
+    private bool alreadyClicked = false;
 
 
 
@@ -44,6 +45,7 @@ public class PlayerParry : MonoBehaviour
         if(timeBtwParry <= 0 && plController.isGrounded == true)
         {
             canParry = true;
+            
         }
         else 
         {
@@ -56,11 +58,13 @@ public class PlayerParry : MonoBehaviour
     {
         if (canParry)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.Mouse1) && !alreadyClicked)
             {
+                alreadyClicked = true;
                 currentParryTime = parryDuration;
                 isParry = true;
                 justOneTime = true;
+                
             }
         }
 
@@ -70,20 +74,23 @@ public class PlayerParry : MonoBehaviour
     {
         if (isParry)
         {
-            if(currentParryTime > 0f)
+            if(currentParryTime > 0f && !parryDone)
             {
                 currentParryTime -= Time.deltaTime;
                 parryCol.enabled = true;
+
             }
-            else if(currentParryTime <= 0f)
+            else if(currentParryTime <= 0f || parryDone)
             {
                 parryCol.enabled = false;
                 timeBtwParry = startTimeBtwParry;
 
                 isParry = false;
+                parryDone = false;
+                alreadyClicked = false;
             }
             //AFTER PARRY NOT DONE
-            if (currentParryTime <= 0f && !parryDone && justOneTime)
+            else if (currentParryTime <= 0f && !parryDone && justOneTime)
             {
                 Debug.Log("salsa");
                 parryFail = true;
@@ -96,6 +103,7 @@ public class PlayerParry : MonoBehaviour
 
     IEnumerator FailedParry()
     {
+        //EN EL PLAYERCONTROLLER HARA QUE NO TE PUEDAS MOVER
         yield return new WaitForSeconds(failParryTime);
         parryFail = false;
     }
@@ -108,6 +116,13 @@ public class PlayerParry : MonoBehaviour
             {
                 other.GetComponentInParent<Enemy>().Stuned();
                 parryDone = true;
+                
+            }
+            else if(other.tag == "Arrow")
+            {
+                Destroy(other.gameObject);
+                parryDone = true;
+                
             }
             else
             {

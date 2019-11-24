@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        if (isGrounded && plParry.isParry == false && !plParry.parryFail)
+        if (isGrounded && !plParry.isParry && !plParry.parryFail)
         {
             rb2d.velocity = new Vector2(movInputDir * movSpeed, rb2d.velocity.y);
             wasWallSliding = false;
@@ -308,6 +308,7 @@ public class PlayerController : MonoBehaviour
             damaged = true;
 
             rb2d.velocity = -normal * damagedPushForce;
+            Debug.Log("Dameged");
             Debug.Log(nLifes);
             StartCoroutine(Blinking());
             
