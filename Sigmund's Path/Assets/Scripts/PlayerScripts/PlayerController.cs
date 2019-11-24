@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -54,8 +55,14 @@ public class PlayerController : MonoBehaviour
     private bool isWallSliding;
     private bool wasWallSliding;
 
+    //LIFE
+    public int health = 5;
+    private int maxHealth = 10;
+    public Image[] heartsUI;
+    public Sprite fullHeartUI;
+    public Sprite emptyHeartUI;
+
     //DAMAGED
-    public int nLifes = 5;
     private bool damaged = false;
     private bool invecibility = false;
     private float invencibleTime;
@@ -78,7 +85,8 @@ public class PlayerController : MonoBehaviour
     }
     void Update(){
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded);
-        isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded); 
+        isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded);
+        CheckLife();
         CheckIfWallSliding();
         CheckIfCanJump();
         CheckIfCanDash();
@@ -100,6 +108,35 @@ public class PlayerController : MonoBehaviour
 
     void PlayerInput(){
         movInputDir = Input.GetAxisRaw("Horizontal");
+    }
+
+    void CheckLife()
+    {
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
+        for (int i = 0; i < heartsUI.Length; i++)
+        {
+            if(i < health)
+            {
+                heartsUI[i].sprite = fullHeartUI;
+            }
+            else
+            {
+                heartsUI[i].sprite = emptyHeartUI;
+            }
+
+            if(i < maxHealth)
+            {
+                heartsUI[i].enabled = true;
+            }
+            else
+            {
+                heartsUI[i].enabled = false;
+            }
+        }
     }
 
     void CheckMovement()
@@ -304,12 +341,12 @@ public class PlayerController : MonoBehaviour
         {
             invecibility = true;
             invencibleTime = startInvencibleTime;
-            nLifes -= damage;
+            health -= damage;
             damaged = true;
 
             rb2d.velocity = -normal * damagedPushForce;
             Debug.Log("Dameged");
-            Debug.Log(nLifes);
+            Debug.Log(health);
             StartCoroutine(Blinking());
             
            //Lanzar sonido

@@ -8,7 +8,12 @@ public class PlayerAttack : MonoBehaviour
 
     private float timeBtwttack;
     public float startTimeBtwAttack;
-    public Vector2 attackRange = new Vector2(3f, 2f);
+
+    public Vector2 attackRangeFront = new Vector2(3f, 2f);
+    public float attackRangeUp = 3f;
+
+    private bool attackingUp = false;
+    private bool attackingFront = false;
 
     private bool canAttack;
     private bool isAttacking = false;
@@ -61,6 +66,8 @@ public class PlayerAttack : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
             {
                 isAttacking = true;
+                attackingFront = true;
+                attackingUp = false;
                 if (plController.facingRight == 1)
                 {
                     Vector3 finalPos = playerPos.position + frontAttackPos;
@@ -72,7 +79,7 @@ public class PlayerAttack : MonoBehaviour
                     attackPos.position = finalPos;
                 }
 
-                Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRange, 0, whatIsEnemie);
+                Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRangeFront, 0, whatIsEnemie);
                 for(int i = 0; i < enemiesToDamage.Length; i++)
                 {
                     if(enemiesToDamage[i].tag == "Enemy")
@@ -87,11 +94,13 @@ public class PlayerAttack : MonoBehaviour
             else if(Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.W))
             {
                 isAttacking = true;
+                attackingFront = false;
+                attackingUp = true;
                 Debug.Log("UpAttack");
                 Vector3 finalPos = playerPos.position + upAttackPos;
 
                 attackPos.position = finalPos;
-                Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRange, 0, whatIsEnemie);
+                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRangeUp, 0, whatIsEnemie);
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {
                     enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
@@ -114,7 +123,14 @@ public class PlayerAttack : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(attackPos.position, attackRange);
+        if (attackingFront)
+        {
+        Gizmos.DrawWireCube(attackPos.position, attackRangeFront);
+        }
+        if (attackingUp)
+        {
+        Gizmos.DrawWireSphere(attackPos.position, attackRangeUp);
+        }
 
     }
 }

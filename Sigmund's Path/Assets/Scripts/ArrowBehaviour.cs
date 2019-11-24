@@ -15,7 +15,10 @@ public class ArrowBehaviour : MonoBehaviour
         if(other.tag == "Player")
         {
             Vector2 normal = Vector2.right;
-            other.GetComponent<PlayerController>().Damaged(damage, normal);
+            if(other.GetComponent<PlayerParry>().isParry == false)
+            {
+                other.GetComponent<PlayerController>().Damaged(damage, normal);
+            }
         }
     }
 }

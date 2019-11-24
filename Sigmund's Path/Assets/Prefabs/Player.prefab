@@ -152,7 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   startTimeBtwAttack: 0.4
-  attackRange: {x: 2.5, y: 3}
+  attackRangeFront: {x: 3, y: 2}
+  attackRangeUp: 1.5
   attackPos: {fileID: 2937485335393459181}
   whatIsEnemie:
     serializedVersion: 2
@@ -187,7 +188,22 @@ MonoBehaviour:
   dashDuration: 0.08
   wallCheckPos: {fileID: 4869392952835096927}
   wallSlideSpeed: 3
-  nLifes: 5
+  health: 5
+  heartsUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullHeartUI: {fileID: 4427202462637522895, guid: e9f117a7cc271814d84fde24e5a5600b,
+    type: 3}
+  emptyHeartUI: {fileID: -5625336778115075582, guid: e9f117a7cc271814d84fde24e5a5600b,
+    type: 3}
   startInvencibleTime: 1
   damagedPushForce: 10
 --- !u!114 &3944529619844876993
@@ -202,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adaa7b232e0d77642a2c826812b86f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTimeBtwParry: 0.2
+  startTimeBtwParry: 1
   parryDuration: 1
   isParry: 0
   parryFail: 0
