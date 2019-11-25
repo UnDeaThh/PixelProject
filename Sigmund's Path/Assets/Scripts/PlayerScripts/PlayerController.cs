@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     private PlayerParry plParry;
     private Animator anim;
-    private SpriteRenderer sprite;
+    [SerializeField] private SpriteRenderer sprite;
 
     //MOVIMIENTO HORIZONTAL
     public float movSpeed;
@@ -69,13 +69,16 @@ public class PlayerController : MonoBehaviour
     public float startInvencibleTime;
     public float damagedPushForce;
 
+    //DAMAGE FORCE
+    private int damageX = 0;
+    private int damageY = 0;
 
-    
+
+
 
     void Awake(){
         rb2d = GetComponent<Rigidbody2D>();
         plParry = GetComponent<PlayerParry>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
 
         wallHopDir.Normalize();
@@ -155,13 +158,21 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded && !plParry.isParry && !plParry.parryFail)
         {
-            rb2d.velocity = new Vector2(movInputDir * movSpeed, rb2d.velocity.y);
+            rb2d.velocity = new Vector2(movInputDir * movSpeed + damageX, rb2d.velocity.y + damageY);
             wasWallSliding = false;
         }
         else if (isGrounded && plParry.isParry == true) 
         {
             rb2d.velocity = Vector2.zero;
             wasWallSliding = false;
+        }
+
+        if (damageX < 0)
+        {
+            damageX++;
+        }else if (damageX > 0)
+        {
+            damageX--;
         }
 
         //SEMI-CONTROL EN EL AIRE
@@ -344,7 +355,9 @@ public class PlayerController : MonoBehaviour
             health -= damage;
             damaged = true;
 
-            rb2d.velocity = -normal * damagedPushForce;
+            damageX = -(int)damagedPushForce;
+
+            //rb2d.velocity = -normal * damagedPushForce;
             Debug.Log("Dameged");
             Debug.Log(health);
             StartCoroutine(Blinking());
