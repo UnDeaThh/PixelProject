@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     private bool invecibility = false;
     private float invencibleTime;
     public float startInvencibleTime;
-    public float damagedPushForce;
+    public int damagedPushForce;
 
     //DAMAGE FORCE
     private int damageX = 0;
@@ -156,10 +156,17 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        if (isGrounded && !plParry.isParry && !plParry.parryFail)
+        Debug.Log(damageX);
+        if (isGrounded && !plParry.isParry && !plParry.parryFail && !damaged)
         {
             rb2d.velocity = new Vector2(movInputDir * movSpeed + damageX, rb2d.velocity.y + damageY);
             wasWallSliding = false;
+        }
+        else if((isGrounded || !isGrounded) && !plParry.isParry && !plParry.parryFail && damaged)
+        {
+            rb2d.velocity = Vector2.zero;
+            rb2d.velocity = new Vector2(damageX, damageY);
+            damaged = false;
         }
         else if (isGrounded && plParry.isParry == true) 
         {
@@ -170,9 +177,19 @@ public class PlayerController : MonoBehaviour
         if (damageX < 0)
         {
             damageX++;
-        }else if (damageX > 0)
+        }
+        else if (damageX > 0)
         {
             damageX--;
+        }
+
+        if(damageY < 0)
+        {
+            damageY++;
+        }
+        else if (damageY > 0)
+        {
+            damageY--;
         }
 
         //SEMI-CONTROL EN EL AIRE
@@ -350,15 +367,24 @@ public class PlayerController : MonoBehaviour
     {
         if (!invecibility)
         {
+            int normalX = (int)normal.x;
+            int normalY = (int)normal.y;
             invecibility = true;
+            damaged = true;
             invencibleTime = startInvencibleTime;
             health -= damage;
-            damaged = true;
 
-            damageX = -(int)damagedPushForce;
-
-            //rb2d.velocity = -normal * damagedPushForce;
-            Debug.Log("Dameged");
+            if (isGrounded)
+            {
+                damageX = -facingRight * damagedPushForce;
+                damageY = damagedPushForce;
+            }
+            else if (!isGrounded)
+            {
+                Debug.Log("HIT" + normalX);
+                damageX = -normalX * damagedPushForce;
+                damageY = -normalY * damagedPushForce;
+            }
             Debug.Log(health);
             StartCoroutine(Blinking());
             

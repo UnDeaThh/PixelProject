@@ -53,6 +53,7 @@ public class FlyingEnemy : BaseEnemy
         if (other.transform.tag == "Player")
         {
             Vector2 normal = other.contacts[0].normal;
+            Debug.Log(normal);
             other.transform.GetComponent<PlayerController>().Damaged(damage, normal);
             timeStill = startTimeStill;
             hasAttacked = true;
