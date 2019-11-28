@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer sprite;
 
     //MOVIMIENTO HORIZONTAL
+    [Header("Movement Attributes")]
     public float movSpeed;
     [HideInInspector] public int facingRight = 1;
     private float movInputDir;
     public float movementForceInAir;
     //JUMP
+    [Header("Jump Attributes")]
     public float jumpForce;
     private int maxJumps = 1;
     private int jumpsLeft;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGrounded;
     private bool canJump;
     //WALLJUMP
+    [Header("WallJump Attributes")]
     private Vector2 wallHopDir = new Vector2(1, 1f);
     private Vector2 wallJumpDir = new Vector2(1, 2);
     public float wallHopForce;
@@ -38,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public float downForce;
 
     //DASH
+    [Header("Dash Attributes")]
     public float dashSpeed;
     private bool canDash;
     private bool isDashing;
@@ -48,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private float dashDir;
 
     //WALL SLIDING
+    [Header("WallSliding Attributes")]
     public Transform wallCheckPos;
     private float wallCheckDistance = 0.2f;
     public float wallSlideSpeed;
@@ -56,20 +61,33 @@ public class PlayerController : MonoBehaviour
     private bool wasWallSliding;
 
     //LIFE
+    [Header("Health Attributes")]
     public int health = 5;
     private int maxHealth = 10;
     public Image[] heartsUI;
     public Sprite fullHeartUI;
     public Sprite emptyHeartUI;
+    //POTIONS
+    [Header("Potions Attributes")]
+    public int potions = 1;
+    private int maxPotions = 5;
+    public Image[] potionsUI;
+    private bool canDrink = true;
+    private bool isDrinking = false;
+    private float timeDrinking = 1f;
+    private float currentTimeDrinking;
+
+    private float timeTillNextDrink = 2f;
+    private float currentTimeTillNextDrink;
 
     //DAMAGED
+    [Header("Damaged Attributes")]
     private bool damaged = false;
     private bool invecibility = false;
     private float invencibleTime;
     public float startInvencibleTime;
     public int damagedPushForce;
 
-    //DAMAGE FORCE
     private int damageX = 0;
     private int damageY = 0;
 
@@ -96,6 +114,8 @@ public class PlayerController : MonoBehaviour
         PlayerInput();
         CheckMovement();
         Invencibility();
+        CheckPotions();
+        
 
 
         UpdateAnimations();
@@ -111,6 +131,10 @@ public class PlayerController : MonoBehaviour
 
     void PlayerInput(){
         movInputDir = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKeyDown(KeyCode.X) )
+        {
+            DrinkPotion();
+        }
     }
 
     void CheckLife()
@@ -142,6 +166,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void CheckPotions()
+    {
+        if(potions > maxPotions)
+        {
+            potions = maxPotions;
+        }
+
+        for(int i = 0; i < potionsUI.Length; i++)
+        {
+            if(i < potions)
+            {
+                potionsUI[i].enabled = true;
+            }
+            else
+            {
+                potionsUI[i].enabled = false;
+            }
+        }
+
+        if(currentTimeTillNextDrink > 0)
+        {
+            canDrink = false;
+            currentTimeTillNextDrink -= Time.deltaTime;
+        }
+        else
+        {
+            canDrink = true;
+        }
+    }
+
+
     void CheckMovement()
     {
         if(facingRight == 1 && movInputDir < 0 && plParry.isParry == false)
@@ -156,7 +211,6 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        Debug.Log(damageX);
         if (isGrounded && !plParry.isParry && !plParry.parryFail && !damaged)
         {
             rb2d.velocity = new Vector2(movInputDir * movSpeed + damageX, rb2d.velocity.y + damageY);
@@ -418,8 +472,34 @@ public class PlayerController : MonoBehaviour
                 invecibility = false;
             }
         }
-
     }
+
+    private void DrinkPotion()
+    {
+        if (canDrink)
+        {
+            if(potions > 0)
+            {
+                isDrinking = true;
+                potions--;
+                health++;
+                currentTimeTillNextDrink = timeTillNextDrink;
+                Debug.Log(potions);
+                isDrinking = false;
+            }
+            else
+            {
+                Debug.Log("NOPOTIONS");
+            }
+
+            if (potions <= 0)
+            {
+                potions = 0;
+            }
+            
+        }
+    }
+
 
     private void UpdateAnimations()
     {
