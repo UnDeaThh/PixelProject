@@ -211,17 +211,27 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        if (isGrounded && !plParry.isParry && !plParry.parryFail && !damaged)
+        //Movimiento Normal
+        if (isGrounded && !plParry.isParry && !plParry.parryFail && !damaged && !isDrinking)
         {
             rb2d.velocity = new Vector2(movInputDir * movSpeed + damageX, rb2d.velocity.y + damageY);
             wasWallSliding = false;
         }
+        //Movimiento reducido cuando te estas curando
+        else if (isGrounded && !plParry.isParry && !plParry.parryFail && !damaged && isDrinking)
+        {
+            rb2d.velocity = new Vector2(movInputDir * movSpeed * 0.2f + damageX, rb2d.velocity.y + damageY);
+            wasWallSliding = false;
+        }
+
+        //Cuando te dañan te empujan
         else if((isGrounded || !isGrounded) && !plParry.isParry && !plParry.parryFail && damaged)
         {
             rb2d.velocity = Vector2.zero;
             rb2d.velocity = new Vector2(damageX, damageY);
             damaged = false;
         }
+        //Cuando haces parry te quedas quieto
         else if (isGrounded && plParry.isParry == true) 
         {
             rb2d.velocity = Vector2.zero;
@@ -478,17 +488,18 @@ public class PlayerController : MonoBehaviour
     {
         if (canDrink)
         {
-            if(potions > 0)
+            if(potions > 0 && health < maxHealth)
             {
                 isDrinking = true;
                 potions--;
                 health++;
-                currentTimeTillNextDrink = timeTillNextDrink;
+                StartCoroutine(TimeDrinking());
+               
                 Debug.Log(potions);
-                isDrinking = false;
             }
             else
             {
+                //Sonido
                 Debug.Log("NOPOTIONS");
             }
 
@@ -498,6 +509,13 @@ public class PlayerController : MonoBehaviour
             }
             
         }
+    }
+
+    IEnumerator TimeDrinking()
+    {
+        yield return new WaitForSeconds(0.8f);
+        isDrinking = false;
+        currentTimeTillNextDrink = timeTillNextDrink;
     }
 
 

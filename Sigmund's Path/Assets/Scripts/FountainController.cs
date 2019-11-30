@@ -52,4 +52,12 @@ public class FountainController : MonoBehaviour
             player = other.GetComponent<PlayerController>();
         }
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == "Player")
+        {
+            playerIn = false;
+        }
+    }
 }
