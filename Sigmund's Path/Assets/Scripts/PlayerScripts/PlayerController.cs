@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     //LIFE
     [Header("Health Attributes")]
     public int health = 5;
-    private int maxHealth = 10;
+    [HideInInspector] public int maxHealth = 10;
     public Image[] heartsUI;
     public Sprite fullHeartUI;
     public Sprite emptyHeartUI;
@@ -353,7 +353,7 @@ public class PlayerController : MonoBehaviour
     }
     
     void Dash(){
-        if(canDash)
+        if(canDash || isDashing)
         {
             if(Input.GetKeyDown(KeyCode.LeftShift) && !stopDashing)
             {
