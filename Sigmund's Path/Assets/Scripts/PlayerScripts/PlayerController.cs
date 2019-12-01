@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     private PlayerParry plParry;
     private Animator anim;
+    private GamePlayManager GM;
     [SerializeField] private SpriteRenderer sprite;
 
     //MOVIMIENTO HORIZONTAL
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
     private int maxPotions = 5;
     public Image[] potionsUI;
     private bool canDrink = true;
-    private bool isDrinking = false;
+    [HideInInspector] public bool isDrinking = false;
     private float timeDrinking = 1f;
     private float currentTimeDrinking;
 
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         plParry = GetComponent<PlayerParry>();
         anim = GetComponentInChildren<Animator>();
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GamePlayManager>();
 
         wallHopDir.Normalize();
         wallJumpDir.Normalize();
@@ -185,12 +187,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(currentTimeTillNextDrink > 0)
+        if(currentTimeTillNextDrink > 0 || !isGrounded)
         {
             canDrink = false;
             currentTimeTillNextDrink -= Time.deltaTime;
         }
-        else
+        else if(currentTimeTillNextDrink <= 0 && isGrounded)
         {
             canDrink = true;
         }

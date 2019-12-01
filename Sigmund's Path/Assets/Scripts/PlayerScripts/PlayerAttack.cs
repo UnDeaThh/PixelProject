@@ -60,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (canAttack)
+        if (canAttack && !plController.isDrinking)
         {
             //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
