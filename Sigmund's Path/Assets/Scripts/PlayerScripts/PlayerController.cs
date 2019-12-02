@@ -132,11 +132,13 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerInput(){
-        movInputDir = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown(KeyCode.X) )
-        {
-            DrinkPotion();
-        }
+		if(!GM.isPause){	
+			movInputDir = Input.GetAxisRaw("Horizontal");
+			if (Input.GetKeyDown(KeyCode.X) )
+			{
+				DrinkPotion();
+			}
+		}
     }
 
     void CheckLife()
