@@ -89,8 +89,8 @@ public class PlayerController : MonoBehaviour
     public float startInvencibleTime;
     public int damagedPushForce;
 
-    private int damageX = 0;
-    private int damageY = 0;
+    private float damageX = 0;
+    private float damageY = 0;
 
 
 
@@ -244,20 +244,20 @@ public class PlayerController : MonoBehaviour
 
         if (damageX < 0)
         {
-            damageX++;
+            damageX+=1.0f;
         }
         else if (damageX > 0)
         {
-            damageX--;
+            damageX-=1.0f;
         }
 
         if(damageY < 0)
         {
-            damageY++;
+            damageY+=1.0f;
         }
         else if (damageY > 0)
         {
-            damageY--;
+            damageY-=1.0f;
         }
 
         //SEMI-CONTROL EN EL AIRE
@@ -435,8 +435,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!invecibility)
         {
-            int normalX = (int)normal.x;
-            int normalY = (int)normal.y;
             invecibility = true;
             damaged = true;
             invencibleTime = startInvencibleTime;
@@ -444,14 +442,14 @@ public class PlayerController : MonoBehaviour
 
             if (isGrounded)
             {
-                damageX = -facingRight * damagedPushForce;
+                damageX = -normal.x * damagedPushForce;
                 damageY = damagedPushForce;
             }
             else if (!isGrounded)
             {
-                Debug.Log("HIT" + normalX);
-                damageX = -normalX * damagedPushForce;
-                damageY = -normalY * damagedPushForce;
+                Debug.Log("HIT" + normal.x);
+                damageX = -normal.x * damagedPushForce;
+                damageY = -normal.y * damagedPushForce;
             }
             Debug.Log(health);
             StartCoroutine(Blinking());
