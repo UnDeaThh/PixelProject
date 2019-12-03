@@ -218,13 +218,13 @@ public class PlayerController : MonoBehaviour
         //Movimiento Normal
         if (isGrounded && !plParry.isParry && !plParry.parryFail && !damaged && !isDrinking)
         {
-            rb2d.velocity = new Vector2(movInputDir * movSpeed + damageX, rb2d.velocity.y + damageY);
+            rb2d.velocity = new Vector2(movInputDir * movSpeed , rb2d.velocity.y);
             wasWallSliding = false;
         }
         //Movimiento reducido cuando te estas curando
         else if (isGrounded && !plParry.isParry && !plParry.parryFail && !damaged && isDrinking)
         {
-            rb2d.velocity = new Vector2(movInputDir * movSpeed * 0.2f + damageX, rb2d.velocity.y + damageY);
+            rb2d.velocity = new Vector2(movInputDir * movSpeed * 0.2f , rb2d.velocity.y);
             wasWallSliding = false;
         }
 
@@ -244,20 +244,20 @@ public class PlayerController : MonoBehaviour
 
         if (damageX < 0)
         {
-            damageX+=1.0f;
+            damageX++;
         }
         else if (damageX > 0)
         {
-            damageX-=1.0f;
+            damageX--;
         }
 
         if(damageY < 0)
         {
-            damageY+=1.0f;
+            damageY++;
         }
         else if (damageY > 0)
         {
-            damageY-=1.0f;
+            damageY--;
         }
 
         //SEMI-CONTROL EN EL AIRE
