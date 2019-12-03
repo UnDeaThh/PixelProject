@@ -40,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
-		if(!GM.isPause){
+		if(!GM.isPaused){
 			CheckIfCanAttack();
 			Attack();
 

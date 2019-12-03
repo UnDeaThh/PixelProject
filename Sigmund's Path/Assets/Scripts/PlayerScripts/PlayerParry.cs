@@ -33,7 +33,7 @@ public class PlayerParry : MonoBehaviour
     }
     private void Update()
     {
-		if(!GM.isPause){
+		if(!GM.isPaused){
 		
 			CheckIfCanParry();
 			ParryInput();

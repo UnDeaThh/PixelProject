@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerInput(){
-		if(!GM.isPause){	
+		if(!GM.isPaused){	
 			movInputDir = Input.GetAxisRaw("Horizontal");
 			if (Input.GetKeyDown(KeyCode.X) )
 			{
