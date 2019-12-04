@@ -9,10 +9,12 @@ public class GamePlayManager : MonoBehaviour
     [HideInInspector] public bool isPaused = false;
     private bool isOnInventory = false;
     private bool isOnPause = false;
+	private bool isOnMap = false;
     [Header("UI PAUSE")]
     public GameObject bookContainer;
 	public GameObject pausePanel;
     public GameObject inventoryPanel;
+	public GameObject mapPanel;
 
 
     private void Awake()
@@ -20,6 +22,7 @@ public class GamePlayManager : MonoBehaviour
         plContoller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 		pausePanel.SetActive(false);
         bookContainer.SetActive(false);
+		mapPanel.SetActive(false);
     }
 
     private void Update()
@@ -44,6 +47,7 @@ public class GamePlayManager : MonoBehaviour
         bookContainer.SetActive(false);
         isOnPause = false;
         isOnInventory = false;
+		isOnMap = false;
 		Time.timeScale = 1f;
 		bookContainer.SetActive(false);
     }
@@ -62,17 +66,29 @@ public class GamePlayManager : MonoBehaviour
     public void InventoryTab()
     {
         isOnPause = false;
+		isOnMap = false;
         isOnInventory = true;
-        inventoryPanel.SetActive(true);
         pausePanel.SetActive(false);
+		mapPanel.SetActive(false);
+        inventoryPanel.SetActive(true);
     }
 
     public void PauseTab()
     {
         isOnInventory = false;
+		isOnMap = false;
         isOnPause = true;
         inventoryPanel.SetActive(false);
+		mapPanel.SetActive(false);
         pausePanel.SetActive(true);
     }
 
+	public void MapTab(){
+		isOnInventory = false;
+		isOnPause =  false;
+		isOnMap = true;
+		inventoryPanel.SetActive(false);
+		pausePanel.SetActive(false);
+		mapPanel.SetActive(true);
+	}
 }
