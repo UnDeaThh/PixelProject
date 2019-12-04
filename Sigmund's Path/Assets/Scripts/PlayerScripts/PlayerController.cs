@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour
             wasWallSliding = false;
         }
 
-        //Cuando te dañan te empujan
+        //Cuando te dañan te empujan 1 FRAME
         else if((isGrounded || !isGrounded) && !plParry.isParry && !plParry.parryFail && damaged)
         {
             rb2d.velocity = Vector2.zero;
