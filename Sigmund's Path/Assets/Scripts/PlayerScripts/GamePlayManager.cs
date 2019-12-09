@@ -12,6 +12,7 @@ public class GamePlayManager : MonoBehaviour
     private bool isOnPause = false;
 	private bool isOnMap = false;
     [Header("UI PAUSE")]
+    public Image blackFade;
     public GameObject bookContainer;
 	public GameObject pausePanel;
     public GameObject inventoryPanel;
@@ -24,13 +25,16 @@ public class GamePlayManager : MonoBehaviour
     private int currentResolutionIndex = 0;
 
     public GameObject options;
-
-
+    public GameObject goToMainMenuQuest;
+    public GameObject exitGameQuest;
     private void Awake()
     {
         plContoller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        blackFade.enabled = false;
 		pausePanel.SetActive(false);
         options.SetActive(false);
+        exitGameQuest.SetActive(false);
+        goToMainMenuQuest.SetActive(false);
         bookContainer.SetActive(false);
 		mapPanel.SetActive(false);
 
@@ -81,11 +85,14 @@ public class GamePlayManager : MonoBehaviour
     public void Resume()
     {
         isPaused = false;
+        blackFade.enabled = false;
         bookContainer.SetActive(false);
         isOnPause = false;
         isOnInventory = false;
 		isOnMap = false;
         options.SetActive(false);
+        exitGameQuest.SetActive(false);
+        goToMainMenuQuest.SetActive(false);
         Time.timeScale = 1f;
 		bookContainer.SetActive(false);
     }
@@ -93,6 +100,7 @@ public class GamePlayManager : MonoBehaviour
     public void Pause()
     {
         isPaused = true;
+        blackFade.enabled = true;
 		Time.timeScale = 0f;
         bookContainer.SetActive(true);
 
@@ -103,6 +111,8 @@ public class GamePlayManager : MonoBehaviour
     {
         isOnPause = false;
         options.SetActive(false);
+        exitGameQuest.SetActive(false);
+        goToMainMenuQuest.SetActive(false);
         isOnMap = false;
         isOnInventory = true;
         pausePanel.SetActive(false);
@@ -125,6 +135,8 @@ public class GamePlayManager : MonoBehaviour
 		isOnInventory = false;
 		isOnPause =  false;
         options.SetActive(false);
+        exitGameQuest.SetActive(false);
+        goToMainMenuQuest.SetActive(false);
         isOnMap = true;
 		inventoryPanel.SetActive(false);
 		pausePanel.SetActive(false);
@@ -134,6 +146,23 @@ public class GamePlayManager : MonoBehaviour
     public void ClickOnSettings()
     {
         options.SetActive(true);
+        goToMainMenuQuest.SetActive(false);
+        exitGameQuest.SetActive(false);
+    }
+
+    public void ClickOnMainMenu()
+    {
+        options.SetActive(false);
+        exitGameQuest.SetActive(false);
+        goToMainMenuQuest.SetActive(true);
+
+    }
+
+    public void ClickOnExitGame()
+    {
+        options.SetActive(false);
+        goToMainMenuQuest.SetActive(false);
+        exitGameQuest.SetActive(true);
     }
 
 	public void SetVolume (Slider slider)
