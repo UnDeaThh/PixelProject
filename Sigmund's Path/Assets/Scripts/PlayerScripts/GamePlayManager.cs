@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class GamePlayManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class GamePlayManager : MonoBehaviour
 	public GameObject pausePanel;
     public GameObject inventoryPanel;
 	public GameObject mapPanel;
+
+	[Header("PAUSE SETTINGS")]
+	public AudioMixer audioMixer;
 
 
     private void Awake()
@@ -90,5 +94,16 @@ public class GamePlayManager : MonoBehaviour
 		inventoryPanel.SetActive(false);
 		pausePanel.SetActive(false);
 		mapPanel.SetActive(true);
+	}
+
+	public void SetVolume (float volume)
+	{
+		Debug.Log(volume);
+		audioMixer.SetFloat("volume", volume);
+	}
+
+	public void SetFullScreen(bool isFullScreen)
+	{
+		Screen.fullScreen = isFullScreen;
 	}
 }
