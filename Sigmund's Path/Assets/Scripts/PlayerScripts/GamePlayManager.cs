@@ -20,7 +20,7 @@ public class GamePlayManager : MonoBehaviour
 	[Header("PAUSE SETTINGS")]
 	public AudioMixer audioMixer;
     public Dropdown resolutionDropdown;
-    private Resolution[] resolutions;
+    private Resolution[] resolutions = new Resolution[3];
     private int currentResolutionIndex = 0;
 
 
@@ -30,11 +30,15 @@ public class GamePlayManager : MonoBehaviour
 		pausePanel.SetActive(false);
         bookContainer.SetActive(false);
 		mapPanel.SetActive(false);
+
+        QualitySettings.SetQualityLevel(3); //Empezamos en Ultra
     }
 
     private void Start()
     {
-        resolutions = Screen.resolutions;
+        resolutions[0] = Screen.resolutions[1]; //720 x 480
+        resolutions[1] = Screen.resolutions[6]; //1280 x 720
+        resolutions[2] = Screen.resolutions[16]; // 1920 x 1080
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
@@ -122,10 +126,10 @@ public class GamePlayManager : MonoBehaviour
 		mapPanel.SetActive(true);
 	}
 
-	public void SetVolume (float volume)
+	public void SetVolume (Slider slider)
 	{
-		Debug.Log(volume);
-		audioMixer.SetFloat("volume", volume);
+		//Debug.Log(slider.value);
+		audioMixer.SetFloat("volume", slider.value);
 	}
 
 	public void SetFullScreen(bool isFullScreen)
@@ -139,9 +143,9 @@ public class GamePlayManager : MonoBehaviour
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
-    public void SetQuality(int qualityIndex)
+    public void SetQuality(Dropdown dropdown)
     {
-        QualitySettings.SetQualityLevel(qualityIndex);
+        QualitySettings.SetQualityLevel(dropdown.value);
     }
 
 }
