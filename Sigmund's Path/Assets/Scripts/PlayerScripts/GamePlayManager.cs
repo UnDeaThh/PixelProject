@@ -23,13 +23,17 @@ public class GamePlayManager : MonoBehaviour
     private Resolution[] resolutions = new Resolution[3];
     private int currentResolutionIndex = 0;
 
+    public GameObject options;
+
 
     private void Awake()
     {
         plContoller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 		pausePanel.SetActive(false);
+        options.SetActive(false);
         bookContainer.SetActive(false);
 		mapPanel.SetActive(false);
+
 
         QualitySettings.SetQualityLevel(3); //Empezamos en Ultra
     }
@@ -47,7 +51,7 @@ public class GamePlayManager : MonoBehaviour
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
 
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height) //Esto en teoria esta mal segun el comentario del video
             {
                 currentResolutionIndex = i;
             }
@@ -81,7 +85,8 @@ public class GamePlayManager : MonoBehaviour
         isOnPause = false;
         isOnInventory = false;
 		isOnMap = false;
-		Time.timeScale = 1f;
+        options.SetActive(false);
+        Time.timeScale = 1f;
 		bookContainer.SetActive(false);
     }
 
@@ -92,14 +97,13 @@ public class GamePlayManager : MonoBehaviour
         bookContainer.SetActive(true);
 
         InventoryTab();
-
-
     }
 
     public void InventoryTab()
     {
         isOnPause = false;
-		isOnMap = false;
+        options.SetActive(false);
+        isOnMap = false;
         isOnInventory = true;
         pausePanel.SetActive(false);
 		mapPanel.SetActive(false);
@@ -120,11 +124,17 @@ public class GamePlayManager : MonoBehaviour
 	public void MapTab(){
 		isOnInventory = false;
 		isOnPause =  false;
-		isOnMap = true;
+        options.SetActive(false);
+        isOnMap = true;
 		inventoryPanel.SetActive(false);
 		pausePanel.SetActive(false);
 		mapPanel.SetActive(true);
 	}
+
+    public void ClickOnSettings()
+    {
+        options.SetActive(true);
+    }
 
 	public void SetVolume (Slider slider)
 	{
