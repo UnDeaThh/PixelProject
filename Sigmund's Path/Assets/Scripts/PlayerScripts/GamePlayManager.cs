@@ -19,6 +19,9 @@ public class GamePlayManager : MonoBehaviour
 
 	[Header("PAUSE SETTINGS")]
 	public AudioMixer audioMixer;
+    public Dropdown resolutionDropdown;
+    private Resolution[] resolutions;
+    private int currentResolutionIndex = 0;
 
 
     private void Awake()
@@ -27,6 +30,28 @@ public class GamePlayManager : MonoBehaviour
 		pausePanel.SetActive(false);
         bookContainer.SetActive(false);
 		mapPanel.SetActive(false);
+    }
+
+    private void Start()
+    {
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+        for(int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+
+            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
 
     private void Update()
@@ -77,6 +102,7 @@ public class GamePlayManager : MonoBehaviour
         inventoryPanel.SetActive(true);
     }
 
+
     public void PauseTab()
     {
         isOnInventory = false;
@@ -106,4 +132,16 @@ public class GamePlayManager : MonoBehaviour
 	{
 		Screen.fullScreen = isFullScreen;
 	}
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
+
 }
