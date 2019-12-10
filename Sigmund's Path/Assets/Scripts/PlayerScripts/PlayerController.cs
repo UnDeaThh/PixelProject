@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Attributes")]
     public float jumpForce;
     private int maxJumps = 1;
+    private bool jumpPressed = true;
     private int jumpsLeft;
     [HideInInspector] public bool isGrounded;
 
@@ -138,6 +139,11 @@ public class PlayerController : MonoBehaviour
 			{
 				DrinkPotion();
 			}
+            if (Input.GetButtonDown("Jump"))
+            {
+                jumpPressed = true;
+            }
+            
 		}
     }
 
@@ -310,7 +316,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     void Jump(){
-        if(Input.GetButtonDown("Jump"))
+        if(jumpPressed)
         {
             if(canJump){
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
@@ -343,6 +349,7 @@ public class PlayerController : MonoBehaviour
                 }
                
             }
+            jumpPressed = false;
         }
     }
 

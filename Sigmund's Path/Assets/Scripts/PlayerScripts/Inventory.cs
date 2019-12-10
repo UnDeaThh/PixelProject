@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public bool[] isFull;
-    public GameObject[] slots;
+    [System.Serializable]
+    public class Slot
+    {
+        [HideInInspector]
+        public bool isFull;
+        public GameObject slotGO;
+    };
+    //public bool[] isFull;
+    //public GameObject[] slots;
+
+    public Slot[] slotssss;
 }
