@@ -28,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerController plController;
     private Animator anim;
-	private GamePlayManager GM; 
+	private PauseManager GM; 
     
 
     void Awake()
@@ -36,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         playerPos = GetComponent<Transform>();
         plController = GetComponent<PlayerController>();
-		 GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GamePlayManager>();
+		 GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseManager>();
     }
     void Update()
     {

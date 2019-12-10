@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     private PlayerParry plParry;
     private Animator anim;
-    private GamePlayManager GM;
+    private PauseManager PM;
     [SerializeField] private SpriteRenderer sprite;
 
     //MOVIMIENTO HORIZONTAL
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         plParry = GetComponent<PlayerParry>();
         anim = GetComponentInChildren<Animator>();
-        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GamePlayManager>();
+        PM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseManager>();
 
         wallHopDir.Normalize();
         wallJumpDir.Normalize();
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerInput(){
-		if(!GM.isPaused){	
+		if(!PM.isPaused){	
 			movInputDir = Input.GetAxisRaw("Horizontal");
 			if (Input.GetKeyDown(KeyCode.X) )
 			{

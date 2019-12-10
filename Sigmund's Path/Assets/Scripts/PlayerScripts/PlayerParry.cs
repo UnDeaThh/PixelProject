@@ -16,7 +16,7 @@ public class PlayerParry : MonoBehaviour
     private bool justOneTime = false;
     public bool parryFail = false;
     private bool alreadyClicked = false;
-	private GamePlayManager GM;
+	private PauseManager GM;
 
 
     public Collider2D parryCol;
@@ -24,7 +24,7 @@ public class PlayerParry : MonoBehaviour
     private Animator anim;
     private void Awake()
     {
-		GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GamePlayManager>();
+		GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseManager>();
         plController = GetComponent<PlayerController>();
         anim = GetComponentInChildren<Animator>();
         isParry = false;

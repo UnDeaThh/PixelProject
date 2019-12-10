@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public class GamePlayManager : MonoBehaviour
+public class PauseManager : MonoBehaviour
 {
     private PlayerController plContoller;
     [HideInInspector] public bool isPaused = false;
