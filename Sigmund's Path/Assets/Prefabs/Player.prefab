@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 1213795563}
   - component: {fileID: 3730924781311067699}
   - component: {fileID: 3944529619844876993}
+  - component: {fileID: 5341487905784493268}
   - component: {fileID: 8299661826070670118}
   m_Layer: 10
   m_Name: Player
@@ -153,7 +154,7 @@ MonoBehaviour:
   movSpeed: 10
   facingRight: 1
   movementForceInAir: 100
-  jumpForce: 18
+  jumpForce: 22
   isGrounded: 0
   feetPos: {fileID: 1152810502}
   whatIsGrounded:
@@ -168,7 +169,8 @@ MonoBehaviour:
   dashDuration: 0.08
   wallCheckPos: {fileID: 4869392952835096927}
   wallSlideSpeed: 3
-  health: 5
+  health: 8
+  maxHealth: 10
   heartsUI:
   - {fileID: 0}
   - {fileID: 0}
@@ -180,12 +182,20 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  fullHeartUI: {fileID: 4427202462637522895, guid: e9f117a7cc271814d84fde24e5a5600b,
+  fullHeartUI: {fileID: -5991359403375083412, guid: d62bf0a9673775444accdd96aae94437,
     type: 3}
   emptyHeartUI: {fileID: -5625336778115075582, guid: e9f117a7cc271814d84fde24e5a5600b,
     type: 3}
+  potions: 3
+  potionsUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isDrinking: 0
   startInvencibleTime: 1
-  damagedPushForce: 20
+  damagedPushForce: 12
 --- !u!114 &3730924781311067699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +233,25 @@ MonoBehaviour:
   isParry: 0
   parryFail: 0
   parryCol: {fileID: 8299661826070670118}
+--- !u!114 &5341487905784493268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2851571069916491046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf73399dddd5374f84046542a009b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFull: 
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!70 &8299661826070670118
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -338,7 +367,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7308600992340575488, guid: 91e1d15a87f6f864daf6873b4bec3e0b,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
