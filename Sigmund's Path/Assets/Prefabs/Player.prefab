@@ -1,5 +1,69 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1113528241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1113528242}
+  - component: {fileID: 1113528243}
+  m_Layer: 10
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1113528242
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113528241}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2851571069916491050}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1113528243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113528241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf73399dddd5374f84046542a009b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotsForUI:
+  - isFull: 0
+    slotGO: {fileID: 0}
+  - isFull: 0
+    slotGO: {fileID: 0}
+  - isFull: 0
+    slotGO: {fileID: 0}
+  - isFull: 0
+    slotGO: {fileID: 0}
+  - isFull: 0
+    slotGO: {fileID: 0}
+  - isFull: 0
+    slotGO: {fileID: 0}
+  - isFull: 0
+    slotGO: {fileID: 0}
+  - isFull: 0
+    slotGO: {fileID: 0}
+  - isFull: 0
+    slotGO: {fileID: 0}
+  - isFull: 0
+    slotGO: {fileID: 0}
 --- !u!1 &1152810501
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +138,6 @@ GameObject:
   - component: {fileID: 1213795563}
   - component: {fileID: 3730924781311067699}
   - component: {fileID: 3944529619844876993}
-  - component: {fileID: 5341487905784493268}
   - component: {fileID: 8299661826070670118}
   m_Layer: 10
   m_Name: Player
@@ -98,6 +161,7 @@ Transform:
   - {fileID: 1152810502}
   - {fileID: 4869392952835096927}
   - {fileID: 2937485335393459181}
+  - {fileID: 1113528242}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -233,25 +297,6 @@ MonoBehaviour:
   isParry: 0
   parryFail: 0
   parryCol: {fileID: 8299661826070670118}
---- !u!114 &5341487905784493268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2851571069916491046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bf73399dddd5374f84046542a009b1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFull: 
-  slots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!70 &8299661826070670118
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

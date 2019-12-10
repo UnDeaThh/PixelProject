@@ -9,19 +9,19 @@ public class PickUp : MonoBehaviour
 
     private void Awake()
     {
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Inventory>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
         {
-            for (int i = 0; i < inventory.slotssss.Length; i++)
+            for (int i = 0; i < inventory.slotsForUI.Length; i++)
             {
-                if(inventory.slotssss[i].isFull == false)
+                if(inventory.slotsForUI[i].isFull == false)
                 {
-                    inventory.slotssss[i].isFull = true;
-                    Instantiate(itemButtonToUI, inventory.slotssss[i].slotGO.transform, false);
+                    inventory.slotsForUI[i].isFull = true;
+                    Instantiate(itemButtonToUI, inventory.slotsForUI[i].slotGO.transform, false);
                     Destroy(gameObject);
                     break;
                 }

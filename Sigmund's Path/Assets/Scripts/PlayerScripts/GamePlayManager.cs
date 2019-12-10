@@ -50,7 +50,7 @@ public class GamePlayManager : MonoBehaviour
     {
         resolutions[0] = Screen.resolutions[0]; //640 x 480
         resolutions[1] = Screen.resolutions[6]; //1280 x 720
-        resolutions[2] = Screen.resolutions[17]; // 1920 x 1080
+        resolutions[2] = Screen.resolutions[16]; // 1920 x 1080
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
