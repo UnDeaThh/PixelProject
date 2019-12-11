@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
     public GameObject potionUI;
+	public TextMeshProUGUI textPotionCounter;
     private PlayerController plContoller;
     [System.Serializable]
     public class Slot
@@ -26,7 +28,14 @@ public class Inventory : MonoBehaviour
     }
     private void Update()
     {
-        for (int i = 0; i < slotsForPotions.Length; i++)
+        PotionSystemForUI();
+
+    }
+
+	void PotionSystemForUI()
+	{
+	/*
+		for (int i = 0; i < slotsForPotions.Length; i++)
         {
             if(slotsForPotions[i].isFull == false && i < plContoller.potions)
             {
@@ -42,5 +51,17 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
-    }
+		*/
+
+		if(plContoller.potions <= 0){
+			potionUI.SetActive(false);
+			textPotionCounter.SetText("");
+		}
+
+		else
+		{
+			potionUI.SetActive(true);
+			textPotionCounter.SetText("x" + plContoller.potions);
+		}
+	}
 }
