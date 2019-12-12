@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private int maxJumps = 1;
     private bool jumpPressed = true;
+    private bool isJumping = false;
     private int jumpsLeft;
     [HideInInspector] public bool isGrounded;
 
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     [Header("WallJump Attributes")]
     private Vector2 wallHopDir = new Vector2(1, 1f);
     private Vector2 wallJumpDir = new Vector2(1, 2);
+    [HideInInspector] public bool isWallJump = false;
     public float wallHopForce;
     public float wallJumpForce;
     public float lowWallJumpForce;
@@ -59,7 +61,8 @@ public class PlayerController : MonoBehaviour
     private float wallCheckDistance = 0.2f;
     public float wallSlideSpeed;
     private bool isTouchingWall;
-    private bool isWallSliding;
+    [HideInInspector] public bool isWallSliding;
+    private bool isWallSlidingAnim;
     private bool wasWallSliding;
 
     //LIFE
@@ -314,6 +317,7 @@ public class PlayerController : MonoBehaviour
         if(isGrounded && rb2d.velocity.y <= 0)
         {
             jumpsLeft = maxJumps;
+            isJumping = false;
         }
         if(jumpsLeft <= 0){
             canJump = false;
@@ -327,6 +331,7 @@ public class PlayerController : MonoBehaviour
         {
             if(canJump){
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+                isJumping = true;
                 jumpsLeft --;
             }
             //WALLHOP
@@ -344,6 +349,7 @@ public class PlayerController : MonoBehaviour
                 {
                     //salto corto
                     isWallSliding = false;
+                    isWallJump = true;
                     Vector2 forceToAdd = new Vector2(lowWallJumpForce * wallJumpDir.x * -movInputDir, lowWallJumpForce * wallJumpDir.y);
                     rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
                     Flip();                }
@@ -351,6 +357,7 @@ public class PlayerController : MonoBehaviour
                 {
                     //salto largo
                     isWallSliding = false;
+                    isWallJump = true;
                     Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDir.x * movInputDir, wallJumpForce * wallJumpDir.y);
                     rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
@@ -424,6 +431,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             isWallSliding = false;
+            isWallSlidingAnim = false;
         }
     }
 
@@ -431,16 +439,33 @@ public class PlayerController : MonoBehaviour
     {
         if(isWallSliding)
         {
+            isWallJump = false;
+            isJumping = false;
+            
             wasWallSliding = true;
-            if(rb2d.velocity.y < 0f && facingRight == 1 && movInputDir > 0f) //Pared Derecha
+            if (rb2d.velocity.y < 0.1f && facingRight == 1 && movInputDir > 0f) //Pared Derecha
             {
+                isWallSlidingAnim = true;
                 rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -wallSlideSpeed);
             }
-            else if(rb2d.velocity.y < 0 && facingRight == -1 && movInputDir < 0f) //Pared Izquierda
+            else if (rb2d.velocity.y < 0.1f && facingRight == -1 && movInputDir < 0f) //Pared Izquierda
             {
+                isWallSlidingAnim = true;
                 rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -wallSlideSpeed);
+            }
+            else
+            {
+                isWallSlidingAnim = false;
+            }
+            if(facingRight == 1 && movInputDir > 0f)
+            {
+                isWallSlidingAnim = true;
+            }
+            else if (facingRight == -1 && movInputDir < 0f)
+            {
+                isWallSlidingAnim = true;
             }
         }
     }
@@ -536,8 +561,12 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimations()
     {
-        anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("speedX", Mathf.Abs(rb2d.velocity.x));
+        anim.SetFloat("speedY", rb2d.velocity.y);
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetBool("isJumping", isJumping);
+        anim.SetBool("isWallJump", isWallJump);
+        anim.SetBool("isWallSliding", isWallSlidingAnim);
     }
 
 

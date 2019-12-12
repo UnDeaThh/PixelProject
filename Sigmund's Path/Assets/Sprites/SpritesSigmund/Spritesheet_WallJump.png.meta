@@ -1,22 +1,16 @@
 fileFormatVersion: 2
-guid: 107c684994f6b0e4d8c5fbedb5bb4b9f
+guid: 82aa5e974e182254891ccb64b13f02d6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5722107047600495751
-    second: spritesheetattack_0
+      213: -8553821188404477501
+    second: Spritesheet_WallJump_0
   - first:
-      213: -5581934775236158836
-    second: spritesheetattack_1
+      213: 8562876791037846971
+    second: Spritesheet_WallJump_1
   - first:
-      213: 5155400036921521293
-    second: spritesheetattack_2
-  - first:
-      213: 2205991878990578272
-    second: spritesheetattack_3
-  - first:
-      213: 7799924327880305931
-    second: spritesheetattack_4
+      213: 6037604543457072822
+    second: Spritesheet_WallJump_2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -60,7 +54,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,17 +91,29 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spritesheetattack_0
+      name: Spritesheet_WallJump_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 38
-        width: 62
-        height: 67
+        x: 37
+        y: 54
+        width: 68
+        height: 91
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,82 +121,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b01b7b15c60e46a46b4617327e8174e6
-      internalID: -5722107047600495751
+      spriteID: dfe1f874312067647a779b3892e751e4
+      internalID: -8553821188404477501
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spritesheetattack_1
+      name: Spritesheet_WallJump_1
       rect:
         serializedVersion: 2
-        x: 122
-        y: 38
-        width: 39
-        height: 69
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e8d5765ccc8dc2e45aa24c415f5d0a97
-      internalID: -5581934775236158836
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spritesheetattack_2
-      rect:
-        serializedVersion: 2
-        x: 203
-        y: 38
-        width: 35
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13acc03abcfdce246ac76dc106d5c462
-      internalID: 5155400036921521293
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spritesheetattack_3
-      rect:
-        serializedVersion: 2
-        x: 280
-        y: 38
-        width: 39
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa68f7ccabe92c740980e5c841606754
-      internalID: 2205991878990578272
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spritesheetattack_4
-      rect:
-        serializedVersion: 2
-        x: 361
-        y: 38
-        width: 55
+        x: 152
+        y: 80
+        width: 107
         height: 74
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -199,8 +142,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddad5626c6699b04186b77cb554b891e
-      internalID: 7799924327880305931
+      spriteID: 291b81a4cc3bb2e46b5e2bd19cd78c10
+      internalID: 8562876791037846971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_WallJump_2
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 80
+        width: 76
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c3ee1d2a0d7f5d458f813b38707f16a
+      internalID: 6037604543457072822
       vertices: []
       indices: 
       edges: []

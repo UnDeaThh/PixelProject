@@ -16,7 +16,7 @@ public class PlayerAttack : MonoBehaviour
     private bool attackingFront = false;
 
     private bool canAttack;
-    private bool isAttacking = false;
+    [HideInInspector] public bool isAttacking = false;
 
     private Vector3 frontAttackPos = new Vector3(1.5f, 0.0f, 0.0f);
     private Vector3 upAttackPos = new Vector3(0.0f, 2f, 0.0f);
@@ -64,7 +64,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (canAttack && !plController.isDrinking)
+        if (plController.isWallSliding)
+        {
+            isAttacking = false;
+        }
+
+        if (canAttack && !plController.isDrinking && !plController.isWallSliding)
         {
             //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
@@ -118,9 +123,7 @@ public class PlayerAttack : MonoBehaviour
 
     void UpdateAnimations()
     {
-            anim.SetBool("isAttacking", isAttacking);
-            isAttacking = false;
-        
+        anim.SetBool("isAttacking", isAttacking);
     }
 
 
