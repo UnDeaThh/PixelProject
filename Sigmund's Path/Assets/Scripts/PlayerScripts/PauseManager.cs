@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PauseManager : MonoBehaviour
 	[Header("PAUSE SETTINGS")]
 	public AudioMixer audioMixer;
     public Dropdown resolutionDropdown;
+    public Slider sliderVolumen;
     private Resolution[] resolutions = new Resolution[3];
     private int currentResolutionIndex = 0;
 
@@ -44,13 +46,16 @@ public class PauseManager : MonoBehaviour
         }
 
         QualitySettings.SetQualityLevel(3); //Empezamos en Ultra
+
+        sliderVolumen.value = PlayerPrefs.GetFloat("volume", 0);
+        
     }
 
     private void Start()
     {
         resolutions[0] = Screen.resolutions[0]; //640 x 480
         resolutions[1] = Screen.resolutions[6]; //1280 x 720
-        resolutions[2] = Screen.resolutions[16]; // 1920 x 1080
+        resolutions[2] = Screen.resolutions[Screen.resolutions.Length - 1]; // La Maxima resolucion
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
@@ -147,6 +152,7 @@ public class PauseManager : MonoBehaviour
 		mapPanel.SetActive(true);
 	}
 
+    #region SettingsButtons
     public void ClickOnSettings()
     {
         options.SetActive(true);
@@ -168,11 +174,13 @@ public class PauseManager : MonoBehaviour
         goToMainMenuQuest.SetActive(false);
         exitGameQuest.SetActive(true);
     }
+    #endregion
 
-	public void SetVolume (Slider slider)
+    #region Ajustes
+    public void SetVolume (Slider slider)
 	{
-		//Debug.Log(slider.value);
 		audioMixer.SetFloat("volume", slider.value);
+        PlayerPrefs.SetFloat("volume", slider.value);
 	}
 
 	public void SetFullScreen(bool isFullScreen)
@@ -184,11 +192,25 @@ public class PauseManager : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        PlayerPrefs.SetFloat("widthResolution", resolution.width);
+        PlayerPrefs.SetFloat("heightResolution", resolution.height);
+
     }
 
     public void SetQuality(Dropdown dropdown)
     {
         QualitySettings.SetQualityLevel(dropdown.value);
+        PlayerPrefs.SetInt("qualityLevel",dropdown.value);
+    }
+    #endregion
+
+    public void YesMainMenu()
+    {
+        SceneManager.LoadScene("MainMenuScene");
     }
 
+    public void NoMainMenu()
+    {
+        goToMainMenuQuest.SetActive(false);
+    }
 }

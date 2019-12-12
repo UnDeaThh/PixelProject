@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ClickOnSettings()
     {
-
+        SceneManager.LoadScene("SettingsScene");
     }
 
     public void ClickOnCredits()
