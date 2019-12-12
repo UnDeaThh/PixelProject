@@ -24,7 +24,7 @@ public class PlayerParry : MonoBehaviour
     private Animator anim;
     private void Awake()
     {
-		GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseManager>();
+		GM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         plController = GetComponent<PlayerController>();
         anim = GetComponentInChildren<Animator>();
         isParry = false;

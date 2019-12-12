@@ -21,16 +21,20 @@ public class PauseManager : MonoBehaviour
 
 	[Header("PAUSE SETTINGS")]
 	public AudioMixer audioMixer;
-    public Dropdown resolutionDropdown;
     public Slider sliderVolumen;
+    public Dropdown qualityDropdown;
+    public Toggle fullScreenToggle;
+
+    public Dropdown resolutionDropdown;
     private Resolution[] resolutions = new Resolution[3];
-    private int currentResolutionIndex = 0;
 
     public GameObject options;
     public GameObject goToMainMenuQuest;
     public GameObject exitGameQuest;
     private void Awake()
     {
+        isPaused = false;
+
         plContoller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         blackFade.enabled = false;
 		pausePanel.SetActive(false);
@@ -39,16 +43,20 @@ public class PauseManager : MonoBehaviour
         goToMainMenuQuest.SetActive(false);
         bookContainer.SetActive(false);
 		mapPanel.SetActive(false);
-
+/*
         for(int i = 0; i < Screen.resolutions.Length; i++)
         {
             Debug.Log(Screen.resolutions[i]);
         }
-
+*/
         QualitySettings.SetQualityLevel(3); //Empezamos en Ultra
 
         sliderVolumen.value = PlayerPrefs.GetFloat("volume", 0);
-        
+        qualityDropdown.value = PlayerPrefs.GetInt("quality", 3);
+        fullScreenToggle.isOn = intToBool(PlayerPrefs.GetInt("isFullScreen", 1));
+
+
+        Debug.Log(Screen.currentResolution);
     }
 
     private void Start()
@@ -64,14 +72,10 @@ public class PauseManager : MonoBehaviour
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
 
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height) //Esto en teoria esta mal segun el comentario del video
-            {
-                currentResolutionIndex = i;
-            }
         }
 
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.value = PlayerPrefs.GetInt("resolution", 2);
         resolutionDropdown.RefreshShownValue();
     }
 
@@ -89,6 +93,10 @@ public class PauseManager : MonoBehaviour
 				
             }
         }
+        if (isPaused)
+            Time.timeScale = 0f;
+        else 
+            Time.timeScale = 1f;
     }
 
     public void Resume()
@@ -186,26 +194,29 @@ public class PauseManager : MonoBehaviour
 	public void SetFullScreen(bool isFullScreen)
 	{
 		Screen.fullScreen = isFullScreen;
+        fullScreenToggle.isOn = isFullScreen;
+        PlayerPrefs.SetInt( "isfullScreen", boolToInt(fullScreenToggle.isOn));
 	}
 
-    public void SetResolution(int resolutionIndex)
+    public void SetResolution(Dropdown dropdown)
     {
-        Resolution resolution = resolutions[resolutionIndex];
+        Resolution resolution = resolutions[dropdown.value];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        PlayerPrefs.SetFloat("widthResolution", resolution.width);
-        PlayerPrefs.SetFloat("heightResolution", resolution.height);
+        PlayerPrefs.SetInt("resolution", resolutionDropdown.value);
+        Debug.Log(Screen.currentResolution);
 
     }
 
     public void SetQuality(Dropdown dropdown)
     {
         QualitySettings.SetQualityLevel(dropdown.value);
-        PlayerPrefs.SetInt("qualityLevel",dropdown.value);
+        PlayerPrefs.SetInt("quality", dropdown.value);
     }
     #endregion
 
     public void YesMainMenu()
     {
+        isPaused = false;
         SceneManager.LoadScene("MainMenuScene");
     }
 
@@ -213,4 +224,34 @@ public class PauseManager : MonoBehaviour
     {
         goToMainMenuQuest.SetActive(false);
     }
+
+    public void YesExitGame()
+    {
+        isPaused = false;
+        Application.Quit();
+    }
+
+    public void NoExitGame()
+    {
+        exitGameQuest.SetActive(false);
+    }
+
+
+    #region Transforming bools and ints
+    int boolToInt(bool val)
+    {
+        if (val)
+            return 1;
+        else
+            return 0;
+    }
+
+    bool intToBool(int val)
+    {
+        if(val != 0)
+            return true;
+        else
+            return false;
+    }
+    #endregion
 }

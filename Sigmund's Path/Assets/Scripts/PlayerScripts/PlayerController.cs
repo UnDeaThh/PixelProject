@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         plParry = GetComponent<PlayerParry>();
         anim = GetComponentInChildren<Animator>();
-        PM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PauseManager>();
+        PM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
 
         wallHopDir.Normalize();
         wallJumpDir.Normalize();
@@ -134,7 +134,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerInput(){
-		if(!PM.isPaused){	
+		if(!PM.isPaused)
+        {	
 			movInputDir = Input.GetAxisRaw("Horizontal");
 			if (Input.GetKeyDown(KeyCode.X) )
 			{
@@ -143,8 +144,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 jumpPressed = true;
-            }
-            
+            } 
 		}
     }
 
