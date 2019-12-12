@@ -114,6 +114,7 @@ public class PlayerController : MonoBehaviour
         CheckIfWallSliding();
         CheckIfCanJump();
         CheckIfCanDash();
+		CheckIfCanDrink();
         PlayerInput();
         CheckMovement();
         Invencibility();
@@ -194,17 +195,23 @@ public class PlayerController : MonoBehaviour
                 potionsUI[i].enabled = false;
             }
         }
+    }
 
-        if(currentTimeTillNextDrink > 0 || !isGrounded)
+	private void CheckIfCanDrink(){
+		if(!isGrounded){
+			canDrink = false;
+		}
+	    if(currentTimeTillNextDrink > 0 || !isGrounded)
         {
             canDrink = false;
             currentTimeTillNextDrink -= Time.deltaTime;
         }
+
         else if(currentTimeTillNextDrink <= 0 && isGrounded)
         {
             canDrink = true;
         }
-    }
+	}
 
 
     void CheckMovement()
@@ -458,7 +465,6 @@ public class PlayerController : MonoBehaviour
                 damageX = -normal.x * damagedPushForce;
                 damageY = -normal.y * damagedPushForce;
             }
-            Debug.Log(health);
             StartCoroutine(Blinking());
             
            //Lanzar sonido
@@ -496,6 +502,7 @@ public class PlayerController : MonoBehaviour
     private void DrinkPotion()
     {
         if (canDrink)
+		Debug.Log("DRINK");
         {
             if(potions > 0 && health < maxHealth)
             {
@@ -503,8 +510,6 @@ public class PlayerController : MonoBehaviour
                 potions--;
                 health++;
                 StartCoroutine(TimeDrinking());
-               
-                Debug.Log(potions);
             }
             else
             {
@@ -516,9 +521,10 @@ public class PlayerController : MonoBehaviour
             {
                 potions = 0;
             }
-            
         }
     }
+	
+
 
     IEnumerator TimeDrinking()
     {

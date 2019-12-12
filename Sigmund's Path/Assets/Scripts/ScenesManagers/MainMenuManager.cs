@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ClickOnCredits()
     {
-
+		
     }
 
     public void ClickOnExit()
