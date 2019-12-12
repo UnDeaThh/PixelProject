@@ -43,27 +43,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf73399dddd5374f84046542a009b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotsForUI:
+  potionUI: {fileID: 0}
+  totalNumEyes: 0
+  totalNumRings: 0
+  slotsForGoods:
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
   - isFull: 0
     slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
+  slotsForUtility:
+  - isFull: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
+  - isFull: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
+  - isFull: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
+  - isFull: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
+  - isFull: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+    nEyes: 0
+    nRings: 0
 --- !u!1 &1152810501
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +283,7 @@ MonoBehaviour:
   whatIsGrounded:
     serializedVersion: 2
     m_Bits: 256
+  isWallJump: 0
   wallHopForce: 8
   wallJumpForce: 30
   lowWallJumpForce: 20
@@ -233,7 +293,8 @@ MonoBehaviour:
   dashDuration: 0.08
   wallCheckPos: {fileID: 4869392952835096927}
   wallSlideSpeed: 3
-  health: 8
+  isWallSliding: 0
+  health: 5
   maxHealth: 10
   heartsUI:
   - {fileID: 0}
@@ -276,6 +337,7 @@ MonoBehaviour:
   startTimeBtwAttack: 0.4
   attackRangeFront: {x: 3, y: 2}
   attackRangeUp: 1.5
+  isAttacking: 0
   attackPos: {fileID: 2937485335393459181}
   whatIsEnemie:
     serializedVersion: 2
@@ -354,6 +416,7 @@ GameObject:
   - component: {fileID: 6479897364906870219}
   - component: {fileID: 6586553254031914776}
   - component: {fileID: 2712468038631693147}
+  - component: {fileID: 560942503}
   m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
@@ -369,7 +432,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4766898119239121983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
@@ -413,13 +476,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7308600992340575488, guid: 91e1d15a87f6f864daf6873b4bec3e0b,
+  m_Sprite: {fileID: -7190785678825092787, guid: 41e0d933207fab64790a006326288697,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.22, y: 1.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -444,3 +507,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &560942503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4766898119239121983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5427920e5f7cc24f9100f74b02ca90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
