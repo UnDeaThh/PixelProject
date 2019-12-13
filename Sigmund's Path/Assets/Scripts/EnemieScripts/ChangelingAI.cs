@@ -23,6 +23,8 @@ public class ChangelingAI : BaseEnemy
     #endregion
 
     public int damage;
+    public Transform spriteChangeling;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,6 +36,7 @@ public class ChangelingAI : BaseEnemy
       //  PlayerDetection();
         Debug.Log(rb.velocity.x);
         CheckMaxSpeed();
+        Flip();
         Dead();
     }
 
@@ -88,6 +91,19 @@ public class ChangelingAI : BaseEnemy
         {
             path = p;
             currentWayPoint = 0;
+        }
+    }
+
+    void Flip()
+    {
+        if(rb.velocity.x >= 0.01f)
+        {
+            spriteChangeling.localScale = new Vector3(-1f, 1f, 1f);
+        }
+
+        else if(rb.velocity.x <= -0.01f)
+        {
+            spriteChangeling.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 

@@ -97,8 +97,6 @@ public class PlayerController : MonoBehaviour
     private float damageY = 0;
 
 
-
-
     void Awake(){
         rb2d = GetComponent<Rigidbody2D>();
         plParry = GetComponent<PlayerParry>();
