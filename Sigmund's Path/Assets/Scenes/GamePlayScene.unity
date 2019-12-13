@@ -16864,6 +16864,10 @@ PrefabInstance:
       propertyPath: potionsUI.Array.data[4]
       value: 
       objectReference: {fileID: 2011218848}
+    - target: {fileID: 1213795563, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: timeTillNextDrink
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1113528243, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
       propertyPath: potionUI
       value: 
@@ -17070,6 +17074,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Changeling
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418782160637445642, guid: 1bc67263c76220b4d88e51876a90dce0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5418782160637445643, guid: 1bc67263c76220b4d88e51876a90dce0,
         type: 3}

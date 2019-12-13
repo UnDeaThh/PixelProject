@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
     private float timeDrinking = 1f;
     private float currentTimeDrinking;
 
-    private float timeTillNextDrink = 2f;
+    public float timeTillNextDrink = 2f;
     private float currentTimeTillNextDrink;
 
     //DAMAGED
@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
 		if(!PM.isPaused)
         {	
 			movInputDir = Input.GetAxisRaw("Horizontal");
-			if (Input.GetKeyDown(KeyCode.X) )
+			if (Input.GetKeyDown(KeyCode.X))
 			{
 				DrinkPotion();
 			}
@@ -526,8 +526,7 @@ public class PlayerController : MonoBehaviour
 
     private void DrinkPotion()
     {
-        if (canDrink)
-		Debug.Log("DRINK");
+        if(canDrink && !isDrinking)
         {
             if(potions > 0 && health < maxHealth)
             {
