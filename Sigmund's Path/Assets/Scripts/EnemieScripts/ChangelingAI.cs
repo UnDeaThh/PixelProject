@@ -31,7 +31,7 @@ public class ChangelingAI : BaseEnemy
     }
     private void Update()
     {
-        //PlayerDetection();
+      //  PlayerDetection();
         Debug.Log(rb.velocity.x);
         CheckMaxSpeed();
         Dead();
@@ -91,26 +91,28 @@ public class ChangelingAI : BaseEnemy
         }
     }
 
-   
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Player"))
-            {
-                isChasing = true;
-                InvokeRepeating("UpdatePath", 0f, .5f);
-            }
-        }
+    
+         private void OnTriggerEnter2D(Collider2D collision)
+         {
+             if (collision.CompareTag("Player"))
+             {
+                 isChasing = true;
+                 InvokeRepeating("UpdatePath", 0f, .5f);
+             }
+         }
+         
 
-         /*
+    /*
         void PlayerDetection()
-        {
-            if(Physics2D.OverlapCircle(transform.position, detectionRange, whatIsDetected))
-            {
-                isChasing = true;
-                InvokeRepeating("UpdatePath", 0f, .5f);
-            }
+             {
+                 if(Physics2D.OverlapCircle(transform.position, detectionRange, whatIsDetected))
+                 {
+                     isChasing = true;
+                     InvokeRepeating("UpdatePath", 0f, .5f);
+                 }
         }
         */
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
