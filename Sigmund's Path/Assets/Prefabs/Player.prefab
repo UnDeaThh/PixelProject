@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 6586553254031914776}
+  deadPanel: {fileID: 0}
   movSpeed: 10
   facingRight: 1
   movementForceInAir: 100
@@ -319,6 +320,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   isDrinking: 0
+  timeTillNextDrink: 1
   startInvencibleTime: 1
   damagedPushForce: 12
 --- !u!114 &3730924781311067699
@@ -335,8 +337,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   startTimeBtwAttack: 0.4
-  attackRangeFront: {x: 3, y: 2}
-  attackRangeUp: 1.5
+  attackRangeFront: {x: 4, y: 3.2}
+  attackRangeUp: 1.7
   isAttacking: 0
   attackPos: {fileID: 2937485335393459181}
   whatIsEnemie:

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private PauseManager PM;
     [SerializeField] private SpriteRenderer sprite;
+    public GameObject deadPanel;
 
     //MOVIMIENTO HORIZONTAL
     [Header("Movement Attributes")]
@@ -30,7 +32,6 @@ public class PlayerController : MonoBehaviour
     public Transform feetPos;
     private float checkRadius = 0.25f;
     public LayerMask whatIsGrounded;
-    public LayerMask plataformLayer;
     private bool canJump;
     //WALLJUMP
     [Header("WallJump Attributes")]
@@ -108,23 +109,31 @@ public class PlayerController : MonoBehaviour
         wallJumpDir.Normalize();
         jumpsLeft = maxJumps;
         timeDashing = dashDuration;
+        deadPanel.SetActive(false);
     }
     void Update(){
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded );
-        isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded);
-        CheckLife();
-        CheckIfWallSliding();
-        CheckIfCanJump();
-        CheckIfCanDash();
-		CheckIfCanDrink();
-        PlayerInput();
-        CheckMovement();
-        Invencibility();
-        CheckPotions();
+        if(health > 0)
+        {
+
+            isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded);
+            isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded);
+            CheckLife();
+            CheckIfWallSliding();
+            CheckIfCanJump();
+            CheckIfCanDash();
+		    CheckIfCanDrink();
+            PlayerInput();
+            CheckMovement();
+            Invencibility();
+            CheckPotions();
         
 
-
-        UpdateAnimations();
+            UpdateAnimations();
+        }
+        else
+        {
+            StartCoroutine(Dead());
+        }
     }
     void FixedUpdate(){
         ApplyMovement();
@@ -556,6 +565,12 @@ public class PlayerController : MonoBehaviour
         currentTimeTillNextDrink = timeTillNextDrink;
     }
 
+    IEnumerator Dead()
+    {
+        deadPanel.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("GamePlayScene");
+    }
 
     private void UpdateAnimations()
     {
