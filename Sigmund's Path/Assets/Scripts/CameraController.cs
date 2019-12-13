@@ -12,12 +12,12 @@ public class CameraController : MonoBehaviour
     private float shakeCurrentTime = 0f;
 
     // Cinemachine Shake
-    public CinemachineVirtualCamera VirtualCamera;
+    public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
     void Start()
     {
-        if (VirtualCamera != null)
-            virtualCameraNoise = VirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+        if (virtualCamera != null)
+            virtualCameraNoise = virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
     }
 
     // Update is called once per frame
@@ -27,8 +27,7 @@ public class CameraController : MonoBehaviour
         {
             shakeCurrentTime = shakeDuration;
         }
-
-        if (VirtualCamera != null && virtualCameraNoise != null)
+        if (virtualCamera != null && virtualCameraNoise != null)
         {
             // If Camera Shake effect is still playing
             if (shakeCurrentTime > 0)
@@ -40,13 +39,14 @@ public class CameraController : MonoBehaviour
                 // Update Shake Timer
                 shakeCurrentTime -= Time.deltaTime;
             }
+            else
+            {
+                // If Camera Shake effect is over, reset variables
+                virtualCameraNoise.m_AmplitudeGain = 0f;
+                virtualCameraNoise.m_FrequencyGain = shakeFrequency;
+                shakeCurrentTime = 0f;
+            }
         }
 
-        else
-        {
-            // If Camera Shake effect is over, reset variables
-            virtualCameraNoise.m_AmplitudeGain = 0f;
-            shakeCurrentTime = 0f;
-        }
     }
 }
