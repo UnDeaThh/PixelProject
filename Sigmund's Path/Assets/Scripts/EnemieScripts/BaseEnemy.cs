@@ -13,7 +13,7 @@ public class BaseEnemy : MonoBehaviour
     public float detectionRange;
     public LayerMask whatIsDetected;
 
-    public void Dead()
+    public virtual void Dead()
     {
         if(nLifes <= 0)
         {
