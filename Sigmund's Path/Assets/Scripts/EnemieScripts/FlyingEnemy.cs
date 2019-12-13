@@ -10,7 +10,6 @@ public class FlyingEnemy : BaseEnemy
 
     //ATACK
     private bool playerDetected = false;
-    public LayerMask whatIsDetected;
 
     private bool hasAttacked;
     private float startTimeStill = 1f;

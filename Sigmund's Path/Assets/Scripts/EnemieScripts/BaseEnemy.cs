@@ -11,6 +11,7 @@ public class BaseEnemy : MonoBehaviour
     public float movSpeed;
 
     public float detectionRange;
+    public LayerMask whatIsDetected;
 
     public void Dead()
     {

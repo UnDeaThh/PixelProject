@@ -93,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     if(enemiesToDamage[i].tag == "Enemy")
                     {
-                    enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                         enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
                     }
                 }
                 canAttack = false;
