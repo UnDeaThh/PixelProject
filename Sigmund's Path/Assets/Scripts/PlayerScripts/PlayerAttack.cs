@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
     [HideInInspector] public bool isAttacking = false;
 
     private Vector3 frontAttackPos = new Vector3(1.5f, 0.0f, 0.0f);
-    private Vector3 upAttackPos = new Vector3(0.0f, 2f, 0.0f);
+    private Vector3 upAttackPos = new Vector3(0.0f, 3f, 0.0f);
 
     public Transform attackPos;
     private Transform playerPos;
@@ -93,7 +93,10 @@ public class PlayerAttack : MonoBehaviour
                 {
                     if(enemiesToDamage[i].tag == "Enemy")
                     {
-                         enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                        if(enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
+                        {
+                            changeling.TakeDamage(damage);
+                        }
                     }
                 }
                 canAttack = false;
@@ -110,9 +113,16 @@ public class PlayerAttack : MonoBehaviour
 
                 attackPos.position = finalPos;
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRangeUp, 0, whatIsEnemie);
+                Debug.Log(enemiesToDamage.Length);
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {
-                    enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                    if (enemiesToDamage[i].CompareTag("Enemy"))
+                    {
+                        if (enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
+                        {
+                            changeling.TakeDamage(damage);
+                        }
+                    }
                 }
 
                 canAttack = false;

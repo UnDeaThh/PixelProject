@@ -24,17 +24,21 @@ public class ChangelingAI : BaseEnemy
 
     public int damage;
     public Transform spriteChangeling;
+    private SpriteRenderer graphic;
+
+    public Color damagedColor;
+    private Color normalColor;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        graphic = GetComponentInChildren<SpriteRenderer>();
+        normalColor = graphic.color;
     }
     private void Update()
     {
-      //  PlayerDetection();
-        Debug.Log(rb.velocity.x);
         CheckMaxSpeed();
         Flip();
         Dead();
@@ -107,15 +111,43 @@ public class ChangelingAI : BaseEnemy
         }
     }
 
-    
-         private void OnTriggerEnter2D(Collider2D collision)
-         {
-             if (collision.CompareTag("Player"))
-             {
-                 isChasing = true;
-                 InvokeRepeating("UpdatePath", 0f, .5f);
-             }
-         }
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        if(rb.velocity.x <= -0.01)
+        {
+            Vector2 hitForce = new Vector2(1f, 0f);
+            rb.AddForce(hitForce * 1000 * Time.deltaTime);
+            StartCoroutine(Blinking());
+        }
+        else if(rb.velocity.x >= 0.01f)
+        {
+            Vector2 hitForce = new Vector2(-1f, 0f);
+            rb.AddForce(hitForce * 1000 * Time.deltaTime);
+            StartCoroutine(Blinking());
+        }
+
+    }
+
+    IEnumerator Blinking()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            graphic.color = damagedColor;
+            yield return new WaitForSeconds(0.1f);
+            graphic.color = normalColor;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+              isChasing = true;
+             InvokeRepeating("UpdatePath", 0f, .5f);
+        }
+    }
          
 
     /*

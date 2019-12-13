@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5418782160637445636}
   - component: {fileID: 5418782160637445639}
   - component: {fileID: 5418782160637445638}
-  - component: {fileID: 5418782160637445641}
   - component: {fileID: 5418782160637445640}
   m_Layer: 9
   m_Name: Changeling
@@ -77,8 +76,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 2
+  m_LinearDrag: 1.5
+  m_AngularDrag: 0.5
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -101,22 +100,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.59
---- !u!58 &5418782160637445641
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5418782160637445642}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 14.05
 --- !u!114 &5418782160637445640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,13 +115,16 @@ MonoBehaviour:
   nLifes: 2
   isAlive: 0
   isStuned: 0
-  movSpeed: 200
+  movSpeed: 400
   detectionRange: 8
   whatIsDetected:
     serializedVersion: 2
     m_Bits: 1024
+  maxSpeed: 7
   isChasing: 0
   damage: 1
+  spriteChangeling: {fileID: 5418782161104568614}
+  damagedColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
 --- !u!1 &5418782161104568617
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5418782161104568614}
   - component: {fileID: 5418782161104568615}
+  - component: {fileID: 1162707539}
   m_Layer: 0
   m_Name: SpriteChangeling
   m_TagString: Untagged
@@ -220,3 +207,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1162707539
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5418782161104568617}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 7.57
