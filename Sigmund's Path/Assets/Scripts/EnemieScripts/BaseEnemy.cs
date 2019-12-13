@@ -10,13 +10,16 @@ public class BaseEnemy : MonoBehaviour
 
     public float movSpeed;
 
-    public float detectionRange;
+    [HideInInspector]public float detectionRange;
     public LayerMask whatIsDetected;
+
+    public GameObject pickUp;
 
     public virtual void Dead()
     {
         if(nLifes <= 0)
         {
+            Instantiate(pickUp, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

@@ -25,6 +25,7 @@ public class ChangelingAI : BaseEnemy
     public int damage;
     public Transform spriteChangeling;
     private SpriteRenderer graphic;
+    
 
     public Color damagedColor;
     private Color normalColor;

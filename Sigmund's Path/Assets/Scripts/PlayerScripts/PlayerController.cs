@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public Transform feetPos;
     private float checkRadius = 0.25f;
     public LayerMask whatIsGrounded;
+    public LayerMask plataformLayer;
     private bool canJump;
     //WALLJUMP
     [Header("WallJump Attributes")]
@@ -109,7 +110,7 @@ public class PlayerController : MonoBehaviour
         timeDashing = dashDuration;
     }
     void Update(){
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded);
+        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded );
         isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded);
         CheckLife();
         CheckIfWallSliding();
