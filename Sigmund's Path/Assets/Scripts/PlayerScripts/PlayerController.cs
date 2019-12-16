@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     //REFERENCIAS
     private Rigidbody2D rb2d;
     private PlayerParry plParry;
+    private PlayerAttack plAttack;
     private Animator anim;
     private PauseManager PM;
     [SerializeField] private SpriteRenderer sprite;
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour
     void Awake(){
         rb2d = GetComponent<Rigidbody2D>();
         plParry = GetComponent<PlayerParry>();
+        plAttack = GetComponent<PlayerAttack>();
         anim = GetComponentInChildren<Animator>();
         PM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
 
@@ -112,23 +114,26 @@ public class PlayerController : MonoBehaviour
         deadPanel.SetActive(false);
     }
     void Update(){
-        if(!PM.isPaused || health > 0)
+        CheckLife();
+        if (health > 0)
         {
+            if(!PM.isPaused)
+            {
 
-            isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded);
-            isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded);
-            CheckLife();
-            CheckIfWallSliding();
-            CheckIfCanJump();
-            CheckIfCanDash();
-		    CheckIfCanDrink();
-            PlayerInput();
-            CheckMovement();
-            Invencibility();
-            CheckPotions();
+                isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded);
+                isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded);
+                CheckIfWallSliding();
+                CheckIfCanJump();
+                CheckIfCanDash();
+		        CheckIfCanDrink();
+                PlayerInput();
+                CheckMovement();
+                Invencibility();
+                CheckPotions();
         
 
-            UpdateAnimations();
+                UpdateAnimations();
+            }
         }
         else
         {
@@ -487,7 +492,7 @@ public class PlayerController : MonoBehaviour
         if (!invecibility)
         {
             invecibility = true;
-			//plA
+            plAttack.isAttacking = false;
             damaged = true;
             invencibleTime = startInvencibleTime;
             health -= damage;
@@ -573,7 +578,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator Dead()
     {
         deadPanel.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("GamePlayScene");
     }
 
