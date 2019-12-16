@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
     //LIFE
     [Header("Health Attributes")]
     public int health = 5;
+    [HideInInspector] public bool isDead = false;
     [HideInInspector] public int maxHealth = 10;
     public Image[] heartsUI;
     public Sprite fullHeartUI;
@@ -90,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
     //DAMAGED
     [Header("Damaged Attributes")]
-    private bool damaged = false;
+    private bool isDamaged = false;
     private bool invecibility = false;
     private float invencibleTime;
     public float startInvencibleTime;
@@ -115,7 +116,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update(){
         CheckLife();
-        if (health > 0)
+        if (!isDead)
         {
             if(!PM.isPaused)
             {
@@ -166,6 +167,15 @@ public class PlayerController : MonoBehaviour
 
     void CheckLife()
     {
+        if(health > 0)
+        {
+            isDead = false;
+        }
+        else
+        {
+            isDead = true;
+        }
+
         if(health > maxHealth)
         {
             health = maxHealth;
@@ -245,24 +255,25 @@ public class PlayerController : MonoBehaviour
     void ApplyMovement()
     {
         //Movimiento Normal
-        if (isGrounded && !plParry.isParry && !plParry.parryFail && !damaged && !isDrinking)
+        if (isGrounded && !plParry.isParry && !plParry.parryFail && !isDamaged && !isDrinking)
         {
             rb2d.velocity = new Vector2(movInputDir * movSpeed , rb2d.velocity.y);
             wasWallSliding = false;
         }
         //Movimiento reducido cuando te estas curando
-        else if (isGrounded && !plParry.isParry && !plParry.parryFail && !damaged && isDrinking)
+        else if (isGrounded && !plParry.isParry && !plParry.parryFail && !isDamaged && isDrinking)
         {
             rb2d.velocity = new Vector2(movInputDir * movSpeed * 0.2f , rb2d.velocity.y);
             wasWallSliding = false;
         }
 
         //Cuando te dañan te empujan 1 FRAME
-        else if((isGrounded || !isGrounded) && !plParry.isParry && !plParry.parryFail && damaged)
+        else if((isGrounded || !isGrounded) && !plParry.isParry && !plParry.parryFail && isDamaged)
         {
             rb2d.velocity = Vector2.zero;
             rb2d.velocity = new Vector2(damageX, damageY);
-            damaged = false;
+            Debug.Log("AYAYAAY");
+            isDamaged = false;
         }
         //Cuando haces parry te quedas quieto
         else if (isGrounded && plParry.isParry == true) 
@@ -290,11 +301,11 @@ public class PlayerController : MonoBehaviour
         }
 
         //SEMI-CONTROL EN EL AIRE
-        else if (!isGrounded && !isWallSliding)
+        if (!isGrounded && !isWallSliding && !isDamaged)
         {
             Vector2 forceToAdd = new Vector2(movementForceInAir * movInputDir, 0);
             rb2d.AddForce(forceToAdd);
-
+            Debug.Log("Dioses");
             if (Mathf.Abs(rb2d.velocity.x) > movSpeed)
             {
                 rb2d.velocity = new Vector2(movSpeed * movInputDir, rb2d.velocity.y);
@@ -493,7 +504,7 @@ public class PlayerController : MonoBehaviour
         {
             invecibility = true;
             plAttack.isAttacking = false;
-            damaged = true;
+            isDamaged = true;
             invencibleTime = startInvencibleTime;
             health -= damage;
 
