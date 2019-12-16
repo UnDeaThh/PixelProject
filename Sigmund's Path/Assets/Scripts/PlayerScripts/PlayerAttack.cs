@@ -40,15 +40,12 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
-        if(plController.isDead == false)
-        {
-		    if(!GM.isPaused){
-			    CheckIfCanAttack();
-			    Attack();
+		if(!GM.isPaused){
+			CheckIfCanAttack();
+			Attack();
 
-			    UpdateAnimations();
-		    }
-        }
+			UpdateAnimations();
+		}
     }
 
     void CheckIfCanAttack()
