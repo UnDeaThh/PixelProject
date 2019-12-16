@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         deadPanel.SetActive(false);
     }
     void Update(){
-        if(health > 0)
+        if(!PM.isPaused || health > 0)
         {
 
             isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded);
@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerInput(){
-		if(!PM.isPaused)
+		if(!PM.isPaused || health > 0)
         {	
 			movInputDir = Input.GetAxisRaw("Horizontal");
 			if (Input.GetKeyDown(KeyCode.X))
@@ -322,7 +322,7 @@ public class PlayerController : MonoBehaviour
 
     void CheckIfCanJump()
     {
-        if(isGrounded && rb2d.velocity.y <= 0)
+        if(isGrounded)
         {
             jumpsLeft = maxJumps;
             isJumping = false;
@@ -334,8 +334,10 @@ public class PlayerController : MonoBehaviour
             canJump = true;
         }
     }
+
+
     void Jump(){
-        if(jumpPressed)
+        if(jumpPressed && !isDrinking)
         {
             if(canJump){
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
@@ -351,7 +353,7 @@ public class PlayerController : MonoBehaviour
                 Flip();
             }
              //WALLJUMP
-             else if (isWallSliding || (isTouchingWall && !isGrounded))
+             else if (isWallSliding && movInputDir != 0f)
             {
                 if (facingDir == movInputDir)
                 {
@@ -369,8 +371,10 @@ public class PlayerController : MonoBehaviour
                     Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDir.x * movInputDir, wallJumpForce * wallJumpDir.y);
                     rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
-               
             }
+			else if(!isWallSliding){
+				isWallJump = false;
+			}
             jumpPressed = false;
         }
     }
@@ -483,6 +487,7 @@ public class PlayerController : MonoBehaviour
         if (!invecibility)
         {
             invecibility = true;
+			//plA
             damaged = true;
             invencibleTime = startInvencibleTime;
             health -= damage;

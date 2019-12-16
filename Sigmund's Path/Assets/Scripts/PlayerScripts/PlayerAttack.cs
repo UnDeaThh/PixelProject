@@ -112,7 +112,8 @@ public class PlayerAttack : MonoBehaviour
                 Vector3 finalPos = playerPos.position + upAttackPos;
 
                 attackPos.position = finalPos;
-                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRangeUp, 0, whatIsEnemie);
+                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRangeUp, whatIsEnemie);
+	
                 Debug.Log(enemiesToDamage.Length);
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {
