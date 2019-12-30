@@ -8,12 +8,13 @@ public class PlayerParry : MonoBehaviour
     public float startTimeBtwParry = 0.1f;
     public float parryDuration = 1f;
     private float currentParryTime;
-    private float failParryTime = 0.1f;
+    public float failParryTime = 0.3f;
 
     private bool canParry;
     public bool isParry;
     private bool parryDone = false;
     private bool justOneTime = false;
+    public bool parrySuccesful = false;
     public bool parryFail = false;
     private bool alreadyClicked = false;
 	private PauseManager GM;
@@ -76,6 +77,7 @@ public class PlayerParry : MonoBehaviour
 
     void Parry()
     {
+        //Stay till is doing parry see at PlayerController
         if (isParry)
         {
             if(currentParryTime > 0f && !parryDone)
@@ -93,14 +95,16 @@ public class PlayerParry : MonoBehaviour
                 parryDone = false;
                 alreadyClicked = false;
             }
-            //AFTER PARRY NOT DONE
-            else if (currentParryTime <= 0f && !parryDone && justOneTime)
-            {
-                Debug.Log("salsa");
-                parryFail = true;
-                StartCoroutine(FailedParry());
-                justOneTime = false;
-            }
+
+        }
+
+        //AFTER PARRY NOT DONE
+        else if (currentParryTime <= 0f && !parryDone && justOneTime)
+        {
+            Debug.Log("salsa");
+            parryFail = true;
+            StartCoroutine(FailedParry());
+            justOneTime = false;
         }
 
     }
@@ -118,8 +122,9 @@ public class PlayerParry : MonoBehaviour
         {
             if(other.tag == "Enemy")
             {
-                other.GetComponentInParent<Enemy>().Stuned();
+                other.GetComponentInParent<BaseEnemy>().isStuned = true;
                 parryDone = true;
+                parrySuccesful = true;
                 
             }
             else if(other.tag == "Arrow")

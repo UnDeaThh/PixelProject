@@ -8,7 +8,10 @@ public class BaseEnemy : MonoBehaviour
     [HideInInspector] public bool isAlive;
     [HideInInspector] public bool isStuned;
 
+
     public float movSpeed;
+    public float timeStuned = 1f;
+    [HideInInspector] public float currentTimeStuned = 0;
 
     [HideInInspector]public float detectionRange;
     public LayerMask whatIsDetected;
@@ -33,6 +36,17 @@ public class BaseEnemy : MonoBehaviour
 
     public void Stuned()
     {
-        isStuned = true;
+        if (isStuned)
+        {
+            if (currentTimeStuned < timeStuned)
+            {
+                currentTimeStuned += Time.deltaTime;
+            }
+            else
+            {
+                isStuned = false;
+                currentTimeStuned = 0;
+            }
+        }
     }
 }

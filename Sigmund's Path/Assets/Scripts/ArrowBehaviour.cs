@@ -17,7 +17,7 @@ public class ArrowBehaviour : MonoBehaviour
             Vector2 normal = Vector2.right;
             if(other.GetComponent<PlayerParry>().isParry == false)
             {
-                other.GetComponent<PlayerController>().Damaged(damage, normal);
+                other.GetComponent<PlayerController>().PlayerDamaged(damage, normal);
             }
         }
     }

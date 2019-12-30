@@ -277,7 +277,7 @@ MonoBehaviour:
   deadPanel: {fileID: 0}
   movSpeed: 10
   facingRight: 1
-  movementForceInAir: 100
+  movementForceInAir: 25
   jumpForce: 22
   isGrounded: 0
   feetPos: {fileID: 1152810502}
@@ -290,12 +290,13 @@ MonoBehaviour:
   lowWallJumpForce: 20
   downForce: 20
   dashSpeed: 50
-  timeTillNextDash: 1
+  timeTillNextDash: 0.5
   dashDuration: 0.08
   wallCheckPos: {fileID: 4869392952835096927}
   wallSlideSpeed: 3
   isWallSliding: 0
   health: 5
+  isDead: 0
   maxHealth: 10
   heartsUI:
   - {fileID: 0}
@@ -358,6 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTimeBtwParry: 1
   parryDuration: 1
+  failParryTime: 0.8
   isParry: 0
   parryFail: 0
   parryCol: {fileID: 8299661826070670118}

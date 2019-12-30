@@ -27,6 +27,7 @@ public class PlayerAttack : MonoBehaviour
     public LayerMask whatIsEnemie;
 
     private PlayerController plController;
+    private PlayerParry plParry;
     private Animator anim;
 	private PauseManager GM; 
     
@@ -36,6 +37,7 @@ public class PlayerAttack : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         playerPos = GetComponent<Transform>();
         plController = GetComponent<PlayerController>();
+        plParry = GetComponent<PlayerParry>();
 		 GM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
     }
     void Update()
@@ -53,12 +55,12 @@ public class PlayerAttack : MonoBehaviour
 
     void CheckIfCanAttack()
     {
-        if(timeBtwttack <= 0)
+        if(timeBtwttack <= 0 && !plController.isDrinking)
         {
             canAttack = true;
             
         }
-        else
+        else if (timeBtwttack > 0)
         {
             timeBtwttack -= Time.deltaTime;
         }
@@ -72,7 +74,7 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = false;
         }
 
-        if (canAttack && !plController.isDrinking && !plController.isWallSliding)
+        if (canAttack && !plController.isWallSliding)
         {
             //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
@@ -98,7 +100,14 @@ public class PlayerAttack : MonoBehaviour
                     {
                         if(enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
                         {
-                            changeling.TakeDamage(damage);
+                            if (!plParry.parrySuccesful)
+                            {
+                                changeling.TakeDamage(damage);
+                            }
+                            else
+                            {
+                                changeling.TakeDamage(damage * 2);
+                            }
                         }
                     }
                 }
@@ -124,7 +133,14 @@ public class PlayerAttack : MonoBehaviour
                     {
                         if (enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
                         {
-                            changeling.TakeDamage(damage);
+                            if (!plParry.parrySuccesful)
+                            {
+                                changeling.TakeDamage(damage);
+                            }
+                            else
+                            {
+                                changeling.TakeDamage(damage * 2);
+                            }
                         }
                     }
                 }

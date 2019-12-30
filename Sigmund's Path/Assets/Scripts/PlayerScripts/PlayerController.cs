@@ -151,18 +151,19 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerInput(){
-		if(!PM.isPaused || health > 0)
-        {	
-			movInputDir = Input.GetAxisRaw("Horizontal");
-			if (Input.GetKeyDown(KeyCode.X))
-			{
-				DrinkPotion();
-			}
+        if (!plParry.isParry)
+        {
+		    movInputDir = Input.GetAxisRaw("Horizontal");
+		    if (Input.GetKeyDown(KeyCode.X))
+		    {
+			    DrinkPotion();
+		    }
             if (Input.GetButtonDown("Jump"))
             {
                 jumpPressed = true;
             } 
-		}
+        }
+		
     }
 
     void CheckLife()
@@ -226,6 +227,7 @@ public class PlayerController : MonoBehaviour
 		if(!isGrounded){
 			canDrink = false;
 		}
+
 	    if(currentTimeTillNextDrink > 0 || !isGrounded)
         {
             canDrink = false;
@@ -253,35 +255,60 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        //Movimiento Normal
-        if (isGrounded && !plParry.isParry && !plParry.parryFail && !isDamaged && !isDrinking)
+        if (!plParry.isParry)
         {
-            rb2d.velocity = new Vector2(movInputDir * movSpeed , rb2d.velocity.y);
-            wasWallSliding = false;
-        }
-        //Movimiento reducido cuando te estas curando
-        else if (isGrounded && !plParry.isParry && !plParry.parryFail && !isDamaged && isDrinking)
-        {
-            rb2d.velocity = new Vector2(movInputDir * movSpeed * 0.2f , rb2d.velocity.y);
-            wasWallSliding = false;
-        }
+            if (!plParry.parryFail)
+            {
+                //Movimiento NORMAL en el suelo
+                if (isGrounded && !isDamaged && !isDrinking)
+                {
+                    rb2d.velocity = new Vector2(movInputDir * movSpeed , rb2d.velocity.y);
+                    wasWallSliding = false;
+                }
+                //Movimiento REDUCIDO en el aire
+                else if (!isGrounded && !isWallSliding && !isDamaged)
+                {
+                    Vector2 forceToAdd = new Vector2(movementForceInAir * movInputDir, 0);
+                    rb2d.AddForce(forceToAdd);
+                    Debug.Log("DIOSES");
+                    if (Mathf.Abs(rb2d.velocity.x) > movSpeed)
+                    {
+                        rb2d.velocity = new Vector2(movSpeed * movInputDir, rb2d.velocity.y);
+                    }
+                }
+                //Movimiento REDUCIDO cuando te estas curando
+                else if (isGrounded && !isDamaged && isDrinking)
+                {
+                    rb2d.velocity = new Vector2(movInputDir * movSpeed * 0.2f , rb2d.velocity.y);
+                    wasWallSliding = false;
+                }
 
-        //Cuando te dañan te empujan 1 FRAME
-        else if((isGrounded || !isGrounded) && !plParry.isParry && !plParry.parryFail && isDamaged)
-        {
-            Debug.Log("ayayay");
-            rb2d.velocity = Vector2.zero;
-            rb2d.velocity = new Vector2(damageX, damageY);
-            isDamaged = false;
+                //Cuando te DAÑAN te empujan 1 FRAME
+                else if(isDamaged)
+                {
+                    Debug.Log("ayayay");
+                    rb2d.velocity = Vector2.zero;
+                    //( rb2d.velocity = new Vector2(damageX, damageY);  Old
+                    rb2d.AddForce(new Vector2(damageX, damageY));
+                    isDamaged = false;
+                }
+            }
+            //Si hace parry y no impacta contra ningun enemigo te mueves mas lento
+            else
+            {
+                Debug.Log("aceituna");
+                rb2d.velocity = new Vector2(movInputDir * movSpeed * 0.7f, rb2d.velocity.y);
+                wasWallSliding = false;
+            }
         }
         //Cuando haces parry te quedas quieto
-        else if (isGrounded && plParry.isParry == true) 
+        else if(plParry.isParry)
         {
             rb2d.velocity = Vector2.zero;
             wasWallSliding = false;
         }
 
-        if (damageX < 0)
+     /*   if (damageX < 0)   Old
         {
             damageX++;
         }
@@ -298,18 +325,8 @@ public class PlayerController : MonoBehaviour
         {
             damageY--;
         }
+        */
 
-        //SEMI-CONTROL EN EL AIRE
-        else if (!isGrounded && !isWallSliding && !isDamaged)
-        {
-            Vector2 forceToAdd = new Vector2(movementForceInAir * movInputDir, 0);
-            rb2d.AddForce(forceToAdd);
-            Debug.Log("DIOSES");
-            if (Mathf.Abs(rb2d.velocity.x) > movSpeed)
-            {
-                rb2d.velocity = new Vector2(movSpeed * movInputDir, rb2d.velocity.y);
-            }
-        }
     }
 
     void LimitVelocity()
@@ -342,7 +359,7 @@ public class PlayerController : MonoBehaviour
             jumpsLeft = maxJumps;
             isJumping = false;
         }
-        if(jumpsLeft <= 0){
+        if(jumpsLeft <= 0 && !isDrinking){
             canJump = false;
         }
         else{
@@ -352,12 +369,22 @@ public class PlayerController : MonoBehaviour
 
 
     void Jump(){
-        if(jumpPressed && !isDrinking)
+        if(jumpPressed)
         {
             if(canJump){
-                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
-                isJumping = true;
-                jumpsLeft --;
+                if (!plParry.parryFail)
+                {
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+                    isJumping = true;
+                    jumpsLeft --;
+                }
+                //Si fallas el parry Saltas menos
+                else
+                {
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce * 0.65f);
+                    isJumping = true;
+                    jumpsLeft--;
+                }
             }
             //WALLHOP
              if (isWallSliding && movInputDir == 0f)
@@ -497,7 +524,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Damaged(int damage, Vector2 normal)
+    public void PlayerDamaged(int damage, Vector2 normal)
     {
         if (!invecibility)
         {

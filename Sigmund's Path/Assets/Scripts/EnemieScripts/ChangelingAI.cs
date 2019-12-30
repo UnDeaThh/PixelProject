@@ -9,7 +9,6 @@ public class ChangelingAI : BaseEnemy
     private Rigidbody2D rb;
     public float maxSpeed = 7;
     private Transform target;
-    //public float speed = 200;
     private Vector2 force;
     public bool isChasing = false;
 
@@ -42,6 +41,7 @@ public class ChangelingAI : BaseEnemy
     {
         CheckMaxSpeed();
         Flip();
+        base.Stuned();
         Dead();
     }
 
@@ -70,16 +70,36 @@ public class ChangelingAI : BaseEnemy
             reachedEndOfPath = false;
         }
 
-        Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
-        force = direction * movSpeed * Time.deltaTime;
-
-        rb.AddForce(force); 
+        ApplyMovement();
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
 
         if(distance < nextWayPointDistance)
         {
             currentWayPoint++;
+        }
+    }
+
+    void ApplyMovement()
+    {
+        if (!isStuned)
+        {
+            Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
+            force = direction * movSpeed * Time.fixedDeltaTime;
+            rb.AddForce(force);
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
+    }
+
+    void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWayPoint = 0;
         }
     }
 
@@ -90,14 +110,7 @@ public class ChangelingAI : BaseEnemy
             seeker.StartPath(rb.position, target.position, OnPathComplete);
         }
     }
-    void OnPathComplete(Path p)
-    {
-        if (!p.error)
-        {
-            path = p;
-            currentWayPoint = 0;
-        }
-    }
+
 
     void Flip()
     {
@@ -145,7 +158,7 @@ public class ChangelingAI : BaseEnemy
     {
         if (collision.CompareTag("Player"))
         {
-              isChasing = true;
+             isChasing = true;
              InvokeRepeating("UpdatePath", 0f, .5f);
         }
     }
@@ -168,7 +181,7 @@ public class ChangelingAI : BaseEnemy
         if(collision.transform.tag == "Player")
         {
             Vector2 normal = collision.contacts[0].normal;
-            collision.gameObject.GetComponent<PlayerController>().Damaged(damage, normal);
+            collision.gameObject.GetComponent<PlayerController>().PlayerDamaged(damage, normal);
         }
     }
 
