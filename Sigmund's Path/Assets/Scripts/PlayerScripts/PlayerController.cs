@@ -18,20 +18,25 @@ public class PlayerController : MonoBehaviour
     //MOVIMIENTO HORIZONTAL
     [Header("Movement Attributes")]
     public float movSpeed;
-    [HideInInspector] public int facingRight = 1;
+    public int facingRight = 1;
     private float movInputDir;
     public float movementForceInAir;
     //JUMP
     [Header("Jump Attributes")]
     public float jumpForce;
     private int maxJumps = 1;
-    private bool jumpPressed = true;
+    private bool jumpPressed = false;
     private bool isJumping = false;
     private int jumpsLeft;
-    [HideInInspector] public bool isGrounded;
+    private RaycastHit2D ledgeCheck;
+    private RaycastHit2D underLedgeCheck;
 
-    public Transform feetPos;
-    private float checkRadius = 0.25f;
+    private bool groundCheckRight;
+    private bool groundCheckLeft;
+    [HideInInspector] public bool isGrounded;
+    public Transform groundCheckLeftPos;
+    public Transform groundCheckRightPos;
+    public float groundCheckDistance = 0.25f;
     public LayerMask whatIsGrounded;
     private bool canJump;
     //WALLJUMP
@@ -58,13 +63,21 @@ public class PlayerController : MonoBehaviour
     public float dashDuration;
     private float dashDir;
 
+    //LEDGE GRAB
+    [Header("Edge Grab")]
+    public bool isHanging = false;
+    public float hangDistance = 0.4f;
+    public float hangJumpsForce = 100f;
+    public Transform ledgeCheckPos;
+    public Transform underLedgeCheckPos;
+
     //WALL SLIDING
     [Header("WallSliding Attributes")]
     public Transform wallCheckPos;
-    private float wallCheckDistance = 0.2f;
+    public float wallCheckDistance = 0.2f;
     public float wallSlideSpeed;
     private bool isTouchingWall;
-    [HideInInspector] public bool isWallSliding;
+    public bool isWallSliding;
     private bool isWallSlidingAnim;
     private bool wasWallSliding;
 
@@ -100,6 +113,8 @@ public class PlayerController : MonoBehaviour
     private float damageX = 0;
     private float damageY = 0;
 
+    const float smallAmount = 0.05f;
+
 
     void Awake(){
         rb2d = GetComponent<Rigidbody2D>();
@@ -121,8 +136,7 @@ public class PlayerController : MonoBehaviour
             if(!PM.isPaused)
             {
 
-                isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGrounded);
-                isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded);
+                CheckEnvironment();
                 CheckIfWallSliding();
                 CheckIfCanJump();
                 CheckIfCanDash();
@@ -131,7 +145,7 @@ public class PlayerController : MonoBehaviour
                 CheckMovement();
                 Invencibility();
                 CheckPotions();
-        
+                GrabLedgeWall();
 
                 UpdateAnimations();
             }
@@ -146,19 +160,35 @@ public class PlayerController : MonoBehaviour
         Jump();
         LimitVelocity();
         Dash();
+        GrabLedgeJump();
         HardFallingDown();
         IsWallSliding();
+    }
+
+    void CheckEnvironment(){
+        ledgeCheck = Physics2D.Raycast(ledgeCheckPos.position, transform.right, hangDistance, whatIsGrounded);
+        underLedgeCheck = Physics2D.Raycast(underLedgeCheckPos.position, transform.right, hangDistance, whatIsGrounded);
+        isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded);
+        groundCheckLeft = Physics2D.Raycast(groundCheckLeftPos.position, Vector2.down, groundCheckDistance, whatIsGrounded);
+        groundCheckRight = Physics2D.Raycast(groundCheckLeftPos.position, Vector2.down, groundCheckDistance, whatIsGrounded);
+        if(groundCheckLeft || groundCheckRight){
+            isGrounded = true;
+        }
+        else
+            isGrounded = false;
     }
 
     void PlayerInput(){
         if (!plParry.isParry)
         {
-		    movInputDir = Input.GetAxisRaw("Horizontal");
+            if(!isHanging){
+    		    movInputDir = Input.GetAxisRaw("Horizontal");
+            }
 		    if (Input.GetKeyDown(KeyCode.X))
 		    {
 			    DrinkPotion();
 		    }
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") && !isJumping)
             {
                 jumpPressed = true;
             } 
@@ -270,7 +300,6 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector2 forceToAdd = new Vector2(movementForceInAir * movInputDir, 0);
                     rb2d.AddForce(forceToAdd);
-                    Debug.Log("DIOSES");
                     if (Mathf.Abs(rb2d.velocity.x) > movSpeed)
                     {
                         rb2d.velocity = new Vector2(movSpeed * movInputDir, rb2d.velocity.y);
@@ -286,7 +315,6 @@ public class PlayerController : MonoBehaviour
                 //Cuando te DAÑAN te empujan 1 FRAME
                 else if(isDamaged)
                 {
-                    Debug.Log("ayayay");
                     rb2d.velocity = Vector2.zero;
                     //( rb2d.velocity = new Vector2(damageX, damageY);  Old
                     rb2d.AddForce(new Vector2(damageX, damageY));
@@ -296,7 +324,6 @@ public class PlayerController : MonoBehaviour
             //Si hace parry y no impacta contra ningun enemigo te mueves mas lento
             else
             {
-                Debug.Log("aceituna");
                 rb2d.velocity = new Vector2(movInputDir * movSpeed * 0.7f, rb2d.velocity.y);
                 wasWallSliding = false;
             }
@@ -352,6 +379,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void GrabLedgeWall(){
+        if(!isGrounded && !isHanging && rb2d.velocity.y < 0f && !ledgeCheck && underLedgeCheck && isTouchingWall){
+            //Guardamos la posicion actual
+           // Vector3 pos = transform.position;
+            // movemos hasta el muro
+            //pos.x += (underLedgeCheck.distance - smallAmount) * facingDir;
+            //movemos hasta la altura del muro
+            //pos.y -= hangDistance;
+            //aplicamos la distancia al player
+            //transform.position = pos;
+            //Set RigidBody to Static
+            rb2d.bodyType = RigidbodyType2D.Static;
+            //Set is hang to true
+            isHanging = true;
+        }
+    }
+
+    void GrabLedgeJump(){
+        if(isHanging && jumpPressed){
+            //suelta el ledge
+            isHanging = false;
+            jumpPressed = false;
+            //set rigidbody to Dynamic
+            rb2d.bodyType = RigidbodyType2D.Dynamic;
+            rb2d.AddForce(new Vector2(0f, hangJumpsForce), ForceMode2D.Impulse);
+            Debug.Log("plus");
+            //and Exit
+            return;
+        }
+    }
+
     void CheckIfCanJump()
     {
         if(isGrounded)
@@ -359,11 +417,11 @@ public class PlayerController : MonoBehaviour
             jumpsLeft = maxJumps;
             isJumping = false;
         }
-        if(jumpsLeft <= 0 && !isDrinking){
-            canJump = false;
+        if(jumpsLeft > 0 && !isDrinking && !isHanging){
+            canJump = true;
         }
         else{
-            canJump = true;
+            canJump = false;
         }
     }
 
@@ -374,17 +432,19 @@ public class PlayerController : MonoBehaviour
             if(canJump){
                 if (!plParry.parryFail)
                 {
-                    rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
+                    Debug.Log("si");
+                    rb2d.AddForce(new Vector2(0f, jumpForce));
                     isJumping = true;
                     jumpsLeft --;
                 }
                 //Si fallas el parry Saltas menos
                 else
                 {
-                    rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce * 0.65f);
+                    rb2d.AddForce(new Vector2(0f , jumpForce * 0.65f));
                     isJumping = true;
                     jumpsLeft--;
                 }
+                jumpPressed = false;
             }
             //WALLHOP
              if (isWallSliding && movInputDir == 0f)
@@ -393,6 +453,7 @@ public class PlayerController : MonoBehaviour
                 Vector2 forceToAdd = new Vector2(wallHopForce * wallHopDir.x * -facingDir, wallHopForce * wallHopDir.y);
                 rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
                 Flip();
+                jumpPressed = false;
             }
              //WALLJUMP
              else if (isWallSliding && movInputDir != 0f)
@@ -413,11 +474,11 @@ public class PlayerController : MonoBehaviour
                     Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDir.x * movInputDir, wallJumpForce * wallJumpDir.y);
                     rb2d.AddForce(forceToAdd, ForceMode2D.Impulse);
                 }
+                jumpPressed = false;
             }
 			else if(!isWallSliding){
 				isWallJump = false;
 			}
-            jumpPressed = false;
         }
     }
 
@@ -478,7 +539,7 @@ public class PlayerController : MonoBehaviour
 
     void CheckIfWallSliding()
     {
-        if(isTouchingWall && !isGrounded)
+        if(isTouchingWall && !isGrounded && !isHanging)
         {
             isWallSliding = true;
         }
@@ -491,7 +552,7 @@ public class PlayerController : MonoBehaviour
 
     void IsWallSliding()
     {
-        if(isWallSliding)
+        if(isWallSliding && !isHanging)
         {
             isWallJump = false;
             isJumping = false;
@@ -603,8 +664,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 	
-
-
     IEnumerator TimeDrinking()
     {
         yield return new WaitForSeconds(0.8f);
@@ -627,11 +686,15 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isJumping", isJumping);
         anim.SetBool("isWallJump", isWallJump);
         anim.SetBool("isWallSliding", isWallSlidingAnim);
+        anim.SetBool("isHanging", isHanging);
     }
 
 
     private void OnDrawGizmos(){
-        Gizmos.DrawWireSphere(feetPos.position, checkRadius);
+        Gizmos.DrawLine(groundCheckRightPos.position, new Vector3(groundCheckRightPos.position.x, groundCheckRightPos.position.y - groundCheckDistance, groundCheckRightPos.position.z));
+        Gizmos.DrawLine(groundCheckLeftPos.position, new Vector3(groundCheckLeftPos.position.x , groundCheckLeftPos.position.y - groundCheckDistance, groundCheckLeftPos.position.z));
         Gizmos.DrawLine(wallCheckPos.position, new Vector3(wallCheckPos.position.x + wallCheckDistance, wallCheckPos.position.y, wallCheckPos.position.z));
+        Gizmos.DrawLine(ledgeCheckPos.position,new Vector3(ledgeCheckPos.position.x + hangDistance, ledgeCheckPos.position.y, ledgeCheckPos.position.z));
+        Gizmos.DrawLine(underLedgeCheckPos.position, new Vector3 (underLedgeCheckPos.position.x + hangDistance, underLedgeCheckPos.position.y, underLedgeCheckPos.position.z));
     }
 }

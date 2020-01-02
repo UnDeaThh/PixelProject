@@ -783,7 +783,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -3103153360017426660, guid: 73b40a082cb7a8b4a8d80c5be12041a9,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5456,7 +5456,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -3103153360017426660, guid: 73b40a082cb7a8b4a8d80c5be12041a9,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -17754,6 +17754,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5975026986707350956, guid: 762dc0cea59b34c41b9bd3103c7fbfab,
+        type: 3}
+      propertyPath: m_UseSideFriction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975026986707350956, guid: 762dc0cea59b34c41b9bd3103c7fbfab,
+        type: 3}
+      propertyPath: m_UseOneWayGrouping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5975026986707350956, guid: 762dc0cea59b34c41b9bd3103c7fbfab,
+        type: 3}
+      propertyPath: m_UseOneWay
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762dc0cea59b34c41b9bd3103c7fbfab, type: 3}
 --- !u!1 &1804704124
@@ -19335,6 +19350,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Changeling (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418782160637445642, guid: 1bc67263c76220b4d88e51876a90dce0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5418782160637445643, guid: 1bc67263c76220b4d88e51876a90dce0,
         type: 3}
@@ -66188,10 +66208,6 @@ PrefabInstance:
       propertyPath: potionsUI.Array.data[4]
       value: 
       objectReference: {fileID: 2011218848}
-    - target: {fileID: 1213795563, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: damagedPushForce
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 1113528243, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
       propertyPath: potionUI
       value: 
@@ -66316,11 +66332,6 @@ PrefabInstance:
       propertyPath: slotsForUtility.Array.data[4].textCounter
       value: 
       objectReference: {fileID: 1724562396}
-    - target: {fileID: 3944529619844876993, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: failParryTime
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
 --- !u!1001 &4846354937320841451

@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1113528243
 MonoBehaviour:
@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1152810502}
   m_Layer: 0
-  m_Name: FeetPos
+  m_Name: GroundCheckLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,37 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152810501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.239, z: 0}
+  m_LocalPosition: {x: -0.047, y: -0.239, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2851571069916491050}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &957046650324686139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4762303507243562586}
+  m_Layer: 10
+  m_Name: LedgeCheckPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4762303507243562586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957046650324686139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.08, y: 0.2845, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
@@ -181,7 +211,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2851571069916491046
 GameObject:
@@ -217,8 +247,11 @@ Transform:
   m_LocalScale: {x: 6.3724, y: 6.3724, z: 6.3724}
   m_Children:
   - {fileID: 6479897364906870219}
-  - {fileID: 1152810502}
+  - {fileID: 4762303507243562586}
+  - {fileID: 2889389022972198224}
   - {fileID: 4869392952835096927}
+  - {fileID: 1152810502}
+  - {fileID: 2167517734480825213}
   - {fileID: 2937485335393459181}
   - {fileID: 1113528242}
   m_Father: {fileID: 0}
@@ -241,7 +274,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 5
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -278,9 +311,11 @@ MonoBehaviour:
   movSpeed: 10
   facingRight: 1
   movementForceInAir: 25
-  jumpForce: 22
+  jumpForce: 1200
   isGrounded: 0
-  feetPos: {fileID: 1152810502}
+  groundCheckLeftPos: {fileID: 1152810502}
+  groundCheckRightPos: {fileID: 2167517734480825213}
+  groundCheckDistance: 0.2
   whatIsGrounded:
     serializedVersion: 2
     m_Bits: 256
@@ -292,7 +327,13 @@ MonoBehaviour:
   dashSpeed: 50
   timeTillNextDash: 0.5
   dashDuration: 0.08
+  isHanging: 0
+  hangDistance: 0.3
+  hangJumpsForce: 150
+  ledgeCheckPos: {fileID: 4762303507243562586}
+  underLedgeCheckPos: {fileID: 2889389022972198224}
   wallCheckPos: {fileID: 4869392952835096927}
+  wallCheckDistance: 0.35
   wallSlideSpeed: 3
   isWallSliding: 0
   health: 5
@@ -323,7 +364,7 @@ MonoBehaviour:
   isDrinking: 0
   timeTillNextDrink: 1
   startInvencibleTime: 1
-  damagedPushForce: 12
+  damagedPushForce: 500
 --- !u!114 &3730924781311067699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,8 +400,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTimeBtwParry: 1
   parryDuration: 1
-  failParryTime: 0.8
+  failParryTime: 1
   isParry: 0
+  parrySuccesful: 0
   parryFail: 0
   parryCol: {fileID: 8299661826070670118}
 --- !u!70 &8299661826070670118
@@ -403,11 +445,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4441032602102135772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.106, y: -0.21, z: 0}
+  m_LocalPosition: {x: 0.08, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4766898119239121983
 GameObject:
@@ -523,3 +565,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5427920e5f7cc24f9100f74b02ca90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5375994457670908748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2167517734480825213}
+  m_Layer: 0
+  m_Name: GroundCheckRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2167517734480825213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5375994457670908748}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.056, y: -0.239, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2851571069916491050}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7609324757238199877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2889389022972198224}
+  m_Layer: 10
+  m_Name: UnderLedgeChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2889389022972198224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609324757238199877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.08, y: 0.228, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2851571069916491050}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

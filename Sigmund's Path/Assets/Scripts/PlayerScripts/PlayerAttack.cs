@@ -55,12 +55,16 @@ public class PlayerAttack : MonoBehaviour
 
     void CheckIfCanAttack()
     {
-        if(timeBtwttack <= 0 && !plController.isDrinking)
+        if(timeBtwttack <= 0 && !plController.isDrinking && !plController.isHanging 
+        && !plController.isWallSliding)
         {
             canAttack = true;
             
         }
-        else if (timeBtwttack > 0)
+        else
+            canAttack = false;
+            
+        if (timeBtwttack > 0)
         {
             timeBtwttack -= Time.deltaTime;
         }
@@ -74,7 +78,7 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = false;
         }
 
-        if (canAttack && !plController.isWallSliding)
+        if (canAttack)
         {
             //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
