@@ -110,6 +110,7 @@ public class PlayerAttack : MonoBehaviour
                             }
                             else
                             {
+                                //Parry succesful
                                 changeling.TakeDamage(damage * 2);
                             }
                         }

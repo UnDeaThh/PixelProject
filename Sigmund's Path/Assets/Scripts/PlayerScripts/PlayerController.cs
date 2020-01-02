@@ -598,6 +598,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 damageX = -normal.x * damagedPushForce;
+                Debug.Log(normal.x);
                 damageY = damagedPushForce;
             }
             else if (!isGrounded)

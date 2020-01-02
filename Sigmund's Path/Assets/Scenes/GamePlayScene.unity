@@ -19354,7 +19354,7 @@ PrefabInstance:
     - target: {fileID: 5418782160637445642, guid: 1bc67263c76220b4d88e51876a90dce0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5418782160637445643, guid: 1bc67263c76220b4d88e51876a90dce0,
         type: 3}
@@ -19410,6 +19410,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418782160637445640, guid: 1bc67263c76220b4d88e51876a90dce0,
+        type: 3}
+      propertyPath: damagePushForce
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bc67263c76220b4d88e51876a90dce0, type: 3}

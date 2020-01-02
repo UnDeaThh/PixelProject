@@ -22,6 +22,7 @@ public class ChangelingAI : BaseEnemy
     #endregion
 
     public int damage;
+    public float damagePushForce = 100;
     public Transform spriteChangeling;
     private SpriteRenderer graphic;
     
@@ -130,14 +131,14 @@ public class ChangelingAI : BaseEnemy
         base.TakeDamage(damage);
         if(rb.velocity.x <= -0.01)
         {
-            Vector2 hitForce = new Vector2(1f, 0f);
-            rb.AddForce(hitForce * 1000 * Time.deltaTime);
+            Vector2 hitDir = new Vector2(1f, 0f);
+            rb.AddForce(hitDir * damagePushForce);
             StartCoroutine(Blinking());
         }
         else if(rb.velocity.x >= 0.01f)
         {
             Vector2 hitForce = new Vector2(-1f, 0f);
-            rb.AddForce(hitForce * 1000 * Time.deltaTime);
+            rb.AddForce(hitForce * damagePushForce);
             StartCoroutine(Blinking());
         }
 
