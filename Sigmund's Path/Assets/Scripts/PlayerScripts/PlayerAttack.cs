@@ -87,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
                 isAttacking = true;
                 attackingFront = true;
                 attackingUp = false;
+                //Primero seteamos la posicion del collider
                 if (plController.facingRight == 1)
                 {
                     Vector3 finalPos = playerPos.position + frontAttackPos;
@@ -97,7 +98,7 @@ public class PlayerAttack : MonoBehaviour
                     Vector3 finalPos = playerPos.position + (-frontAttackPos);
                     attackPos.position = finalPos;
                 }
-
+                //Luego creamos el Collider en ese sitio
                 Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRangeFront, 0, whatIsEnemie);
                 for(int i = 0; i < enemiesToDamage.Length; i++)
                 {
@@ -112,9 +113,12 @@ public class PlayerAttack : MonoBehaviour
                             }
                             else
                             {
-                                //Parry succesful
+                                //Parry succesful dobla el damage
                                 changeling.TakeDamage(damage * 2);
                             }
+                        }
+                        if(enemiesToDamage[i].TryGetComponent(out BermonchAI bermonch)){
+                            Debug.Log("ss");
                         }
                     }
                 }

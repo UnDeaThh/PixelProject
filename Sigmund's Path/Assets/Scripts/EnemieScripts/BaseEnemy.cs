@@ -22,7 +22,10 @@ public class BaseEnemy : MonoBehaviour
     {
         if(nLifes <= 0)
         {
-            Instantiate(pickUp, transform.position, Quaternion.identity);
+            if(pickUp != null){
+                Instantiate(pickUp, transform.position, Quaternion.identity);
+            }
+            
             Destroy(gameObject);
         }
     }
