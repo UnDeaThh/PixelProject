@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerParry plParry;
     private Animator anim;
 	private PauseManager GM; 
-    
+    private CameraController cameraController;
 
     void Awake()
     {
@@ -39,6 +39,7 @@ public class PlayerAttack : MonoBehaviour
         plController = GetComponent<PlayerController>();
         plParry = GetComponent<PlayerParry>();
 		 GM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
+         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
     }
     void Update()
     {
@@ -102,6 +103,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     if(enemiesToDamage[i].tag == "Enemy")
                     {
+                        cameraController.letsShake = true;
                         if(enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
                         {
                             if (!plParry.parrySuccesful)

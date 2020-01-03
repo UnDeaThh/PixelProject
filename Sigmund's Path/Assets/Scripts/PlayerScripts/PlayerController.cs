@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     private PlayerAttack plAttack;
     private Animator anim;
     private PauseManager PM;
+    private CameraController cameraController;
     [SerializeField] private SpriteRenderer sprite;
-    public GameObject deadPanel;
 
     //MOVIMIENTO HORIZONTAL
     [Header("Movement Attributes")]
@@ -122,12 +122,12 @@ public class PlayerController : MonoBehaviour
         plAttack = GetComponent<PlayerAttack>();
         anim = GetComponentInChildren<Animator>();
         PM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
+        cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
 
         wallHopDir.Normalize();
         wallJumpDir.Normalize();
         jumpsLeft = maxJumps;
         timeDashing = dashDuration;
-        deadPanel.SetActive(false);
     }
     void Update(){
         CheckLife();
@@ -151,9 +151,8 @@ public class PlayerController : MonoBehaviour
             }
         }
         else
-        {
-            StartCoroutine(Dead());
-        }
+            return;
+        
     }
     void FixedUpdate(){
         ApplyMovement();
@@ -607,11 +606,11 @@ public class PlayerController : MonoBehaviour
                 damageX = -normal.x * damagedPushForce;
                 damageY = -normal.y * damagedPushForce;
             }
+            cameraController.letsShake = true;
             StartCoroutine(Blinking());
             
            //Lanzar sonido
            //Lanzar particulas
-           //Efecto de camara
 
         }
     }
@@ -670,13 +669,6 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         isDrinking = false;
         currentTimeTillNextDrink = timeTillNextDrink;
-    }
-
-    IEnumerator Dead()
-    {
-        deadPanel.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("GamePlayScene");
     }
 
     private void UpdateAnimations()

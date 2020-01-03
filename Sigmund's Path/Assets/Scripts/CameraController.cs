@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     public float shakeFrequency = 2.0f;
 
     private float shakeCurrentTime = 0f;
+    public bool letsShake = false;
 
     // Cinemachine Shake
     public CinemachineVirtualCamera virtualCamera;
@@ -23,9 +24,10 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.S))
+        if (letsShake)
         {
             shakeCurrentTime = shakeDuration;
+            letsShake = false;
         }
         if (virtualCamera != null && virtualCameraNoise != null)
         {
@@ -45,6 +47,7 @@ public class CameraController : MonoBehaviour
                 virtualCameraNoise.m_AmplitudeGain = 0f;
                 virtualCameraNoise.m_FrequencyGain = shakeFrequency;
                 shakeCurrentTime = 0f;
+                
             }
         }
 

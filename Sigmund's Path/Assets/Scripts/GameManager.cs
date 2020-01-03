@@ -6,21 +6,37 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isPlayer = false;
-    public GameObject winPanel;
+    private PlayerController plController;
+    [Header("DeadPanel")]
+    public GameObject deadPanelUI;
+    private float alphaSpeed = 0.01f;
+    private float currentAlphaDeadPanel = 0.0f;
 
-    private void Awake()
-    {
-        isPlayer = false;
-        winPanel.SetActive(false);
+    void Awake(){
+        plController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        deadPanelUI.SetActive(false);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            winPanel.SetActive(true);
-            isPlayer = true;
+
+    void Update(){
+        if(!plController.isDead){
+            Time.timeScale = 1f;
         }
+        else{
+            Time.timeScale = 0.5f;
+            DeadPanelAppears();
+        }
+    }
+
+    void DeadPanelAppears(){
+        deadPanelUI.SetActive(true);
+        if(currentAlphaDeadPanel >= 1f){
+            currentAlphaDeadPanel = 1f;
+        }
+        else{
+            currentAlphaDeadPanel += alphaSpeed;
+        }
+        Image deadImage = deadPanelUI.GetComponent<Image>();
+        deadImage.color = new Color(0f, 0f, 0f, currentAlphaDeadPanel);
     }
 
 }
