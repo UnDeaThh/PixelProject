@@ -21,7 +21,6 @@ public class ChangelingAI : BaseEnemy
     private Seeker seeker;
     #endregion
 
-    public int damage;
     public float damagePushForce = 100;
     public Transform spriteChangeling;
     private SpriteRenderer graphic;

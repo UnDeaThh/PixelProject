@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3938016943761786310}
   - component: {fileID: 3053337368800313280}
-  - component: {fileID: 6723262289234605876}
   m_Layer: 0
   m_Name: RingSprite
   m_TagString: Untagged
@@ -82,19 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6723262289234605876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2415870585815029716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f29f06f902e6c843b80106961377808, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemButtonToUI: {fileID: 0}
 --- !u!1 &4211360686657266817
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6387552475303191089}
   - component: {fileID: 489025677760878199}
+  - component: {fileID: 789578631129479586}
   m_Layer: 0
   m_Name: RingPickUp
   m_TagString: PickUp
@@ -137,9 +124,25 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.68
+--- !u!114 &789578631129479586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4211360686657266817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c6bcae5d5cbec4cba2f5cbbe061f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToCollect: 1
+  itemType: Ring
+  itemIcon: {fileID: 9054673109835604152, guid: 54fd83cc17cffa1499dd9df7a091af35,
+    type: 3}

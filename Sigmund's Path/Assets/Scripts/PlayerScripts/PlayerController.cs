@@ -178,6 +178,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void PlayerInput(){
+        //Si esta haciendo parry no hay movimiento alguno
         if (!plParry.isParry)
         {
             if(!isHanging){
@@ -328,31 +329,11 @@ public class PlayerController : MonoBehaviour
             }
         }
         //Cuando haces parry te quedas quieto
-        else if(plParry.isParry)
+        else if(plParry.isParry && !isDamaged)
         {
             rb2d.velocity = Vector2.zero;
             wasWallSliding = false;
         }
-
-     /*   if (damageX < 0)   Old
-        {
-            damageX++;
-        }
-        else if (damageX > 0)
-        {
-            damageX--;
-        }
-
-        if(damageY < 0)
-        {
-            damageY++;
-        }
-        else if (damageY > 0)
-        {
-            damageY--;
-        }
-        */
-
     }
 
     void LimitVelocity()
@@ -680,6 +661,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isWallJump", isWallJump);
         anim.SetBool("isWallSliding", isWallSlidingAnim);
         anim.SetBool("isHanging", isHanging);
+        anim.SetBool("isDamaged", isDamaged);
     }
 
 

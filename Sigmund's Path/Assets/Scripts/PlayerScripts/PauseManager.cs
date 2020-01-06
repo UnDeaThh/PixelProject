@@ -8,8 +8,9 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     private PlayerController plContoller;
-    [HideInInspector] public bool isPaused = false;
-    private bool isOnInventory = false;
+    private Inventory inventory;
+    public bool isPaused = false;
+    public bool isOnInventory = false;
     private bool isOnPause = false;
 	private bool isOnMap = false;
     [Header("UI PAUSE")]
@@ -36,6 +37,7 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
 
         plContoller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
         blackFade.enabled = false;
 		pausePanel.SetActive(false);
         options.SetActive(false);
@@ -43,12 +45,7 @@ public class PauseManager : MonoBehaviour
         goToMainMenuQuest.SetActive(false);
         bookContainer.SetActive(false);
 		mapPanel.SetActive(false);
-/*
-        for(int i = 0; i < Screen.resolutions.Length; i++)
-        {
-            Debug.Log(Screen.resolutions[i]);
-        }
-*/
+
         QualitySettings.SetQualityLevel(3); //Empezamos en Ultra
 
         sliderVolumen.value = PlayerPrefs.GetFloat("volume", 0);
@@ -106,6 +103,7 @@ public class PauseManager : MonoBehaviour
         bookContainer.SetActive(false);
         isOnPause = false;
         isOnInventory = false;
+        inventory.HideDescriptionText();
 		isOnMap = false;
         options.SetActive(false);
         exitGameQuest.SetActive(false);

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BaseEnemy : MonoBehaviour
 {
     public int nLifes;
+    public int damage;
     [HideInInspector] public bool isAlive;
     [HideInInspector] public bool isStuned;
 

@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpEye : MonoBehaviour
+public class PickUpEye : PickUpBase
 {
     private Inventory inventory;
-    public GameObject itemButtonToUI;
-    private int nEyes = 2;
-
     private void Awake()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Inventory>();
@@ -15,26 +12,29 @@ public class PickUpEye : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
-            for (int i = 0; i < inventory.slotsForGoods.Length; i++)
+            if (inventory != null)
             {
-                inventory.totalNumEyes += nEyes;
-                if (inventory.slotsForGoods[i].isFull == false)
+                for (int i = 0; i < inventory.slotsForGoods.Length; i++)
                 {
-                    inventory.slotsForGoods[i].isFull = true;
-                    inventory.slotsForGoods[i].nEyes += nEyes;
-                    Instantiate(itemButtonToUI, inventory.slotsForGoods[i].slotGO.transform, false);
-                    inventory.slotsForGoods[i].textCounter.SetText("x" + inventory.slotsForGoods[i].nEyes);
-                    Destroy(gameObject);
-                    break;
-                }
-                else if(inventory.slotsForGoods[i].isFull == true && inventory.slotsForGoods[i].nEyes != 0)
-                {
-                    inventory.slotsForGoods[i].nEyes += nEyes;
-                    inventory.slotsForGoods[i].textCounter.SetText("x" + inventory.slotsForGoods[i].nEyes);
-                    Destroy(gameObject);
-                    break;
+                    if (!inventory.slotsForGoods[i].isFull)
+                    {
+                        inventory.slotsForGoods[i].isFull = true;
+                        inventory.slotsForGoods[i].nItems += itemsToCollect; //sumamos la cantidad de items recogidos
+                        inventory.slotsForGoods[i].itemType = itemType; //Le damos el string para que sepa que objeto tiene el slot
+
+                        Instantiate(itemIcon, inventory.slotsForGoods[i].slotGO, false); //Dibujamos el item en el slot
+                        Destroy(gameObject);
+                        break;
+
+                    }
+                    else if (inventory.slotsForGoods[i].isFull && inventory.slotsForGoods[i].itemType == itemType)
+                    {
+                        inventory.slotsForGoods[i].nItems += itemsToCollect; // solo he de sumar los items recolectados
+                        Destroy(gameObject);
+                        break;
+                    }
                 }
             }
         }

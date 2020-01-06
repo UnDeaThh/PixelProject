@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 331405807068979583}
   m_Layer: 0
   m_Name: PickUpOjoTatzel
-  m_TagString: Untagged
+  m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,5 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f29f06f902e6c843b80106961377808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemButtonToUI: {fileID: 5306775138973345048, guid: ff64486889667be499740fecd34fa828,
+  itemsToCollect: 2
+  itemType: Eye
+  itemIcon: {fileID: 5306775138973345048, guid: ff64486889667be499740fecd34fa828,
     type: 3}

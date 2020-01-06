@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1113528243}
   m_Layer: 10
   m_Name: Inventory
-  m_TagString: Untagged
+  m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,85 +44,102 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionUI: {fileID: 0}
+  itemDescription: 3
+  oneClick: 0
   totalNumEyes: 0
   totalNumRings: 0
-  slotsForGoods:
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
-  - isFull: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
   slotsForUtility:
   - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
     slotGO: {fileID: 0}
     textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
   - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
     slotGO: {fileID: 0}
     textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
   - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
     slotGO: {fileID: 0}
     textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
   - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
     slotGO: {fileID: 0}
     textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
   - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
     slotGO: {fileID: 0}
     textCounter: {fileID: 0}
-    nEyes: 0
-    nRings: 0
+  slotsForGoods:
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
+  - isFull: 0
+    nItems: 0
+    itemType: 
+    slotNumber: 0
+    slotGO: {fileID: 0}
+    textCounter: {fileID: 0}
 --- !u!1 &1152810501
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +324,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 6586553254031914776}
-  deadPanel: {fileID: 0}
   movSpeed: 10
   facingRight: 1
   movementForceInAir: 25
@@ -324,7 +340,7 @@ MonoBehaviour:
   wallJumpForce: 30
   lowWallJumpForce: 20
   downForce: 20
-  dashSpeed: 50
+  dashSpeed: 80
   timeTillNextDash: 0.5
   dashDuration: 0.08
   isHanging: 0

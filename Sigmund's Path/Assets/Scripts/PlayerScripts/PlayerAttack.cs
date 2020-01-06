@@ -78,6 +78,11 @@ public class PlayerAttack : MonoBehaviour
         {
             isAttacking = false;
         }
+        //Doble damage with parry
+        if (plParry.parrySuccesful)
+        {
+            damage *= 2;
+        }
 
         if (canAttack)
         {
@@ -107,18 +112,13 @@ public class PlayerAttack : MonoBehaviour
                         cameraController.letsShake = true;
                         if(enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
                         {
-                            if (!plParry.parrySuccesful)
-                            {
-                                changeling.TakeDamage(damage);
-                            }
-                            else
-                            {
-                                //Parry succesful dobla el damage
-                                changeling.TakeDamage(damage * 2);
-                            }
+                            changeling.TakeDamage(damage);
+                            plParry.parrySuccesful = false;
+
                         }
                         if(enemiesToDamage[i].TryGetComponent(out BermonchAI bermonch)){
-                            Debug.Log("ss");
+                            bermonch.TakeDamage(damage);
+                            plParry.parrySuccesful = false;
                         }
                     }
                 }

@@ -125,6 +125,7 @@ public class PlayerParry : MonoBehaviour
                 other.GetComponentInParent<BaseEnemy>().isStuned = true;
                 parryDone = true;
                 parrySuccesful = true;
+                Debug.Log("parry");
                 
             }
             else if(other.tag == "Arrow")

@@ -11,13 +11,26 @@ public class GameManager : MonoBehaviour
     public GameObject deadPanelUI;
     private float alphaSpeed = 0.01f;
     private float currentAlphaDeadPanel = 0.0f;
+    private PauseManager pauseManager;
 
     void Awake(){
         plController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         deadPanelUI.SetActive(false);
     }
 
     void Update(){
+
+        if (!pauseManager.isPaused)
+        {
+            //Lockea el cursor en medio de la pantalla y lo deja invisible
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         if(!plController.isDead){
             Time.timeScale = 1f;
         }
