@@ -30,11 +30,17 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+        DeadControll();
 
-        if(!plController.isDead){
+    }
+    void DeadControll()
+    {
+        if (!plController.isDead)
+        {
             Time.timeScale = 1f;
         }
-        else{
+        else
+        {
             Time.timeScale = 0.5f;
             DeadPanelAppears();
         }

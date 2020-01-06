@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
     //HARDFALLING DOWN
     public float downForce;
+    private bool hardFalling = false;
 
     //DASH
     [Header("Dash Attributes")]
@@ -191,7 +192,11 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Jump") && !isJumping)
             {
                 jumpPressed = true;
-            } 
+            }
+            if(jumpsLeft <= 0 && Input.GetKeyDown(KeyCode.S) && !isGrounded && !isHanging)
+            {
+                hardFalling = true;
+            }
         }
 		
     }
@@ -384,7 +389,7 @@ public class PlayerController : MonoBehaviour
             //set rigidbody to Dynamic
             rb2d.bodyType = RigidbodyType2D.Dynamic;
             rb2d.AddForce(new Vector2(0f, hangJumpsForce), ForceMode2D.Impulse);
-            Debug.Log("plus");
+            Debug.Log("GrabJump");
             //and Exit
             return;
         }
@@ -395,6 +400,7 @@ public class PlayerController : MonoBehaviour
         if(isGrounded)
         {
             jumpsLeft = maxJumps;
+            hardFalling = false;
             isJumping = false;
         }
         if(jumpsLeft > 0 && !isDrinking && !isHanging){
@@ -412,7 +418,7 @@ public class PlayerController : MonoBehaviour
             if(canJump){
                 if (!plParry.parryFail)
                 {
-                    Debug.Log("si");
+                    Debug.Log("SaltoNormal");
                     rb2d.AddForce(new Vector2(0f, jumpForce));
                     isJumping = true;
                     jumpsLeft --;
@@ -465,9 +471,11 @@ public class PlayerController : MonoBehaviour
 
 
     void HardFallingDown()
+    {
+        if(hardFalling)
         {
-            if(jumpsLeft <= 0 && Input.GetKeyDown(KeyCode.S) && !isGrounded){
-                rb2d.velocity = (Vector2.down * downForce);
+            print("HardFall");
+            rb2d.AddForce(Vector2.down * downForce);
         }
     }
 
