@@ -7,14 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
+    public GameObject pausePanelBegins;
     private PlayerController plContoller;
-    private Inventory inventory;
+    public Vendedor vendedor;
     public bool isPaused = false;
     public bool isOnInventory = false;
     private bool isOnPause = false;
 	private bool isOnMap = false;
     [Header("UI PAUSE")]
     public Image blackFade;
+    
     public GameObject bookContainer;
 	public GameObject pausePanel;
     public GameObject inventoryPanel;
@@ -34,10 +36,12 @@ public class PauseManager : MonoBehaviour
     public GameObject exitGameQuest;
     private void Awake()
     {
+        Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        canvas.enabled = true;
+        pausePanelBegins.SetActive(true);
         isPaused = false;
 
         plContoller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
         blackFade.enabled = false;
 		pausePanel.SetActive(false);
         options.SetActive(false);
@@ -78,16 +82,19 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!vendedor.inShop)
         {
-            if (isPaused)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Resume();
-            }
-            else
-            {
-                Pause();
+                if (isPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
 				
+                }
             }
         }
         if (isPaused)
@@ -103,7 +110,6 @@ public class PauseManager : MonoBehaviour
         bookContainer.SetActive(false);
         isOnPause = false;
         isOnInventory = false;
-        inventory.HideDescriptionText();
 		isOnMap = false;
         options.SetActive(false);
         exitGameQuest.SetActive(false);

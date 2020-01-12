@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1113528242}
-  - component: {fileID: 1113528243}
   m_Layer: 10
   m_Name: Inventory
   m_TagString: Inventory
@@ -31,115 +30,6 @@ Transform:
   m_Father: {fileID: 2851571069916491050}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1113528243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113528241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bf73399dddd5374f84046542a009b1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  potionUI: {fileID: 0}
-  itemDescription: 3
-  oneClick: 0
-  totalNumEyes: 0
-  totalNumRings: 0
-  slotsForUtility:
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  slotsForGoods:
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
-  - isFull: 0
-    nItems: 0
-    itemType: 
-    slotNumber: 0
-    slotGO: {fileID: 0}
-    textCounter: {fileID: 0}
 --- !u!1 &1152810501
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +229,7 @@ MonoBehaviour:
   wallHopForce: 8
   wallJumpForce: 30
   lowWallJumpForce: 20
-  downForce: 20
+  downForce: 100
   dashSpeed: 80
   timeTillNextDash: 0.5
   dashDuration: 0.08

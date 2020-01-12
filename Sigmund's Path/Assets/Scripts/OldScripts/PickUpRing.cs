@@ -15,7 +15,7 @@ public class PickUpRing : PickUpBase
     {
         if (other.CompareTag("Player"))
         {
-            if(inventory != null)
+            if (inventory != null)
             {
                 for (int i = 0; i < inventory.slotsForGoods.Length; i++)
                 {
@@ -30,7 +30,7 @@ public class PickUpRing : PickUpBase
                         break;
 
                     }
-                    else if(inventory.slotsForGoods[i].isFull && inventory.slotsForGoods[i].itemType == itemType)
+                    else if (inventory.slotsForGoods[i].isFull && inventory.slotsForGoods[i].itemType == itemType)
                     {
                         inventory.slotsForGoods[i].nItems += itemsToCollect; // solo he de sumar los items recolectados
                         Destroy(gameObject);
@@ -38,6 +38,8 @@ public class PickUpRing : PickUpBase
                     }
                 }
             }
+            else
+                print("NoInventory");
         }
     }
 }

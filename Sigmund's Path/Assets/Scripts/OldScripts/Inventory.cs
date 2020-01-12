@@ -20,6 +20,7 @@ public class Inventory : MonoBehaviour
     [HideInInspector] public int totalNumEyes;
     [HideInInspector] public int totalNumRings;
 
+
     [System.Serializable]
     public class Slot
     {
@@ -52,23 +53,6 @@ public class Inventory : MonoBehaviour
         }
 
     }
-    /*
-   void SetEventTrigger()
-   {
-
-       EventTrigger.Entry entry = new EventTrigger.Entry(); // No entiendo que hace esto
-       entry.eventID = EventTriggerType.PointerClick;  //Esto decide que EventType se añade al EventTrigger
-       entry.callback.AddListener((eventData) => { ButtonDisplayDescription(); }); //Añade la funcion que se ejecutara con el evento
-       for (int i = 0; i < slotsForUtility.Length; i++)
-       {
-           if(slotsForUtility[i].eventTrigger != null)
-           {
-               slotsForUtility[i].eventTrigger.triggers.Add(entry); // Añade todo lo anterior al EventTrigger y ready para usarlo
-           }
-       }
-       
-}
-*/
     void SetSlotNumber()
     {
         for (int i = 0; i < slotsForUtility.Length; i++)
@@ -155,6 +139,8 @@ public class Inventory : MonoBehaviour
             oneClick = false;
         }
     }
+
+     
 
     //This Method is on PauseManager
     public void HideDescriptionText()

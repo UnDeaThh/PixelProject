@@ -37,6 +37,8 @@ public class PickUpEye : PickUpBase
                     }
                 }
             }
+            else
+                print("NoInventory");
         }
     }
 }

@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class ItemUIController : MonoBehaviour
 {
-    private Inventory inventory;
+    private Inventory2 inventory;
 
     private void Awake()
     {
-        inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory>();
+        inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
     }
 
     public void PointerClick()
@@ -19,30 +19,15 @@ public class ItemUIController : MonoBehaviour
             switch (gameObject.tag)
             {
                 case "PotionUI":
-                    inventory.itemDescription = Inventory.ItemType.Potions;
+                    inventory.itemDescription = Inventory2.ItemType.Potions;
                     break;
-                case "RingUI":
-                    inventory.itemDescription = Inventory.ItemType.Ring;
+                case "BombUI":
+                    inventory.itemDescription = Inventory2.ItemType.Bombs;
                     break;
-                case "EyeUI":
-                    inventory.itemDescription = Inventory.ItemType.Eye;
+                case "TelePortUI":
+                    inventory.itemDescription = Inventory2.ItemType.TelePort;
                     break;
-
             }
-            inventory.oneClick = true;
         }
     }
-
-    public void PointerEnter()
-    {
-        Image sprite = GetComponent<Image>();
-        sprite.color = Color.grey;
-    }
-
-    public void PointerExit()
-    {
-        Image sprite = GetComponent<Image>();
-        sprite.color = Color.white;
-    }
-
 }

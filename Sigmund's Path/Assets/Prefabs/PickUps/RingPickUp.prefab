@@ -91,7 +91,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6387552475303191089}
   - component: {fileID: 489025677760878199}
-  - component: {fileID: 789578631129479586}
   m_Layer: 0
   m_Name: RingPickUp
   m_TagString: PickUp
@@ -130,19 +129,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.68
---- !u!114 &789578631129479586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4211360686657266817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0c6bcae5d5cbec4cba2f5cbbe061f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemsToCollect: 1
-  itemType: Ring
-  itemIcon: {fileID: 9054673109835604152, guid: 54fd83cc17cffa1499dd9df7a091af35,
-    type: 3}

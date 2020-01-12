@@ -113,17 +113,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nLifes: 2
+  damage: 1
   isAlive: 0
   isStuned: 0
   movSpeed: 600
+  timeStuned: 1
+  currentTimeStuned: 0
   detectionRange: 8
   whatIsDetected:
     serializedVersion: 2
     m_Bits: 1024
-  pickUp: {fileID: 331405807068979580, guid: c214e83c99f93f54bbb8224be569c688, type: 3}
+  pickUp: {fileID: 3542989746610163132, guid: fa786ac904c9ce54998329654ec7937f, type: 3}
   maxSpeed: 15
   isChasing: 0
-  damage: 1
+  damagePushForce: 500
   spriteChangeling: {fileID: 5418782161104568614}
   damagedColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
 --- !u!1 &5418782161104568617

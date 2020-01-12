@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAttack plAttack;
     private Animator anim;
     private PauseManager PM;
+    private GameManager GM;
     private CameraController cameraController;
     [SerializeField] private SpriteRenderer sprite;
 
@@ -123,6 +124,7 @@ public class PlayerController : MonoBehaviour
         plAttack = GetComponent<PlayerAttack>();
         anim = GetComponentInChildren<Animator>();
         PM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
 
         wallHopDir.Normalize();
@@ -134,14 +136,12 @@ public class PlayerController : MonoBehaviour
         CheckLife();
         if (!isDead)
         {
-            if(!PM.isPaused)
-            {
 
                 CheckEnvironment();
                 CheckIfWallSliding();
                 CheckIfCanJump();
                 CheckIfCanDash();
-		        CheckIfCanDrink();
+                CheckIfCanDrink();
                 PlayerInput();
                 CheckMovement();
                 Invencibility();
@@ -149,20 +149,29 @@ public class PlayerController : MonoBehaviour
                 GrabLedgeWall();
 
                 UpdateAnimations();
-            }
+           
         }
         else
             return;
-        
+
     }
     void FixedUpdate(){
-        ApplyMovement();
-        Jump();
-        LimitVelocity();
-        Dash();
-        GrabLedgeJump();
-        HardFallingDown();
-        IsWallSliding();
+        if (!PM.isPaused && !GM.inShop)
+        {
+            rb2d.gravityScale = 5;
+            ApplyMovement();
+            Jump();
+            LimitVelocity();
+            Dash();
+            GrabLedgeJump();
+            HardFallingDown();
+            IsWallSliding();
+        }
+        else 
+        {
+            rb2d.velocity = Vector2.zero;
+            rb2d.gravityScale = 0;
+        }
     }
 
     void CheckEnvironment(){
@@ -187,7 +196,10 @@ public class PlayerController : MonoBehaviour
             }
 		    if (Input.GetKeyDown(KeyCode.X))
 		    {
-			    DrinkPotion();
+                if (!PM.isPaused)
+                {
+			        DrinkPotion();
+                }
 		    }
             if (Input.GetButtonDown("Jump") && !isJumping)
             {
@@ -278,13 +290,16 @@ public class PlayerController : MonoBehaviour
 
     void CheckMovement()
     {
-        if(facingRight == 1 && movInputDir < 0 && plParry.isParry == false)
+        if (!PM.isPaused && !GM.inShop)
         {
-            Flip();
-        }
-        else if (facingRight == -1 && movInputDir > 0 && plParry.isParry == false)
-        {
-            Flip();
+            if(facingRight == 1 && movInputDir < 0 && plParry.isParry == false)
+            {
+                Flip();
+            }
+            else if (facingRight == -1 && movInputDir > 0 && plParry.isParry == false)
+            {
+                Flip();
+            }
         }
     }
 
@@ -294,13 +309,14 @@ public class PlayerController : MonoBehaviour
         {
             if (!plParry.parryFail)
             {
-                //Movimiento NORMAL en el suelo
-                if (isGrounded && !isDamaged && !isDrinking)
+                //Movimiento NORMAL 
+                if (!isDamaged && !isDrinking)
                 {
                     rb2d.velocity = new Vector2(movInputDir * movSpeed , rb2d.velocity.y);
                     wasWallSliding = false;
                 }
                 //Movimiento REDUCIDO en el aire
+                /*
                 else if (!isGrounded && !isWallSliding && !isDamaged)
                 {
                     Vector2 forceToAdd = new Vector2(movementForceInAir * movInputDir, 0);
@@ -310,6 +326,7 @@ public class PlayerController : MonoBehaviour
                         rb2d.velocity = new Vector2(movSpeed * movInputDir, rb2d.velocity.y);
                     }
                 }
+                */
                 //Movimiento REDUCIDO cuando te estas curando
                 else if (isGrounded && !isDamaged && isDrinking)
                 {
