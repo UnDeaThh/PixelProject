@@ -37,7 +37,10 @@ public class PauseManager : MonoBehaviour
     private void Awake()
     {
         Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        canvas.enabled = true;
+        if(canvas != null)
+        {
+            canvas.enabled = true;
+        }
         pausePanelBegins.SetActive(true);
         isPaused = false;
 

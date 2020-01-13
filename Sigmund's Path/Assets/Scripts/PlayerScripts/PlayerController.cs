@@ -180,11 +180,11 @@ public class PlayerController : MonoBehaviour
         isTouchingWall = Physics2D.Raycast(wallCheckPos.position, transform.right, wallCheckDistance, whatIsGrounded);
         groundCheckLeft = Physics2D.Raycast(groundCheckLeftPos.position, Vector2.down, groundCheckDistance, whatIsGrounded);
         groundCheckRight = Physics2D.Raycast(groundCheckLeftPos.position, Vector2.down, groundCheckDistance, whatIsGrounded);
-        if(groundCheckLeft || groundCheckRight){
-            isGrounded = true;
+        if(!groundCheckLeft && !groundCheckRight){
+            isGrounded = false;
         }
         else
-            isGrounded = false;
+            isGrounded = true;
     }
 
     void PlayerInput(){
