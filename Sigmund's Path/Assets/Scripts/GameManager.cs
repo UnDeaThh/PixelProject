@@ -6,34 +6,47 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager gameManager;
+
     private PlayerController plController;
     [Header("DeadPanel")]
     public GameObject deadPanelUI;
-    private float alphaSpeed = 0.01f;
+    private float alphaSpeed = 0.02f;
     private float currentAlphaDeadPanel = 0.0f;
     private PauseManager pauseManager;
 
     #region Vendedor
-    public Vendedor vendedor;
     public bool inShop;
     #endregion
 
-    void Awake(){
-        plController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
-        deadPanelUI.SetActive(false);
+    void Awake()
+    {
+        if(gameManager == null)
+        {
+            gameManager = this;
+        }
+        else if(gameManager != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+
+        if(deadPanelUI != null)
+        {
+            deadPanelUI.SetActive(false);
+        }
         
     }
 
     void Update(){
-        inShop = vendedor.inShop;
+        inShop = Vendedor.seller.inShop;
         DeadControll();
 
     }
 
     void CursorController()
     {
-        if (!pauseManager.isPaused)
+        if (!PauseManager.pauseManager.isPaused)
         {
             //Lockea el cursor en medio de la pantalla y lo deja invisible
             Cursor.lockState = CursorLockMode.Locked;
@@ -45,7 +58,7 @@ public class GameManager : MonoBehaviour
     }
     void DeadControll()
     {
-        if (!plController.isDead)
+        if (!PlayerController.plContoller.isDead)
         {
             Time.timeScale = 1f;
         }
@@ -60,12 +73,24 @@ public class GameManager : MonoBehaviour
         deadPanelUI.SetActive(true);
         if(currentAlphaDeadPanel >= 1f){
             currentAlphaDeadPanel = 1f;
+
         }
         else{
             currentAlphaDeadPanel += alphaSpeed;
         }
         Image deadImage = deadPanelUI.GetComponent<Image>();
         deadImage.color = new Color(0f, 0f, 0f, currentAlphaDeadPanel);
+    }
+
+    public void ChangeScene(int index)
+    {
+        if(index == 2)
+        {
+            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(PlayerController.plContoller.gameObject);
+        }
+        SceneManager.LoadScene(index);
+        
     }
 
 }

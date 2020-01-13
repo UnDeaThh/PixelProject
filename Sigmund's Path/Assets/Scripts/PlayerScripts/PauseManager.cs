@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
+    //SINGLETON
+    public static PauseManager pauseManager;
+
     public GameObject pausePanelBegins;
-    private PlayerController plContoller;
-    public Vendedor vendedor;
+
     public bool isPaused = false;
     public bool isOnInventory = false;
     private bool isOnPause = false;
@@ -36,15 +37,28 @@ public class PauseManager : MonoBehaviour
     public GameObject exitGameQuest;
     private void Awake()
     {
+        if(pauseManager == null)
+        {
+            pauseManager = this;
+        }
+        else if(pauseManager != this)
+        {
+            Destroy(gameObject);
+        }
+        
+
         Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if(canvas != null)
         {
             canvas.enabled = true;
         }
-        pausePanelBegins.SetActive(true);
+        if(pausePanel != null)
+        {
+            pausePanelBegins.SetActive(true);
+        }
         isPaused = false;
 
-        plContoller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+       
         blackFade.enabled = false;
 		pausePanel.SetActive(false);
         options.SetActive(false);
@@ -85,7 +99,7 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (!vendedor.inShop)
+        if (!Vendedor.seller.inShop)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -224,7 +238,7 @@ public class PauseManager : MonoBehaviour
     public void YesMainMenu()
     {
         isPaused = false;
-        SceneManager.LoadScene("MainMenuScene");
+        GameManager.gameManager.ChangeScene(1);
     }
 
     public void NoMainMenu()

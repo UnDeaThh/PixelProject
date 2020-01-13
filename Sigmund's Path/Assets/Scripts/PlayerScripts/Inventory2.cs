@@ -6,6 +6,8 @@ using TMPro;
 
 public class Inventory2 : MonoBehaviour
 {
+    public static Inventory2 inventory;
+
     public int actualMoney;
     public int nBombs;
     private int maxBombs;
@@ -44,8 +46,17 @@ public class Inventory2 : MonoBehaviour
 
     private void Awake()
     {
+        if(inventory == null)
+        {
+            inventory = this;
+        }
+        else if(inventory != this)
+        {
+            Destroy(gameObject);
+        }
+
+
         plController = GetComponentInParent<PlayerController>();
-        PM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         itemDescription = ItemType.Nothing;
     }
     private void Update()
@@ -127,7 +138,7 @@ public class Inventory2 : MonoBehaviour
                 descriptions.SetText("");
                 break;
         }
-        if (!PM.isPaused)
+        if (!PauseManager.pauseManager.isPaused)
         {
             itemDescription = ItemType.Nothing;
         }

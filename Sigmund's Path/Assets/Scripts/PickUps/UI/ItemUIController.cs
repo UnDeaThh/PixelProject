@@ -9,7 +9,7 @@ public class ItemUIController : MonoBehaviour
 
     private void Awake()
     {
-        inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
+        inventory = Inventory2.inventory;
     }
 
     public void PointerClick()

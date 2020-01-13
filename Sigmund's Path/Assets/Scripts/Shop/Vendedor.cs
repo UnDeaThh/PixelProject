@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Vendedor : MonoBehaviour
 {
+    public static Vendedor seller;
+
     public Canvas canvasVendedor;
     public GameObject pressEText;
     public GameObject UIShop;
@@ -15,6 +17,16 @@ public class Vendedor : MonoBehaviour
     private bool playerClose = false;
     private void Awake()
     {
+        if(seller == null)
+        {
+            seller = this;
+           
+        }
+        else if(seller != this)
+        {
+            Destroy(gameObject);
+        }
+
         pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         plController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         pressEText.SetActive(false);
@@ -48,10 +60,12 @@ public class Vendedor : MonoBehaviour
         if (inShop)
         {
             UIShop.SetActive(true);
+            ShopController.shopController.enabled = true;
             pressEText.SetActive(false);
         }
         else
         {
+            ShopController.shopController.enabled = false;
             UIShop.SetActive(false);
         }
     }

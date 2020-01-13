@@ -10,4 +10,5 @@ public class ItemHolderButton : MonoBehaviour
     public TextMeshProUGUI itemPrice;
     public Image itemSprite;
     public GameObject buyButton;
+
 }

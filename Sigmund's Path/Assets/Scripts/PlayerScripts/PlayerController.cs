@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    //SINGLETON
+    public static PlayerController plContoller;
     //REFERENCIAS
     private Rigidbody2D rb2d;
     private PlayerParry plParry;
     private PlayerAttack plAttack;
     private Animator anim;
-    private PauseManager PM;
-    private GameManager GM;
     private CameraController cameraController;
     [SerializeField] private SpriteRenderer sprite;
 
@@ -119,12 +119,21 @@ public class PlayerController : MonoBehaviour
 
 
     void Awake(){
+        if(plContoller == null)
+        {
+            plContoller = this;
+        }
+        else if(plContoller != this)
+        {
+            Destroy(gameObject);
+        }
+
+
+
         rb2d = GetComponent<Rigidbody2D>();
         plParry = GetComponent<PlayerParry>();
         plAttack = GetComponent<PlayerAttack>();
         anim = GetComponentInChildren<Animator>();
-        PM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
-        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
 
         wallHopDir.Normalize();
@@ -156,7 +165,7 @@ public class PlayerController : MonoBehaviour
 
     }
     void FixedUpdate(){
-        if (!PM.isPaused && !GM.inShop)
+        if (!PauseManager.pauseManager.isPaused && !GameManager.gameManager.inShop)
         {
             rb2d.gravityScale = 5;
             ApplyMovement();
@@ -196,7 +205,7 @@ public class PlayerController : MonoBehaviour
             }
 		    if (Input.GetKeyDown(KeyCode.X))
 		    {
-                if (!PM.isPaused)
+                if (!PauseManager.pauseManager.isPaused)
                 {
 			        DrinkPotion();
                 }
@@ -290,7 +299,7 @@ public class PlayerController : MonoBehaviour
 
     void CheckMovement()
     {
-        if (!PM.isPaused && !GM.inShop)
+        if (!PauseManager.pauseManager.isPaused && !GameManager.gameManager.inShop)
         {
             if(facingRight == 1 && movInputDir < 0 && plParry.isParry == false)
             {
