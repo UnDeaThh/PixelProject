@@ -22,8 +22,7 @@ public class ShopController : MonoBehaviour
         else if(shopController != this)
         {
             Destroy(gameObject);
-        }
-        Debug.Log(this.gameObject.name);       
+        }      
     }
 
     private void OnEnable()
@@ -47,7 +46,7 @@ public class ShopController : MonoBehaviour
                 ItemHolderButton holderScript = holder.GetComponent<ItemHolderButton>();
 
                 holderScript.itemName.text = itemsList[i].itemName;
-                //holderScript.itemPrice.text = (string) itemsList[i].itemPrice;
+                holderScript.itemPrice.text = itemsList[i].itemPrice.ToString();
                 holderScript.itemID = itemsList[i].itemID;
                 holderScript.itemSprite = itemsList[i].itemImage;
             }
