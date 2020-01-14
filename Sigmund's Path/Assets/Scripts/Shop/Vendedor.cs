@@ -31,6 +31,11 @@ public class Vendedor : MonoBehaviour
         plController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         pressEText.SetActive(false);
         canvasVendedor.enabled = true;
+        
+    }
+    private void Start()
+    {
+        ShopController.shopController.enabled = false;
     }
 
     private void Update()

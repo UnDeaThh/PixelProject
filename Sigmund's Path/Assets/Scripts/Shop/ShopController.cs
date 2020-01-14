@@ -13,7 +13,7 @@ public class ShopController : MonoBehaviour
     public GameObject holderPrefab;
     public Transform content;
 
-    private void Start()
+    private void Awake()
     {
         if(shopController == null)
         {
@@ -24,6 +24,12 @@ public class ShopController : MonoBehaviour
             Destroy(gameObject);
         }
         Debug.Log(this.gameObject.name);
+
+        if (shopController.enabled)
+        {
+            Debug.Log("shop");
+        }
+
         FillList();
     }
 
