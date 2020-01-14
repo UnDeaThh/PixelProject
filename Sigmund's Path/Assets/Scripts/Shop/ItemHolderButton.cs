@@ -6,6 +6,7 @@ using TMPro;
 
 public class ItemHolderButton : MonoBehaviour
 {
+    public int itemID;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemPrice;
     public Image itemSprite;

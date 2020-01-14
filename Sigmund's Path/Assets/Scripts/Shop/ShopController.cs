@@ -9,7 +9,7 @@ public class ShopController : MonoBehaviour
 
     public TextMeshProUGUI moneyText;
 
-    public List<ItemInfo> itemsList = new List<ItemInfo>();
+    public List<ShopItemInfo> itemsList = new List<ShopItemInfo>();
     public GameObject holderPrefab;
     public Transform content;
 
@@ -23,13 +23,11 @@ public class ShopController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log(this.gameObject.name);
+        Debug.Log(this.gameObject.name);       
+    }
 
-        if (shopController.enabled)
-        {
-            Debug.Log("shop");
-        }
-
+    private void OnEnable()
+    {
         FillList();
     }
 
@@ -43,11 +41,15 @@ public class ShopController : MonoBehaviour
     {
         if(Vendedor.seller.inShop )
         {
-            print("q");
             for (int i = 0; i < itemsList.Count; i++)
             {
-                Instantiate(holderPrefab, content);
-                print("q");
+                GameObject holder = Instantiate(holderPrefab, content);
+                ItemHolderButton holderScript = holder.GetComponent<ItemHolderButton>();
+
+                holderScript.itemName.text = itemsList[i].itemName;
+                //holderScript.itemPrice.text = (string) itemsList[i].itemPrice;
+                holderScript.itemID = itemsList[i].itemID;
+                holderScript.itemSprite = itemsList[i].itemImage;
             }
         }
     }
