@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemUIController : MonoBehaviour
 {
     private Inventory2 inventory;
+    public ItemType itemType;
 
     private void Awake()
     {
@@ -16,16 +17,19 @@ public class ItemUIController : MonoBehaviour
     {
         if(inventory != null)
         {
-            switch (gameObject.tag)
+            switch (itemType)
             {
-                case "PotionUI":
-                    inventory.itemDescription = Inventory2.ItemType.Potions;
+                case ItemType.Potions:
+                    Debug.Log("poti");
+                    inventory.itemDescription = ItemType.Potions;
                     break;
-                case "BombUI":
-                    inventory.itemDescription = Inventory2.ItemType.Bombs;
+                case ItemType.Bombs:
+                    Debug.Log("bom");
+                    inventory.itemDescription = ItemType.Bombs;
                     break;
-                case "TelePortUI":
-                    inventory.itemDescription = Inventory2.ItemType.TelePort;
+                case ItemType.TelePort:
+                    Debug.Log("tp");
+                    inventory.itemDescription = ItemType.TelePort;
                     break;
             }
         }

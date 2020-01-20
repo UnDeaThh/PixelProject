@@ -29,7 +29,6 @@ public class PlayerAttack : MonoBehaviour
     private PlayerController plController;
     private PlayerParry plParry;
     private Animator anim;
-	private PauseManager GM; 
     private CameraController cameraController;
 
     void Awake()
@@ -38,14 +37,13 @@ public class PlayerAttack : MonoBehaviour
         playerPos = GetComponent<Transform>();
         plController = GetComponent<PlayerController>();
         plParry = GetComponent<PlayerParry>();
-		 GM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
-         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
+        cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
     }
     void Update()
     {
         if(plController.isDead == false)
         {
-		    if(!GM.isPaused){
+		    if(!PauseManager.pauseManager.isPaused && !Vendedor.seller.inShop){
 			    CheckIfCanAttack();
 			    Attack();
 

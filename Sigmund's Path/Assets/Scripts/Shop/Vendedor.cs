@@ -26,7 +26,6 @@ public class Vendedor : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         plController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         pressEText.SetActive(false);

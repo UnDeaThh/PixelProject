@@ -9,7 +9,7 @@ public class ShopItemInfo
     public string itemName;
     public int itemID;
 
-    public Image itemImage;
+    public Sprite itemImage;
     public int itemPrice;
     public bool isBought;
 }

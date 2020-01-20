@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public enum ItemType
+{
+    Potions, Bombs, TelePort, Nothing
+}
 public class Inventory2 : MonoBehaviour
 {
     public static Inventory2 inventory;
@@ -28,21 +32,23 @@ public class Inventory2 : MonoBehaviour
     {
         public Transform slotPosition;
         public bool isFull;
-        public int nItems;
         public TextMeshProUGUI textCounter;
         public Image emptySlot;
         public GameObject filledSlot;
     }
 
-    public enum ItemType
-    {
-        Potions, Bombs, TelePort, Nothing
-    }
+
 
     public ItemType itemDescription;
 
-    //public Slot[] utilityItems;
     public List<Slot> utilityItems;
+
+
+    //-------------------
+    
+
+    //-------------------
+
 
     private void Awake()
     {
@@ -65,6 +71,26 @@ public class Inventory2 : MonoBehaviour
         UpdateText();
         ImageDisplayed();
         DescriptionText();
+
+        LimitObjectToZero();
+
+
+    }
+
+    void LimitObjectToZero()
+    {
+        if (actualMoney <= 0)
+        {
+            actualMoney = 0;
+        }
+        if (nBombs <= 0)
+        {
+            nBombs = 0;
+        }
+        if(nTP <= 0)
+        {
+            nTP = 0;
+        }
     }
 
     void UpdateText()
@@ -75,6 +101,7 @@ public class Inventory2 : MonoBehaviour
         utilityItems[2].textCounter.SetText("" + nTP);
     }
 
+    #region MoneyMethods
     public void WinMoney(int moneyObtained)
     {
         actualMoney += moneyObtained;
@@ -84,6 +111,16 @@ public class Inventory2 : MonoBehaviour
         actualMoney -= moneyLosed;
     }
 
+    public bool RequestMoney(int amount)
+    {
+        if (amount <= actualMoney)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    #endregion
     void CheckIsFill()
     {
         if(plController.potions > 0)
