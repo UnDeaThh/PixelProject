@@ -9,22 +9,32 @@ public class ShopController : MonoBehaviour
     public static ShopController shopController;
 
     public bool alreadyFilled = false;
+    public int itemSelecteID = 0;
 
-    public TextMeshProUGUI moneyText;
+    
 
     public List<ShopItemInfo> itemsList = new List<ShopItemInfo>();
-    public GameObject holderPrefab;
+    
     public Transform content;
     private Vendedor vendedor;
 
-    public int itemSelecteID = 0;
     public Image descriptionImage;
+
     [TextArea(3, 6)]
     public string[] descriptions;
+    public string[] questions;
+
     public TextMeshProUGUI itemDescriptionText;
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI questionText;
+
+    public GameObject buyButton;
+    public GameObject holderPrefab;
+    public GameObject questionFadeBG;
 
     private void Awake()
     {
+        questionFadeBG.SetActive(false);
         vendedor = GameObject.FindObjectOfType<Vendedor>().GetComponent<Vendedor>();
         if(shopController == null)
         {
@@ -80,20 +90,30 @@ public class ShopController : MonoBehaviour
         moneyText.SetText("" + Inventory2.inventory.actualMoney);
         if(itemSelecteID == 0)
         {
-            descriptionImage.sprite = null;
+            descriptionImage.gameObject.SetActive(false);
+            buyButton.SetActive(false);
             itemDescriptionText.SetText("");
             return;
         }
         else
         {
+            descriptionImage.gameObject.SetActive(true);
+            buyButton.SetActive(true);
+
             for (int i = 0; i < itemsList.Count; i++)
-            {
-                if(itemSelecteID == itemsList[i].itemID)
+            {  
+                if (itemSelecteID == itemsList[i].itemID)
                 {
                     descriptionImage.sprite = itemsList[i].itemImage;
                     itemDescriptionText.SetText(descriptions[i]);
                 }
             }
         }
+    }
+
+
+    void ClickOnBuyButton()
+    {
+
     }
 }
