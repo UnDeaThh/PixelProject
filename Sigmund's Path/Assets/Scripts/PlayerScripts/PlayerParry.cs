@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerParry : MonoBehaviour
 {
+    public static PlayerParry plParry;
+
     private float timeBtwParry;
     public float startTimeBtwParry = 0.1f;
     public float parryDuration = 1f;
@@ -17,16 +19,21 @@ public class PlayerParry : MonoBehaviour
     public bool parrySuccesful = false;
     public bool parryFail = false;
     private bool alreadyClicked = false;
-	private PauseManager GM;
 
 
     public Collider2D parryCol;
-    private PlayerController plController;
     private Animator anim;
     private void Awake()
     {
-		GM = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
-        plController = GetComponent<PlayerController>();
+        if(plParry == null)
+        {
+            plParry = this;
+        }
+        if(plParry != this)
+        {
+            Destroy(gameObject);
+        }
+
         anim = GetComponentInChildren<Animator>();
         isParry = false;
         parryCol.enabled = false;
@@ -34,7 +41,7 @@ public class PlayerParry : MonoBehaviour
     }
     private void Update()
     {
-		if(!GM.isPaused){
+		if(!PauseManager.pauseManager.isPaused){
 		
 			CheckIfCanParry();
 			ParryInput();
@@ -47,7 +54,7 @@ public class PlayerParry : MonoBehaviour
 
     void CheckIfCanParry()
     {
-        if(timeBtwParry <= 0 && plController.isGrounded == true)
+        if(timeBtwParry <= 0 && PlayerController2.plController2.isGrounded == true)
         {
             canParry = true;
             

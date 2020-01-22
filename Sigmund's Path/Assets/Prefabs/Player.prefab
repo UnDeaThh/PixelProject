@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1113528242}
+  - component: {fileID: 794645255}
   m_Layer: 10
   m_Name: Inventory
   m_TagString: Inventory
@@ -30,6 +31,49 @@ Transform:
   m_Father: {fileID: 2851571069916491050}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &794645255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113528241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765043458ef10494683b3338e99dbf6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualMoney: 0
+  nBombs: 0
+  nTP: 0
+  moneyText: {fileID: 0}
+  descriptions: {fileID: 0}
+  descriptionText:
+  - 'This is a Potion made by a fucking angel bro
+
+    Potions can Heal one heart of life
+
+
+    Long time ago people consume it as a drug, cause this is what it is.'
+  - A Bomb
+  - You can Teleport between life fountains
+  itemDescription: 0
+  utilityItems:
+  - slotPosition: {fileID: 0}
+    isFull: 0
+    textCounter: {fileID: 0}
+    emptySlot: {fileID: 0}
+    filledSlot: {fileID: 0}
+  - slotPosition: {fileID: 0}
+    isFull: 0
+    textCounter: {fileID: 0}
+    emptySlot: {fileID: 0}
+    filledSlot: {fileID: 0}
+  - slotPosition: {fileID: 0}
+    isFull: 0
+    textCounter: {fileID: 0}
+    emptySlot: {fileID: 0}
+    filledSlot: {fileID: 0}
 --- !u!1 &1152810501
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,7 +98,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152810501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.047, y: -0.239, z: 0}
+  m_LocalPosition: {x: -0.048, y: -0.239, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
@@ -89,6 +133,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1908991132978245050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1193467327482447221}
+  m_Layer: 10
+  m_Name: GroundCheckRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1193467327482447221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908991132978245050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.068, y: -0.239, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2851571069916491050}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2189721344988084301
 GameObject:
@@ -131,7 +205,7 @@ GameObject:
   - component: {fileID: 2851571069916491050}
   - component: {fileID: 2851571069916491048}
   - component: {fileID: 2851571069916491047}
-  - component: {fileID: 1213795563}
+  - component: {fileID: 9102231519660464523}
   - component: {fileID: 3730924781311067699}
   - component: {fileID: 3944529619844876993}
   - component: {fileID: 8299661826070670118}
@@ -158,7 +232,7 @@ Transform:
   - {fileID: 2889389022972198224}
   - {fileID: 4869392952835096927}
   - {fileID: 1152810502}
-  - {fileID: 2167517734480825213}
+  - {fileID: 1193467327482447221}
   - {fileID: 2937485335393459181}
   - {fileID: 1113528242}
   m_Father: {fileID: 0}
@@ -201,7 +275,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.018457798, y: 0.01052085}
   m_Size: {x: 0.18143766, y: 0.5313427}
   m_Direction: 0
---- !u!114 &1213795563
+--- !u!114 &9102231519660464523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,41 +284,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 2851571069916491046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1daf35e43e56f0847a0081dcc20102e4, type: 3}
+  m_Script: {fileID: 11500000, guid: e4b2f514080b4b04ca3cf354cc5f04f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 6586553254031914776}
-  movSpeed: 10
-  facingRight: 1
-  movementForceInAir: 25
-  jumpForce: 1200
-  isGrounded: 0
-  groundCheckLeftPos: {fileID: 1152810502}
-  groundCheckRightPos: {fileID: 2167517734480825213}
-  groundCheckDistance: 0.2
-  whatIsGrounded:
-    serializedVersion: 2
-    m_Bits: 256
-  isWallJump: 0
-  wallHopForce: 8
-  wallJumpForce: 30
-  lowWallJumpForce: 20
-  downForce: 100
-  dashSpeed: 80
-  timeTillNextDash: 0.5
-  dashDuration: 0.08
-  isHanging: 0
-  hangDistance: 0.3
-  hangJumpsForce: 150
-  ledgeCheckPos: {fileID: 4762303507243562586}
-  underLedgeCheckPos: {fileID: 2889389022972198224}
-  wallCheckPos: {fileID: 4869392952835096927}
-  wallCheckDistance: 0.35
-  wallSlideSpeed: 3
-  isWallSliding: 0
   health: 5
+  facingDir: 1
+  potions: 3
+  speedMov: 500
+  wallDistance: 0.4
+  groundDistance: 0.2
+  jumpForce: 20
+  wallSlideSpeed: 5
+  wallJumpForce: 1000
+  timeNextDrink: 0.7
+  timeDrinking: 1
+  dashSpeed: 2000
+  dashDuration: 0.15
+  timeNextDash: 1
+  invencibilityTime: 1.5
+  damagedPushForce: 700
   isDead: 0
-  maxHealth: 10
+  isGrounded: 0
+  isWallSliding: 0
+  isDrinking: 0
+  heedArrows: 1
+  potionsUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   heartsUI:
   - {fileID: 0}
   - {fileID: 0}
@@ -256,21 +325,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  fullHeartUI: {fileID: -5991359403375083412, guid: d62bf0a9673775444accdd96aae94437,
+  fullHeartUI: {fileID: 4427202462637522895, guid: e9f117a7cc271814d84fde24e5a5600b,
     type: 3}
   emptyHeartUI: {fileID: -5625336778115075582, guid: e9f117a7cc271814d84fde24e5a5600b,
     type: 3}
-  potions: 3
-  potionsUI:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  isDrinking: 0
-  timeTillNextDrink: 1
-  startInvencibleTime: 1
-  damagedPushForce: 500
+  sprite: {fileID: 6586553254031914776}
+  frontPos: {fileID: 4869392952835096927}
+  feetPosLeft: {fileID: 1152810502}
+  feetPosRight: {fileID: 1193467327482447221}
+  wallJumpDir: {x: 1, y: 1.5}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &3730924781311067699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,36 +537,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5427920e5f7cc24f9100f74b02ca90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5375994457670908748
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2167517734480825213}
-  m_Layer: 0
-  m_Name: GroundCheckRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2167517734480825213
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5375994457670908748}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.056, y: -0.239, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2851571069916491050}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7609324757238199877
 GameObject:
   m_ObjectHideFlags: 0

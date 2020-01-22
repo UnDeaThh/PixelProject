@@ -26,8 +26,6 @@ public class PlayerAttack : MonoBehaviour
 
     public LayerMask whatIsEnemie;
 
-    private PlayerController plController;
-    private PlayerParry plParry;
     private Animator anim;
     private CameraController cameraController;
 
@@ -35,13 +33,11 @@ public class PlayerAttack : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         playerPos = GetComponent<Transform>();
-        plController = GetComponent<PlayerController>();
-        plParry = GetComponent<PlayerParry>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
     }
     void Update()
     {
-        if(plController.isDead == false)
+        if(PlayerController2.plController2.isDead == false)
         {
 		    if(!PauseManager.pauseManager.isPaused && !Vendedor.seller.inShop){
 			    CheckIfCanAttack();
@@ -54,8 +50,8 @@ public class PlayerAttack : MonoBehaviour
 
     void CheckIfCanAttack()
     {
-        if(timeBtwttack <= 0 && !plController.isDrinking && !plController.isHanging 
-        && !plController.isWallSliding)
+        if(timeBtwttack <= 0 && !PlayerController2.plController2.isDrinking //&& !PlayerController2.plController2.isHanging //
+        && !PlayerController2.plController2.isWallSliding)
         {
             canAttack = true;
             
@@ -72,12 +68,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (plController.isWallSliding)
+        if (PlayerController2.plController2.isWallSliding)
         {
             isAttacking = false;
         }
         //Doble damage with parry
-        if (plParry.parrySuccesful)
+        if (PlayerParry.plParry.parrySuccesful)
         {
             damage *= 2;
         }
@@ -91,12 +87,12 @@ public class PlayerAttack : MonoBehaviour
                 attackingFront = true;
                 attackingUp = false;
                 //Primero seteamos la posicion del collider
-                if (plController.facingRight == 1)
+                if (PlayerController2.plController2.facingDir == 1)
                 {
                     Vector3 finalPos = playerPos.position + frontAttackPos;
                     attackPos.position = finalPos;
                 }
-                else if(plController.facingRight == -1)
+                else if(PlayerController2.plController2.facingDir == -1)
                 {
                     Vector3 finalPos = playerPos.position + (-frontAttackPos);
                     attackPos.position = finalPos;
@@ -111,12 +107,12 @@ public class PlayerAttack : MonoBehaviour
                         if(enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
                         {
                             changeling.TakeDamage(damage);
-                            plParry.parrySuccesful = false;
+                            PlayerParry.plParry.parrySuccesful = false;
 
                         }
                         if(enemiesToDamage[i].TryGetComponent(out BermonchAI bermonch)){
                             bermonch.TakeDamage(damage);
-                            plParry.parrySuccesful = false;
+                            PlayerParry.plParry.parrySuccesful = false;
                         }
                     }
                 }
@@ -142,7 +138,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         if (enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
                         {
-                            if (!plParry.parrySuccesful)
+                            if (!PlayerParry.plParry.parrySuccesful)
                             {
                                 changeling.TakeDamage(damage);
                             }
@@ -171,7 +167,7 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.color = Color.red;
         if (attackingFront)
         {
-        Gizmos.DrawWireCube(attackPos.position, attackRangeFront);
+            Gizmos.DrawWireCube(attackPos.position, attackRangeFront);
         }
         if (attackingUp)
         {

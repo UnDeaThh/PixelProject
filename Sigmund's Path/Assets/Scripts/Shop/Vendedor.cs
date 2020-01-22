@@ -10,8 +10,6 @@ public class Vendedor : MonoBehaviour
     public Canvas canvasVendedor;
     public GameObject pressEText;
     public GameObject UIShop;
-    private PauseManager pauseManager;
-    private PlayerController plController;
 
     public bool inShop = false;
     private bool playerClose = false;
@@ -26,20 +24,18 @@ public class Vendedor : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
-        plController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         pressEText.SetActive(false);
         canvasVendedor.enabled = true;
         
     }
     private void Start()
     {
-        ShopController.shopController.enabled = false;
+      //  ShopController.shopController.enabled = false;
     }
 
     private void Update()
     {
-        if (pauseManager.isPaused)
+        if (PauseManager.pauseManager.isPaused)
         {
             canvasVendedor.enabled = false;
         }
@@ -64,12 +60,12 @@ public class Vendedor : MonoBehaviour
         if (inShop)
         {
             UIShop.SetActive(true);
-            ShopController.shopController.enabled = true;
+           // ShopController.shopController.enabled = true;
             pressEText.SetActive(false);
         }
         else
         {
-            ShopController.shopController.enabled = false;
+            //ShopController.shopController.enabled = false;
             UIShop.SetActive(false);
         }
     }
@@ -99,7 +95,7 @@ public class Vendedor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(!pauseManager.isPaused)
+            if(!PauseManager.pauseManager.isPaused)
             {
                 playerClose = true;
                 if (Input.GetKeyDown(KeyCode.E))

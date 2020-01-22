@@ -72,12 +72,12 @@ public class BermonchAI : BaseEnemy
                     if(rightRay)
                     {
                         Debug.Log("isRight");
-                        col.gameObject.GetComponent<PlayerController>().PlayerDamaged(damage, Vector2.left); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+                        col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
                     }
                     else if (leftRay)
                     {
                         Debug.Log("isLeft");
-                        col.gameObject.GetComponent<PlayerController>().PlayerDamaged(damage, Vector2.right); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+                        col.gameObject.GetComponent<PlayerController>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
                     }
                     currentTimeBtwPunch = timeBtwPunch;
                 }

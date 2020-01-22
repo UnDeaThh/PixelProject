@@ -18,10 +18,6 @@ public class Inventory2 : MonoBehaviour
     public int nTP;
     private int maxTP;
 
-
-    private PlayerController plController;
-    private PauseManager PM;
-
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI descriptions;
     [TextArea(3, 6)]
@@ -62,7 +58,7 @@ public class Inventory2 : MonoBehaviour
         }
 
 
-        plController = GetComponentInParent<PlayerController>();
+        
         itemDescription = ItemType.Nothing;
     }
     private void Update()
@@ -96,7 +92,7 @@ public class Inventory2 : MonoBehaviour
     void UpdateText()
     {
         moneyText.SetText("" + actualMoney);
-        utilityItems[0].textCounter.SetText("" + plController.potions);
+        utilityItems[0].textCounter.SetText("" + PlayerController2.plController2.potions);
         utilityItems[1].textCounter.SetText("" + nBombs);
         utilityItems[2].textCounter.SetText("" + nTP);
     }
@@ -123,7 +119,7 @@ public class Inventory2 : MonoBehaviour
     #endregion
     void CheckIsFill()
     {
-        if(plController.potions > 0)
+        if(PlayerController2.plController2.potions > 0)
         {
             utilityItems[0].isFull = true;
         }

@@ -161,34 +161,15 @@ public class ChangelingAI : BaseEnemy
              isChasing = true;
              InvokeRepeating("UpdatePath", 0f, .5f);
         }
-    }
-         
-
-    /*
-        void PlayerDetection()
-             {
-                 if(Physics2D.OverlapCircle(transform.position, detectionRange, whatIsDetected))
-                 {
-                     isChasing = true;
-                     InvokeRepeating("UpdatePath", 0f, .5f);
-                 }
-        }
-        */
-
+    }     
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.transform.tag == "Player")
         {
-            Vector2 normal = collision.contacts[0].normal;
-            collision.gameObject.GetComponent<PlayerController>().PlayerDamaged(damage, normal);
+            //Vector2 normal = collision.contacts[0].normal;
+            collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
         }
     }
 
-    /*
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
-    }
-    */
 }

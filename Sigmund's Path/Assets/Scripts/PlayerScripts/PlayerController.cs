@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -319,7 +318,7 @@ public class PlayerController : MonoBehaviour
             if (!plParry.parryFail)
             {
                 //Movimiento NORMAL 
-                if (!isDamaged && !isDrinking)
+                if (!isDamaged && !isDrinking && !isHanging)
                 {
                     rb2d.velocity = new Vector2(movInputDir * movSpeed , rb2d.velocity.y);
                     wasWallSliding = false;
@@ -392,17 +391,8 @@ public class PlayerController : MonoBehaviour
 
     void GrabLedgeWall(){
         if(!isGrounded && !isHanging && rb2d.velocity.y < 0f && !ledgeCheck && underLedgeCheck && isTouchingWall){
-            //Guardamos la posicion actual
-           // Vector3 pos = transform.position;
-            // movemos hasta el muro
-            //pos.x += (underLedgeCheck.distance - smallAmount) * facingDir;
-            //movemos hasta la altura del muro
-            //pos.y -= hangDistance;
-            //aplicamos la distancia al player
-            //transform.position = pos;
-            //Set RigidBody to Static
+
             rb2d.bodyType = RigidbodyType2D.Static;
-            //Set is hang to true
             isHanging = true;
         }
     }
@@ -575,7 +565,6 @@ public class PlayerController : MonoBehaviour
             if (rb2d.velocity.y < 0.1f && facingRight == 1 && movInputDir > 0f) //Pared Derecha
             {
                 isWallSlidingAnim = true;
-                rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
                 rb2d.velocity = new Vector2(rb2d.velocity.x, -wallSlideSpeed);
             }
             else if (rb2d.velocity.y < 0.1f && facingRight == -1 && movInputDir < 0f) //Pared Izquierda
@@ -702,8 +691,18 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos(){
         Gizmos.DrawLine(groundCheckRightPos.position, new Vector3(groundCheckRightPos.position.x, groundCheckRightPos.position.y - groundCheckDistance, groundCheckRightPos.position.z));
         Gizmos.DrawLine(groundCheckLeftPos.position, new Vector3(groundCheckLeftPos.position.x , groundCheckLeftPos.position.y - groundCheckDistance, groundCheckLeftPos.position.z));
-        Gizmos.DrawLine(wallCheckPos.position, new Vector3(wallCheckPos.position.x + wallCheckDistance, wallCheckPos.position.y, wallCheckPos.position.z));
-        Gizmos.DrawLine(ledgeCheckPos.position,new Vector3(ledgeCheckPos.position.x + hangDistance, ledgeCheckPos.position.y, ledgeCheckPos.position.z));
-        Gizmos.DrawLine(underLedgeCheckPos.position, new Vector3 (underLedgeCheckPos.position.x + hangDistance, underLedgeCheckPos.position.y, underLedgeCheckPos.position.z));
+        if(facingDir == 1)
+        {
+            Gizmos.DrawLine(wallCheckPos.position, new Vector3(wallCheckPos.position.x + wallCheckDistance, wallCheckPos.position.y, wallCheckPos.position.z));
+            Gizmos.DrawLine(ledgeCheckPos.position, new Vector3(ledgeCheckPos.position.x + hangDistance, ledgeCheckPos.position.y, ledgeCheckPos.position.z));
+            Gizmos.DrawLine(underLedgeCheckPos.position, new Vector3(underLedgeCheckPos.position.x + hangDistance, underLedgeCheckPos.position.y, underLedgeCheckPos.position.z));
+        }
+        else
+        {
+            Gizmos.DrawLine(wallCheckPos.position, new Vector3(wallCheckPos.position.x - wallCheckDistance, wallCheckPos.position.y, wallCheckPos.position.z));
+            Gizmos.DrawLine(ledgeCheckPos.position, new Vector3(ledgeCheckPos.position.x - hangDistance, ledgeCheckPos.position.y, ledgeCheckPos.position.z));
+            Gizmos.DrawLine(underLedgeCheckPos.position, new Vector3(underLedgeCheckPos.position.x - hangDistance, underLedgeCheckPos.position.y, underLedgeCheckPos.position.z));
+        }
+        
     }
 }

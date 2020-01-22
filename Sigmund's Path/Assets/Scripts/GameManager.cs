@@ -8,12 +8,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
 
-    private PlayerController plController;
     [Header("DeadPanel")]
     public GameObject deadPanelUI;
     private float alphaSpeed = 0.02f;
     private float currentAlphaDeadPanel = 0.0f;
-    private PauseManager pauseManager;
 
     #region Vendedor
     public bool inShop;
@@ -40,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Update(){
         inShop = Vendedor.seller.inShop;
-        DeadControll();
+        DeadState();
 
     }
 
@@ -56,9 +54,9 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
     }
-    void DeadControll()
+    void DeadState()
     {
-        if (!PlayerController.plContoller.isDead)
+        if (!PlayerController2.plController2.isDead)
         {
             Time.timeScale = 1f;
         }
