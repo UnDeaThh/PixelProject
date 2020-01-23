@@ -13,4 +13,5 @@ public class ItemHolderButton : MonoBehaviour
     public Image moneyIcon;
     public GameObject buyButton;
 
+
 }

@@ -14,8 +14,8 @@ public class Inventory2 : MonoBehaviour
 
     public int actualMoney;
     public int nBombs;
-    private int maxBombs;
     public int nTP;
+    private int maxBombs;
     private int maxTP;
 
     public TextMeshProUGUI moneyText;

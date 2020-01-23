@@ -9,7 +9,12 @@ public class ShopController : MonoBehaviour
     public static ShopController shopController;
 
     public bool alreadyFilled = false;
+    private bool buyingItem;
+    private bool itemBought = false;
+
     public int itemSelecteID = 0;
+    private int itemsToBuy = 1;
+    private int moneyToSpend; 
 
     
 
@@ -27,6 +32,7 @@ public class ShopController : MonoBehaviour
     public TextMeshProUGUI itemDescriptionText;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI questionText;
+    public TextMeshProUGUI cantidadText;
 
     public GameObject buyButton;
     public GameObject holderPrefab;
@@ -50,6 +56,8 @@ public class ShopController : MonoBehaviour
     {
         if (!alreadyFilled)
         {
+            buyingItem = false;
+            itemsToBuy = 1;
             FillList();
         }
     }
@@ -57,12 +65,14 @@ public class ShopController : MonoBehaviour
     private void OnDisable()
     {
         itemSelecteID = 0;
+        buyingItem = false;
     }
 
     private void Update()
     {
         UpdateUI();
-
+        ConfirmationQuestion();
+        MoneyToSpend();
     }
 
     void FillList()
@@ -84,6 +94,40 @@ public class ShopController : MonoBehaviour
             alreadyFilled = true;
         }
     }
+
+    void MoneyToSpend()
+    {
+        for (int i = 0; i < itemsList.Count; i++)
+        {
+            if(itemSelecteID == itemsList[i].itemID)
+            {
+                moneyToSpend = itemsList[i].itemPrice * itemsToBuy;
+            }
+        }
+    }
+
+
+    void ConfirmationQuestion()
+    {
+        if (buyingItem)
+        {
+            questionFadeBG.SetActive(true);
+            for (int i = 0; i < itemsList.Count; i++)
+            {
+                if(itemSelecteID == itemsList[i].itemID)
+                {
+                    questionText.SetText(questions[i]);
+                }
+            }
+        }
+        else
+        {
+            questionFadeBG.SetActive(false);
+        }
+
+        cantidadText.SetText(itemsToBuy.ToString());
+    }
+
 
     void UpdateUI()
     {
@@ -111,9 +155,62 @@ public class ShopController : MonoBehaviour
         }
     }
 
-
-    void ClickOnBuyButton()
+    #region BuyingButtonsMethods
+    public void ClickOnBuy()
     {
+        buyingItem = true;
+    }
+
+    public void IncreaseItemsToBuy()
+    {
+        if(itemsToBuy < 99)
+        {
+            itemsToBuy++;
+        }
+    }
+
+    public void DecreaseItemsToBuy()
+    {
+        if(itemsToBuy > 1)
+        {
+            itemsToBuy--;
+        }
+    }
+
+    public void CancelPurchase()
+    {
+        itemsToBuy = 1;
+        buyingItem = false;
+    }
+
+    public void AcceptPurchase()
+    {
+        if (Inventory2.inventory.RequestMoney(moneyToSpend))
+        {
+            switch (itemSelecteID)
+            {
+                case 1:
+                    PlayerController2.plController2.potions += itemsToBuy;
+                    break;
+                case 2:
+                    Inventory2.inventory.nBombs += itemsToBuy;
+                    break;
+                case 3:
+                    Inventory2.inventory.nTP += itemsToBuy;
+                    break;
+            }
+            Inventory2.inventory.LoseMoney(moneyToSpend);
+            //Sonido de Compra
+            itemsToBuy = 1;
+            buyingItem = false;
+        }
+        else
+        {
+            Debug.Log("PUTO POBRE");
+            //Sonido de que falta dinero
+        }
 
     }
+
+    #endregion
 }
