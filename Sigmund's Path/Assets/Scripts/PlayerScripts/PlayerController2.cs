@@ -137,7 +137,7 @@ public class PlayerController2 : MonoBehaviour
             Drink();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             shiftPressed = true;
         }
@@ -433,12 +433,6 @@ public class PlayerController2 : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 20);
             Debug.Log("maxSpeedY");
         }
-        if(rb.velocity.x >= 20f)
-        {
-            rb.velocity = new Vector2(20f, rb.velocity.y);
-            Debug.Log("maxSpeedX");
-        }
-
     }
 
     public void PlayerDamaged(int damage, Vector2 enemyPos)
