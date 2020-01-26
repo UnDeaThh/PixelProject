@@ -20,7 +20,6 @@ public class ChangelingAI : BaseEnemy
 
     private Seeker seeker;
     #endregion
-
     public float damagePushForce = 100;
     public Transform spriteChangeling;
     private SpriteRenderer graphic;
@@ -29,6 +28,13 @@ public class ChangelingAI : BaseEnemy
     public Color damagedColor;
     private Color normalColor;
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        soul.enabled = false;
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+    public enum EnemyClass
+    {
+        Changeling, Bermonch, Tatzel, Nach, Neck
+    }
 public class BaseEnemy : MonoBehaviour
 {
     public int nLifes;
@@ -17,16 +21,22 @@ public class BaseEnemy : MonoBehaviour
     [HideInInspector]public float detectionRange;
     public LayerMask whatIsDetected;
 
-    public GameObject pickUp;
+    public SoulTrail soul;
+    public EnemyClass enemyType;
+
 
     public virtual void Dead()
     {
         if(nLifes <= 0)
         {
-            if(pickUp != null){
-                Instantiate(pickUp, transform.position, Quaternion.identity);
-            }
-            
+           if(soul != null)
+           {
+               soul.enabled = true;
+               soul.MoneyValor(enemyType);
+               soul.transform.parent = null;
+               soul.gameObject.transform.position = transform.position;
+               //Instantiate(soul, transform.position, Quaternion.identity);
+           }
             Destroy(gameObject);
         }
     }
