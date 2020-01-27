@@ -6,11 +6,10 @@ public class FountainController : MonoBehaviour
 {
     private bool canHeal = true;
     private bool playerIn = false;
-    public int maxHeal = 4;
+    public int reserveHeal = 4;
     private int currentHeal;
     public float timeHealOne;
     private float currentTimeHealOne;
-    private PlayerController player;
 
     private void Update()
     {
@@ -22,22 +21,15 @@ public class FountainController : MonoBehaviour
             }
             else if(currentTimeHealOne <= 0)
             {
-                if(maxHeal > 0 && player.health < player.maxHealth)
+                if(reserveHeal > 0 && PlayerController2.plController2.health < PlayerController2.plController2.maxHealth)
                 {
-                    player.health++;
-                    maxHeal--;
+                    PlayerController2.plController2.health++;
+                    reserveHeal--;
                     currentTimeHealOne = timeHealOne;
                 }
-                else if(maxHeal > 0 && player.health >= player.maxHealth)
+                if(reserveHeal <= 0)
                 {
-                    player.potions++;
-                    maxHeal--;
-                    currentTimeHealOne = timeHealOne;
-                }
-
-                if(maxHeal <= 0)
-                {
-                    maxHeal = 0;
+                    reserveHeal = 0;
                     canHeal = false;
                 }
             }
@@ -49,7 +41,6 @@ public class FountainController : MonoBehaviour
         {
             playerIn = true;
             currentTimeHealOne = timeHealOne;
-            player = other.GetComponent<PlayerController>();
         }
     }
 

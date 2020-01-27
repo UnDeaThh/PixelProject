@@ -8,7 +8,7 @@ public class PlayerController2 : MonoBehaviour
     public static PlayerController2 plController2;
 
     public int health = 5;
-    private int maxHealth = 10;
+    [HideInInspector] public int maxHealth = 10;
     public int facingDir = 1;
     public int potions;
     private int maxPotions;
