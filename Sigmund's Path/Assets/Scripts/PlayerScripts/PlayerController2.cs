@@ -8,7 +8,7 @@ public class PlayerController2 : MonoBehaviour
     public static PlayerController2 plController2;
 
     public int health = 5;
-    [HideInInspector] public int maxHealth = 10;
+    public int maxHealth = 5;
     public int facingDir = 1;
     public int potions;
     private int maxPotions;
@@ -57,6 +57,10 @@ public class PlayerController2 : MonoBehaviour
     private bool isDamaged;
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
+    public bool dashUnlocked = false;
+    public bool highJumpUnlocked = false;
+    public bool wallJumpUnlocked;
+
 
     public Image[] potionsUI;
     public Image[] heartsUI;
@@ -234,6 +238,14 @@ public class PlayerController2 : MonoBehaviour
         {
             health = maxHealth;
         }
+        if(maxHealth <= 5)
+        {
+            maxHealth = 5;
+        }
+        else if(maxHealth >= 10)
+        {
+            maxHealth = 10;
+        }
 
         //UI
         for (int i = 0; i < heartsUI.Length; i++)
@@ -276,7 +288,7 @@ public class PlayerController2 : MonoBehaviour
 
     void CheckIfCanDash()
     {
-        if (isGrounded)
+        if (isGrounded && dashUnlocked)
         {
             canDash = true;
         }
@@ -339,6 +351,15 @@ public class PlayerController2 : MonoBehaviour
             {
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             }
+            WallJump();
+            jumpPressed = false;
+        }
+    }
+
+    void WallJump()
+    {
+        if (wallJumpUnlocked)
+        {
             if (isWallSliding)
             {
                 heedArrows = false; //Mientras 
@@ -348,7 +369,6 @@ public class PlayerController2 : MonoBehaviour
                 cntStickyTime = 0;
                 print("WallJump");
             }
-            jumpPressed = false;
         }
     }
     void ReturnControlForMovement()

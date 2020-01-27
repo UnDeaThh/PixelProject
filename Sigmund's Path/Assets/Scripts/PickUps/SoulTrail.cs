@@ -28,7 +28,7 @@ public class SoulTrail : MonoBehaviour
     public void MoneyValor(EnemyClass enemyType){
         switch (enemyType){
             case EnemyClass.Changeling:
-                moneyToAdd = 26;
+                moneyToAdd = 50;
                 break;
         }
     }

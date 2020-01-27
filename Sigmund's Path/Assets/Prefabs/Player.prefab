@@ -57,22 +57,26 @@ MonoBehaviour:
     Long time ago people consume it as a drug, cause this is what it is.'
   - A Bomb
   - You can Teleport between life fountains
+  bigHeart:
+  - {fileID: 8305345774195920952, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
+  - {fileID: 2905905011506562312, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
+  - {fileID: -7348596064645043917, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
+  - {fileID: 5472218031393722235, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
+  - {fileID: 882115495372157852, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
+  - {fileID: -6313002280704479065, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
   itemDescription: 0
   utilityItems:
   - slotPosition: {fileID: 0}
     isFull: 0
     textCounter: {fileID: 0}
-    emptySlot: {fileID: 0}
     filledSlot: {fileID: 0}
   - slotPosition: {fileID: 0}
     isFull: 0
     textCounter: {fileID: 0}
-    emptySlot: {fileID: 0}
     filledSlot: {fileID: 0}
   - slotPosition: {fileID: 0}
     isFull: 0
     textCounter: {fileID: 0}
-    emptySlot: {fileID: 0}
     filledSlot: {fileID: 0}
 --- !u!1 &1152810501
 GameObject:
@@ -288,6 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  maxHealth: 5
   facingDir: 1
   potions: 3
   speedMov: 500
@@ -295,7 +300,7 @@ MonoBehaviour:
   groundDistance: 0.2
   jumpForce: 20
   wallSlideSpeed: 5
-  wallJumpForce: 1000
+  wallJumpForce: 800
   timeNextDrink: 0.7
   timeDrinking: 1
   dashSpeed: 2000

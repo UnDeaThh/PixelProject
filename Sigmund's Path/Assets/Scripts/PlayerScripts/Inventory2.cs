@@ -6,7 +6,7 @@ using TMPro;
 
 public enum ItemType
 {
-    Potions, Bombs, TelePort, Nothing
+    Potions, Bombs, TelePort, WaterPasive, SwordPasive, Nothing
 }
 public class Inventory2 : MonoBehaviour
 {
@@ -17,11 +17,23 @@ public class Inventory2 : MonoBehaviour
     public int nTP;
     private int maxBombs;
     private int maxTP;
+    public int abilitiesUnlocked = 0;
+
+    public bool waterPasive = false;
+    public bool swordPasive = false;
+
+    public GameObject waterPasiveItem;
+    public GameObject swordPasiveItem;
 
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI descriptions;
     [TextArea(3, 6)]
     public string[] descriptionText;
+
+    public Image bigHeartImage;
+    public Image abilitiesImage;
+    public Sprite[] bigHeartSprite;
+    public Sprite[] abilitiesSprite;
 
     [System.Serializable]
     public class Slot
@@ -29,7 +41,7 @@ public class Inventory2 : MonoBehaviour
         public Transform slotPosition;
         public bool isFull;
         public TextMeshProUGUI textCounter;
-        public Image emptySlot;
+        //public Image emptySlot;
         public GameObject filledSlot;
     }
 
@@ -152,6 +164,65 @@ public class Inventory2 : MonoBehaviour
                 utilityItems[i].filledSlot.SetActive(true);
             }
         }
+
+        switch (PlayerController2.plController2.maxHealth)
+        {
+            case 5:
+                bigHeartImage.sprite = bigHeartSprite[0];
+                break;
+            case 6:
+                bigHeartImage.sprite = bigHeartSprite[1];
+                break;
+            case 7:
+                bigHeartImage.sprite = bigHeartSprite[2];
+                break;
+            case 8:
+                bigHeartImage.sprite = bigHeartSprite[3];
+                break;
+            case 9:
+                bigHeartImage.sprite = bigHeartSprite[4];
+                break;
+            case 10:
+                bigHeartImage.sprite = bigHeartSprite[5];
+                break;
+        }
+
+        if (waterPasive)
+        {
+            waterPasiveItem.SetActive(true);
+        }
+        else
+            waterPasiveItem.SetActive(false);
+        if (swordPasive)
+        {
+            swordPasiveItem.SetActive(true);
+        }
+        else
+            swordPasiveItem.SetActive(false);
+
+        if(abilitiesUnlocked <= 0)
+        {
+            abilitiesUnlocked = 0;
+        }
+        else if(abilitiesUnlocked >= 3)
+        {
+            abilitiesUnlocked = 3;
+        }
+        switch (abilitiesUnlocked)
+        {
+            case 0:
+                abilitiesImage.sprite = abilitiesSprite[0];
+                break;
+            case 1:
+                abilitiesImage.sprite = abilitiesSprite[1];
+                break;
+            case 2:
+                abilitiesImage.sprite = abilitiesSprite[2];
+                break;
+            case 3:
+                abilitiesImage.sprite = abilitiesSprite[3];
+                break;
+        }
     }
 
     void DescriptionText()
@@ -167,7 +238,13 @@ public class Inventory2 : MonoBehaviour
             case ItemType.TelePort:
                 descriptions.SetText(descriptionText[2]);
                 break;
-            case ItemType.Nothing:
+            case ItemType.WaterPasive:
+                descriptions.SetText(descriptionText[3]);
+                break;
+            case ItemType.SwordPasive:
+                descriptions.SetText(descriptionText[4]);
+                break;
+            default:
                 descriptions.SetText("");
                 break;
         }
