@@ -46,6 +46,11 @@ MonoBehaviour:
   actualMoney: 0
   nBombs: 0
   nTP: 0
+  abilitiesUnlocked: 0
+  waterPasive: 0
+  swordPasive: 0
+  waterPasiveItem: {fileID: 0}
+  swordPasiveItem: {fileID: 0}
   moneyText: {fileID: 0}
   descriptions: {fileID: 0}
   descriptionText:
@@ -57,13 +62,22 @@ MonoBehaviour:
     Long time ago people consume it as a drug, cause this is what it is.'
   - A Bomb
   - You can Teleport between life fountains
-  bigHeart:
-  - {fileID: 8305345774195920952, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
-  - {fileID: 2905905011506562312, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
-  - {fileID: -7348596064645043917, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
-  - {fileID: 5472218031393722235, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
-  - {fileID: 882115495372157852, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
-  - {fileID: -6313002280704479065, guid: 4cfe5e09c6ba76846b4b08f4faee8cc3, type: 3}
+  - Fast Walk throw water
+  - Deal more Damage
+  bigHeartImage: {fileID: 0}
+  abilitiesImage: {fileID: 0}
+  bigHeartSprite:
+  - {fileID: -446359331901573906, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
+  - {fileID: -4038474542444619479, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
+  - {fileID: -7719282942846914692, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
+  - {fileID: 2732422918976804128, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
+  - {fileID: 1320595938491463565, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
+  - {fileID: -7502570034817271745, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
+  abilitiesSprite:
+  - {fileID: -2040280324820349657, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
+  - {fileID: 3316384178356730757, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
+  - {fileID: 6019927832041005995, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
+  - {fileID: -9182147277551305115, guid: 9e51977945085704d90eab64a05c24dc, type: 3}
   itemDescription: 0
   utilityItems:
   - slotPosition: {fileID: 0}
@@ -313,6 +327,9 @@ MonoBehaviour:
   isWallSliding: 0
   isDrinking: 0
   heedArrows: 1
+  dashUnlocked: 0
+  highJumpUnlocked: 0
+  wallJumpUnlocked: 0
   potionsUI:
   - {fileID: 0}
   - {fileID: 0}
