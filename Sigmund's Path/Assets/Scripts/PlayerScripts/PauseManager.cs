@@ -13,26 +13,25 @@ public class PauseManager : MonoBehaviour
 
     public bool isPaused = false;
     public bool isOnInventory = false;
-    private bool isOnPause = false;
+    private bool isOnSettings = false;
 	private bool isOnMap = false;
     [Header("UI PAUSE")]
     public Image blackFade;
     
     public GameObject bookContainer;
-	public GameObject pausePanel;
+	public GameObject settingsPanel;
     public GameObject inventoryPanel;
 	public GameObject mapPanel;
 
 	[Header("PAUSE SETTINGS")]
 	public AudioMixer audioMixer;
     public Slider sliderVolumen;
-    public Dropdown qualityDropdown;
     public Toggle fullScreenToggle;
-
+    public Dropdown qualityDropdown;
     public Dropdown resolutionDropdown;
     private Resolution[] resolutions = new Resolution[3];
 
-    public GameObject options;
+    public GameObject rightOptions;
     public GameObject goToMainMenuQuest;
     public GameObject exitGameQuest;
     private void Awake()
@@ -52,7 +51,7 @@ public class PauseManager : MonoBehaviour
         {
             canvas.enabled = true;
         }
-        if(pausePanel != null)
+        if(pausePanelBegins != null)
         {
             pausePanelBegins.SetActive(true);
         }
@@ -60,8 +59,8 @@ public class PauseManager : MonoBehaviour
 
        
         blackFade.enabled = false;
-		pausePanel.SetActive(false);
-        options.SetActive(false);
+		settingsPanel.SetActive(false);
+        rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
         goToMainMenuQuest.SetActive(false);
         bookContainer.SetActive(false);
@@ -125,10 +124,10 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         blackFade.enabled = false;
         bookContainer.SetActive(false);
-        isOnPause = false;
+        isOnSettings = false;
         isOnInventory = false;
 		isOnMap = false;
-        options.SetActive(false);
+        rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
         goToMainMenuQuest.SetActive(false);
         Time.timeScale = 1f;
@@ -147,51 +146,54 @@ public class PauseManager : MonoBehaviour
 
     public void InventoryTab()
     {
-        isOnPause = false;
-        options.SetActive(false);
+        isOnSettings = false;
+        rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
         goToMainMenuQuest.SetActive(false);
         isOnMap = false;
         isOnInventory = true;
-        pausePanel.SetActive(false);
+        settingsPanel.SetActive(false);
 		mapPanel.SetActive(false);
         inventoryPanel.SetActive(true);
     }
-
 
     public void PauseTab()
     {
         isOnInventory = false;
 		isOnMap = false;
-        isOnPause = true;
+        isOnSettings = true;
         inventoryPanel.SetActive(false);
 		mapPanel.SetActive(false);
-        pausePanel.SetActive(true);
+        settingsPanel.SetActive(true);
     }
 
 	public void MapTab(){
 		isOnInventory = false;
-		isOnPause =  false;
-        options.SetActive(false);
+		isOnSettings =  false;
+        rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
         goToMainMenuQuest.SetActive(false);
         isOnMap = true;
 		inventoryPanel.SetActive(false);
-		pausePanel.SetActive(false);
+		settingsPanel.SetActive(false);
 		mapPanel.SetActive(true);
 	}
 
     #region SettingsButtons
     public void ClickOnSettings()
     {
-        options.SetActive(true);
+        rightOptions.SetActive(true);
+        for (int i = 0; i < rightOptions.transform.childCount; i++)
+        {
+            rightOptions.transform.GetChild(i).gameObject.SetActive(true);
+        }
         goToMainMenuQuest.SetActive(false);
         exitGameQuest.SetActive(false);
     }
 
     public void ClickOnMainMenu()
     {
-        options.SetActive(false);
+        rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
         goToMainMenuQuest.SetActive(true);
 
@@ -199,7 +201,7 @@ public class PauseManager : MonoBehaviour
 
     public void ClickOnExitGame()
     {
-        options.SetActive(false);
+        rightOptions.SetActive(false);
         goToMainMenuQuest.SetActive(false);
         exitGameQuest.SetActive(true);
     }
