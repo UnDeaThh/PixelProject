@@ -28,14 +28,15 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+    }
 
-        if(deadPanelUI != null)
+    private void Start()
+    {
+        if (deadPanelUI != null)
         {
             deadPanelUI.SetActive(false);
         }
-        
     }
-
     void Update(){
         inShop = Vendedor.seller.inShop;
         DeadState();

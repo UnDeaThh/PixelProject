@@ -41,15 +41,18 @@ public class PlayerParry : MonoBehaviour
     }
     private void Update()
     {
-		if(!PauseManager.pauseManager.isPaused){
+        if (!PlayerController2.plController2.isGODmode)
+        {
+		    if(!PauseManager.pauseManager.isPaused){
 		
-			CheckIfCanParry();
-			ParryInput();
-			Parry();
-		}
+			    CheckIfCanParry();
+			    ParryInput();
+			    Parry();
+		    }
 
 
-        UpdateAnimations();
+            UpdateAnimations();
+        }
     }
 
     void CheckIfCanParry()

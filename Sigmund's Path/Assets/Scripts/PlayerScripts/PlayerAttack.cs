@@ -37,14 +37,17 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
-        if(PlayerController2.plController2.isDead == false)
+        if (!PlayerController2.plController2.isGODmode)
         {
-		    if(!PauseManager.pauseManager.isPaused && !Vendedor.seller.inShop){
-			    CheckIfCanAttack();
-			    Attack();
+            if(PlayerController2.plController2.isDead == false)
+            {
+		        if(!PauseManager.pauseManager.isPaused && !Vendedor.seller.inShop){
+			        CheckIfCanAttack();
+			        Attack();
 
-			    UpdateAnimations();
-		    }
+			        UpdateAnimations();
+		        }
+            }
         }
     }
 

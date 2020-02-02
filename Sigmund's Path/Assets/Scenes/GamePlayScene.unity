@@ -120,6 +120,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!70 &6492107 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2851571069916491047, guid: 3f32e89eb2d6ea148884c6a8357c65da,
+    type: 3}
+  m_PrefabInstance: {fileID: 2851571071130149312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &10254541
 GameObject:
   m_ObjectHideFlags: 0
@@ -82000,6 +82006,10 @@ PrefabInstance:
       propertyPath: utilityItems.Array.data[2].filledSlot
       value: 
       objectReference: {fileID: 6017661394965921138}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: abilitiesUnlocked
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
       propertyPath: potionsUI.Array.data[0]
@@ -82075,6 +82085,11 @@ PrefabInstance:
       propertyPath: heartsUI.Array.data[9]
       value: 
       objectReference: {fileID: 126870197}
+    - target: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
+        type: 3}
+      propertyPath: plCollider
+      value: 
+      objectReference: {fileID: 6492107}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
 --- !u!224 &3571510269511703766 stripped

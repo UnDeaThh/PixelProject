@@ -130,7 +130,7 @@ MonoBehaviour:
   isChasing: 0
   damagePushForce: 500
   spriteChangeling: {fileID: 5418782161104568614}
-  damagedColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
+  damagedColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0.60784316}
 --- !u!1 &5418782161104568617
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,11 +240,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoulTrail
-      objectReference: {fileID: 0}
-    - target: {fileID: 4515257579683540210, guid: 9c4cf60600d074147a04ed8aee4bb5ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4515257579683540212, guid: 9c4cf60600d074147a04ed8aee4bb5ca,
         type: 3}

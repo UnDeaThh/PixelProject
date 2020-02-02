@@ -60,6 +60,7 @@ public class PlayerController2 : MonoBehaviour
     public bool dashUnlocked = false;
     public bool highJumpUnlocked = false;
     public bool wallJumpUnlocked;
+    public bool isGODmode = false;
 
 
     public Image[] potionsUI;
@@ -81,6 +82,7 @@ public class PlayerController2 : MonoBehaviour
     private RaycastHit2D isTouchingWall;
 
     public LayerMask whatIsGround;
+    [SerializeField] Collider2D plCollider;
     private void Awake()
     {
         if (plController2 == null)
@@ -97,18 +99,23 @@ public class PlayerController2 : MonoBehaviour
 
     private void Update()
     {
+        GODmode();
+
         CheckLife();
-        if (!isDead)
+        if (!isGODmode)
         {
-            CheckEnvironment();
-            CheckIfWallSliding();
-            CheckIfCanJump();
-            CheckIfCanDrink();
-            CheckPotionsUI();
-            CheckIfCanDash();
-            InputPlayer();
-            FacingDirection();
-            Invencibility();
+            if (!isDead)
+            {
+                CheckEnvironment();
+                CheckIfWallSliding();
+                CheckIfCanJump();
+                CheckIfCanDrink();
+                CheckPotionsUI();
+                CheckIfCanDash();
+                InputPlayer();
+                FacingDirection();
+                Invencibility();
+            }
         }
 
     }
@@ -124,6 +131,32 @@ public class PlayerController2 : MonoBehaviour
 
             ReturnControlForMovement();
             LimitVelocity();
+        }
+    }
+
+    void GODmode()
+    {
+        if(Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.E))
+        {
+            isGODmode = !isGODmode;
+        }
+
+        if (isGODmode)
+        {
+            plCollider.enabled = false;
+            rb.bodyType = RigidbodyType2D.Static;
+            float verticalDir;
+            verticalDir = Input.GetAxisRaw("Vertical");
+            float horizontalDir = Input.GetAxisRaw("Horizontal");
+            transform.position += new Vector3(horizontalDir * 0.5f, verticalDir * 0.5f, transform.position.z);
+            gameObject.tag = "GOD";
+
+        }
+        else
+        {
+            plCollider.enabled = true;
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            gameObject.tag = "Player";
         }
     }
 
@@ -149,11 +182,14 @@ public class PlayerController2 : MonoBehaviour
 
     void AplyMovement()
     {
-        if (heedArrows)
+        if (!isGODmode)
         {
-            if (!isWallSliding)
+            if (heedArrows)
             {
-                rb.velocity = new Vector2(movDir * speedMov * Time.fixedDeltaTime, rb.velocity.y);
+                if (!isWallSliding)
+                {
+                    rb.velocity = new Vector2(movDir * speedMov * Time.fixedDeltaTime, rb.velocity.y);
+                }
             }
         }
     }

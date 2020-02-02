@@ -10,9 +10,16 @@ public class LogoManager : MonoBehaviour
         StartCoroutine(GoMainMenu());
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MainMenuScene");
+        }
+    }
     IEnumerator GoMainMenu()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(6.1f);
         SceneManager.LoadScene("MainMenuScene");
     }
 }
