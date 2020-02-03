@@ -10,7 +10,7 @@ public class PlayerController2 : MonoBehaviour
     public int maxHealth = 5;
     public int facingDir = 1;
     public int potions;
-    private int maxPotions;
+    public int maxPotions = 5;
     private int dashDir;
 
     private float movDir;

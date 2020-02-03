@@ -8,7 +8,7 @@ public class MainMenuManager : MonoBehaviour
 {
     public void ClickOnPlay()
     {
-        SceneManager.LoadScene("GamePlayScene");
+        SceneManager.LoadScene(3);
     }
 
     public void ClickOnSettings()
