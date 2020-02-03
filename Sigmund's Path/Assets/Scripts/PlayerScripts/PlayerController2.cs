@@ -359,13 +359,16 @@ public class PlayerController2 : MonoBehaviour
     }
     void FacingDirection()
     {
-        if (facingDir == 1 && movDir < 0)
+        if (heedArrows)
         {
-            Flip();
-        }
-        else if (facingDir == -1 && movDir > 0)
-        {
-            Flip();
+            if (facingDir == 1 && movDir < 0)
+            {
+                Flip();
+            }
+            else if (facingDir == -1 && movDir > 0)
+            {
+                Flip();
+            }
         }
     }
 
@@ -409,20 +412,23 @@ public class PlayerController2 : MonoBehaviour
     }
     void ReturnControlForMovement()
     {
-        if (!heedArrows)
+        if (!isDrinking)
         {
-            cntHeedTime += Time.deltaTime;
-            if (cntHeedTime >= heedTime)
+            if (!heedArrows)
             {
-                heedArrows = true;
-                cntHeedTime = 0;
+                cntHeedTime += Time.deltaTime;
+                if (cntHeedTime >= heedTime)
+                {
+                    heedArrows = true;
+                    cntHeedTime = 0;
+                }
             }
         }
     }
 
     void Drink()
     {
-        //Un primer evento que pone el bool isDrinking = true para que el jmugador se relantice
+        //Un primer evento que pone el bool isDrinking = true para que el jugador se relantice
         //un segundo evento al final de la animacion para curarse
         if(canDrink && !isDrinking)
         {
@@ -430,6 +436,7 @@ public class PlayerController2 : MonoBehaviour
             {
                 //lamar al evento por animacion 
                 isDrinking = true;
+                heedArrows = false;
                 potions--;
                 health++;
                 StartCoroutine(TimeDrinking());
@@ -477,6 +484,7 @@ public class PlayerController2 : MonoBehaviour
 
     IEnumerator TimeDrinking()
     {
+        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.8f);
         isDrinking = false;
         cntTimeNextDrink = 0;
@@ -499,16 +507,22 @@ public class PlayerController2 : MonoBehaviour
             isDamaged = true;
             cntinvencibilityTime = 0;
             health -= damage;
-
-            if(enemyPos.x <= transform.position.x)
+            if(health > 1)
             {
-                heedArrows = false;
-                rb.AddForce(Vector2.one * damagedPushForce);
+                if(enemyPos.x <= transform.position.x)
+                {
+                    heedArrows = false;
+                    rb.AddForce(Vector2.one * damagedPushForce);
+                }
+                else if(enemyPos.x > transform.position.x)
+                {
+                    heedArrows = false;
+                    rb.AddForce(Vector2.one * -damagedPushForce);
+                }
             }
-            else if(enemyPos.x > transform.position.x)
+            else
             {
-                heedArrows = false;
-                rb.AddForce(Vector2.one * -damagedPushForce);
+                print("muerto");
             }
 
             CameraController.cameraController.letsShake = true;
