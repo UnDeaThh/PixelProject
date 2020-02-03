@@ -11,6 +11,13 @@ public class FountainController : MonoBehaviour
     public float timeHealOne;
     private float currentTimeHealOne;
 
+    private PlayerController2 plController2;
+
+    private void Start()
+    {
+        plController2 = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+    }
+
     private void Update()
     {
         if (playerIn && canHeal)
@@ -21,9 +28,9 @@ public class FountainController : MonoBehaviour
             }
             else if(currentTimeHealOne <= 0)
             {
-                if(reserveHeal > 0 && PlayerController2.plController2.health < PlayerController2.plController2.maxHealth)
+                if(reserveHeal > 0 && plController2.health < plController2.maxHealth)
                 {
-                    PlayerController2.plController2.health++;
+                    plController2.health++;
                     reserveHeal--;
                     currentTimeHealOne = timeHealOne;
                 }

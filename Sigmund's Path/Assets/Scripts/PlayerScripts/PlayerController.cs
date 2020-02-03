@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     //SINGLETON
     public static PlayerController plContoller;
+    private GameManager GM;
     //REFERENCIAS
     private Rigidbody2D rb2d;
     private PlayerParry plParry;
@@ -134,6 +135,7 @@ public class PlayerController : MonoBehaviour
         plAttack = GetComponent<PlayerAttack>();
         anim = GetComponentInChildren<Animator>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
         wallHopDir.Normalize();
         wallJumpDir.Normalize();
@@ -164,7 +166,7 @@ public class PlayerController : MonoBehaviour
 
     }
     void FixedUpdate(){
-        if (!PauseManager.pauseManager.isPaused && !GameManager.gameManager.inShop)
+        if (!PauseManager.pauseManager.isPaused && !GM.inShop)
         {
             rb2d.gravityScale = 5;
             ApplyMovement();
@@ -298,7 +300,7 @@ public class PlayerController : MonoBehaviour
 
     void CheckMovement()
     {
-        if (!PauseManager.pauseManager.isPaused && !GameManager.gameManager.inShop)
+        if (!PauseManager.pauseManager.isPaused && !GM.inShop)
         {
             if(facingRight == 1 && movInputDir < 0 && plParry.isParry == false)
             {

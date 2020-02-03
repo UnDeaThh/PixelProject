@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager gameManager;
+    private PlayerController2 plController2;
 
     [Header("DeadPanel")]
     public GameObject deadPanelUI;
@@ -19,19 +19,12 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if(gameManager == null)
-        {
-            gameManager = this;
-        }
-        else if(gameManager != this)
-        {
-            Destroy(gameObject);
-        }
         DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
+        plController2 = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         if (deadPanelUI != null)
         {
             deadPanelUI.SetActive(false);
@@ -41,6 +34,23 @@ public class GameManager : MonoBehaviour
         inShop = Vendedor.seller.inShop;
         DeadState();
 
+        AbilitiesGODControl();
+    }
+
+    void AbilitiesGODControl()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            plController2.dashUnlocked = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            plController2.highJumpUnlocked = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            plController2.wallJumpUnlocked = true;
+        }
     }
 
     void CursorController()
@@ -57,7 +67,7 @@ public class GameManager : MonoBehaviour
     }
     void DeadState()
     {
-        if (!PlayerController2.plController2.isDead)
+        if (!plController2.isDead)
         {
             Time.timeScale = 1f;
         }
@@ -83,13 +93,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(int index)
     {
-        if(index == 2)
-        {
-            DontDestroyOnLoad(gameObject);
-            DontDestroyOnLoad(PlayerController.plContoller.gameObject);
-        }
-        SceneManager.LoadScene(index);
-        
+        SceneManager.LoadScene(index);     
     }
 
 }

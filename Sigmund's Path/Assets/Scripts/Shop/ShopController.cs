@@ -7,6 +7,7 @@ using TMPro;
 public class ShopController : MonoBehaviour
 {
     public static ShopController shopController;
+    private PlayerController2 plController2;
 
     public bool alreadyFilled = false;
     private bool buyingItem;
@@ -50,6 +51,10 @@ public class ShopController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+    private void Start()
+    {
+        plController2 = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
     }
 
     private void OnEnable()
@@ -190,7 +195,7 @@ public class ShopController : MonoBehaviour
             switch (itemSelecteID)
             {
                 case 1:
-                    PlayerController2.plController2.potions += itemsToBuy;
+                    plController2.potions += itemsToBuy;
                     break;
                 case 2:
                     Inventory2.inventory.nBombs += itemsToBuy;

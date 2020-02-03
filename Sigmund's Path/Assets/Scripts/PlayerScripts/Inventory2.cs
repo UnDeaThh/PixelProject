@@ -11,6 +11,7 @@ public enum ItemType
 public class Inventory2 : MonoBehaviour
 {
     public static Inventory2 inventory;
+    private PlayerController2 plController2;
 
     public int actualMoney;
     public int nBombs;
@@ -73,6 +74,11 @@ public class Inventory2 : MonoBehaviour
         
         itemDescription = ItemType.Nothing;
     }
+
+    private void Start()
+    {
+        plController2 = GetComponentInParent<PlayerController2>();
+    }
     private void Update()
     {
         CheckIsFill();
@@ -104,7 +110,7 @@ public class Inventory2 : MonoBehaviour
     void UpdateText()
     {
         moneyText.SetText("" + actualMoney);
-        utilityItems[0].textCounter.SetText("" + PlayerController2.plController2.potions);
+        utilityItems[0].textCounter.SetText("" + plController2.potions);
         utilityItems[1].textCounter.SetText("" + nBombs);
         utilityItems[2].textCounter.SetText("" + nTP);
     }
@@ -131,7 +137,7 @@ public class Inventory2 : MonoBehaviour
     #endregion
     void CheckIsFill()
     {
-        if(PlayerController2.plController2.potions > 0)
+        if(plController2.potions > 0)
         {
             utilityItems[0].isFull = true;
         }
@@ -164,8 +170,8 @@ public class Inventory2 : MonoBehaviour
                 utilityItems[i].filledSlot.SetActive(true);
             }
         }
-
-        switch (PlayerController2.plController2.maxHealth)
+        //BIG HEART
+        switch (plController2.maxHealth)
         {
             case 5:
                 bigHeartImage.sprite = bigHeartSprite[0];
@@ -186,19 +192,37 @@ public class Inventory2 : MonoBehaviour
                 bigHeartImage.sprite = bigHeartSprite[5];
                 break;
         }
-
+        //WATER PASIVE
         if (waterPasive)
         {
             waterPasiveItem.SetActive(true);
         }
         else
             waterPasiveItem.SetActive(false);
+        //DAMAGE PASIVE
         if (swordPasive)
         {
             swordPasiveItem.SetActive(true);
         }
         else
             swordPasiveItem.SetActive(false);
+        //ABILITIES CIRCLE
+        if(!plController2.dashUnlocked && !plController2.highJumpUnlocked && !plController2.wallJumpUnlocked)
+        {
+            abilitiesUnlocked = 0;
+        }
+        if (plController2.dashUnlocked)
+        {
+            abilitiesUnlocked = 1;
+        }
+        if (plController2.highJumpUnlocked)
+        {
+            abilitiesUnlocked = 2;
+        }
+        if (plController2.wallJumpUnlocked)
+        {
+            abilitiesUnlocked = 3;
+        }
 
         if(abilitiesUnlocked <= 0)
         {
@@ -223,6 +247,7 @@ public class Inventory2 : MonoBehaviour
                 abilitiesImage.sprite = abilitiesSprite[3];
                 break;
         }
+        //
     }
 
     void DescriptionText()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerParry : MonoBehaviour
 {
-    public static PlayerParry plParry;
+    private PlayerController2 plController2;
 
     private float timeBtwParry;
     public float startTimeBtwParry = 0.1f;
@@ -25,23 +25,19 @@ public class PlayerParry : MonoBehaviour
     private Animator anim;
     private void Awake()
     {
-        if(plParry == null)
-        {
-            plParry = this;
-        }
-        if(plParry != this)
-        {
-            Destroy(gameObject);
-        }
-
         anim = GetComponentInChildren<Animator>();
         isParry = false;
         parryCol.enabled = false;
         
     }
+
+    private void Start()
+    {
+        plController2 = GetComponent<PlayerController2>();
+    }
     private void Update()
     {
-        if (!PlayerController2.plController2.isGODmode)
+        if (!plController2.isGODmode)
         {
 		    if(!PauseManager.pauseManager.isPaused){
 		
@@ -57,7 +53,7 @@ public class PlayerParry : MonoBehaviour
 
     void CheckIfCanParry()
     {
-        if(timeBtwParry <= 0 && PlayerController2.plController2.isGrounded == true)
+        if(timeBtwParry <= 0 && plController2.isGrounded == true)
         {
             canParry = true;
             

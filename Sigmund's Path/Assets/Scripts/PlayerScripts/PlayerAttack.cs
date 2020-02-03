@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    private PlayerController2 plController2;
+    private PlayerParry plParry;
+
     public int damage;
 
     private float timeBtwttack;
@@ -35,11 +38,17 @@ public class PlayerAttack : MonoBehaviour
         playerPos = GetComponent<Transform>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
     }
+
+    private void Start()
+    {
+        plController2 = GetComponent<PlayerController2>();
+        plParry = GetComponent<PlayerParry>();
+    }
     void Update()
     {
-        if (!PlayerController2.plController2.isGODmode)
+        if (!plController2.isGODmode)
         {
-            if(PlayerController2.plController2.isDead == false)
+            if(!plController2.isDead)
             {
 		        if(!PauseManager.pauseManager.isPaused && !Vendedor.seller.inShop){
 			        CheckIfCanAttack();
@@ -53,8 +62,8 @@ public class PlayerAttack : MonoBehaviour
 
     void CheckIfCanAttack()
     {
-        if(timeBtwttack <= 0 && !PlayerController2.plController2.isDrinking //&& !PlayerController2.plController2.isHanging //
-        && !PlayerController2.plController2.isWallSliding)
+        if(timeBtwttack <= 0 && !plController2.isDrinking //&& !PlayerController2.plController2.isHanging //
+        && !plController2.isWallSliding)
         {
             canAttack = true;
             
@@ -71,12 +80,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (PlayerController2.plController2.isWallSliding)
+        if (plController2.isWallSliding)
         {
             isAttacking = false;
         }
         //Doble damage with parry
-        if (PlayerParry.plParry.parrySuccesful)
+        if (plParry.parrySuccesful)
         {
             damage *= 2;
         }
@@ -90,12 +99,12 @@ public class PlayerAttack : MonoBehaviour
                 attackingFront = true;
                 attackingUp = false;
                 //Primero seteamos la posicion del collider
-                if (PlayerController2.plController2.facingDir == 1)
+                if (plController2.facingDir == 1)
                 {
                     Vector3 finalPos = playerPos.position + frontAttackPos;
                     attackPos.position = finalPos;
                 }
-                else if(PlayerController2.plController2.facingDir == -1)
+                else if(plController2.facingDir == -1)
                 {
                     Vector3 finalPos = playerPos.position + (-frontAttackPos);
                     attackPos.position = finalPos;
@@ -110,12 +119,12 @@ public class PlayerAttack : MonoBehaviour
                         if(enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
                         {
                             changeling.TakeDamage(damage);
-                            PlayerParry.plParry.parrySuccesful = false;
+                            plParry.parrySuccesful = false;
 
                         }
                         if(enemiesToDamage[i].TryGetComponent(out BermonchAI bermonch)){
                             bermonch.TakeDamage(damage);
-                            PlayerParry.plParry.parrySuccesful = false;
+                            plParry.parrySuccesful = false;
                         }
                     }
                 }
@@ -141,7 +150,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         if (enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
                         {
-                            if (!PlayerParry.plParry.parrySuccesful)
+                            if (!plParry.parrySuccesful)
                             {
                                 changeling.TakeDamage(damage);
                             }

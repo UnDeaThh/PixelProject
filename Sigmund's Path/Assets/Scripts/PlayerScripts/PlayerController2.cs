@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerController2 : MonoBehaviour
 {
-    public static PlayerController2 plController2;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -19,6 +18,7 @@ public class PlayerController2 : MonoBehaviour
     public float wallDistance;
     public float groundDistance;
     public float jumpForce;
+    public float maxSpeedY;
     public float wallSlideSpeed;
     private float stickyTime = 0.22f;
     private float cntStickyTime;
@@ -57,9 +57,11 @@ public class PlayerController2 : MonoBehaviour
     private bool isDamaged;
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
+    //ABILITIES
     public bool dashUnlocked = false;
     public bool highJumpUnlocked = false;
-    public bool wallJumpUnlocked;
+    public bool wallJumpUnlocked = false;
+    //
     public bool isGODmode = false;
 
 
@@ -85,15 +87,6 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField] Collider2D plCollider;
     private void Awake()
     {
-        if (plController2 == null)
-        {
-            plController2 = this;
-        }
-        if (plController2 != this)
-        {
-            Destroy(gameObject);
-        }
-
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -324,12 +317,15 @@ public class PlayerController2 : MonoBehaviour
 
     void CheckIfCanDash()
     {
-        if (isGrounded && dashUnlocked)
+        if (dashUnlocked)
         {
-            canDash = true;
+            if (isGrounded)
+            {
+                canDash = true;
+            }
+            else
+                canDash = false;
         }
-        else
-            canDash = false;
     }
 
     void IsWallSliding()
@@ -492,7 +488,7 @@ public class PlayerController2 : MonoBehaviour
 
     void LimitVelocity()
     {
-        if (rb.velocity.y >= 20f)
+        if (rb.velocity.y >= maxSpeedY)
         {
             rb.velocity = new Vector2(rb.velocity.x, 20);
             Debug.Log("maxSpeedY");

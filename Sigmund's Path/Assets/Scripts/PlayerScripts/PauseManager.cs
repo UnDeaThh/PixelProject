@@ -8,8 +8,10 @@ public class PauseManager : MonoBehaviour
 {
     //SINGLETON
     public static PauseManager pauseManager;
+    private GameManager GM;
 
     public GameObject pausePanelBegins;
+
 
     public bool isPaused = false;
     public bool isOnInventory = false;
@@ -78,6 +80,8 @@ public class PauseManager : MonoBehaviour
 
     private void Start()
     {
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
         resolutions[0] = Screen.resolutions[0]; //640 x 480
         resolutions[1] = Screen.resolutions[6]; //1280 x 720
         resolutions[2] = Screen.resolutions[Screen.resolutions.Length - 1]; // La Maxima resolucion
@@ -240,7 +244,7 @@ public class PauseManager : MonoBehaviour
     public void YesMainMenu()
     {
         isPaused = false;
-        GameManager.gameManager.ChangeScene(1);
+        GM.ChangeScene(1);
     }
 
     public void NoMainMenu()
