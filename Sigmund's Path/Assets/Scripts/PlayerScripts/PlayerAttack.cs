@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerController2 plController2;
     private PlayerParry plParry;
 
+
     public int damage;
 
     private float timeBtwttack;
@@ -50,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if(!plController2.isDead)
             {
-		        if(!PauseManager.pauseManager.isPaused && !Vendedor.seller.inShop){
+		        if(!PauseManager.pauseManager.isPaused){
 			        CheckIfCanAttack();
 			        Attack();
 

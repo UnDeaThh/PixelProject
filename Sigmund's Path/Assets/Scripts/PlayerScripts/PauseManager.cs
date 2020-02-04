@@ -106,21 +106,19 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (!Vendedor.seller.inShop)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (isPaused)
             {
-                if (isPaused)
-                {
-                    Resume();
-                }
-                else
-                {
-                    Pause();
+                Resume();
+            }
+            else
+            {
+                Pause();
 				
-                }
             }
         }
+        
         if (isPaused)
             Time.timeScale = 0f;
         else 
@@ -249,7 +247,7 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = false;
         SaveSystem.SavePlayerData(player, inventory);
-        GM.ChangeScene(1);
+        ScenesManager.scenesManager.ChangeScene(1);
     }
 
     public void NoMainMenu()

@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Vendedor : MonoBehaviour
 {
-    public static Vendedor seller;
-
     public Canvas canvasVendedor;
     public GameObject pressEText;
     public GameObject UIShop;
@@ -15,15 +13,6 @@ public class Vendedor : MonoBehaviour
     private bool playerClose = false;
     private void Awake()
     {
-        if(seller == null)
-        {
-            seller = this;
-           
-        }
-        else if(seller != this)
-        {
-            Destroy(gameObject);
-        }
         pressEText.SetActive(false);
         canvasVendedor.enabled = true;
         

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class CameraController : MonoBehaviour
 {
     public static CameraController cameraController;
+    private Transform player;
 
     public float shakeDuration = 0.3f;          // Time the Camera Shake effect will last
     public float shakeAmplitude = 1.2f;         // Cinemachine Noise Profile Parameter
@@ -31,6 +32,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         if (virtualCamera != null)
             virtualCameraNoise = virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
     }
@@ -38,6 +40,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SetFollowTarget();
         if (letsShake)
         {
             shakeCurrentTime = shakeDuration;
@@ -65,5 +68,10 @@ public class CameraController : MonoBehaviour
             }
         }
 
+    }
+
+    void SetFollowTarget()
+    {
+        virtualCamera.Follow = player;
     }
 }

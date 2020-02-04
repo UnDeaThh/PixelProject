@@ -7,33 +7,32 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private PlayerController2 plController2;
+    private Vendedor vendedor;
 
-    [Header("DeadPanel")]
-    public GameObject deadPanelUI;
-    private float alphaSpeed = 0.02f;
-    private float currentAlphaDeadPanel = 0.0f;
 
     #region Vendedor
     public bool inShop;
     #endregion
 
     void Awake()
-    {
+    {   if(GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
+        {
+            Destroy(gameObject);
+        }
         DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
         plController2 = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
-        if (deadPanelUI != null)
-        {
-            deadPanelUI.SetActive(false);
-        }
+        vendedor = GameObject.FindGameObjectWithTag("Vendedor").GetComponent<Vendedor>();
     }
     void Update(){
-        inShop = Vendedor.seller.inShop;
+        if(vendedor != null)
+        {
+            inShop = vendedor.inShop;
+        }
         DeadState();
-
         AbilitiesGODControl();
     }
 
@@ -74,28 +73,6 @@ public class GameManager : MonoBehaviour
         else
         {
             Time.timeScale = 0.5f;
-            DeadPanelAppears();
         }
     }
-
-    void DeadPanelAppears(){
-        deadPanelUI.SetActive(true);
-        if(currentAlphaDeadPanel >= 1f){
-            currentAlphaDeadPanel = 1f;
-
-        }
-        else{
-            currentAlphaDeadPanel += alphaSpeed;
-        }
-        Image deadImage = deadPanelUI.GetComponent<Image>();
-        deadImage.color = new Color(0f, 0f, 0f, currentAlphaDeadPanel);
-    }
-
-    public void ChangeScene(int index)
-    {
-        SceneManager.LoadScene(index);     
-    }
-
-    
-
 }

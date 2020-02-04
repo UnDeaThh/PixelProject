@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorT1 : BaseDoor
+public class LevelDoor : BaseDoor
 {
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
         base.OnTriggerEnter2D(collision);
     }
 }

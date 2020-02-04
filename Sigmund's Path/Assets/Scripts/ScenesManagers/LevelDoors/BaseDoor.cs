@@ -8,6 +8,7 @@ public class BaseDoor : MonoBehaviour
     public PlayerController2 player;
     public Inventory2 inventory;
     public int sceneToLoad;
+    public int actualScene;
 
     private void Start()
     {
@@ -20,8 +21,9 @@ public class BaseDoor : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            player.lastScene = actualScene;
             SaveSystem.SavePlayerData(player, inventory);
-            GM.ChangeScene(sceneToLoad);
+            ScenesManager.scenesManager.ChangeScene(sceneToLoad);
         }
     }
 }

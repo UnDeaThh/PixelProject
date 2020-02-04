@@ -13,6 +13,8 @@ public class PlayerController2 : MonoBehaviour
     public int maxPotions = 5;
     private int dashDir;
 
+    public int lastScene;
+
     private float movDir;
     public float speedMov = 10f;
     public float wallDistance;
@@ -76,6 +78,11 @@ public class PlayerController2 : MonoBehaviour
     public Transform feetPosLeft;
     public Transform feetPosRight;
 
+    [Header("DeadPanel")]
+    public GameObject deadPanelUI;
+    private float alphaSpeed = 0.02f;
+    private float currentAlphaDeadPanel = 0.0f;
+
     public Vector2 wallJumpDir;
 
 
@@ -97,18 +104,17 @@ public class PlayerController2 : MonoBehaviour
         CheckLife();
         if (!isGODmode)
         {
-            if (!isDead)
-            {
-                CheckEnvironment();
-                CheckIfWallSliding();
-                CheckIfCanJump();
-                CheckIfCanDrink();
-                CheckPotionsUI();
-                CheckIfCanDash();
-                InputPlayer();
-                FacingDirection();
-                Invencibility();
-            }
+            CheckEnvironment();
+            CheckIfWallSliding();
+            CheckIfCanJump();
+            CheckIfCanDrink();
+            CheckPotionsUI();
+            CheckIfCanDash();
+            InputPlayer();
+            FacingDirection();
+            Invencibility();
+            
+            Dead();
         }
 
     }
@@ -155,21 +161,24 @@ public class PlayerController2 : MonoBehaviour
 
     void InputPlayer()
     {
-        movDir = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetButtonDown("Jump"))
+        if (!isDead)
         {
-            jumpPressed = true;
-        }
+            movDir = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Drink();
-        }
+            if (Input.GetButtonDown("Jump"))
+            {
+                jumpPressed = true;
+            }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
-        {
-            shiftPressed = true;
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Drink();
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+            {
+                shiftPressed = true;
+            }
         }
     }
 
@@ -549,6 +558,29 @@ public class PlayerController2 : MonoBehaviour
                 Physics2D.IgnoreLayerCollision(9, 10, false);
                 isInvencible = false;
             }
+        }
+    }
+
+    void Dead()
+    {
+        if (isDead)
+        {
+            deadPanelUI.SetActive(true);
+            if (currentAlphaDeadPanel >= 1f)
+            {
+                currentAlphaDeadPanel = 1f;
+
+            }
+            else
+            {
+                currentAlphaDeadPanel += alphaSpeed;
+            }
+            Image deadImage = deadPanelUI.GetComponent<Image>();
+            deadImage.color = new Color(0f, 0f, 0f, currentAlphaDeadPanel);
+        }
+        else
+        {
+            deadPanelUI.SetActive(false);
         }
     }
 

@@ -46,7 +46,7 @@ MonoBehaviour:
   actualMoney: 0
   nBombs: 0
   nTP: 0
-  abilitiesUnlocked: 0
+  abilitiesUnlocked: 3
   waterPasive: 0
   swordPasive: 0
   waterPasiveItem: {fileID: 0}
@@ -242,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2851571069916491046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.84, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 6.3724, y: 6.3724, z: 6.3724}
   m_Children:
   - {fileID: 6479897364906870219}
@@ -290,8 +290,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.018457798, y: 0.01052085}
-  m_Size: {x: 0.18143766, y: 0.5313427}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.18143766, y: 0.43}
   m_Direction: 0
 --- !u!114 &9102231519660464523
 MonoBehaviour:
@@ -309,10 +309,13 @@ MonoBehaviour:
   maxHealth: 5
   facingDir: 1
   potions: 3
+  maxPotions: 5
+  lastScene: 0
   speedMov: 500
   wallDistance: 0.4
   groundDistance: 0.2
   jumpForce: 20
+  maxSpeedY: 50
   wallSlideSpeed: 5
   wallJumpForce: 800
   timeNextDrink: 0.7
@@ -330,6 +333,7 @@ MonoBehaviour:
   dashUnlocked: 0
   highJumpUnlocked: 0
   wallJumpUnlocked: 0
+  isGODmode: 0
   potionsUI:
   - {fileID: 0}
   - {fileID: 0}
@@ -355,10 +359,12 @@ MonoBehaviour:
   frontPos: {fileID: 4869392952835096927}
   feetPosLeft: {fileID: 1152810502}
   feetPosRight: {fileID: 1193467327482447221}
+  deadPanelUI: {fileID: 0}
   wallJumpDir: {x: 1, y: 1.5}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  plCollider: {fileID: 2851571069916491047}
 --- !u!114 &3730924781311067699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,8 +478,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4766898119239121983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.03, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.84, y: 0.84, z: 0.84}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
   m_RootOrder: 0
