@@ -19,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
 
     private bool attackingUp = false;
     private bool attackingFront = false;
+    public bool haveSword = false;
 
     private bool canAttack;
 	public bool isAttacking = false;
@@ -63,18 +64,25 @@ public class PlayerAttack : MonoBehaviour
 
     void CheckIfCanAttack()
     {
-        if(timeBtwttack <= 0 && !plController2.isDrinking //&& !PlayerController2.plController2.isHanging //
-        && !plController2.isWallSliding)
+        if (haveSword)
         {
-            canAttack = true;
+            if(timeBtwttack <= 0 && !plController2.isDrinking //&& !PlayerController2.plController2.isHanging //
+            && !plController2.isWallSliding)
+            {
+                canAttack = true;
             
+            }
+            else
+                canAttack = false;
+            
+            if (timeBtwttack > 0)
+            {
+                timeBtwttack -= Time.deltaTime;
+            }
         }
         else
-            canAttack = false;
-            
-        if (timeBtwttack > 0)
         {
-            timeBtwttack -= Time.deltaTime;
+            canAttack = false;
         }
 
     }

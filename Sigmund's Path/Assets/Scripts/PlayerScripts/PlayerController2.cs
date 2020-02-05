@@ -45,6 +45,7 @@ public class PlayerController2 : MonoBehaviour
 
     public bool isDead;
     public bool isGrounded;
+    private bool oneChanceDirection = false;
     private bool jumpPressed = false;
     private bool canNormalJump;
     public bool isWallSliding;
@@ -95,7 +96,6 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField] Collider2D plCollider;
     private void Awake()
     {
-        
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
@@ -365,18 +365,21 @@ public class PlayerController2 : MonoBehaviour
     }
     void FacingDirection()
     {
-        /*
-        if(facingDir == 1)
+        if (oneChanceDirection)
         {
-            Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
-            transform.rotation = rotation;
+            if(facingDir == 1)
+            {
+                Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
+                transform.rotation = rotation;
+            }
+            else if(facingDir == -1)
+            {
+                Quaternion rotation = Quaternion.Euler(0f, 180f, 0f);
+                transform.rotation = rotation;
+            }
+            oneChanceDirection = false;
         }
-        else if(facingDir == -1)
-        {
-            Quaternion rotation = Quaternion.Euler(0f, 180f, 0f);
-            transform.rotation = rotation;
-        }
-        */
+        
 
         if (heedArrows)
         {
@@ -395,8 +398,9 @@ public class PlayerController2 : MonoBehaviour
     {
         if (!isWallSliding || canFlip)
         {
+            oneChanceDirection = true;
             facingDir *= -1;
-            transform.Rotate(0f, 180f, 0f);
+            //transform.Rotate(0f, 180f, 0f);
             canFlip = false;
         }
     }
