@@ -1077,8 +1077,8 @@ MonoBehaviour:
   GM: {fileID: 0}
   player: {fileID: 0}
   inventory: {fileID: 0}
+  levelManager: {fileID: 0}
   sceneToLoad: 3
-  actualScene: 2
 --- !u!114 &1136326970 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7378967308031769237, guid: 182569db9a00abe4db14b9ad7f8b9566,
@@ -2077,8 +2077,8 @@ MonoBehaviour:
   GM: {fileID: 0}
   player: {fileID: 0}
   inventory: {fileID: 0}
+  levelManager: {fileID: 0}
   sceneToLoad: 5
-  actualScene: 2
 --- !u!61 &1797199898
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2231,7 +2231,7 @@ GameObject:
   - component: {fileID: 1933229677}
   m_Layer: 0
   m_Name: LevelManager
-  m_TagString: Untagged
+  m_TagString: LevelManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2265,6 +2265,7 @@ MonoBehaviour:
   apearsPos:
   - {fileID: 2024393341}
   - {fileID: 1732809903}
+  actualScene: 2
 --- !u!114 &1941632922 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7378967307140004077, guid: 182569db9a00abe4db14b9ad7f8b9566,
