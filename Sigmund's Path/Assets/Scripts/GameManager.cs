@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerController2 plController2;
     private Vendedor vendedor;
+	private PauseManager pauseManager;
 
 
     #region Vendedor
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     void CursorController()
     {
-        if (!PauseManager.pauseManager.isPaused)
+        if (!pauseManager.isPaused)
         {
             //Lockea el cursor en medio de la pantalla y lo deja invisible
             Cursor.lockState = CursorLockMode.Locked;

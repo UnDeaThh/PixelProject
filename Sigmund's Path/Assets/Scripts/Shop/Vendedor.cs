@@ -8,6 +8,7 @@ public class Vendedor : MonoBehaviour
     public Canvas canvasVendedor;
     public GameObject pressEText;
     public GameObject UIShop;
+	private PauseManager  pauseManager;
 
     public bool inShop = false;
     private bool playerClose = false;
@@ -20,11 +21,12 @@ public class Vendedor : MonoBehaviour
     private void Start()
     {
       //  ShopController.shopController.enabled = false;
+	  pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
     }
 
     private void Update()
     {
-        if (PauseManager.pauseManager.isPaused)
+        if (pauseManager.isPaused)
         {
             canvasVendedor.enabled = false;
         }
@@ -84,7 +86,7 @@ public class Vendedor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(!PauseManager.pauseManager.isPaused)
+            if(!pauseManager.isPaused)
             {
                 playerClose = true;
                 if (Input.GetKeyDown(KeyCode.E))

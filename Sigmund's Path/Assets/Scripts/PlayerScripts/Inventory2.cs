@@ -12,6 +12,7 @@ public class Inventory2 : MonoBehaviour
 {
     public static Inventory2 inventory;
     private PlayerController2 plController2;
+	private PauseManager pauseManager;
 
     public int actualMoney;
     public int nBombs;
@@ -78,6 +79,7 @@ public class Inventory2 : MonoBehaviour
     private void Start()
     {
         plController2 = GetComponentInParent<PlayerController2>();
+		pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
     }
     private void Update()
     {
@@ -273,7 +275,7 @@ public class Inventory2 : MonoBehaviour
                 descriptions.SetText("");
                 break;
         }
-        if (!PauseManager.pauseManager.isPaused)
+        if (!pauseManager.isPaused)
         {
             itemDescription = ItemType.Nothing;
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerParry : MonoBehaviour
 {
     private PlayerController2 plController2;
+	private PauseManager pauseManager;
 
     private float timeBtwParry;
     public float startTimeBtwParry = 0.1f;
@@ -33,13 +34,14 @@ public class PlayerParry : MonoBehaviour
 
     private void Start()
     {
+		pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         plController2 = GetComponent<PlayerController2>();
     }
     private void Update()
     {
         if (!plController2.isGODmode)
         {
-		    if(!PauseManager.pauseManager.isPaused){
+		    if(!pauseManager.isPaused){
 		
 			    CheckIfCanParry();
 			    ParryInput();

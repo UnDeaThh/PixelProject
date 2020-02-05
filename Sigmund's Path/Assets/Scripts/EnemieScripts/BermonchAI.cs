@@ -33,7 +33,7 @@ public class BermonchAI : BaseEnemy
         anim = GetComponentInChildren<Animator>();
         //El Collider de Collision del bermounch no interacciona con el del player
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), 
-         GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider2D>());
+        GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider2D>());
     }
 
     void Update(){
@@ -77,7 +77,7 @@ public class BermonchAI : BaseEnemy
                     else if (leftRay)
                     {
                         Debug.Log("isLeft");
-                        col.gameObject.GetComponent<PlayerController>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+                        col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
                     }
                     currentTimeBtwPunch = timeBtwPunch;
                 }

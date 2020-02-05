@@ -6,6 +6,7 @@ public class PlayerAttack : MonoBehaviour
 {
     private PlayerController2 plController2;
     private PlayerParry plParry;
+	private PauseManager pauseManager;
 
 
     public int damage;
@@ -20,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
     private bool attackingFront = false;
 
     private bool canAttack;
-    [HideInInspector] public bool isAttacking = false;
+	public bool isAttacking = false;
 
     private Vector3 frontAttackPos = new Vector3(1.5f, 0.0f, 0.0f);
     private Vector3 upAttackPos = new Vector3(0.0f, 3f, 0.0f);
@@ -44,6 +45,7 @@ public class PlayerAttack : MonoBehaviour
     {
         plController2 = GetComponent<PlayerController2>();
         plParry = GetComponent<PlayerParry>();
+		pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
     }
     void Update()
     {
@@ -51,11 +53,9 @@ public class PlayerAttack : MonoBehaviour
         {
             if(!plController2.isDead)
             {
-		        if(!PauseManager.pauseManager.isPaused){
+		        if(!pauseManager.isPaused){
 			        CheckIfCanAttack();
 			        Attack();
-
-			        UpdateAnimations();
 		        }
             }
         }
@@ -168,13 +168,6 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-
-    void UpdateAnimations()
-    {
-        anim.SetBool("isAttacking", isAttacking);
-    }
-
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

@@ -26,7 +26,7 @@ public class RockProjectile : MonoBehaviour
     {
         if(collision.transform.tag == "Player"){
             Vector2 normal = collision.contacts[0].normal;
-            collision.gameObject.GetComponent<PlayerController>().PlayerDamaged(damage, normal);
+            collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, normal);
             //Particulas de piedra destrullendose o animacion
             //Sonido de golpe
             DeactivateObject();

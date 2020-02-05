@@ -7,7 +7,6 @@ using UnityEngine.Audio;
 public class PauseManager : MonoBehaviour
 {
     //SINGLETON
-    public static PauseManager pauseManager;
     private GameManager GM;
     private PlayerController2 player;
     private Inventory2 inventory;
