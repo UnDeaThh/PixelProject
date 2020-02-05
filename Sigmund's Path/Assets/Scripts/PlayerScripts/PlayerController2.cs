@@ -95,10 +95,9 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField] Collider2D plCollider;
     private void Awake()
     {
-        SaveSystem.LoadPlayerData();
+        
         rb = GetComponent<Rigidbody2D>();
     }
-
     private void Update()
     {
         GODmode();
@@ -366,6 +365,14 @@ public class PlayerController2 : MonoBehaviour
     }
     void FacingDirection()
     {
+        if(facingDir == 1)
+        {
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        }
+        else if(facingDir == -1)
+        {
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+        }
         if (heedArrows)
         {
             if (facingDir == 1 && movDir < 0)

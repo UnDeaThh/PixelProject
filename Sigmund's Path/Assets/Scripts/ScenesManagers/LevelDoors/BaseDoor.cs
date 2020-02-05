@@ -9,7 +9,6 @@ public class BaseDoor : MonoBehaviour
     public Inventory2 inventory;
     public int sceneToLoad;
     public int actualScene;
-
     private void Start()
     {
         actualScene += 2;
@@ -27,4 +26,6 @@ public class BaseDoor : MonoBehaviour
             ScenesManager.scenesManager.ChangeScene(sceneToLoad);
         }
     }
+
+
 }

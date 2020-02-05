@@ -12,12 +12,15 @@ public class PlayerData
     public int money;
     public int bombs;
     public int telePorts;
+    public int lastScene;
+    public int facingDir;
 
     public bool dashUnlocked;
     public bool highJumpUnlocked;
     public bool wallJumpUnlocked;
     public bool waterPasive;
     public bool swordPasive;
+    
 
     public PlayerData(PlayerController2 plController2, Inventory2 inventory2)
     {
@@ -25,6 +28,8 @@ public class PlayerData
         maxHealth = plController2.maxHealth;
         potions = plController2.potions;
         maxPotions = plController2.maxPotions;
+        lastScene = plController2.lastScene;
+        facingDir = plController2.facingDir;
         money = inventory2.actualMoney;
         bombs = inventory2.nBombs;
         telePorts = inventory2.nTP;
