@@ -8,13 +8,8 @@ public class ScenesManager : MonoBehaviour
 {
     public static ScenesManager scenesManager;
 
-    [SerializeField] GameManager GM;
-    [SerializeField] PlayerController2 player;
-    [SerializeField] Canvas canvas;
-    [SerializeField] PauseManager pauseManager;
-
     public int[] gameplayScenes;
-    [ SerializeField] private int actualScene;
+    public int actualScene;
 
     private void Awake()
     {
@@ -26,6 +21,7 @@ public class ScenesManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
         DontDestroyOnLoad(this.gameObject);
         actualScene = SceneManager.GetActiveScene().buildIndex;
     }
@@ -33,26 +29,10 @@ public class ScenesManager : MonoBehaviour
     private void Update()
     {
         actualScene = SceneManager.GetActiveScene().buildIndex;
-        DontDestoyObjects();
-
     }
 
     public void ChangeScene(int index)
     {
         SceneManager.LoadScene(index);
-    }
-
-    void DontDestoyObjects()
-    {
-        for (int i = 0; i < gameplayScenes.Length; i++)
-        {
-            if (actualScene == gameplayScenes[i])
-            {
-                DontDestroyOnLoad(GM.gameObject);
-                DontDestroyOnLoad(player.gameObject);
-                DontDestroyOnLoad(canvas.gameObject);
-                DontDestroyOnLoad(pauseManager.gameObject);
-            }
-        }
     }
 }

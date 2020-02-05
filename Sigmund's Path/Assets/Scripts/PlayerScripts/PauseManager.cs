@@ -40,16 +40,6 @@ public class PauseManager : MonoBehaviour
     public GameObject exitGameQuest;
     private void Awake()
     {
-        if(pauseManager == null)
-        {
-            pauseManager = this;
-        }
-        else if(pauseManager != this)
-        {
-            Destroy(gameObject);
-        }
-        
-
         Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if(canvas != null)
         {

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager gameManager;
+
     private PlayerController2 plController2;
     private Vendedor vendedor;
 
@@ -15,23 +17,19 @@ public class GameManager : MonoBehaviour
     #endregion
 
     void Awake()
-    {   if(GameObject.FindGameObjectsWithTag("GameManager").Length > 1)
-        {
-            Destroy(gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
+    { 
+
     }
 
     private void Start()
     {
         plController2 = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
-        vendedor = GameObject.FindGameObjectWithTag("Vendedor").GetComponent<Vendedor>();
+        if(ScenesManager.scenesManager.actualScene == 7)
+        {
+            vendedor = GameObject.FindGameObjectWithTag("Vendedor").GetComponent<Vendedor>();
+        }
     }
     void Update(){
-        if(vendedor != null)
-        {
-            inShop = vendedor.inShop;
-        }
         DeadState();
         AbilitiesGODControl();
     }

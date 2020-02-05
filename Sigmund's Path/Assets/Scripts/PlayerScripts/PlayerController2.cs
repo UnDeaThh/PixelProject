@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController2 : MonoBehaviour
 {
+    private static PlayerController2 player;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -94,6 +95,7 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField] Collider2D plCollider;
     private void Awake()
     {
+        SaveSystem.LoadPlayerData();
         rb = GetComponent<Rigidbody2D>();
     }
 

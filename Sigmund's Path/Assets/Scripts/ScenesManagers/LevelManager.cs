@@ -11,11 +11,11 @@ public class LevelManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
 
-        if (player.lastScene == 1)
+        if (player.lastScene == 3)
         {
             player.gameObject.transform.position = apearsPos[0].position;
         }
-        else if (player.lastScene == 2)
+        else if (player.lastScene == 4)
         {
             player.gameObject.transform.position = apearsPos[0].position;
         }

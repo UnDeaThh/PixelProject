@@ -11687,9 +11687,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GM: {fileID: 1205125448}
   player: {fileID: 772051654}
-  canvas: {fileID: 622225704}
+  canvasPlayer: {fileID: 622225704}
   pauseManager: {fileID: 962526882}
-  gameplayScenes: 0300000004000000
+  gameplayScenes: 030000000400000005000000
   actualScene: 0
 --- !u!4 &2038199513
 Transform:
@@ -31603,66 +31603,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: waterPasiveItem
-      value: 
-      objectReference: {fileID: 1015619555}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: swordPasiveItem
-      value: 
-      objectReference: {fileID: 538402286}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: moneyText
-      value: 
-      objectReference: {fileID: 975365107}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: descriptions
-      value: 
-      objectReference: {fileID: 1602386431}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: bigHeartImage
-      value: 
-      objectReference: {fileID: 540419171}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: abilitiesImage
-      value: 
-      objectReference: {fileID: 723204026}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: utilityItems.Array.data[0].slotPosition
-      value: 
-      objectReference: {fileID: 359495312}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: utilityItems.Array.data[0].textCounter
-      value: 
-      objectReference: {fileID: 229394975}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: utilityItems.Array.data[0].filledSlot
-      value: 
-      objectReference: {fileID: 1652674560}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: utilityItems.Array.data[1].slotPosition
-      value: 
-      objectReference: {fileID: 1214227346}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: utilityItems.Array.data[1].textCounter
-      value: 
-      objectReference: {fileID: 541080054}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: utilityItems.Array.data[1].filledSlot
-      value: 
-      objectReference: {fileID: 4631908338021128127}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: utilityItems.Array.data[2].slotPosition
-      value: 
-      objectReference: {fileID: 1905798595}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: utilityItems.Array.data[2].textCounter
-      value: 
-      objectReference: {fileID: 10254543}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: utilityItems.Array.data[2].filledSlot
-      value: 
-      objectReference: {fileID: 6017661394965921138}
     - target: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
       propertyPath: potionsUI.Array.data[0]
@@ -31743,6 +31683,66 @@ PrefabInstance:
       propertyPath: deadPanelUI
       value: 
       objectReference: {fileID: 1438271088}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: waterPasiveItem
+      value: 
+      objectReference: {fileID: 1015619555}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: swordPasiveItem
+      value: 
+      objectReference: {fileID: 538402286}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: moneyText
+      value: 
+      objectReference: {fileID: 975365107}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: descriptions
+      value: 
+      objectReference: {fileID: 1602386431}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: bigHeartImage
+      value: 
+      objectReference: {fileID: 540419171}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: abilitiesImage
+      value: 
+      objectReference: {fileID: 723204026}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: utilityItems.Array.data[0].slotPosition
+      value: 
+      objectReference: {fileID: 359495312}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: utilityItems.Array.data[0].textCounter
+      value: 
+      objectReference: {fileID: 229394975}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: utilityItems.Array.data[0].filledSlot
+      value: 
+      objectReference: {fileID: 1652674560}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: utilityItems.Array.data[1].slotPosition
+      value: 
+      objectReference: {fileID: 1214227346}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: utilityItems.Array.data[1].textCounter
+      value: 
+      objectReference: {fileID: 541080054}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: utilityItems.Array.data[1].filledSlot
+      value: 
+      objectReference: {fileID: 4631908338021128127}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: utilityItems.Array.data[2].slotPosition
+      value: 
+      objectReference: {fileID: 1905798595}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: utilityItems.Array.data[2].textCounter
+      value: 
+      objectReference: {fileID: 10254543}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: utilityItems.Array.data[2].filledSlot
+      value: 
+      objectReference: {fileID: 6017661394965921138}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
 --- !u!224 &3571510269511703766 stripped

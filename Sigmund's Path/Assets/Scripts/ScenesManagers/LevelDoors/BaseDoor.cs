@@ -12,6 +12,7 @@ public class BaseDoor : MonoBehaviour
 
     private void Start()
     {
+        actualScene += 2;
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
