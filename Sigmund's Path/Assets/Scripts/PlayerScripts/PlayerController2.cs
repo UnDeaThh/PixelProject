@@ -365,14 +365,19 @@ public class PlayerController2 : MonoBehaviour
     }
     void FacingDirection()
     {
+        /*
         if(facingDir == 1)
         {
-            transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
+            transform.rotation = rotation;
         }
         else if(facingDir == -1)
         {
-            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            Quaternion rotation = Quaternion.Euler(0f, 180f, 0f);
+            transform.rotation = rotation;
         }
+        */
+
         if (heedArrows)
         {
             if (facingDir == 1 && movDir < 0)

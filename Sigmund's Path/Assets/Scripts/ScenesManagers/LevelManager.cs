@@ -8,8 +8,11 @@ public class LevelManager : MonoBehaviour
     private Inventory2 inventory;
     public Transform[] apearsPos;
 
+    public int actualScene;
+
     private void Awake()
     {
+        actualScene += 2;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
 

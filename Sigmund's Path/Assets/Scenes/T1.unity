@@ -11794,8 +11794,8 @@ MonoBehaviour:
   GM: {fileID: 0}
   player: {fileID: 0}
   inventory: {fileID: 0}
+  levelManager: {fileID: 0}
   sceneToLoad: 4
-  actualScene: 1
 --- !u!1 &2069280916
 GameObject:
   m_ObjectHideFlags: 0
@@ -31511,8 +31511,8 @@ GameObject:
   - component: {fileID: 2144834167}
   - component: {fileID: 2144834166}
   m_Layer: 0
-  m_Name: LvelManager
-  m_TagString: Untagged
+  m_Name: LevelManager
+  m_TagString: LevelManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31531,6 +31531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apearsPos:
   - {fileID: 455969670}
+  actualScene: 1
 --- !u!4 &2144834167
 Transform:
   m_ObjectHideFlags: 0
