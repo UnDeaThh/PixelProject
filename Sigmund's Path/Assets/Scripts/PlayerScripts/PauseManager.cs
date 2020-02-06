@@ -10,6 +10,7 @@ public class PauseManager : MonoBehaviour
     private GameManager GM;
     private PlayerController2 player;
     private Inventory2 inventory;
+    private PlayerAttack plAttack;
 
     public GameObject pausePanelBegins;
 
@@ -74,6 +75,7 @@ public class PauseManager : MonoBehaviour
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
+        plAttack = player.gameObject.GetComponent<PlayerAttack>();
 
         resolutions[0] = Screen.resolutions[0]; //640 x 480
         resolutions[1] = Screen.resolutions[6]; //1280 x 720
@@ -235,7 +237,7 @@ public class PauseManager : MonoBehaviour
     public void YesMainMenu()
     {
         isPaused = false;
-        SaveSystem.SavePlayerData(player, inventory);
+        SaveSystem.SavePlayerData(player, inventory, plAttack);
         ScenesManager.scenesManager.ChangeScene(1);
     }
 
@@ -247,7 +249,7 @@ public class PauseManager : MonoBehaviour
     public void YesExitGame()
     {
         isPaused = false;
-        SaveSystem.SavePlayerData(player, inventory);
+        SaveSystem.SavePlayerData(player, inventory, plAttack);
         Application.Quit();
     }
 

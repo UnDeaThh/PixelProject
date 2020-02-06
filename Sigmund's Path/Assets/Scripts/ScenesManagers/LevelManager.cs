@@ -6,19 +6,22 @@ public class LevelManager : MonoBehaviour
 {
     private PlayerController2 player;
     private Inventory2 inventory;
+    private PlayerAttack plAttack;
     public Transform[] apearsPos;
 
-    public int actualScene;
+    public int levelScene;
 
     private void Awake()
     {
-        actualScene += 2;
+        levelScene += 2;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        plAttack = player.gameObject.GetComponent<PlayerAttack>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
 
-
+        //Carga la player Info
         LoadPlayer();
 
+        //Posiciona al Player
         if (player.lastScene == 3)
         {
             player.gameObject.transform.position = apearsPos[0].position;
@@ -44,6 +47,7 @@ public class LevelManager : MonoBehaviour
             inventory.nBombs = data.bombs;
             inventory.nTP = data.telePorts;
 
+            plAttack.haveSword = data.haveSword;
             player.dashUnlocked = data.dashUnlocked;
             player.highJumpUnlocked = data.highJumpUnlocked;
             player.wallJumpUnlocked = data.highJumpUnlocked;

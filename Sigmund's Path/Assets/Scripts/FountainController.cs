@@ -11,11 +11,17 @@ public class FountainController : MonoBehaviour
     public float timeHealOne;
     private float currentTimeHealOne;
 
+    public int sceneFountain;
+
+    private LevelManager levelManager;
     private PlayerController2 plController2;
 
     private void Start()
     {
         plController2 = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+
+        sceneFountain = levelManager.levelScene;
     }
 
     private void Update()
@@ -48,6 +54,9 @@ public class FountainController : MonoBehaviour
         {
             playerIn = true;
             currentTimeHealOne = timeHealOne;
+            ScenesManager.scenesManager.toLoadScene = sceneFountain;
+
+            SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         }
     }
 

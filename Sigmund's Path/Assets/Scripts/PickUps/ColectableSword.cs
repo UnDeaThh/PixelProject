@@ -9,7 +9,7 @@ public class ColectableSword : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerAttack>().haveSword = true;
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject);
         }
     }
 }

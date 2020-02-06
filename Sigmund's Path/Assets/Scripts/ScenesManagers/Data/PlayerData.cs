@@ -15,6 +15,7 @@ public class PlayerData
     public int lastScene;
     public int facingDir;
 
+    public bool haveSword;
     public bool dashUnlocked;
     public bool highJumpUnlocked;
     public bool wallJumpUnlocked;
@@ -22,7 +23,7 @@ public class PlayerData
     public bool swordPasive;
     
 
-    public PlayerData(PlayerController2 plController2, Inventory2 inventory2)
+    public PlayerData(PlayerController2 plController2, Inventory2 inventory2, PlayerAttack playerAttack)
     {
         health = plController2.health;
         maxHealth = plController2.maxHealth;
@@ -34,6 +35,7 @@ public class PlayerData
         bombs = inventory2.nBombs;
         telePorts = inventory2.nTP;
 
+        haveSword = playerAttack.haveSword;
         dashUnlocked = plController2.dashUnlocked;
         highJumpUnlocked = plController2.highJumpUnlocked;
         wallJumpUnlocked = plController2.wallJumpUnlocked;

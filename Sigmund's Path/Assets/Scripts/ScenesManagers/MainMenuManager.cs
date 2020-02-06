@@ -8,7 +8,14 @@ public class MainMenuManager : MonoBehaviour
 {
     public void ClickOnPlay()
     {
-        SceneManager.LoadScene(3);
+        if(ScenesManager.scenesManager.toLoadScene == 0)
+        {
+            SceneManager.LoadScene(3);
+        }
+        else 
+        {
+            SceneManager.LoadScene(ScenesManager.scenesManager.toLoadScene);
+        }
     }
 
     public void ClickOnSettings()

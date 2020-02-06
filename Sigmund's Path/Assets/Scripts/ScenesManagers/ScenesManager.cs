@@ -10,6 +10,7 @@ public class ScenesManager : MonoBehaviour
 
     public int[] gameplayScenes;
     public int actualScene;
+    public int toLoadScene = 0;
 
     private void Awake()
     {
@@ -23,9 +24,12 @@ public class ScenesManager : MonoBehaviour
         }
         
         DontDestroyOnLoad(this.gameObject);
-        actualScene = SceneManager.GetActiveScene().buildIndex;
     }
 
+    private void Start()
+    {
+        LoadSceneManager();
+    }
     private void Update()
     {
         actualScene = SceneManager.GetActiveScene().buildIndex;
@@ -34,5 +38,14 @@ public class ScenesManager : MonoBehaviour
     public void ChangeScene(int index)
     {
         SceneManager.LoadScene(index);
+    }
+
+    private void LoadSceneManager()
+    {
+        ScenesData data = SaveSystem.LoadSceneData();
+        if(data != null)
+        {
+            toLoadScene = data.toLoadScene;
+        }
     }
 }

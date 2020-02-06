@@ -7282,7 +7282,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1266183962
 GameObject:
@@ -11706,6 +11706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplayScenes: 030000000400000005000000
   actualScene: 0
+  toLoadScene: 0
 --- !u!4 &2038199513
 Transform:
   m_ObjectHideFlags: 0
@@ -31531,7 +31532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apearsPos:
   - {fileID: 455969670}
-  actualScene: 1
+  levelScene: 1
 --- !u!4 &2144834167
 Transform:
   m_ObjectHideFlags: 0
@@ -31602,7 +31603,7 @@ PrefabInstance:
     - target: {fileID: 2851571069916491050, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2851571069916491050, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
