@@ -14,7 +14,7 @@ public class PlayerController2 : MonoBehaviour
     public int maxPotions = 5;
     private int dashDir;
 
-    public int lastScene;
+    public int lastScene = 3;
 
     private float movDir;
     public float speedMov = 10f;
@@ -44,6 +44,7 @@ public class PlayerController2 : MonoBehaviour
     private float cntCoyoteTime;
 
     public bool isDead;
+    [HideInInspector] bool deadChange;
     public bool isGrounded;
     private bool oneChanceDirection = false;
     private bool jumpPressed = false;
@@ -435,7 +436,7 @@ public class PlayerController2 : MonoBehaviour
     }
     void ReturnControlForMovement()
     {
-        if (!isDrinking)
+        if (!isDrinking || !isDead)
         {
             if (!heedArrows)
             {
@@ -583,10 +584,12 @@ public class PlayerController2 : MonoBehaviour
     {
         if (isDead)
         {
+            heedArrows = false;
             deadPanelUI.SetActive(true);
             if (currentAlphaDeadPanel >= 1f)
             {
                 currentAlphaDeadPanel = 1f;
+                deadChange = true;
 
             }
             else

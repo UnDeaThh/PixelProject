@@ -8,7 +8,7 @@ public class ScenesManager : MonoBehaviour
 {
     public static ScenesManager scenesManager;
 
-    public int[] gameplayScenes;
+ 
     public int actualScene;
     public int toLoadScene = 0;
 

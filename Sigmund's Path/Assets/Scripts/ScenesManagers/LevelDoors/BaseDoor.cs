@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BaseDoor : MonoBehaviour
 {
-    [HideInInspector] public GameManager GM;
     public PlayerController2 player;
     public Inventory2 inventory;
     private PlayerAttack plAttack;
@@ -13,7 +12,6 @@ public class BaseDoor : MonoBehaviour
     public int sceneToLoad;
     private void Start()
     {
-        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
         plAttack = player.gameObject.GetComponent<PlayerAttack>();

@@ -7,7 +7,6 @@ using UnityEngine.Audio;
 public class PauseManager : MonoBehaviour
 {
     //SINGLETON
-    private GameManager GM;
     private PlayerController2 player;
     private Inventory2 inventory;
     private PlayerAttack plAttack;
@@ -72,7 +71,6 @@ public class PauseManager : MonoBehaviour
 
     private void Start()
     {
-        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
         plAttack = player.gameObject.GetComponent<PlayerAttack>();

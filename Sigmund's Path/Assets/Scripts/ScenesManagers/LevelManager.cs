@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class LevelManager : MonoBehaviour
     private Inventory2 inventory;
     private PlayerAttack plAttack;
     public Transform[] apearsPos;
+    private PauseManager pauseManager;
 
     public int levelScene;
 
@@ -17,18 +19,63 @@ public class LevelManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         plAttack = player.gameObject.GetComponent<PlayerAttack>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
+        pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
 
         //Carga la player Info
         LoadPlayer();
 
         //Posiciona al Player
-        if (player.lastScene == 3)
+        
+        if(levelScene == 3) //ESTANDO EN T1
         {
-            player.gameObject.transform.position = apearsPos[0].position;
+            if(player.lastScene == 3) //vienes de la propia T1
+            {
+                player.gameObject.transform.position = apearsPos[0].position;
+            }
+            else if(player.lastScene == 4) //vienes de T2
+            {
+                player.gameObject.transform.position = apearsPos[1].position;
+            }
         }
-        else if (player.lastScene == 4)
+        else if(levelScene == 4) //ESTANDO EN T2
         {
-            player.gameObject.transform.position = apearsPos[0].position;
+            if(player.lastScene == 3)//vienes de T1
+            {
+                player.gameObject.transform.position = apearsPos[0].position;
+            }
+            else if(player.lastScene == 4)
+            {
+                player.gameObject.transform.position = apearsPos[0].position;
+            }
+            else if(player.lastScene == 5)//vienes de T3
+            {
+                player.gameObject.transform.position = apearsPos[1].position;
+            }
+        }
+        else if(levelScene == 5) //ESTANDO EN T3
+        {
+            if(player.lastScene == 4) //vienes de T2
+            {
+                player.gameObject.transform.position = apearsPos[0].position;
+            }
+            else if(player.lastScene == 5)
+            {
+                player.gameObject.transform.position = apearsPos[0].position;
+            }
+            else if(player.lastScene == 6) //vienes de T4
+            {
+                player.gameObject.transform.position = apearsPos[1].position;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        AbilitiesGODControl();
+        TimeScaleMethod();
+        if (player.isDead)
+        {
+            SceneManager.LoadScene(levelScene);
         }
     }
 
@@ -57,6 +104,47 @@ public class LevelManager : MonoBehaviour
         else
         {
             print("no Data");
+        }
+    }
+
+    void AbilitiesGODControl()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            player.dashUnlocked = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            player.highJumpUnlocked = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            player.wallJumpUnlocked = true;
+        }
+    }
+
+    void CursorController()
+    {
+        if (!pauseManager.isPaused)
+        {
+            //Lockea el cursor en medio de la pantalla y lo deja invisible
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
+    void TimeScaleMethod()
+    {
+        if (!player.isDead)
+        {
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            Time.timeScale = 0.5f;
         }
     }
 }
