@@ -13,11 +13,15 @@ public class PlayerController2 : MonoBehaviour
     public int potions;
     public int maxPotions = 5;
     private int dashDir;
+    private int maxJumps;
+    private int cntJumps;
 
     public int lastScene = 3;
 
     private float movDir;
     public float speedMov = 10f;
+    public float jumpTime = 0.5f;
+    private float cntJumpTime;
     public float wallDistance;
     public float groundDistance;
     public float jumpForce;
@@ -46,8 +50,12 @@ public class PlayerController2 : MonoBehaviour
     public bool isDead;
     //[HideInInspector] bool deadChange;
     public bool isGrounded;
+    private bool isJumping;
     private bool oneChanceDirection = false;
     private bool jumpPressed = false;
+    private bool jumpHolded;
+    private bool jumpUnhold;
+    private bool canJump;
     private bool canNormalJump;
     public bool isWallSliding;
     private bool canFlip = false;
@@ -171,6 +179,14 @@ public class PlayerController2 : MonoBehaviour
             {
                 jumpPressed = true;
             }
+            if (Input.GetButton("Jump"))
+            {
+                jumpHolded = true;
+            }
+            else
+            {
+                jumpHolded = false;
+            }
 
             if (Input.GetKeyDown(KeyCode.X))
             {
@@ -214,11 +230,35 @@ public class PlayerController2 : MonoBehaviour
 
     void CheckIfCanJump()
     {
+        if (!dobleJumpUnlocked)
+        {
+            maxJumps = 1;
+        }
+        else
+        {
+            maxJumps = 2;
+        }
+
+        if (isGrounded)
+        {
+            cntJumps = 0;
+        }
+
+        if(cntJumps < maxJumps)
+        {
+            canJump = true;
+        }
+        else
+        {
+            canJump = false;
+        }
+
+        /*
         if (isGrounded)
         {
             cntCoyoteTime = 0;
         }
-        else
+        else if(!isGrounded && !isJumping)
         {
             cntCoyoteTime += Time.deltaTime;
         }
@@ -232,6 +272,7 @@ public class PlayerController2 : MonoBehaviour
         {
             canNormalJump = false;
         }
+        */
     }
 
     void CheckIfWallSliding()
@@ -410,6 +451,35 @@ public class PlayerController2 : MonoBehaviour
     {
         if (jumpPressed)
         {
+            if (canJump)
+            {
+                isJumping = true;
+                cntJumpTime = jumpTime;
+                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            }
+            WallJump();
+            jumpPressed = false;
+        }
+
+        if(jumpHolded && isJumping)
+        {
+            if(cntJumpTime > 0)
+            {
+                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                cntJumpTime -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+        if (!jumpHolded)
+        {
+            isJumping = false;
+        }
+        /*
+        if (jumpPressed)
+        {
             if (canNormalJump || cntCoyoteTime < coyoteTime)
             {
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
@@ -417,6 +487,7 @@ public class PlayerController2 : MonoBehaviour
             WallJump();
             jumpPressed = false;
         }
+        */
     }
 
     void WallJump()
