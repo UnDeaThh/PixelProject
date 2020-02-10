@@ -6,10 +6,23 @@ public class Lanza : MonoBehaviour
 {
     public SpriteRenderer sprite;
     public float speed;
+    private float timeIgnoring = 0.2f;
+    private float cntTimeIgnoring;
 
-
+    private void Start()
+    {
+        Physics2D.IgnoreLayerCollision(12, 8);
+        cntTimeIgnoring = timeIgnoring;
+    }
     private void Update()
     {
+        if (cntTimeIgnoring > 0)
+        {
+            cntTimeIgnoring -= Time.deltaTime;
+        }
+        else
+            Physics2D.IgnoreLayerCollision(12, 8, false);
+
         transform.position += transform.right * speed * Time.deltaTime;
     }
     private void OnTriggerEnter2D(Collider2D collision)

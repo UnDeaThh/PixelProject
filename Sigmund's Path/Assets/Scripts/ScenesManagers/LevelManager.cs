@@ -23,6 +23,11 @@ public class LevelManager : MonoBehaviour
 
         //Carga la player Info
         LoadPlayer();
+        if (ScenesManager.scenesManager.comeFromDead)
+        {
+            player.health = player.maxHealth;
+            ScenesManager.scenesManager.comeFromDead = false;
+        }
 
         //Posiciona al Player
         if(apearsPos.Length > 0)
@@ -92,6 +97,7 @@ public class LevelManager : MonoBehaviour
         TimeScaleMethod();
         if (player.isDead)
         {
+            ScenesManager.scenesManager.comeFromDead = true;
             StartCoroutine(ReloadLevel());
         }
     }

@@ -67,7 +67,7 @@ public class PlayerController2 : MonoBehaviour
     private bool canDash;
     private bool shiftPressed;
     private bool isDashing;
-    private bool isDamaged;
+   // private bool isDamaged;
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
     //ABILITIES
@@ -460,10 +460,8 @@ public class PlayerController2 : MonoBehaviour
             {
                 isJumping = true;
                 cntJumpTime = jumpTime;
-                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 cntJumps++;
-                Debug.Log(maxJumps);
-                print("Jump");
+                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             }
             WallJump();
             jumpPressed = false;
@@ -607,7 +605,7 @@ public class PlayerController2 : MonoBehaviour
         if (!isInvencible)
         {
             isInvencible = true;
-            isDamaged = true;
+            //isDamaged = true;
             cntinvencibilityTime = 0;
             health -= damage;
             if(health > 1)

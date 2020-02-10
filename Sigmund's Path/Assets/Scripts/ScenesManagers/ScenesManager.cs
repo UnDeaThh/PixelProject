@@ -12,6 +12,8 @@ public class ScenesManager : MonoBehaviour
     public int actualScene;
     public int toLoadScene = 0;
 
+    public bool comeFromDead = false;
+
     private void Awake()
     {
         if(scenesManager == null)

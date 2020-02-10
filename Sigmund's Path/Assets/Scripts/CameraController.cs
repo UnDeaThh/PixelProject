@@ -35,12 +35,13 @@ public class CameraController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         if (virtualCamera != null)
             virtualCameraNoise = virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+        SetFollowTarget();
     }
 
     // Update is called once per frame
     void Update()
     {
-        SetFollowTarget();
+        
         if (letsShake)
         {
             shakeCurrentTime = shakeDuration;
