@@ -239,7 +239,7 @@ public class PlayerController2 : MonoBehaviour
             maxJumps = 2;
         }
 
-        if (isGrounded)
+        if (isGrounded && !isJumping)
         {
             cntJumps = 0;
         }
@@ -407,6 +407,7 @@ public class PlayerController2 : MonoBehaviour
     }
     void FacingDirection()
     {
+
         if (oneChanceDirection)
         {
             if(facingDir == 1)
@@ -433,6 +434,10 @@ public class PlayerController2 : MonoBehaviour
             {
                 Flip();
             }
+            else if(facingDir == 0)
+            {
+                facingDir = 1;
+            }
         }
     }
 
@@ -456,6 +461,9 @@ public class PlayerController2 : MonoBehaviour
                 isJumping = true;
                 cntJumpTime = jumpTime;
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                cntJumps++;
+                Debug.Log(maxJumps);
+                print("Jump");
             }
             WallJump();
             jumpPressed = false;
@@ -466,6 +474,7 @@ public class PlayerController2 : MonoBehaviour
             if(cntJumpTime > 0)
             {
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                Debug.Log("fres");
                 cntJumpTime -= Time.deltaTime;
             }
             else
@@ -589,8 +598,7 @@ public class PlayerController2 : MonoBehaviour
     {
         if (rb.velocity.y >= maxSpeedY)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 20);
-            Debug.Log("maxSpeedY");
+            rb.velocity = new Vector2(rb.velocity.x, maxSpeedY);
         }
     }
 

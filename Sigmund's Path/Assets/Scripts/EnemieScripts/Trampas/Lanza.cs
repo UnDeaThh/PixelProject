@@ -26,7 +26,6 @@ public class Lanza : MonoBehaviour
             speed = 0;
             Destroy(gameObject, 0.5f);
         }
-        print("dau");
         
     }
 }

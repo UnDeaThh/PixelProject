@@ -312,10 +312,11 @@ MonoBehaviour:
   maxPotions: 5
   lastScene: 0
   speedMov: 500
+  jumpTime: 0.2
   wallDistance: 0.4
   groundDistance: 0.2
-  jumpForce: 21
-  maxSpeedY: 50
+  jumpForce: 3
+  maxSpeedY: 12
   wallSlideSpeed: 5
   wallJumpForce: 800
   timeNextDrink: 0.7
@@ -331,7 +332,7 @@ MonoBehaviour:
   isDrinking: 0
   heedArrows: 1
   dashUnlocked: 0
-  highJumpUnlocked: 0
+  dobleJumpUnlocked: 0
   wallJumpUnlocked: 0
   isGODmode: 0
   potionsUI:
