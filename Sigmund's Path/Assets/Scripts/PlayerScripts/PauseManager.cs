@@ -37,6 +37,7 @@ public class PauseManager : MonoBehaviour
     public GameObject rightOptions;
     public GameObject goToMainMenuQuest;
     public GameObject exitGameQuest;
+
     private void Awake()
     {
         Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();

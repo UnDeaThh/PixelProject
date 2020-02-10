@@ -314,7 +314,7 @@ MonoBehaviour:
   speedMov: 500
   wallDistance: 0.4
   groundDistance: 0.2
-  jumpForce: 20
+  jumpForce: 21
   maxSpeedY: 50
   wallSlideSpeed: 5
   wallJumpForce: 800
@@ -381,6 +381,7 @@ MonoBehaviour:
   startTimeBtwAttack: 0.4
   attackRangeFront: {x: 4, y: 3.2}
   attackRangeUp: 1.7
+  haveSword: 0
   isAttacking: 0
   attackPos: {fileID: 2937485335393459181}
   whatIsEnemie:

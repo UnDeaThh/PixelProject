@@ -44,7 +44,7 @@ public class PlayerController2 : MonoBehaviour
     private float cntCoyoteTime;
 
     public bool isDead;
-    [HideInInspector] bool deadChange;
+    //[HideInInspector] bool deadChange;
     public bool isGrounded;
     private bool oneChanceDirection = false;
     private bool jumpPressed = false;
@@ -589,8 +589,7 @@ public class PlayerController2 : MonoBehaviour
             if (currentAlphaDeadPanel >= 1f)
             {
                 currentAlphaDeadPanel = 1f;
-                deadChange = true;
-
+               // deadChange = true;
             }
             else
             {

@@ -8,10 +8,14 @@ public class BaseDoor : MonoBehaviour
     public Inventory2 inventory;
     private PlayerAttack plAttack;
     public LevelManager levelManager;
+    private Animator anim;
+    private bool alreadyEntered;
 
     public int sceneToLoad;
     private void Start()
     {
+        alreadyEntered = false;
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
         plAttack = player.gameObject.GetComponent<PlayerAttack>();
@@ -22,10 +26,21 @@ public class BaseDoor : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            player.lastScene = levelManager.levelScene;
-            SaveSystem.SavePlayerData(player, inventory, plAttack);
-            ScenesManager.scenesManager.ChangeScene(sceneToLoad);
+            if (!alreadyEntered)
+            {
+                StartCoroutine(LoadLevel());
+                alreadyEntered = true;
+            }
         }
+    }
+
+    IEnumerator LoadLevel()
+    {
+        player.lastScene = levelManager.levelScene;
+        SaveSystem.SavePlayerData(player, inventory, plAttack);
+        anim.SetTrigger("FadeIn");
+        yield return new WaitForSeconds(1f);
+        ScenesManager.scenesManager.ChangeScene(sceneToLoad);
     }
 
 
