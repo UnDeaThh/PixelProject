@@ -37,7 +37,7 @@ public class PlayerData
 
         haveSword = playerAttack.haveSword;
         dashUnlocked = plController2.dashUnlocked;
-        highJumpUnlocked = plController2.highJumpUnlocked;
+        highJumpUnlocked = plController2.dobleJumpUnlocked;
         wallJumpUnlocked = plController2.wallJumpUnlocked;
         waterPasive = inventory2.waterPasive;
         swordPasive = inventory2.swordPasive;

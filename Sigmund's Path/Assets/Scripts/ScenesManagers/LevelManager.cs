@@ -68,6 +68,21 @@ public class LevelManager : MonoBehaviour
                     player.gameObject.transform.position = apearsPos[1].position;
                 }
             }
+            else if(levelScene == 6)
+            {
+                if(player.lastScene == 5)
+                {
+                    player.gameObject.transform.position = apearsPos[0].position;
+                }
+                else if(player.lastScene == 6)
+                {
+                    player.gameObject.transform.position = apearsPos[0].position;
+                }
+                else if(player.lastScene == 7)
+                {
+                    player.gameObject.transform.position = apearsPos[1].position;
+                }
+            }
         }
     }
 
@@ -103,7 +118,7 @@ public class LevelManager : MonoBehaviour
 
             plAttack.haveSword = data.haveSword;
             player.dashUnlocked = data.dashUnlocked;
-            player.highJumpUnlocked = data.highJumpUnlocked;
+            player.dobleJumpUnlocked = data.highJumpUnlocked;
             player.wallJumpUnlocked = data.highJumpUnlocked;
             inventory.waterPasive = data.waterPasive;
             inventory.swordPasive = data.swordPasive;
@@ -122,7 +137,7 @@ public class LevelManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            player.highJumpUnlocked = true;
+            player.dobleJumpUnlocked = true;
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {

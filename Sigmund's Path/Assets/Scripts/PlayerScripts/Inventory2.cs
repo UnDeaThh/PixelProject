@@ -209,7 +209,7 @@ public class Inventory2 : MonoBehaviour
         else
             swordPasiveItem.SetActive(false);
         //ABILITIES CIRCLE
-        if(!plController2.dashUnlocked && !plController2.highJumpUnlocked && !plController2.wallJumpUnlocked)
+        if(!plController2.dashUnlocked && !plController2.dobleJumpUnlocked && !plController2.wallJumpUnlocked)
         {
             abilitiesUnlocked = 0;
         }
@@ -217,7 +217,7 @@ public class Inventory2 : MonoBehaviour
         {
             abilitiesUnlocked = 1;
         }
-        if (plController2.highJumpUnlocked)
+        if (plController2.dobleJumpUnlocked)
         {
             abilitiesUnlocked = 2;
         }

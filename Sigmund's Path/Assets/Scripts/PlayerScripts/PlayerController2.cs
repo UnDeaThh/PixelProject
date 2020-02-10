@@ -64,7 +64,7 @@ public class PlayerController2 : MonoBehaviour
     private bool shiftAlreadyPressed = false;
     //ABILITIES
     public bool dashUnlocked = false;
-    public bool highJumpUnlocked = false;
+    public bool dobleJumpUnlocked = false;
     public bool wallJumpUnlocked = false;
     //
     public bool isGODmode = false;
