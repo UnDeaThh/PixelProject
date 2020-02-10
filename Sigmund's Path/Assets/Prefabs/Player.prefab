@@ -323,7 +323,7 @@ MonoBehaviour:
   timeDrinking: 1
   dashSpeed: 2000
   dashDuration: 0.15
-  timeNextDash: 1
+  timeNextDash: 0.2
   invencibilityTime: 1.5
   damagedPushForce: 700
   isDead: 0
@@ -334,6 +334,7 @@ MonoBehaviour:
   dashUnlocked: 0
   dobleJumpUnlocked: 0
   wallJumpUnlocked: 0
+  isOnKinematic: 0
   isGODmode: 0
   potionsUI:
   - {fileID: 0}

@@ -63,7 +63,7 @@ public class PlayerController2 : MonoBehaviour
     private bool wallJumped;
     private bool canDrink;
     public bool isDrinking;
-    [SerializeField] private bool heedArrows = true;
+    [SerializeField] public bool heedArrows = true;
     private bool canDash;
     private bool shiftPressed;
     private bool isDashing;
@@ -75,6 +75,7 @@ public class PlayerController2 : MonoBehaviour
     public bool dobleJumpUnlocked = false;
     public bool wallJumpUnlocked = false;
     //
+    public bool isOnKinematic = false;
     public bool isGODmode = false;
 
 
@@ -462,6 +463,7 @@ public class PlayerController2 : MonoBehaviour
                 cntJumpTime = jumpTime;
                 cntJumps++;
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                Debug.Log(cntJumps);
             }
             WallJump();
             jumpPressed = false;
@@ -472,7 +474,6 @@ public class PlayerController2 : MonoBehaviour
             if(cntJumpTime > 0)
             {
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                Debug.Log("fres");
                 cntJumpTime -= Time.deltaTime;
             }
             else
@@ -514,15 +515,18 @@ public class PlayerController2 : MonoBehaviour
     }
     void ReturnControlForMovement()
     {
-        if (!isDrinking || !isDead)
+        if (!isOnKinematic)
         {
-            if (!heedArrows)
+            if (!isDrinking || !isDead)
             {
-                cntHeedTime += Time.deltaTime;
-                if (cntHeedTime >= heedTime)
+                if (!heedArrows)
                 {
-                    heedArrows = true;
-                    cntHeedTime = 0;
+                    cntHeedTime += Time.deltaTime;
+                    if (cntHeedTime >= heedTime)
+                    {
+                        heedArrows = true;
+                        cntHeedTime = 0;
+                    }
                 }
             }
         }
@@ -562,6 +566,7 @@ public class PlayerController2 : MonoBehaviour
                 cntDashDuration += Time.deltaTime;
                 rb.velocity = new Vector2(dashSpeed * dashDir * Time.fixedDeltaTime, rb.velocity.y);
                 Physics2D.IgnoreLayerCollision(9, 10);
+                Physics2D.IgnoreLayerCollision(12, 10);
             }
             else // dash acabado
             {
@@ -572,6 +577,7 @@ public class PlayerController2 : MonoBehaviour
             if(cntDashDuration > dashDuration)
             {
                 Physics2D.IgnoreLayerCollision(9, 10, false);
+                Physics2D.IgnoreLayerCollision(12, 10, false);
                 StartCoroutine(GoNextDash());
             }
         }

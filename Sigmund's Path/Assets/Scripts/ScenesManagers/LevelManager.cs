@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     private PlayerAttack plAttack;
     public Transform[] apearsPos;
     private PauseManager pauseManager;
+    public Transform fountainPos;
 
     public int levelScene;
 
@@ -29,63 +30,75 @@ public class LevelManager : MonoBehaviour
             ScenesManager.scenesManager.comeFromDead = false;
         }
 
-        //Posiciona al Player
-        if(apearsPos.Length > 0)
+        //POSICIONA AL PLAYER
+        if (ScenesManager.scenesManager.apearsOnFountain)
         {
-            if(levelScene == 3) //ESTANDO EN T1
+            if (fountainPos)
             {
-                if(player.lastScene == 3 || player.lastScene == 0) //vienes de la propia T1
-                {
-                    player.gameObject.transform.position = apearsPos[0].position;
-                }
-                else if(player.lastScene == 4) //vienes de T2
-                {
-                    player.gameObject.transform.position = apearsPos[1].position;
-                }
+                player.gameObject.transform.position = fountainPos.position;
+                ScenesManager.scenesManager.apearsOnFountain = false;
             }
-            else if(levelScene == 4) //ESTANDO EN T2
+        }
+
+        else
+        {
+            if(apearsPos.Length > 0)
             {
-                if(player.lastScene == 3)//vienes de T1
+                if(levelScene == 3) //ESTANDO EN T1
                 {
-                    player.gameObject.transform.position = apearsPos[0].position;
+                    if(player.lastScene == 3 || player.lastScene == 0) //vienes de la propia T1
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                    }
+                    else if(player.lastScene == 4) //vienes de T2
+                    {
+                        player.gameObject.transform.position = apearsPos[1].position;
+                    }
                 }
-                else if(player.lastScene == 4)
+                else if(levelScene == 4) //ESTANDO EN T2
                 {
-                    player.gameObject.transform.position = apearsPos[0].position;
+                    if(player.lastScene == 3)//vienes de T1
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                    }
+                    else if(player.lastScene == 4)
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                    }
+                    else if(player.lastScene == 5)//vienes de T3
+                    {
+                        player.gameObject.transform.position = apearsPos[1].position;
+                    }
                 }
-                else if(player.lastScene == 5)//vienes de T3
+                else if(levelScene == 5) //ESTANDO EN T3
                 {
-                    player.gameObject.transform.position = apearsPos[1].position;
+                    if(player.lastScene == 4) //vienes de T2
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                    }
+                    else if(player.lastScene == 5)
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                    }
+                    else if(player.lastScene == 6) //vienes de T4
+                    {
+                        player.gameObject.transform.position = apearsPos[1].position;
+                    }
                 }
-            }
-            else if(levelScene == 5) //ESTANDO EN T3
-            {
-                if(player.lastScene == 4) //vienes de T2
+                else if(levelScene == 6)
                 {
-                    player.gameObject.transform.position = apearsPos[0].position;
-                }
-                else if(player.lastScene == 5)
-                {
-                    player.gameObject.transform.position = apearsPos[0].position;
-                }
-                else if(player.lastScene == 6) //vienes de T4
-                {
-                    player.gameObject.transform.position = apearsPos[1].position;
-                }
-            }
-            else if(levelScene == 6)
-            {
-                if(player.lastScene == 5)
-                {
-                    player.gameObject.transform.position = apearsPos[0].position;
-                }
-                else if(player.lastScene == 6)
-                {
-                    player.gameObject.transform.position = apearsPos[0].position;
-                }
-                else if(player.lastScene == 7)
-                {
-                    player.gameObject.transform.position = apearsPos[1].position;
+                    if(player.lastScene == 5) // Vienes de T3
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                    }
+                    else if(player.lastScene == 6) 
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                    }
+                    else if(player.lastScene == 7) // Vienes de S1
+                    {
+                        player.gameObject.transform.position = apearsPos[1].position;
+                    }
                 }
             }
         }

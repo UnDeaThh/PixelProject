@@ -13,6 +13,7 @@ public class ScenesManager : MonoBehaviour
     public int toLoadScene = 0;
 
     public bool comeFromDead = false;
+    public bool apearsOnFountain = false;
 
     private void Awake()
     {
@@ -35,6 +36,10 @@ public class ScenesManager : MonoBehaviour
     private void Update()
     {
         actualScene = SceneManager.GetActiveScene().buildIndex;
+        if(toLoadScene != 0 && actualScene == 1)
+        {
+            apearsOnFountain = true;
+        }
     }
 
     public void ChangeScene(int index)
