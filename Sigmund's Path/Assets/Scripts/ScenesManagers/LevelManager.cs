@@ -100,6 +100,10 @@ public class LevelManager : MonoBehaviour
                         player.gameObject.transform.position = apearsPos[1].position;
                     }
                 }
+                if(SceneManager.GetActiveScene().name == "NerbuzFightScene")
+                {
+                    player.gameObject.transform.position = apearsPos[0].position;
+                }
             }
         }
     }

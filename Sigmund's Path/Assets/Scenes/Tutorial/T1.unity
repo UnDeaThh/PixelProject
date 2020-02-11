@@ -2886,7 +2886,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.344511, y: -1.3255014, z: -10}
+  m_LocalPosition: {x: -13.366722, y: -1.3254213, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2124871146}
@@ -32958,7 +32958,9 @@ MonoBehaviour:
   shakeAmplitude: 1.5
   shakeFrequency: 5
   letsShake: 0
+  isOnBossFight: 0
   virtualCamera: {fileID: 2124871145}
+  bossConfiners: []
 --- !u!4 &2084341053
 Transform:
   m_ObjectHideFlags: 0
@@ -33336,7 +33338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124871144}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.675489, y: 0.031001091, z: 0}
+  m_LocalPosition: {x: -8.653278, y: 0.030920982, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2069854442}
@@ -33621,7 +33623,7 @@ PrefabInstance:
     - target: {fileID: 1806338654979003575, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1806338654979003575, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}

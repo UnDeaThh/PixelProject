@@ -135,6 +135,10 @@ public class PlayerAttack : MonoBehaviour
                             bermonch.TakeDamage(damage);
                             plParry.parrySuccesful = false;
                         }
+                        if (enemiesToDamage[i].GetComponent<BaseEnemy>())
+                        {
+                            enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                        }
                     }
                 }
                 canAttack = false;

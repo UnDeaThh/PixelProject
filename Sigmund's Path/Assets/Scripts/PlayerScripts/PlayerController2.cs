@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController2 : MonoBehaviour
 {
-    public PauseManager pauseManager;
+    private PauseManager pauseManager;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -467,7 +467,6 @@ public class PlayerController2 : MonoBehaviour
                 cntJumpTime = jumpTime;
                 cntJumps++;
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                Debug.Log(cntJumps);
             }
             WallJump();
             jumpPressed = false;
