@@ -13,7 +13,7 @@ public class PauseManager : MonoBehaviour
 
     public GameObject pausePanelBegins;
 
-
+    public bool escClicked;
     public bool isPaused = false;
     public bool isOnInventory = false;
     private bool isOnSettings = false;
@@ -96,16 +96,19 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!player.isOnKinematic)
         {
-            if (isPaused)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Resume();
-            }
-            else
-            {
-                Pause();
+                if (isPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
 				
+                }
             }
         }
         

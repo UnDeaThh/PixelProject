@@ -15,9 +15,13 @@ public class CameraController : MonoBehaviour
     private float shakeCurrentTime = 0f;
     public bool letsShake = false;
 
+    public bool isOnBossFight = false;
+
     // Cinemachine Shake
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
+
+    public Collider2D[] bossConfiners;
     private void Awake()
     {
         if(cameraController == null)
@@ -34,7 +38,10 @@ public class CameraController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         if (virtualCamera != null)
+        {
             virtualCameraNoise = virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+            //camConfiner = virtualCamera.GetCinemachineComponent<CinemachineConfiner>();
+        }
         SetFollowTarget();
     }
 

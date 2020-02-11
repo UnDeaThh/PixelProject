@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController2 : MonoBehaviour
 {
-    private static PlayerController2 player;
+    public PauseManager pauseManager;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -107,6 +107,7 @@ public class PlayerController2 : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
     }
     private void Update()
     {
@@ -172,31 +173,34 @@ public class PlayerController2 : MonoBehaviour
 
     void InputPlayer()
     {
-        if (!isDead)
+        if (!isOnKinematic)
         {
-            movDir = Input.GetAxisRaw("Horizontal");
+            if (!isDead)
+            {
+                movDir = Input.GetAxisRaw("Horizontal");
 
-            if (Input.GetButtonDown("Jump"))
-            {
-                jumpPressed = true;
-            }
-            if (Input.GetButton("Jump"))
-            {
-                jumpHolded = true;
-            }
-            else
-            {
-                jumpHolded = false;
-            }
+                if (Input.GetButtonDown("Jump"))
+                {
+                    jumpPressed = true;
+                }
+                if (Input.GetButton("Jump"))
+                {
+                    jumpHolded = true;
+                }
+                else
+                {
+                    jumpHolded = false;
+                }
 
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                Drink();
-            }
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    Drink();
+                }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
-            {
-                shiftPressed = true;
+                if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+                {
+                    shiftPressed = true;
+                }
             }
         }
     }
