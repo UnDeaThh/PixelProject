@@ -154,6 +154,7 @@ public class ShopController : MonoBehaviour
                 if (itemSelecteID == itemsList[i].itemID)
                 {
                     descriptionImage.sprite = itemsList[i].itemImage;
+                    descriptionImage.SetNativeSize();
                     itemDescriptionText.SetText(descriptions[i]);
                 }
             }

@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 3416743973668741326}
   m_Layer: 9
   m_Name: Nach
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   whatIsDetected:
     serializedVersion: 2
     m_Bits: 256
-  soul: {fileID: 0}
+  soulColectable: {fileID: 0}
   enemyType: 3
   timeToJump: 2
   edgeDistance: 1

@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class SoulPickUp : MonoBehaviour
 {
-    private int amountOfMoney;
+    private int moneyToAdd;
     private AudioSource sound;
 
     private void Awake()
     {
-        amountOfMoney = Random.Range(2 , 10);
+        moneyToAdd = Random.Range(10, 20);
         sound = GetComponent<AudioSource>();
+    }
+
+    public void MoneyValor(EnemyClass enemyType)
+    {
+        switch (enemyType)
+        {
+            case EnemyClass.Changeling:
+                moneyToAdd = 50;
+                break;
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -23,7 +33,7 @@ public class SoulPickUp : MonoBehaviour
             GFX.enabled = false;
 
             Inventory2 inventory = collision.transform.GetComponentInChildren<Inventory2>();
-            inventory.WinMoney(amountOfMoney);
+            inventory.WinMoney(moneyToAdd);
             //Lanzar Sonido
             sound.Play();
             Destroy(gameObject, 0.4f);

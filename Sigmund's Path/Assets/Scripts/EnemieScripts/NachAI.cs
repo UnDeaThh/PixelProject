@@ -91,6 +91,12 @@ public class NachAI : BaseEnemy
             }
         }
     }
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        Debug.Log("Nach");
+    }
+
     public override void Dead()
     {
         base.Dead();
@@ -103,13 +109,6 @@ public class NachAI : BaseEnemy
             collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
         }
     }
-
-    public override void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-        Debug.Log("Nach");
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawLine(edgeLocatorPos.position, new Vector3(edgeLocatorPos.position.x, edgeLocatorPos.position.y - edgeDistance, transform.position.z));

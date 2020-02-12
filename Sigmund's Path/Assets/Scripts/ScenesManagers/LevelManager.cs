@@ -112,6 +112,7 @@ public class LevelManager : MonoBehaviour
     {
         AbilitiesGODControl();
         TimeScaleMethod();
+
         if (player.isDead)
         {
             ScenesManager.scenesManager.comeFromDead = true;

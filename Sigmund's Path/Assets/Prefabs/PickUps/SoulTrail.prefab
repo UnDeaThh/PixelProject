@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cd7d509cbbbc147b3df3bb64ccda2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dadName: 
-  moneyToAdd: 20
   speed: 14
 --- !u!58 &8014881739187716702
 CircleCollider2D:
@@ -169,7 +167,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

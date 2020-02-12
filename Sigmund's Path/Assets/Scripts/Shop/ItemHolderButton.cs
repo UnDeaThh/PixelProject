@@ -13,5 +13,10 @@ public class ItemHolderButton : MonoBehaviour
     public Image moneyIcon;
     public GameObject buyButton;
 
+    void Update()
+    {
+        itemSprite.SetNativeSize();
+        moneyIcon.SetNativeSize();
+    }
 
 }

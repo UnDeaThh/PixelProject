@@ -21,7 +21,9 @@ public class BaseEnemy : MonoBehaviour
     [HideInInspector]public float detectionRange;
     public LayerMask whatIsDetected;
 
-    public SoulTrail soul;
+    //public SoulTrail soul;
+
+    public GameObject soulColectable;
     public EnemyClass enemyType;
 
 
@@ -29,14 +31,17 @@ public class BaseEnemy : MonoBehaviour
     {
         if(nLifes <= 0)
         {
+            soulColectable.GetComponent<SoulPickUp>().MoneyValor(enemyType);
+            Instantiate(soulColectable, transform.position, Quaternion.identity);
+            /*
            if(soul != null)
            {
-               soul.enabled = true;
+               soul.gameObject.SetActive(true);
                soul.MoneyValor(enemyType);
                soul.transform.parent = null;
-               soul.gameObject.transform.position = transform.position;
                //Instantiate(soul, transform.position, Quaternion.identity);
            }
+           */
             Destroy(gameObject);
         }
     }

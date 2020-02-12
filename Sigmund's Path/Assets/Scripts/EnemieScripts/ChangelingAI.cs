@@ -33,7 +33,7 @@ public class ChangelingAI : BaseEnemy
     /// </summary>
     void Awake()
     {
-        soul.enabled = false;
+        //soul.gameObject.SetActive(false);
     }
     private void Start()
     {
@@ -48,7 +48,7 @@ public class ChangelingAI : BaseEnemy
         CheckMaxSpeed();
         Flip();
         base.Stuned();
-        Dead();
+        base.Dead();
     }
 
     void CheckMaxSpeed()
