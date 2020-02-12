@@ -408,6 +408,7 @@ MonoBehaviour:
   actualScene: 0
   toLoadScene: 0
   comeFromDead: 0
+  apearsOnFountain: 0
 --- !u!4 &502551330
 Transform:
   m_ObjectHideFlags: 0
@@ -558,11 +559,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1806338655533097321, guid: 0c268aad0780ce44985b78b12180e52d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.95
-      objectReference: {fileID: 0}
     - target: {fileID: 1806338654979003574, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -617,6 +613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806338655533097321, guid: 0c268aad0780ce44985b78b12180e52d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.95
       objectReference: {fileID: 0}
     - target: {fileID: 1806338654436073140, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
@@ -735,16 +736,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1806338655533097321, guid: 0c268aad0780ce44985b78b12180e52d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1806338655533097321, guid: 0c268aad0780ce44985b78b12180e52d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.79
-      objectReference: {fileID: 0}
     - target: {fileID: 1806338654979003574, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -800,15 +791,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1806338654436073140, guid: 0c268aad0780ce44985b78b12180e52d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1806338654979003572, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
       propertyPath: sceneToLoad
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806338655533097321, guid: 0c268aad0780ce44985b78b12180e52d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806338655533097321, guid: 0c268aad0780ce44985b78b12180e52d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806338654436073140, guid: 0c268aad0780ce44985b78b12180e52d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c268aad0780ce44985b78b12180e52d, type: 3}
@@ -1110,6 +1111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanelBegins: {fileID: 1358752310}
+  escClicked: 0
   isPaused: 0
   isOnInventory: 0
   blackFade: {fileID: 654907607}
@@ -2176,6 +2178,7 @@ MonoBehaviour:
   apearsPos:
   - {fileID: 589607908}
   - {fileID: 782916736}
+  fountainPos: {fileID: 0}
   levelScene: 3
 --- !u!114 &1941632922 stripped
 MonoBehaviour:
@@ -18017,7 +18020,9 @@ MonoBehaviour:
   shakeAmplitude: 1.5
   shakeFrequency: 5
   letsShake: 0
+  isOnBossFight: 0
   virtualCamera: {fileID: 2124871145}
+  bossConfiners: []
 --- !u!4 &2084341053
 Transform:
   m_ObjectHideFlags: 0

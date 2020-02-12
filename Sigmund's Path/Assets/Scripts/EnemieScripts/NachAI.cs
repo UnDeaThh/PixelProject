@@ -96,9 +96,18 @@ public class NachAI : BaseEnemy
         base.Dead();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
+        }
+    }
+
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
+        Debug.Log("Nach");
     }
 
     private void OnDrawGizmosSelected()

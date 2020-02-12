@@ -11,8 +11,8 @@ public class PlayerAttack : MonoBehaviour
 
     public int damage;
 
-    private float timeBtwttack;
-    public float startTimeBtwAttack;
+    private float cntTimeBtwttack;
+    public float timeBtwAttack;
 
     public Vector2 attackRangeFront = new Vector2(3f, 2f);
     public float attackRangeUp = 3f;
@@ -57,6 +57,18 @@ public class PlayerAttack : MonoBehaviour
 		        if(!pauseManager.isPaused){
 			        CheckIfCanAttack();
 			        Attack();
+
+                    if (isAttacking)
+                    {
+                        if(cntTimeBtwttack > 0)
+                        {
+                            cntTimeBtwttack -= Time.deltaTime;
+                        }
+                        else
+                        {
+                            isAttacking = false;
+                        }
+                    }
 		        }
             }
         }
@@ -66,18 +78,16 @@ public class PlayerAttack : MonoBehaviour
     {
         if (haveSword)
         {
-            if(timeBtwttack <= 0 && !plController2.isDrinking //&& !PlayerController2.plController2.isHanging //
-            && !plController2.isWallSliding)
+            if(!isAttacking && !plController2.isDrinking && !plController2.isWallSliding)
             {
                 canAttack = true;
-            
             }
             else
                 canAttack = false;
             
-            if (timeBtwttack > 0)
+            if (cntTimeBtwttack > 0)
             {
-                timeBtwttack -= Time.deltaTime;
+                cntTimeBtwttack -= Time.deltaTime;
             }
         }
         else
@@ -125,24 +135,15 @@ public class PlayerAttack : MonoBehaviour
                     if(enemiesToDamage[i].tag == "Enemy")
                     {
                         cameraController.letsShake = true;
-                        if(enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
-                        {
-                            changeling.TakeDamage(damage);
-                            plParry.parrySuccesful = false;
-
-                        }
-                        if(enemiesToDamage[i].TryGetComponent(out BermonchAI bermonch)){
-                            bermonch.TakeDamage(damage);
-                            plParry.parrySuccesful = false;
-                        }
                         if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                         {
                             enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                            plParry.parrySuccesful = false;
                         }
                     }
                 }
                 canAttack = false;
-                timeBtwttack = startTimeBtwAttack;
+                cntTimeBtwttack = timeBtwAttack;
             }
             //UP ATTACK
             else if(Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.W))
@@ -161,22 +162,17 @@ public class PlayerAttack : MonoBehaviour
                 {
                     if (enemiesToDamage[i].CompareTag("Enemy"))
                     {
-                        if (enemiesToDamage[i].TryGetComponent(out ChangelingAI changeling))
+                        cameraController.letsShake = true;
+                        if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                         {
-                            if (!plParry.parrySuccesful)
-                            {
-                                changeling.TakeDamage(damage);
-                            }
-                            else
-                            {
-                                changeling.TakeDamage(damage * 2);
-                            }
+                            enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                            plParry.parrySuccesful = false;
                         }
                     }
                 }
 
                 canAttack = false;
-                timeBtwttack = startTimeBtwAttack;
+                cntTimeBtwttack = timeBtwAttack;
             }
         }
     }

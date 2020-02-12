@@ -146,6 +146,7 @@ public class ChangelingAI : BaseEnemy
             rb.AddForce(hitForce * damagePushForce);
             StartCoroutine(Blinking());
         }
+        Debug.Log("Changeling");
 
     }
 

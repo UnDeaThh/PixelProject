@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerController2 : MonoBehaviour
 {
     private PauseManager pauseManager;
+    private Inventory2 inventory;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -67,6 +68,7 @@ public class PlayerController2 : MonoBehaviour
     private bool canDash;
     private bool shiftPressed;
     private bool isDashing;
+    private bool bombPressed;
    // private bool isDamaged;
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
@@ -104,10 +106,12 @@ public class PlayerController2 : MonoBehaviour
 
     public LayerMask whatIsGround;
     [SerializeField] Collider2D plCollider;
+    public GameObject bombPrefab;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
+        inventory = GetComponentInChildren<Inventory2>();
     }
     private void Update()
     {
@@ -125,7 +129,9 @@ public class PlayerController2 : MonoBehaviour
             InputPlayer();
             FacingDirection();
             Invencibility();
-            
+            ThrowBombs();
+
+
             Dead();
         }
 
@@ -197,9 +203,14 @@ public class PlayerController2 : MonoBehaviour
                     Drink();
                 }
 
-                if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+                if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     shiftPressed = true;
+                }
+
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    bombPressed = true;
                 }
             }
         }
@@ -381,7 +392,10 @@ public class PlayerController2 : MonoBehaviour
                 canDash = true;
             }
             else
+            {
                 canDash = false;
+                shiftPressed = false;
+            }
         }
     }
 
@@ -606,6 +620,21 @@ public class PlayerController2 : MonoBehaviour
         if (rb.velocity.y >= maxSpeedY)
         {
             rb.velocity = new Vector2(rb.velocity.x, maxSpeedY);
+        }
+    }
+
+    void ThrowBombs()
+    {
+        if (bombPressed)
+        {
+            if (inventory.nBombs > 0)
+            {
+                Instantiate(bombPrefab, transform.position + new Vector3(0.8f * facingDir, 0f, 0f), Quaternion.identity);
+                inventory.nBombs--;
+            }
+            else
+                Debug.Log("NO BOMS");
+            bombPressed = false;
         }
     }
 
