@@ -12,6 +12,7 @@ public class BaseEnemy : MonoBehaviour
     public int damage;
     [HideInInspector] public bool isAlive;
     [HideInInspector] public bool isStuned;
+    public SpriteRenderer sprite;
 
 
     public float movSpeed;
@@ -50,7 +51,20 @@ public class BaseEnemy : MonoBehaviour
     {
         nLifes -= damage;
         Debug.Log(nLifes);
+        StartCoroutine(Blinking());
     }
+    IEnumerator Blinking()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            sprite.color = Color.gray;
+            yield return new WaitForSeconds(0.15f);
+            sprite.color = Color.white;
+            yield return new WaitForSeconds(0.15f);
+        }
+    }
+
+    
 
 
     public void Stuned()

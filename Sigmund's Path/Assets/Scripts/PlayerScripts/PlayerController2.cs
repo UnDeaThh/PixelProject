@@ -397,6 +397,10 @@ public class PlayerController2 : MonoBehaviour
                 shiftPressed = false;
             }
         }
+        else
+        {
+            shiftPressed = false;
+        }
     }
 
     void IsWallSliding()
@@ -672,12 +676,12 @@ public class PlayerController2 : MonoBehaviour
 
     IEnumerator Blinking()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             sprite.color = Color.gray;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.15f);
             sprite.color = Color.white;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.15f);
         }
     }
 

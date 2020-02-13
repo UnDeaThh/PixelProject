@@ -169,6 +169,7 @@ MonoBehaviour:
   damage: 1
   isAlive: 0
   isStuned: 0
+  sprite: {fileID: 3416743974818929560}
   movSpeed: 4
   timeStuned: 1
   currentTimeStuned: 0
@@ -176,7 +177,8 @@ MonoBehaviour:
   whatIsDetected:
     serializedVersion: 2
     m_Bits: 256
-  soulColectable: {fileID: 0}
+  soulColectable: {fileID: 2839535871100496487, guid: fa786ac904c9ce54998329654ec7937f,
+    type: 3}
   enemyType: 3
   timeToJump: 2
   edgeDistance: 1

@@ -87,6 +87,7 @@ MonoBehaviour:
   damage: 1
   isAlive: 0
   isStuned: 0
+  sprite: {fileID: 8036452562875173308}
   movSpeed: 600
   timeStuned: 1
   currentTimeStuned: 0
@@ -94,7 +95,8 @@ MonoBehaviour:
   whatIsDetected:
     serializedVersion: 2
     m_Bits: 1024
-  soul: {fileID: 0}
+  soulColectable: {fileID: 2839535871100496487, guid: fa786ac904c9ce54998329654ec7937f,
+    type: 3}
   enemyType: 1
   bermBuild: 0
   highRangeDistance: 4.16
@@ -187,7 +189,7 @@ SpriteRenderer:
   m_Size: {x: 4.2, y: 2.4333334}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &8036452562875173310
