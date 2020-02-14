@@ -146,6 +146,10 @@ public class PlayerAttack : MonoBehaviour
                         enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
                         plParry.parrySuccesful = false;
                     }
+                    else if (enemiesToDamage[i].CompareTag("CumuloEsencia"))
+                    {
+                        enemiesToDamage[i].GetComponent<CumuloEsencia>().TakeDamage();
+                    }
                 }
                 canAttack = false;
                 cntTimeBtwttack = timeBtwAttack;
@@ -178,6 +182,10 @@ public class PlayerAttack : MonoBehaviour
                     {
                         enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
                         plParry.parrySuccesful = false;
+                    }
+
+                    else if (enemiesToDamage[i].CompareTag("CumuloEsencia")){
+                        enemiesToDamage[i].GetComponent<CumuloEsencia>().TakeDamage();
                     }
                 }
 
