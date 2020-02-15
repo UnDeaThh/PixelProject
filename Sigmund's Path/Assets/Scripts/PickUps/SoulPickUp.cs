@@ -11,6 +11,7 @@ public class SoulPickUp : MonoBehaviour
     {
         moneyToAdd = Random.Range(10, 20);
         sound = GetComponent<AudioSource>();
+        Physics2D.IgnoreLayerCollision(11, 11);
     }
 
     public void MoneyValor(EnemyClass enemyType)
