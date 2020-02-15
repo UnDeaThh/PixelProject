@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NerbuzBoss : MonoBehaviour
-{
     public enum State
     {
-        Enter, H1,H2,H3,H4,Transition
+        Enter, H1,H2,H3,H4,Transition,Nothing
     }
+public class NerbuzBoss : MonoBehaviour
+{
+
 
     public State actualState;
+    
+    public bool canBeDamaged = true;
     public int life = 200;
     [Header("Hechizo1")]
     public float speedH1;
@@ -19,8 +22,23 @@ public class NerbuzBoss : MonoBehaviour
     private float cntTimeToSpawn;
     public GameObject particleH1Prefab;
     private Vector2 movDir;
+
     [Header("Hechizo2")]
-    private bool reachedCenterScreen;
+    public GameObject groundParticle;
+    public GameObject pinchosPrefab;
+    public int nGenerators;
+    public int nAttackH2 = 3;
+    private int cntAttacksH2 = 0;
+    private Vector2[] generatorPos;
+    public bool generatorInPlace = false;
+
+    [Header("Transitions")]
+    public int transitions = 1;
+    [Header("Transition 1")]
+    public GameObject shieldPrefab;
+    public bool centerReached;
+    private bool shieldActivated;
+    public Transform centerPosition;
 
     public Collider2D colH1Confiner;
     private Vector2 colCenter;
@@ -29,18 +47,20 @@ public class NerbuzBoss : MonoBehaviour
 
     private Collider2D nerbuzCol;
     private SpriteRenderer sprite;
+    private Transform player;
 
 
 
     private Rigidbody2D rb;
-
     private void Awake()
     {
+        generatorPos = new Vector2[nGenerators];
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         nerbuzCol = GetComponent<Collider2D>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        actualState = State.Enter;
+        actualState = State.Nothing;
 
         movDir = GetRandomDirection(0);
         cntTimeToSpawn = timeToSpawn;
@@ -50,14 +70,14 @@ public class NerbuzBoss : MonoBehaviour
 
         colSize.x = colTrans.localScale.x * colH1Confiner.bounds.size.x;
         colSize.y = colTrans.localScale.y * colH1Confiner.bounds.size.y;
-
-        Debug.Log(colCenter);
     }
 
     private void Update()
     {
         switch (actualState)
         {
+            case State.Nothing:
+                break;
             case State.Enter:
                 UpdateEnter();
                 break;
@@ -73,6 +93,7 @@ public class NerbuzBoss : MonoBehaviour
             case State.H4:
                 break;
             case State.Transition:
+                UpdateTransitions();
                 break;
         }
     }
@@ -88,13 +109,13 @@ public class NerbuzBoss : MonoBehaviour
                 rb.velocity = movDir * speedH1 * Time.fixedDeltaTime;
                 break;
             case State.H2:
+            rb.velocity = Vector2.zero;
                 break;
             case State.H3:
                 break;
             case State.H4:
                 break;
             case State.Transition:
-                rb.velocity = Vector2.zero;
                 break;
         }
     }
@@ -110,10 +131,30 @@ public class NerbuzBoss : MonoBehaviour
         actualState = State.H1;
     }
 
-    IEnumerator IsOnTransitionState()
+    void UpdateTransitions()
     {
-        yield return new WaitForSeconds(2f);
-        actualState = State.H2;
+        switch(transitions)
+        {
+            case 1: //TRANSICION DE H1 A H2
+                if(transform.position != centerPosition.position)
+                {
+                    centerReached = false;
+                    transform.position = Vector2.MoveTowards(transform.position, centerPosition.position, 12 * Time.deltaTime);
+                }
+                else
+                {
+                    centerReached = true;
+                    canBeDamaged = false;
+                    if(!shieldActivated)
+                    {
+                        Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+                        shieldActivated = true;
+                    }
+                    else
+                        return;
+                }
+                break;
+        }
     }
     #endregion
     #region H1
@@ -147,7 +188,7 @@ public class NerbuzBoss : MonoBehaviour
             }
             else
             {
-                Instantiate(particleH1Prefab, GetRandomPosition(), Quaternion.identity);
+                Instantiate(particleH1Prefab, player.position, Quaternion.identity);
                 cntTimeToSpawn = timeToSpawn;
                 cntParticlesSpawn++;
             }
@@ -155,15 +196,9 @@ public class NerbuzBoss : MonoBehaviour
         }
         else
         {
-            Debug.Log("TRANSITION STATE");
+            transitions = 1;
             actualState = State.Transition;
         }
-    }
-
-    public Vector2 GetRandomPosition()
-    {
-        Vector2 randomPosition = colCenter + new Vector2(Random.Range(-colSize.x/2, colSize.x/2), Random.Range(-colSize.y/2, colSize.y/2));
-        return randomPosition;
     }
     private Vector2 GetRandomDirection(int number)
     {
@@ -195,7 +230,27 @@ public class NerbuzBoss : MonoBehaviour
     #region H2
     void UpdateH2()
     {
+        if(cntAttacksH2 < nAttackH2){
+            if(!generatorInPlace)
+            {
+                for(int i = 0; i < generatorPos.Length; i++)
+                {
+                    generatorPos[i] = H2GeneratorRandomPos();
+                    Instantiate(groundParticle, generatorPos[i], Quaternion.identity);
+                    Instantiate(pinchosPrefab, generatorPos[i], Quaternion.identity);
+                }
+                cntAttacksH2++;
+                generatorInPlace = true;
+            }
+        }
+        
+    }
 
+    Vector2 H2GeneratorRandomPos()
+    {
+        Vector2 posicion;
+        posicion = colCenter + new Vector2(Random.Range(-colSize.x/2, colSize.x/2), -colSize.y/2);
+        return posicion;
     }
     #endregion
 

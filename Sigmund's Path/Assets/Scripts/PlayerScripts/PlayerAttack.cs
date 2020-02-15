@@ -143,7 +143,10 @@ public class PlayerAttack : MonoBehaviour
                     }
                     else if (enemiesToDamage[i].CompareTag("Nerbuz"))
                     {
-                        enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
+                        if(enemiesToDamage[i].GetComponent<NerbuzBoss>().canBeDamaged)
+                        {
+                            enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
+                        }
                         plParry.parrySuccesful = false;
                     }
                     else if (enemiesToDamage[i].CompareTag("CumuloEsencia"))
@@ -180,7 +183,10 @@ public class PlayerAttack : MonoBehaviour
                     }
                     else if (enemiesToDamage[i].CompareTag("Nerbuz"))
                     {
-                        enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
+                        if(enemiesToDamage[i].GetComponent<NerbuzBoss>().canBeDamaged)
+                        {
+                            enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
+                        }
                         plParry.parrySuccesful = false;
                     }
 

@@ -8,7 +8,11 @@ public class NerbuzDoorTrigger : MonoBehaviour
     public CinemachineVirtualCamera vCamBoss;
     private bool playerIn = false;
     public GameObject lockedDoorCollider;
-
+    private NerbuzBoss nerbuzBrain;
+    void Awake()
+    {
+        nerbuzBrain = GameObject.FindGameObjectWithTag("Nerbuz").GetComponent<NerbuzBoss>();
+    }      
     private void Start()
     {
         vCamBoss.Priority = 0;
@@ -19,6 +23,7 @@ public class NerbuzDoorTrigger : MonoBehaviour
     {
         if(other.CompareTag("Player")){
             lockedDoorCollider.SetActive(true);
+            nerbuzBrain.actualState = State.Enter;
         }
     }
 

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ParticleDestroy : MonoBehaviour
 {
+    public float timeToDestroy;
     private void Start()
     {
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, timeToDestroy);
     }
 }
