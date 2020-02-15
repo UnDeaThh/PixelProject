@@ -53,6 +53,7 @@ public class Bombs : MonoBehaviour
 
             exploding = false;
             alreadyExploted = true;
+            Destroy(gameObject, 0.5f);
         }
     }
 

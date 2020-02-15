@@ -3187,6 +3187,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1385974913973478802, guid: d115e22c3c76ab14bb2979cd524ea8e2,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.072071075
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385974913973478802, guid: d115e22c3c76ab14bb2979cd524ea8e2,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.1584244
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385974913973478802, guid: d115e22c3c76ab14bb2979cd524ea8e2,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.12750721
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385974913973478802, guid: d115e22c3c76ab14bb2979cd524ea8e2,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.9839306
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d115e22c3c76ab14bb2979cd524ea8e2, type: 3}
 --- !u!1001 &1760656026
@@ -17066,16 +17086,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DestructibleWalls
       objectReference: {fileID: 0}
-    - target: {fileID: 2245220963971549878, guid: ba52060bd65aea240a156b7b499418f6,
-        type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 2245220963971549878, guid: ba52060bd65aea240a156b7b499418f6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2245220963971549882, guid: ba52060bd65aea240a156b7b499418f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17130,6 +17140,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245220964796787156, guid: ba52060bd65aea240a156b7b499418f6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.066
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245220964796787156, guid: ba52060bd65aea240a156b7b499418f6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 13.859817
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245220964796787156, guid: ba52060bd65aea240a156b7b499418f6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.255
+      objectReference: {fileID: 0}
+    - target: {fileID: 2245220964796787156, guid: ba52060bd65aea240a156b7b499418f6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.5805054
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba52060bd65aea240a156b7b499418f6, type: 3}
