@@ -19,6 +19,8 @@ public class NerbuzBoss : MonoBehaviour
     private float cntTimeToSpawn;
     public GameObject particleH1Prefab;
     private Vector2 movDir;
+    [Header("Hechizo2")]
+    private bool reachedCenterScreen;
 
     public Collider2D colH1Confiner;
     private Vector2 colCenter;
@@ -64,6 +66,7 @@ public class NerbuzBoss : MonoBehaviour
                 AttackH1();
                 break;
             case State.H2:
+                UpdateH2();
                 break;
             case State.H3:
                 break;
@@ -76,9 +79,23 @@ public class NerbuzBoss : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(actualState == State.H1)
+        switch (actualState)
         {
-            rb.velocity = movDir * speedH1 * Time.fixedDeltaTime;
+            case State.Enter:
+                rb.velocity = Vector2.zero;
+                break;
+            case State.H1:
+                rb.velocity = movDir * speedH1 * Time.fixedDeltaTime;
+                break;
+            case State.H2:
+                break;
+            case State.H3:
+                break;
+            case State.H4:
+                break;
+            case State.Transition:
+                rb.velocity = Vector2.zero;
+                break;
         }
     }
 
@@ -86,11 +103,19 @@ public class NerbuzBoss : MonoBehaviour
     {
         StartCoroutine(IsOnEnterState());
     }
+    #region ENTER and TRANSITION
     IEnumerator IsOnEnterState()
     {
         yield return new WaitForSeconds(2);
         actualState = State.H1;
     }
+
+    IEnumerator IsOnTransitionState()
+    {
+        yield return new WaitForSeconds(2f);
+        actualState = State.H2;
+    }
+    #endregion
     #region H1
     public void FlyH1()
     {
@@ -124,9 +149,14 @@ public class NerbuzBoss : MonoBehaviour
             {
                 Instantiate(particleH1Prefab, GetRandomPosition(), Quaternion.identity);
                 cntTimeToSpawn = timeToSpawn;
-                cntTimeToSpawn++;
+                cntParticlesSpawn++;
             }
 
+        }
+        else
+        {
+            Debug.Log("TRANSITION STATE");
+            actualState = State.Transition;
         }
     }
 
@@ -162,6 +192,12 @@ public class NerbuzBoss : MonoBehaviour
     }
     #endregion
 
+    #region H2
+    void UpdateH2()
+    {
+
+    }
+    #endregion
 
     #region DAMAGED
     public void TakeDamge(int damage)
