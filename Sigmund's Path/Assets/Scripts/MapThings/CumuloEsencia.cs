@@ -6,13 +6,15 @@ public class CumuloEsencia : MonoBehaviour
 {
     public int lifes = 3;
     private SpriteRenderer sr;
-    private bool destroyed;
+    private AudioSource crashSound;
+    public AudioClip bigCrashSound;
     public Sprite[] brokenSprites = new Sprite[3];
     public ParticleSystem[] ps = new ParticleSystem[3];
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        crashSound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -30,28 +32,28 @@ public class CumuloEsencia : MonoBehaviour
                 break;
             case 0:
                 sr.enabled = false;
-                destroyed = true;
                 break;
-        }
-
-        if (destroyed)
-        {
-            for (int i = 0; i < ps.Length; i++)
-            {
-                ps[i].Play();
-            }
-            for (int i = 0; i < ps.Length; i++)
-            {
-                
-            }
-            destroyed = false;
-            Destroy(gameObject, 0.3f);
         }
     }
 
     public void TakeDamage()
     {
         lifes--;
-        ps[0].Play();
+        
+        if(lifes > 0)
+        {
+            crashSound.Play();
+            ps[0].Emit(5);
+        }
+        else
+        {
+            crashSound.clip = bigCrashSound;
+            crashSound.Play();
+            for (int i = 0; i < ps.Length; i++)
+            {
+                ps[i].Emit(7);
+            }
+            Destroy(gameObject, 0.7f);
+        }
     }
 }
