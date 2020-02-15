@@ -6,12 +6,16 @@ public class ParticlesH1 : MonoBehaviour
 {
     private Collider2D col;
 
+    private void Awake()
+    {
+        col = GetComponent<Collider2D>();
+    }
     void Start()
     {
         col.enabled = false;
     }
 
-    void Explosion()
+    void StartExplosion()
     {
         col.enabled = true;
     }
