@@ -25,10 +25,13 @@ public class Shield : MonoBehaviour
             col.enabled = true;
         }
     }
-
     void ActivateShield()
     {
         shieldBuild = true;
-        nerbuzBrain.actualState = State.H2;
+    }
+
+    void DeactivateShield()
+    {
+        Destroy(gameObject);
     }
 }

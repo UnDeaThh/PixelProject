@@ -72,7 +72,10 @@ public class PinchosH2 : MonoBehaviour
                 nerbuzBrain.generatorInPlace = false;
                 Destroy(gameObject);
             }
-
+            if(nerbuzBrain.cntAttacksH2 >= nerbuzBrain.numberOfAttacksH2)
+            {
+                nerbuzBrain.tired = true;
+            }
         }
     }
     void OnTriggerEnter2D(Collider2D other)

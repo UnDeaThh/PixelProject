@@ -4,7 +4,7 @@ using UnityEngine;
 
     public enum State
     {
-        Enter, H1,H2,H3,H4,Transition,Nothing
+        Enter, H1,H2,H3,H4,Transition,Dead, Nothing
     }
 public class NerbuzBoss : MonoBehaviour
 {
@@ -26,14 +26,21 @@ public class NerbuzBoss : MonoBehaviour
     [Header("Hechizo2")]
     public GameObject groundParticle;
     public GameObject pinchosPrefab;
+    public bool tired;
     public int nGenerators;
-    public int nAttackH2 = 3;
-    private int cntAttacksH2 = 0;
+    public int numberOfAttacksH2 = 3;
+    private int cntSeriesAttackH2 = 0;
+    public int seriesAttackH2 = 3;
+    [HideInInspector] public int cntAttacksH2 = 0;
     private Vector2[] generatorPos;
     public bool generatorInPlace = false;
     public bool canAttackH2;
     public float timeToAttackH2;
     private float cntTimeToAttackH2;
+    public float tiredTime = 5f;
+    private float cntTiredTime;
+    public Transform cansadaPos;
+    private bool reachedCansadaPos = false;
 
     [Header("Transitions")]
     public int transitions = 1;
@@ -98,7 +105,11 @@ public class NerbuzBoss : MonoBehaviour
             case State.Transition:
                 UpdateTransitions();
                 break;
+            case State.Dead:
+                print("DEAD");
+                break;
         }
+        Dead();
     }
 
     private void FixedUpdate()
@@ -119,6 +130,9 @@ public class NerbuzBoss : MonoBehaviour
             case State.H4:
                 break;
             case State.Transition:
+                break;
+            case State.Dead:
+                rb.velocity = Vector2.zero;
                 break;
         }
     }
@@ -151,11 +165,16 @@ public class NerbuzBoss : MonoBehaviour
                     if(!shieldActivated)
                     {
                         Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+                        actualState = State.H2;
                         shieldActivated = true;
                     }
                     else
                         return;
                 }
+                break;
+            case 2:
+                print("transition 2");
+                    //
                 break;
         }
     }
@@ -233,30 +252,39 @@ public class NerbuzBoss : MonoBehaviour
     #region H2
     void UpdateH2()
     {
-        if(cntAttacksH2 <= nAttackH2){
-            if(!generatorInPlace)
+        if(cntSeriesAttackH2 < seriesAttackH2)
+        {
+            if(cntAttacksH2 < numberOfAttacksH2)
             {
-                for(int i = 0; i < generatorPos.Length; i++)
+                tired = false;
+                if(!generatorInPlace)
                 {
-                    if(i == 0)
+                    for(int i = 0; i < generatorPos.Length; i++)
                     {
-                        generatorPos[i] = new Vector2(player.position.x + Random.Range(-0.3f, 0.3f), colCenter.y - colSize.y/2);
+                        if(i == 0)
+                        {
+                            generatorPos[i] = new Vector2(player.position.x + Random.Range(-0.3f, 0.3f), colCenter.y - colSize.y/2);
+                        }
+                        else
+                        {
+                            generatorPos[i] = H2GeneratorRandomPos();
+                            float distancia = Vector2.Distance(generatorPos[i], generatorPos[i - 1]);
+                            if(distancia < 3f)
+                            {
+                                generatorPos[i] = H2GeneratorRandomPos();
+                            }
+                        }
+                        GameObject go = Instantiate(groundParticle, generatorPos[i], Quaternion.identity);
+                        go.GetComponent<ParticleDestroy>().timeToDestroy = timeToAttackH2;
+                        
                     }
-                    else
-                    {
-                        generatorPos[i] = H2GeneratorRandomPos();
-                    }
-                    GameObject go = Instantiate(groundParticle, generatorPos[i], Quaternion.identity);
-                    go.GetComponent<ParticleDestroy>().timeToDestroy = timeToAttackH2;
-                    
+                    cntAttacksH2++;
+                    cntTimeToAttackH2 = timeToAttackH2;
+                    canAttackH2 = true;
+                    generatorInPlace = true;
                 }
-                cntAttacksH2++;
-                cntTimeToAttackH2 = timeToAttackH2;
-                canAttackH2 = true;
-                generatorInPlace = true;
             }
         }
-
         if(canAttackH2)
         {
             if(cntTimeToAttackH2 > 0)
@@ -272,7 +300,64 @@ public class NerbuzBoss : MonoBehaviour
                 canAttackH2 = false;
             }
         }
-        
+        if(tired)
+        {
+            canBeDamaged = true;
+            if(!reachedCansadaPos)
+            {
+                if(transform.position != cansadaPos.position)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, cansadaPos.position, 5 * Time.deltaTime);
+                    cntTiredTime = tiredTime;
+                }
+                else
+                {
+                    cntSeriesAttackH2++;
+                    reachedCansadaPos = true;
+                }
+            }
+            else
+            {
+                if(cntTiredTime > 0)
+                {
+                    cntTiredTime -= Time.deltaTime;
+                }
+                else
+                {
+                    if(cntSeriesAttackH2 < seriesAttackH2)
+                    {
+                        if(transform.position != centerPosition.position)
+                        {
+                            transform.position = Vector2.MoveTowards(transform.position, centerPosition.position, 20 * Time.deltaTime);
+                        }
+                        else
+                        {
+                            reachedCansadaPos = false;
+                            cntTiredTime = tiredTime;
+                            cntAttacksH2 = 0;
+                            tired = false;
+                        }
+                    }
+                    else
+                    {
+                        if(transform.position != centerPosition.position)
+                        {
+                            transform.position = Vector2.MoveTowards(transform.position, centerPosition.position, 20 * Time.deltaTime);
+                        }
+                        else
+                        {
+                            reachedCansadaPos = false;
+                            cntTiredTime = tiredTime;
+                            cntAttacksH2 = 0;
+                            tired = false;
+                            cntSeriesAttackH2 = 0;
+                            transitions = 2;
+                            actualState = State.Transition;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     Vector2 H2GeneratorRandomPos()
@@ -302,4 +387,12 @@ public class NerbuzBoss : MonoBehaviour
         }
     }
     #endregion
+
+    void Dead()
+    {
+        if(life <= 0)
+        {
+            actualState = State.Dead;
+        }
+    }
 }
