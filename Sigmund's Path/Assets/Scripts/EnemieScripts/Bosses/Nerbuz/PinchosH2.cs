@@ -70,6 +70,7 @@ public class PinchosH2 : MonoBehaviour
             else
             {
                 nerbuzBrain.generatorInPlace = false;
+                Destroy(gameObject);
             }
 
         }

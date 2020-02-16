@@ -31,6 +31,9 @@ public class NerbuzBoss : MonoBehaviour
     private int cntAttacksH2 = 0;
     private Vector2[] generatorPos;
     public bool generatorInPlace = false;
+    public bool canAttackH2;
+    public float timeToAttackH2;
+    private float cntTimeToAttackH2;
 
     [Header("Transitions")]
     public int transitions = 1;
@@ -230,17 +233,43 @@ public class NerbuzBoss : MonoBehaviour
     #region H2
     void UpdateH2()
     {
-        if(cntAttacksH2 < nAttackH2){
+        if(cntAttacksH2 <= nAttackH2){
             if(!generatorInPlace)
             {
                 for(int i = 0; i < generatorPos.Length; i++)
                 {
-                    generatorPos[i] = H2GeneratorRandomPos();
-                    Instantiate(groundParticle, generatorPos[i], Quaternion.identity);
-                    Instantiate(pinchosPrefab, generatorPos[i], Quaternion.identity);
+                    if(i == 0)
+                    {
+                        generatorPos[i] = new Vector2(player.position.x + Random.Range(-0.3f, 0.3f), colCenter.y - colSize.y/2);
+                    }
+                    else
+                    {
+                        generatorPos[i] = H2GeneratorRandomPos();
+                    }
+                    GameObject go = Instantiate(groundParticle, generatorPos[i], Quaternion.identity);
+                    go.GetComponent<ParticleDestroy>().timeToDestroy = timeToAttackH2;
+                    
                 }
                 cntAttacksH2++;
+                cntTimeToAttackH2 = timeToAttackH2;
+                canAttackH2 = true;
                 generatorInPlace = true;
+            }
+        }
+
+        if(canAttackH2)
+        {
+            if(cntTimeToAttackH2 > 0)
+            {
+                cntTimeToAttackH2 -= Time.deltaTime;
+            }
+            else
+            {
+                for(int i = 0; i < generatorPos.Length; i++)
+                {
+                    Instantiate(pinchosPrefab, generatorPos[i], Quaternion.identity);
+                }
+                canAttackH2 = false;
             }
         }
         
