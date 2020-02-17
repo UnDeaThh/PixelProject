@@ -41,12 +41,16 @@ public class ChangelingAI : BaseEnemy
         seeker = GetComponent<Seeker>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         graphic = GetComponentInChildren<SpriteRenderer>();
+        anim = GetComponentInChildren<Animator>();
         normalColor = graphic.color;
     }
     private void Update()
     {
         CheckMaxSpeed();
-        Flip();
+        if(nLifes > 0)
+        {
+            Flip();
+        }
         base.Stuned();
         base.Dead();
     }
@@ -75,8 +79,10 @@ public class ChangelingAI : BaseEnemy
         {
             reachedEndOfPath = false;
         }
-
-        ApplyMovement();
+        if (nLifes > 0)
+        {
+            ApplyMovement();
+        }
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
 
@@ -177,6 +183,11 @@ public class ChangelingAI : BaseEnemy
             //Vector2 normal = collision.contacts[0].normal;
             collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
         }
+    }
+
+    public override void Dead()
+    {
+        base.Dead();
     }
 
 }

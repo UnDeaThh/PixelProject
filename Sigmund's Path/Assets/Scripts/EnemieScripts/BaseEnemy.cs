@@ -12,7 +12,10 @@ public class BaseEnemy : MonoBehaviour
     public int damage;
     [HideInInspector] public bool isAlive;
     [HideInInspector] public bool isStuned;
+    [HideInInspector] public bool callDead = false;
+    [HideInInspector] public bool oneCallDead = false;
     public SpriteRenderer sprite;
+    public AudioSource deadSound;
 
 
     public float movSpeed;
@@ -26,25 +29,30 @@ public class BaseEnemy : MonoBehaviour
 
     public GameObject soulColectable;
     public EnemyClass enemyType;
+    [HideInInspector] public Animator anim;
 
 
     public virtual void Dead()
     {
-        if(nLifes <= 0)
+        if(nLifes <= 0 && !oneCallDead)
         {
-            soulColectable.GetComponent<SoulPickUp>().MoneyValor(enemyType);
-            Instantiate(soulColectable, transform.position, Quaternion.identity);
-            /*
-           if(soul != null)
-           {
-               soul.gameObject.SetActive(true);
-               soul.MoneyValor(enemyType);
-               soul.transform.parent = null;
-               //Instantiate(soul, transform.position, Quaternion.identity);
-           }
-           */
-            Destroy(gameObject);
+            //Instantiate Soul desde el Animation Event
+            anim.SetTrigger("callDead");
+            deadSound.Play();
+            oneCallDead = true;
         }
+        if (callDead)
+        {
+            if (!deadSound.isPlaying)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+    public void InstantiateSoul(EnemyClass enemyTipo)
+    {
+        soulColectable.GetComponent<SoulPickUp>().MoneyValor(enemyTipo);
+        Instantiate(soulColectable, transform.position, Quaternion.identity);
     }
 
     public virtual void TakeDamage(int damage)
@@ -63,9 +71,6 @@ public class BaseEnemy : MonoBehaviour
             yield return new WaitForSeconds(0.15f);
         }
     }
-
-    
-
 
     public void Stuned()
     {

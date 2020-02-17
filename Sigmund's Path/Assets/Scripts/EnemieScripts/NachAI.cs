@@ -31,6 +31,7 @@ public class NachAI : BaseEnemy
         Physics2D.IgnoreLayerCollision(9, 9);
         cntTimeToJump = timeToJump + Random.Range(0f, 1f);
         jumpDirection.Normalize();
+        anim = GetComponentInChildren<Animator>();
     }
     private void Update()
     {
@@ -86,6 +87,7 @@ public class NachAI : BaseEnemy
     {
         if (makeJump)
         {
+            anim.SetTrigger("isJump");
             if(facingDir == 1)
             {
                 rb.AddForce(jumpDirection * movSpeed, ForceMode2D.Impulse);

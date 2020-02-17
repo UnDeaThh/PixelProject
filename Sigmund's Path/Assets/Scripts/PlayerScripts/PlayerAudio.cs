@@ -19,7 +19,6 @@ public class PlayerAudio : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(plController.rb.velocity.x);
         //WALKSOUND
         if(Mathf.Abs(plController.rb.velocity.x) > 0.1f && plController.isGrounded)
         {
