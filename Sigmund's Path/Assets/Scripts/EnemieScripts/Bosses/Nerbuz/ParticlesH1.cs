@@ -5,10 +5,14 @@ using UnityEngine;
 public class ParticlesH1 : MonoBehaviour
 {
     private Collider2D col;
-
+    public AudioSource explosSound;
+    private bool destroy = false;
+    private SpriteRenderer sprite;
     private void Awake()
     {
         col = GetComponent<Collider2D>();
+        sprite = GetComponent<SpriteRenderer>();
+
     }
     void Start()
     {
@@ -18,11 +22,24 @@ public class ParticlesH1 : MonoBehaviour
     void StartExplosion()
     {
         col.enabled = true;
+        explosSound.Play();
     }
 
     void DestroyParticle()
     {
-        Destroy(gameObject);
+        sprite.enabled = false;
+        destroy = true;
+    }
+
+    private void Update()
+    {
+        if (destroy)
+        {
+            if (!explosSound.isPlaying)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

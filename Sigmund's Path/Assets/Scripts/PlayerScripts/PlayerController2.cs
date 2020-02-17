@@ -586,6 +586,10 @@ public class PlayerController2 : MonoBehaviour
                 isDashing = true;
                 dashDir = facingDir;
                 cntDashDuration = 0;
+                if (!plAudio.dashSound.isPlaying)
+                {
+                    plAudio.dashSound.Play();
+                }
             }
             if (isDashing && cntDashDuration < dashDuration) // tiempo que esta dasheando
             {

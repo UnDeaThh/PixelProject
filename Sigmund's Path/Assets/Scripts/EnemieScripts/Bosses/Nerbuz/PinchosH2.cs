@@ -15,14 +15,21 @@ public class PinchosH2 : MonoBehaviour
     private float cntTimeToDescende;
 
     private float cntTimeNextAttack;
+    private AudioSource raizSound;
 
     void Awake()
     {
         nerbuzBrain = GameObject.FindGameObjectWithTag("Nerbuz").GetComponent<NerbuzBoss>();
+        raizSound = GetComponentInChildren<AudioSource>();
         minHigh = transform.position.y;
         maxHigh = transform.position.y + subida;
         cntTimeToDescende = timeToDescende;
         cntTimeNextAttack = 0.4f;
+    }
+
+    private void Start()
+    {
+        raizSound.Play();
     }
     void Update()
     {

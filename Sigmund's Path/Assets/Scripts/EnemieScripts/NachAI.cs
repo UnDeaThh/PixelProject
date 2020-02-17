@@ -107,6 +107,10 @@ public class NachAI : BaseEnemy
 
     public override void Dead()
     {
+        if(nLifes <= 0 && !oneCallDead)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+        }
         base.Dead();
     }
 

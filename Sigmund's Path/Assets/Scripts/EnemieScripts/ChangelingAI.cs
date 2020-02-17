@@ -27,14 +27,6 @@ public class ChangelingAI : BaseEnemy
 
     public Color damagedColor;
     private Color normalColor;
-
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
-    void Awake()
-    {
-        //soul.gameObject.SetActive(false);
-    }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,7 +44,7 @@ public class ChangelingAI : BaseEnemy
             Flip();
         }
         base.Stuned();
-        base.Dead();
+        Dead();
     }
 
     void CheckMaxSpeed()
@@ -166,6 +158,8 @@ public class ChangelingAI : BaseEnemy
             yield return new WaitForSeconds(0.1f);
         }
     }
+
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

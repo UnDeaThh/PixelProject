@@ -34,12 +34,14 @@ public class PlayerAttack : MonoBehaviour
 
     private Animator anim;
     private CameraController cameraController;
+    private PlayerAudio sound;
 
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
         playerPos = GetComponent<Transform>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
+        sound = GetComponentInChildren<PlayerAudio>();
     }
 
     private void Start()
@@ -154,6 +156,17 @@ public class PlayerAttack : MonoBehaviour
                         enemiesToDamage[i].GetComponent<CumuloEsencia>().TakeDamage();
                     }
                 }
+
+                if(enemiesToDamage.Length <= 0)
+                {
+                    sound.attackSound.clip = sound.attackClips[0];
+                    sound.attackSound.Play();
+                }
+                else
+                {
+                    sound.attackSound.clip = sound.attackClips[1];
+                    sound.attackSound.Play();
+                }
                 canAttack = false;
                 cntTimeBtwttack = timeBtwAttack;
             }
@@ -195,6 +208,16 @@ public class PlayerAttack : MonoBehaviour
                     }
                 }
 
+                if (enemiesToDamage.Length <= 0)
+                {
+                    sound.attackSound.clip = sound.attackClips[0];
+                    sound.attackSound.Play();
+                }
+                else
+                {
+                    sound.attackSound.clip = sound.attackClips[1];
+                    sound.attackSound.Play();
+                }
                 canAttack = false;
                 cntTimeBtwttack = timeBtwAttack;
             }

@@ -30,6 +30,7 @@ public class BaseEnemy : MonoBehaviour
     public GameObject soulColectable;
     public EnemyClass enemyType;
     [HideInInspector] public Animator anim;
+    [HideInInspector] public Collider2D baseCollider;
 
 
     public virtual void Dead()
@@ -39,6 +40,8 @@ public class BaseEnemy : MonoBehaviour
             //Instantiate Soul desde el Animation Event
             anim.SetTrigger("callDead");
             deadSound.Play();
+            Collider2D col = GetComponent<Collider2D>();
+            col.enabled = false;
             oneCallDead = true;
         }
         if (callDead)

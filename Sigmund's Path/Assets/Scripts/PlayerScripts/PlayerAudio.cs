@@ -9,7 +9,9 @@ public class PlayerAudio : MonoBehaviour
     private PlayerParry plParry;
     public AudioSource jumpSound;
     public AudioSource walkSound;
-
+    public AudioSource attackSound;
+    public AudioClip[] attackClips;
+    public AudioSource dashSound;
     private void Awake()
     {
         plController = GetComponentInParent<PlayerController2>();

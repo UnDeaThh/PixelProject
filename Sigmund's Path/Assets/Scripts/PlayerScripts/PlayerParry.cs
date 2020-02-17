@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerParry : MonoBehaviour
 {
     private PlayerController2 plController2;
+    private PlayerAttack plAttack;
 	private PauseManager pauseManager;
 
     private float timeBtwParry;
@@ -20,12 +21,13 @@ public class PlayerParry : MonoBehaviour
     public bool parrySuccesful = false;
     public bool parryFail = false;
     private bool alreadyClicked = false;
-
+    private bool ffParry;
 
     public Collider2D parryCol;
     private Animator anim;
     private void Awake()
     {
+        plAttack = GetComponent<PlayerAttack>();
         anim = GetComponentInChildren<Animator>();
         isParry = false;
         parryCol.enabled = false;
@@ -55,16 +57,21 @@ public class PlayerParry : MonoBehaviour
 
     void CheckIfCanParry()
     {
-        if(timeBtwParry <= 0 && plController2.isGrounded == true)
+        if (plAttack.haveSword)
         {
-            canParry = true;
-            
+            if (timeBtwParry <= 0 && plController2.isGrounded == true)
+            {
+                canParry = true;
+
+            }
+            else
+            {
+                timeBtwParry -= Time.deltaTime;
+                canParry = false;
+            }
         }
-        else 
-        {
-            timeBtwParry -= Time.deltaTime;
+        else
             canParry = false;
-        }
     }
 
     void ParryInput()
@@ -78,6 +85,7 @@ public class PlayerParry : MonoBehaviour
                 plController2.heedArrows = false;
                 plController2.rb.velocity = new Vector2(0f, plController2.rb.velocity.y);
                 isParry = true;
+                ffParry = true;
                 justOneTime = true;
                 
             }

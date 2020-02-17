@@ -41,6 +41,7 @@ public class NerbuzBoss : MonoBehaviour
     private float cntTiredTime;
     public Transform cansadaPos;
     private bool reachedCansadaPos = false;
+    public AudioSource earthquakeSound;
 
     [Header("Transitions")]
     public int transitions = 1;
@@ -58,7 +59,6 @@ public class NerbuzBoss : MonoBehaviour
     private Collider2D nerbuzCol;
     private SpriteRenderer sprite;
     private Transform player;
-
 
 
     private Rigidbody2D rb;
@@ -276,7 +276,6 @@ public class NerbuzBoss : MonoBehaviour
                         }
                         GameObject go = Instantiate(groundParticle, generatorPos[i], Quaternion.identity);
                         go.GetComponent<ParticleDestroy>().timeToDestroy = timeToAttackH2;
-                        
                     }
                     cntAttacksH2++;
                     cntTimeToAttackH2 = timeToAttackH2;
@@ -290,9 +289,14 @@ public class NerbuzBoss : MonoBehaviour
             if(cntTimeToAttackH2 > 0)
             {
                 cntTimeToAttackH2 -= Time.deltaTime;
+                if (!earthquakeSound.isPlaying)
+                {
+                    earthquakeSound.Play();
+                }
             }
             else
             {
+                earthquakeSound.Stop();
                 for(int i = 0; i < generatorPos.Length; i++)
                 {
                     Instantiate(pinchosPrefab, generatorPos[i], Quaternion.identity);

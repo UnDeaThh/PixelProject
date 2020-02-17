@@ -65,7 +65,10 @@ public class CumuloEsencia : MonoBehaviour
                 ps[i].Emit(7);
             }
             RandomInstantiateSouls();
-            Destroy(gameObject, 0.7f);
+            if (!crashSound.isPlaying)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
