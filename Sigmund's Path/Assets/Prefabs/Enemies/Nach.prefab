@@ -170,7 +170,7 @@ MonoBehaviour:
   isAlive: 0
   isStuned: 0
   sprite: {fileID: 3416743974818929560}
-  movSpeed: 4
+  movSpeed: 7
   timeStuned: 1
   currentTimeStuned: 0
   detectionRange: 0
@@ -180,12 +180,13 @@ MonoBehaviour:
   soulColectable: {fileID: 2839535871100496487, guid: fa786ac904c9ce54998329654ec7937f,
     type: 3}
   enemyType: 3
-  timeToJump: 2
+  timeToJump: 1.2
   edgeDistance: 1
   wallDistance: 1
   groundDistance: 0.15
   groundFound: 0
   wallFound: 0
+  jumpDirection: {x: 1, y: 2}
   edgeLocatorPos: {fileID: 3416743973538242330}
   wallLocatorPos: {fileID: 3416743973359901816}
   groundCheckerPos: {fileID: 700127047035280608}

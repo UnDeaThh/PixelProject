@@ -75,6 +75,8 @@ public class PlayerParry : MonoBehaviour
             {
                 alreadyClicked = true;
                 currentParryTime = parryDuration;
+                plController2.heedArrows = false;
+                plController2.rb.velocity = new Vector2(0f, plController2.rb.velocity.y);
                 isParry = true;
                 justOneTime = true;
                 
@@ -91,6 +93,7 @@ public class PlayerParry : MonoBehaviour
             if(currentParryTime > 0f && !parryDone)
             {
                 currentParryTime -= Time.deltaTime;
+                plController2.heedArrows = false;
                 parryCol.enabled = true;
 
             }
@@ -98,6 +101,7 @@ public class PlayerParry : MonoBehaviour
             {
                 parryCol.enabled = false;
                 timeBtwParry = startTimeBtwParry;
+                plController2.heedArrows = true;
 
                 isParry = false;
                 parryDone = false;
@@ -106,7 +110,7 @@ public class PlayerParry : MonoBehaviour
 
         }
 
-        //AFTER PARRY NOT DONE
+        //AFTER PARRY NOT DONE, OSEA LO HE FALLADO
         else if (currentParryTime <= 0f && !parryDone && justOneTime)
         {
             Debug.Log("salsa");

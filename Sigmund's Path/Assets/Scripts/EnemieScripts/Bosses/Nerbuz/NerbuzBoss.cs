@@ -371,9 +371,14 @@ public class NerbuzBoss : MonoBehaviour
     #region DAMAGED
     public void TakeDamge(int damage)
     {
-        life -= damage;
-        Debug.Log(life);
-        StartCoroutine(Blinking());
+        if (life > 0)
+        {
+            life -= damage;
+            Debug.Log(life);
+            StartCoroutine(Blinking());
+        }
+        else
+            return;
     }
 
     IEnumerator Blinking()

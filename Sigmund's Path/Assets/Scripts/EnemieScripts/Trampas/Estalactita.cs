@@ -10,6 +10,7 @@ public class Estalactita : MonoBehaviour
     public GameObject ps;
     private SpriteRenderer sprite;
     private bool launched;
+    private AudioSource sound;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -17,6 +18,7 @@ public class Estalactita : MonoBehaviour
         sprite = GetComponentInChildren<SpriteRenderer>();
         col.enabled = false;
         rb.gravityScale = 0;
+        sound = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -43,10 +45,12 @@ public class Estalactita : MonoBehaviour
         {
             if (launched)
             {
+                sound.Play();
                 col.enabled = false;
                 sprite.enabled = false;
-                rb.gravityScale = 0;
-                Instantiate(ps, transform.position, Quaternion.identity);
+                rb.velocity = Vector2.zero;
+                Vector2 posicion = new Vector2(col.transform.position.x, col.transform.position.y - col.bounds.size.y/2 - 0.2f);
+                Instantiate(ps, posicion, Quaternion.identity);
                 Destroy(gameObject, 0.3f);
             }
         }

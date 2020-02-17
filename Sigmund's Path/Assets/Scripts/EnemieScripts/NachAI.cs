@@ -17,6 +17,8 @@ public class NachAI : BaseEnemy
     public bool wallFound;
     private bool makeJump;
 
+    public Vector2 jumpDirection;
+
     private Rigidbody2D rb;
     public Transform edgeLocatorPos;
     public Transform wallLocatorPos;
@@ -26,6 +28,9 @@ public class NachAI : BaseEnemy
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Physics2D.IgnoreLayerCollision(9, 9);
+        cntTimeToJump = timeToJump + Random.Range(0f, 1f);
+        jumpDirection.Normalize();
     }
     private void Update()
     {
@@ -60,7 +65,7 @@ public class NachAI : BaseEnemy
             else
             {
                 makeJump = true;
-                cntTimeToJump = timeToJump;
+                cntTimeToJump = timeToJump + Random.Range(0f, 1f);
             }
         }
         else
@@ -83,11 +88,11 @@ public class NachAI : BaseEnemy
         {
             if(facingDir == 1)
             {
-                rb.AddForce(Vector2.one * movSpeed, ForceMode2D.Impulse);
+                rb.AddForce(jumpDirection * movSpeed, ForceMode2D.Impulse);
             }
             else if(facingDir == -1)
             {
-                rb.AddForce(new Vector2(-1f, 1f) * movSpeed, ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(-jumpDirection.x, jumpDirection.y) * movSpeed, ForceMode2D.Impulse);
             }
         }
     }

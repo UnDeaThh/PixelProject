@@ -7,6 +7,7 @@ public class PlayerController2 : MonoBehaviour
 {
     private PauseManager pauseManager;
     private Inventory2 inventory;
+    private PlayerAudio plAudio;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -86,7 +87,7 @@ public class PlayerController2 : MonoBehaviour
     public Sprite fullHeartUI;
     public Sprite emptyHeartUI;
 
-    private Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     [SerializeField] private SpriteRenderer sprite; 
     public Transform frontPos;
     public Transform feetPosLeft;
@@ -112,6 +113,7 @@ public class PlayerController2 : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         inventory = GetComponentInChildren<Inventory2>();
+        plAudio = GetComponentInChildren<PlayerAudio>();
     }
     private void Update()
     {
@@ -485,6 +487,10 @@ public class PlayerController2 : MonoBehaviour
                 cntJumpTime = jumpTime;
                 cntJumps++;
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                if (!plAudio.jumpSound.isPlaying)
+                {
+                    plAudio.jumpSound.Play();
+                }
             }
             WallJump();
             jumpPressed = false;
@@ -538,7 +544,7 @@ public class PlayerController2 : MonoBehaviour
     {
         if (!isOnKinematic)
         {
-            if (!isDrinking || !isDead)
+            if (!isDrinking && !isDead)
             {
                 if (!heedArrows)
                 {
@@ -565,7 +571,6 @@ public class PlayerController2 : MonoBehaviour
                 isDrinking = true;
                 heedArrows = false;
                 potions--;
-                health++;
                 StartCoroutine(TimeDrinking());
             }
         }
@@ -614,7 +619,8 @@ public class PlayerController2 : MonoBehaviour
     IEnumerator TimeDrinking()
     {
         rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(timeDrinking);
+        health++;
         isDrinking = false;
         cntTimeNextDrink = 0;
     }

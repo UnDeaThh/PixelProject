@@ -6,6 +6,7 @@ public class SoulPickUp : MonoBehaviour
 {
     private int moneyToAdd;
     private AudioSource sound;
+    private bool picked;
 
     private void Awake()
     {
@@ -14,6 +15,20 @@ public class SoulPickUp : MonoBehaviour
         Physics2D.IgnoreLayerCollision(11, 11);
     }
 
+    private void Update()
+    {
+        if (picked)
+        {
+            if (sound.isPlaying)
+            {
+                return;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
     public void MoneyValor(EnemyClass enemyType)
     {
         switch (enemyType)
@@ -28,6 +43,7 @@ public class SoulPickUp : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
+            picked = true;
             Collider2D col = GetComponent<Collider2D>();
             col.enabled = false;
             SpriteRenderer GFX = GetComponentInChildren<SpriteRenderer>();
@@ -37,7 +53,7 @@ public class SoulPickUp : MonoBehaviour
             inventory.WinMoney(moneyToAdd);
             //Lanzar Sonido
             sound.Play();
-            Destroy(gameObject, 0.4f);
+            
         }
     }
 }
