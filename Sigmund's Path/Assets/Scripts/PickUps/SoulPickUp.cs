@@ -13,6 +13,7 @@ public class SoulPickUp : MonoBehaviour
         moneyToAdd = Random.Range(10, 20);
         sound = GetComponent<AudioSource>();
         Physics2D.IgnoreLayerCollision(11, 11);
+        Physics2D.IgnoreLayerCollision(11, 9);
     }
 
     private void Update()

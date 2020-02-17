@@ -24,7 +24,7 @@ public class Estalactita : MonoBehaviour
     {
         if (!launched)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, collidesWith);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1000, collidesWith);
             if(hit.transform.CompareTag("Player"))
             {
                 rb.gravityScale = 5;

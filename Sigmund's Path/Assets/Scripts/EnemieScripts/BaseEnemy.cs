@@ -43,7 +43,14 @@ public class BaseEnemy : MonoBehaviour
         }
         if (callDead)
         {
-            if (!deadSound.isPlaying)
+            if (deadSound)
+            {
+                if (!deadSound.isPlaying)
+                {
+                    Destroy(gameObject);
+                }
+            }
+            else
             {
                 Destroy(gameObject);
             }
