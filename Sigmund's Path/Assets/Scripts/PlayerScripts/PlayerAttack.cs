@@ -15,6 +15,7 @@ public class PlayerAttack : MonoBehaviour
     public float timeBtwAttack;
 
     public Vector2 attackRangeFront = new Vector2(3f, 2f);
+    public float attackUpDistance = 1f;
     public float attackRangeUp = 3f;
 
     private bool attackingUp = false;
@@ -25,20 +26,18 @@ public class PlayerAttack : MonoBehaviour
 	public bool isAttacking = false;
 
     private Vector3 frontAttackPos = new Vector3(1.5f, 0.0f, 0.0f);
-    private Vector3 upAttackPos = new Vector3(0.0f, 3f, 0.0f);
+    private Vector3 upAttackPos;
 
     public Transform attackPos;
     private Transform playerPos;
 
     public LayerMask whatIsEnemie;
 
-    private Animator anim;
     private CameraController cameraController;
     private PlayerAudio sound;
 
     void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
         playerPos = GetComponent<Transform>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
         sound = GetComponentInChildren<PlayerAudio>();
@@ -49,6 +48,8 @@ public class PlayerAttack : MonoBehaviour
         plController2 = GetComponent<PlayerController2>();
         plParry = GetComponent<PlayerParry>();
 		pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
+
+        upAttackPos = new Vector3(0.0f, attackUpDistance, 0.0f);
     }
     void Update()
     {

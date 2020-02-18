@@ -52,7 +52,7 @@ public class PlayerController2 : MonoBehaviour
     public bool isDead;
     //[HideInInspector] bool deadChange;
     public bool isGrounded;
-    private bool isJumping;
+    public bool isJumping;
     private bool oneChanceDirection = false;
     private bool jumpPressed = false;
     private bool jumpHolded;
@@ -270,27 +270,6 @@ public class PlayerController2 : MonoBehaviour
         {
             canJump = false;
         }
-
-        /*
-        if (isGrounded)
-        {
-            cntCoyoteTime = 0;
-        }
-        else if(!isGrounded && !isJumping)
-        {
-            cntCoyoteTime += Time.deltaTime;
-        }
-
-
-        if (isGrounded && !isWallSliding)
-        {
-            canNormalJump = true;
-        }
-        else
-        {
-            canNormalJump = false;
-        }
-        */
     }
 
     void CheckIfWallSliding()

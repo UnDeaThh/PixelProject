@@ -4,35 +4,58 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
-	private Animator anim;
+	//private Animator anim;
 	private PlayerController2 player;
 	private PlayerAttack plAttack;
 	private Inventory2 inventory;
 	private PlayerParry plParry;
+    private Animator anim;
 
 
+    private bool isRuning;
+    private bool isJumping;
 	void Start()
 	{
-		anim = GetComponent<Animator>();
+		//anim = GetComponent<Animator>();
 		player = GetComponentInParent<PlayerController2>();
 		plAttack = GetComponentInParent<PlayerAttack>();
 		plParry = GetComponentInParent<PlayerParry>();
-		inventory = GetComponent<Inventory2>();
+		inventory = GetComponentInChildren<Inventory2>();
+        anim = GetComponent<Animator>();
 	}
 
 	void Update()
 	{
-		anim.SetBool("isAttacking", plAttack.isAttacking);
+        if(Mathf.Abs(player.rb.velocity.x) > 0.1)
+        {
+            isRuning = true;
+        }
+        else
+        {
+            isRuning = false;
+        }
+
+        if (!player.isGrounded)
+        {
+            isJumping = true;
+        }
+        else
+        {
+            isJumping = false;
+        }
+
+        UpdateAnimations();
 	}
 
-	void PlayerFrontAttack()
+	void PlayerStopAttack()
 	{
-        anim.SetBool("isAttacking", false);
+        //anim.SetBool("isAttacking", false);
 	}
 
-	void PlayerUpAttack()
-	{
-		anim.SetBool("isAttacking", false);
-	}
-
+    void UpdateAnimations()
+    {
+        anim.SetBool("isRuning", isRuning);
+        anim.SetBool("isJumping", isJumping);
+        anim.SetFloat("velocityY", player.rb.velocity.y);
+    }
 }

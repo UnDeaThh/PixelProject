@@ -24,11 +24,11 @@ public class PlayerParry : MonoBehaviour
     private bool ffParry;
 
     public Collider2D parryCol;
-    private Animator anim;
+    //private Animator anim;
     private void Awake()
     {
         plAttack = GetComponent<PlayerAttack>();
-        anim = GetComponentInChildren<Animator>();
+        //anim = GetComponentInChildren<Animator>();
         isParry = false;
         parryCol.enabled = false;
         
@@ -163,7 +163,7 @@ public class PlayerParry : MonoBehaviour
     
     void UpdateAnimations()
     {
-        anim.SetBool("isParry", isParry);
+        //anim.SetBool("isParry", isParry);
     }
 
     private void OnDrawGizmosSelected()
