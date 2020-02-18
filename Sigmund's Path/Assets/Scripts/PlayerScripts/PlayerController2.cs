@@ -8,6 +8,7 @@ public class PlayerController2 : MonoBehaviour
     private PauseManager pauseManager;
     private Inventory2 inventory;
     private PlayerAudio plAudio;
+    private PlayerAttack plAttack;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -68,7 +69,7 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField] public bool heedArrows = true;
     private bool canDash;
     private bool shiftPressed;
-    private bool isDashing;
+    public bool isDashing;
     private bool bombPressed;
    // private bool isDamaged;
     private bool isInvencible;
@@ -114,6 +115,7 @@ public class PlayerController2 : MonoBehaviour
         pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         inventory = GetComponentInChildren<Inventory2>();
         plAudio = GetComponentInChildren<PlayerAudio>();
+        plAttack = GetComponent<PlayerAttack>();
     }
     private void Update()
     {
@@ -368,9 +370,17 @@ public class PlayerController2 : MonoBehaviour
     {
         if (dashUnlocked)
         {
-            if (isGrounded)
+            if (!plAttack.isAttacking)
             {
-                canDash = true;
+                if (isGrounded)
+                {
+                    canDash = true;
+                }
+                else
+                {
+                    canDash = false;
+                    shiftPressed = false;
+                }
             }
             else
             {

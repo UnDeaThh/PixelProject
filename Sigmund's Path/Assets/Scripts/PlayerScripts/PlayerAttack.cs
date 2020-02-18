@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerController2 plController2;
     private PlayerParry plParry;
 	private PauseManager pauseManager;
+    private AnimationController myAnimator;
 
 
     public int damage;
@@ -41,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
         playerPos = GetComponent<Transform>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
         sound = GetComponentInChildren<PlayerAudio>();
+        myAnimator = GetComponentInChildren<AnimationController>();
     }
 
     private void Start()

@@ -14,6 +14,7 @@ public class AnimationController : MonoBehaviour
 
     private bool isRuning;
     private bool isJumping;
+    private bool isDashing;
 	void Start()
 	{
 		//anim = GetComponent<Animator>();
@@ -57,5 +58,7 @@ public class AnimationController : MonoBehaviour
         anim.SetBool("isRuning", isRuning);
         anim.SetBool("isJumping", isJumping);
         anim.SetFloat("velocityY", player.rb.velocity.y);
+        anim.SetBool("isDashing", player.isDashing);
+        anim.SetBool("isAttacking", plAttack.isAttacking);
     }
 }
