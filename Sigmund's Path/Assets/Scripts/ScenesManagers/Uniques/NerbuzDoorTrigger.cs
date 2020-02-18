@@ -6,7 +6,7 @@ using Cinemachine;
 public class NerbuzDoorTrigger : MonoBehaviour
 {
     public CinemachineVirtualCamera vCamBoss;
-    private bool playerIn = false;
+    public bool playerIn = false;
     public GameObject lockedDoorCollider;
     private NerbuzBoss nerbuzBrain;
     void Awake()
