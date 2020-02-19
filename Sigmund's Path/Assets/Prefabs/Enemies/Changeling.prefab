@@ -118,9 +118,10 @@ MonoBehaviour:
   isAlive: 0
   isStuned: 0
   callDead: 0
+  oneCallDead: 0
   sprite: {fileID: 5418782161104568615}
   deadSound: {fileID: 7792408627343333285}
-  movSpeed: 600
+  movSpeed: 1300
   timeStuned: 1
   currentTimeStuned: 0
   detectionRange: 8
@@ -131,6 +132,7 @@ MonoBehaviour:
     type: 3}
   enemyType: 0
   anim: {fileID: 0}
+  baseCollider: {fileID: 0}
   maxSpeed: 15
   isChasing: 0
   damagePushForce: 500
