@@ -179,6 +179,8 @@ public class PlayerAttack : MonoBehaviour
                 if(enemiesToDamage.Length <= 0)
                 {
                     sound.attackSound.clip = sound.attackClips[0];
+					sound.attackSound.pitch =Random.Range(0.90f, 1.1f);
+					sound.attackSound.volume = Random.Range(0.90f, 1.1f);
                     sound.attackSound.Play();
                 }
                 else

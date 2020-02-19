@@ -52,7 +52,8 @@ public class AnimationController : MonoBehaviour
 
 	void PlayerStopAttack()
 	{
-
+		plAttack.isAttacking = false;
+		Debug.Log("adas");
 	}
 
     void StopHealing()
