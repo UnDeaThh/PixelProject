@@ -264,9 +264,16 @@ public class PlayerController2 : MonoBehaviour
             cntJumps = 0;
         }
 
-        if(cntJumps < maxJumps)
+        if (!isDashing)
         {
-            canJump = true;
+            if(cntJumps < maxJumps)
+            {
+                canJump = true;
+            }
+            else
+            {
+                canJump = false;
+            }
         }
         else
         {
