@@ -19,8 +19,10 @@ public class PlayerAttack : MonoBehaviour
     public float attackUpDistance = 1f;
     public float attackRangeUp = 3f;
 
-    private bool attackingUp = false;
-    private bool attackingFront = false;
+    public bool gndAttackingUp = false;
+    public bool gndAttackingFront = false;
+    public bool airAttackingUp = false;
+    public bool airAttackingFront = false;
     public bool haveSword = false;
 
     private bool canAttack;
@@ -62,19 +64,20 @@ public class PlayerAttack : MonoBehaviour
 		        if(!pauseManager.isPaused){
 			        CheckIfCanAttack();
 			        Attack();
-
-                    if (isAttacking)
-                    {
-                        if(cntTimeBtwttack > 0)
-                        {
-                            cntTimeBtwttack -= Time.deltaTime;
-                        }
-                        else
-                        {
-                            isAttacking = false;
-                        }
-                    }
 		        }
+
+                if (isAttacking)
+                {
+                    if(cntTimeBtwttack > 0)
+                    {
+                        cntTimeBtwttack -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        isAttacking = false;
+                    }
+                }
+
             }
         }
     }
@@ -119,9 +122,22 @@ public class PlayerAttack : MonoBehaviour
             //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
             {
+                Debug.Log("ATACK");
                 isAttacking = true;
-                attackingFront = true;
-                attackingUp = false;
+                if (plController2.isGrounded)
+                {
+                    gndAttackingFront = true;
+                    gndAttackingUp = false;
+                    airAttackingFront = false;
+                    airAttackingUp = false;
+                }
+                else
+                {
+                    gndAttackingFront = false;
+                    gndAttackingUp = false;
+                    airAttackingFront = true;
+                    airAttackingUp = false;
+                }
                 //Primero seteamos la posicion del collider
                 if (plController2.facingDir == 1)
                 {
@@ -177,9 +193,21 @@ public class PlayerAttack : MonoBehaviour
             else if(Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.W))
             {
                 isAttacking = true;
-                attackingFront = false;
-                attackingUp = true;
-                Debug.Log("UpAttack");
+                if (plController2.isGrounded)
+                {
+                    gndAttackingFront = true;
+                    gndAttackingUp = false;
+                    airAttackingFront = false;
+                    airAttackingUp = false;
+                }
+                else
+                {
+                    gndAttackingFront = false;
+                    gndAttackingUp = false;
+                    airAttackingFront = true;
+                    airAttackingUp = false;
+                }
+
                 Vector3 finalPos = playerPos.position + upAttackPos;
 
                 attackPos.position = finalPos;
@@ -229,11 +257,11 @@ public class PlayerAttack : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        if (attackingFront)
+        if (gndAttackingFront)
         {
             Gizmos.DrawWireCube(attackPos.position, attackRangeFront);
         }
-        if (attackingUp)
+        if (gndAttackingUp)
         {
         Gizmos.DrawWireSphere(attackPos.position, attackRangeUp);
         }

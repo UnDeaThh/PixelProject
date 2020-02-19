@@ -12,6 +12,7 @@ public class PlayerAudio : MonoBehaviour
     public AudioSource attackSound;
     public AudioClip[] attackClips;
     public AudioSource dashSound;
+    public AudioSource[] healingSound;
     private void Awake()
     {
         plController = GetComponentInParent<PlayerController2>();

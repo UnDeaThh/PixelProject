@@ -35,7 +35,7 @@ public class PlayerController2 : MonoBehaviour
     public float wallJumpForce;
     private float heedTime = 0.16f;
     private float cntHeedTime;
-    private float cntTimeNextDrink;
+    [HideInInspector] public float cntTimeNextDrink;
     public float timeNextDrink = 0.7f;
     public float timeDrinking;
     private float cntTimeDrinking;
@@ -550,17 +550,16 @@ public class PlayerController2 : MonoBehaviour
 
     void Drink()
     {
-        //Un primer evento que pone el bool isDrinking = true para que el jugador se relantice
-        //un segundo evento al final de la animacion para curarse
         if(canDrink && !isDrinking)
         {
             if(potions > 0 && health < maxHealth)
             {
-                //lamar al evento por animacion 
                 isDrinking = true;
                 heedArrows = false;
                 potions--;
-                StartCoroutine(TimeDrinking());
+                rb.velocity = Vector2.zero;
+                plAudio.healingSound[0].Play();
+                //StartCoroutine(TimeDrinking());
             }
         }
     }
@@ -609,15 +608,16 @@ public class PlayerController2 : MonoBehaviour
         shiftAlreadyPressed = false;   
     }
 
+    /*
     IEnumerator TimeDrinking()
     {
-        rb.velocity = Vector2.zero;
+        
         yield return new WaitForSeconds(timeDrinking);
         health++;
         isDrinking = false;
         cntTimeNextDrink = 0;
     }
-
+    */
     void LimitVelocity()
     {
         if (rb.velocity.y >= maxSpeedY)

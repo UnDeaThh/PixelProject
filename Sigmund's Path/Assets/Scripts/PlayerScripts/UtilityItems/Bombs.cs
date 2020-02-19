@@ -11,11 +11,11 @@ public class Bombs : MonoBehaviour
     private bool alreadyExploted;
 
     public LayerMask whatIsHitting;
+    public GameObject particlePref;
 
     public SpriteRenderer spriteBomb;
     private Collider2D col;
     private Rigidbody2D rb;
-    public ParticleSystem ps;
     private void Awake()
     {
         Physics2D.IgnoreLayerCollision(13, 10);
@@ -46,7 +46,7 @@ public class Bombs : MonoBehaviour
             else
                 print("NO WALL");
 
-            ps.Play();
+            Instantiate(particlePref,transform.position, Quaternion.identity);
             spriteBomb.enabled = false;
             col.enabled = false;
             Destroy(rb);
