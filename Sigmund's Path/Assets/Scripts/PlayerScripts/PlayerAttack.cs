@@ -66,18 +66,6 @@ public class PlayerAttack : MonoBehaviour
 			        Attack();
 		        }
 
-                if (isAttacking)
-                {
-                    if(cntTimeBtwttack > 0)
-                    {
-                        cntTimeBtwttack -= Time.deltaTime;
-                    }
-                    else
-                    {
-                        isAttacking = false;
-                    }
-                }
-
             }
         }
     }
@@ -92,11 +80,6 @@ public class PlayerAttack : MonoBehaviour
             }
             else
                 canAttack = false;
-            
-            if (cntTimeBtwttack > 0)
-            {
-                cntTimeBtwttack -= Time.deltaTime;
-            }
         }
         else
         {
@@ -122,9 +105,10 @@ public class PlayerAttack : MonoBehaviour
             //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
             {
-                isAttacking = true;
+                plController2.heedArrows = false;
                 if (plController2.isGrounded)
                 {
+                    plController2.rb.velocity = Vector2.zero;
                     gndAttackingFront = true;
                     gndAttackingUp = false;
                     airAttackingFront = false;
@@ -137,6 +121,7 @@ public class PlayerAttack : MonoBehaviour
                     airAttackingFront = true;
                     airAttackingUp = false;
                 }
+                isAttacking = true;
                 //Primero seteamos la posicion del collider
                 if (plController2.facingDir == 1)
                 {
@@ -178,8 +163,8 @@ public class PlayerAttack : MonoBehaviour
                 if(enemiesToDamage.Length <= 0)
                 {
                     sound.attackSound.clip = sound.attackClips[0];
-					sound.attackSound.pitch =Random.Range(0.90f, 1.1f);
-					sound.attackSound.volume = Random.Range(0.90f, 1.1f);
+					sound.attackSound.pitch =Random.Range(0.80f, 1.15f);
+					sound.attackSound.volume = Random.Range(0.80f, 1.1f);
                     sound.attackSound.Play();
                 }
                 else
@@ -187,15 +172,14 @@ public class PlayerAttack : MonoBehaviour
                     sound.attackSound.clip = sound.attackClips[1];
                     sound.attackSound.Play();
                 }
-                canAttack = false;
-                cntTimeBtwttack = timeBtwAttack;
             }
             //UP ATTACK
             else if(Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.W))
             {
-                isAttacking = true;
+                plController2.heedArrows = false;
                 if (plController2.isGrounded)
                 {
+                    plController2.rb.velocity = Vector2.zero;
                     gndAttackingFront = true;
                     gndAttackingUp = false;
                     airAttackingFront = false;
@@ -208,6 +192,7 @@ public class PlayerAttack : MonoBehaviour
                     airAttackingFront = true;
                     airAttackingUp = false;
                 }
+                isAttacking = true;
 
                 Vector3 finalPos = playerPos.position + upAttackPos;
 
@@ -250,7 +235,6 @@ public class PlayerAttack : MonoBehaviour
                     sound.attackSound.clip = sound.attackClips[1];
                     sound.attackSound.Play();
                 }
-                canAttack = false;
                 cntTimeBtwttack = timeBtwAttack;
             }
         }

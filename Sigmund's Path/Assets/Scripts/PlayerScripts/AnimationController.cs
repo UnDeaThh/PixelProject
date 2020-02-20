@@ -52,9 +52,17 @@ public class AnimationController : MonoBehaviour
 	void PlayerStopAttack()
 	{
 		plAttack.isAttacking = false;
+        plAttack.gndAttackingFront = false;
+        plAttack.gndAttackingUp = false;
+        plAttack.airAttackingFront = false;
+        plAttack.airAttackingUp = false;
 		Debug.Log("AttackDone");
 	}
 
+    void ReturnHeedArrows()
+    {
+        player.heedArrows = true;
+    }
     void StopHealing()
     {
         player.health++;

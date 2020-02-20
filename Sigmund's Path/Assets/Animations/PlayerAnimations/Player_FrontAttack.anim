@@ -79,28 +79,28 @@ AnimationClip:
     - time: 0.31666666
       value: {fileID: 787189873733196827, guid: a00296009d8619349bff0f3c6b3db5ca,
         type: 3}
-    - time: 0.35
+    - time: 0.33333334
       value: {fileID: -7390395455811858012, guid: a00296009d8619349bff0f3c6b3db5ca,
         type: 3}
-    - time: 0.36666667
+    - time: 0.35
       value: {fileID: -8798386506909726463, guid: a00296009d8619349bff0f3c6b3db5ca,
         type: 3}
-    - time: 0.38333333
+    - time: 0.36666667
       value: {fileID: -1196573986302832472, guid: a00296009d8619349bff0f3c6b3db5ca,
         type: 3}
-    - time: 0.41666666
+    - time: 0.38333333
       value: {fileID: -6549421757107592269, guid: a00296009d8619349bff0f3c6b3db5ca,
         type: 3}
-    - time: 0.43333334
+    - time: 0.4
       value: {fileID: -9011091626267487032, guid: a00296009d8619349bff0f3c6b3db5ca,
         type: 3}
-    - time: 0.45
+    - time: 0.41666666
       value: {fileID: 5871900881201723575, guid: a00296009d8619349bff0f3c6b3db5ca,
         type: 3}
-    - time: 0.48333332
+    - time: 0.43333334
       value: {fileID: -5921155625096706806, guid: a00296009d8619349bff0f3c6b3db5ca,
         type: 3}
-    - time: 0.5
+    - time: 0.45
       value: {fileID: -4018772682783001984, guid: a00296009d8619349bff0f3c6b3db5ca,
         type: 3}
     attribute: m_Sprite
@@ -155,7 +155,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.51666665
+    m_StopTime: 0.46666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -175,8 +175,15 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.5
+  - time: 0.43333334
     functionName: PlayerStopAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.45
+    functionName: ReturnHeedArrows
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

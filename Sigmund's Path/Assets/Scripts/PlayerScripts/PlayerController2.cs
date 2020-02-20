@@ -546,7 +546,7 @@ public class PlayerController2 : MonoBehaviour
     {
         if (!isOnKinematic)
         {
-            if (!isDrinking && !isDead)
+            if (!isDrinking && !isDead && !plAttack.isAttacking)
             {
                 if (!heedArrows)
                 {
