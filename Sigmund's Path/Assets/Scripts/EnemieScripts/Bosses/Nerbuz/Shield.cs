@@ -6,13 +6,16 @@ public class Shield : MonoBehaviour
 {
     private NerbuzBoss nerbuzBrain;
     private Collider2D col;
-
+    private Animator anim;
+    private bool ffDestroy;
     public bool shieldBuild;
 
-     private void Awake()
+
+    private void Awake()
     {
         nerbuzBrain = GameObject.FindGameObjectWithTag("Nerbuz").GetComponent<NerbuzBoss>();
         col = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
     }
     void Update()
     {
@@ -23,6 +26,12 @@ public class Shield : MonoBehaviour
         else
         {
             col.enabled = true;
+        }
+
+        if (nerbuzBrain.isTired && !ffDestroy)
+        {
+            anim.SetTrigger("destroyTrigger");
+            ffDestroy = true;
         }
     }
     void ActivateShield()

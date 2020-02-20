@@ -24,11 +24,9 @@ public class PlayerParry : MonoBehaviour
     private bool ffParry;
 
     public Collider2D parryCol;
-    //private Animator anim;
     private void Awake()
     {
         plAttack = GetComponent<PlayerAttack>();
-        //anim = GetComponentInChildren<Animator>();
         isParry = false;
         parryCol.enabled = false;
         
@@ -49,9 +47,6 @@ public class PlayerParry : MonoBehaviour
 			    ParryInput();
 			    Parry();
 		    }
-
-
-            UpdateAnimations();
         }
     }
 
@@ -159,15 +154,5 @@ public class PlayerParry : MonoBehaviour
                 parryDone = false;
             }
         }
-    }
-    
-    void UpdateAnimations()
-    {
-        //anim.SetBool("isParry", isParry);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.blue;
     }
 }

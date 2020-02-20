@@ -29,6 +29,8 @@ public class PinchosH2 : MonoBehaviour
 
     private void Start()
     {
+        nerbuzBrain.H2ChargingAnim = false;
+        nerbuzBrain.H2attackAnim = true;
         raizSound.Play();
     }
     void Update()
@@ -42,6 +44,7 @@ public class PinchosH2 : MonoBehaviour
             else
             {
                 reachedMaxY = true;
+                Debug.Log("ReachedMaxY");
             }
         }
 
@@ -81,7 +84,7 @@ public class PinchosH2 : MonoBehaviour
             }
             if(nerbuzBrain.cntAttacksH2 >= nerbuzBrain.numberOfAttacksH2)
             {
-                nerbuzBrain.tired = true;
+                nerbuzBrain.isTired = true;
             }
         }
     }

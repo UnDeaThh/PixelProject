@@ -26,7 +26,7 @@ public class NerbuzBoss : MonoBehaviour
     [Header("Hechizo2")]
     public GameObject groundParticle;
     public GameObject pinchosPrefab;
-    public bool tired;
+    public bool isTired;
     public int nGenerators;
     public int numberOfAttacksH2 = 3;
     private int cntSeriesAttackH2 = 0;
@@ -43,6 +43,12 @@ public class NerbuzBoss : MonoBehaviour
     private bool reachedCansadaPos = false;
     public AudioSource earthquakeSound;
 
+    [Header("Hechizo3")]
+    public GameObject spellH3Prefab;
+    public float timeInH3;
+    private float cntTimeInH3;
+
+
     [Header("Transitions")]
     public int transitions = 1;
     [Header("Transition 1")]
@@ -50,6 +56,9 @@ public class NerbuzBoss : MonoBehaviour
     public bool centerReached;
     private bool shieldActivated;
     public Transform centerPosition;
+    [Header("Transition3")]
+    private float timeToH3 = 2f;
+    private float cntTimeToH3;
 
     public Collider2D colH1Confiner;
     private Vector2 colCenter;
@@ -62,10 +71,16 @@ public class NerbuzBoss : MonoBehaviour
 
 
     private Rigidbody2D rb;
+    private Animator anim;
+    [HideInInspector] public bool H2ChargingAnim;
+    [HideInInspector] public bool H2attackAnim;
+    public bool isCrazy = false;
+    private bool ffCrazy = true;
     private void Awake()
     {
-        generatorPos = new Vector2[nGenerators];
+        generatorPos = new Vector2[nGenerators];    
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         nerbuzCol = GetComponent<Collider2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -99,6 +114,7 @@ public class NerbuzBoss : MonoBehaviour
                 UpdateH2();
                 break;
             case State.H3:
+                UpdateH3();
                 break;
             case State.H4:
                 break;
@@ -144,6 +160,7 @@ public class NerbuzBoss : MonoBehaviour
     #region ENTER and TRANSITION
     IEnumerator IsOnEnterState()
     {
+        //Reproducir animacion de algo
         yield return new WaitForSeconds(2);
         actualState = State.H1;
     }
@@ -173,8 +190,60 @@ public class NerbuzBoss : MonoBehaviour
                 }
                 break;
             case 2:
-                print("transition 2");
-                    //
+                if (ffCrazy)
+                {
+                    isCrazy = true;
+                    ffCrazy = false;
+                }
+                if (!isCrazy)
+                {
+                    //LE QUITAMOS EL CRAZY DESDE EL ANIMCONTROLLER
+                    if(cntSeriesAttackH2 < seriesAttackH2)
+                    {
+                        if (transform.position != centerPosition.position) //Subimos hasta el centro para continuar atacando H2
+                        {
+                            transform.position = Vector2.MoveTowards(transform.position, centerPosition.position, 20 * Time.deltaTime);
+                        }
+                        else
+                        {
+                            canBeDamaged = false;
+                            Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+                            //el isTired lo quita el animController
+                            reachedCansadaPos = false;
+                            cntTiredTime = tiredTime;
+                            cntAttacksH2 = 0;
+                            actualState = State.H2;
+                        }
+                    }
+                    else // Si ya ha acabado las series de ataques
+                    {
+                        //el isTired lo quita el animController
+                        reachedCansadaPos = false;
+                        cntTiredTime = tiredTime;
+                        cntAttacksH2 = 0;
+                        cntSeriesAttackH2 = 0;
+                        transitions = 3;
+                        actualState = State.Transition;
+                    }
+                }
+                break;
+            case 3:
+                if(transform.position != centerPosition.position)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, centerPosition.position, 15 * Time.deltaTime);
+                    cntTimeToH3 = timeToH3;
+                }
+                else
+                {
+                    if(cntTimeToH3 > 0)
+                    {
+                        cntTimeToH3 -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        actualState = State.H3;
+                    }
+                }
                 break;
         }
     }
@@ -219,6 +288,7 @@ public class NerbuzBoss : MonoBehaviour
         else
         {
             transitions = 1;
+            cntParticlesSpawn = 0;
             actualState = State.Transition;
         }
     }
@@ -252,13 +322,15 @@ public class NerbuzBoss : MonoBehaviour
     #region H2
     void UpdateH2()
     {
+        //AQUI ESTA CARGANDO EL ATAQUE
         if(cntSeriesAttackH2 < seriesAttackH2)
         {
             if(cntAttacksH2 < numberOfAttacksH2)
             {
-                tired = false;
+                isTired = false;
                 if(!generatorInPlace)
                 {
+                    H2ChargingAnim = true;
                     for(int i = 0; i < generatorPos.Length; i++)
                     {
                         if(i == 0)
@@ -304,7 +376,7 @@ public class NerbuzBoss : MonoBehaviour
                 canAttackH2 = false;
             }
         }
-        if(tired)
+        if(isTired)
         {
             canBeDamaged = true;
             if(!reachedCansadaPos)
@@ -328,37 +400,10 @@ public class NerbuzBoss : MonoBehaviour
                 }
                 else
                 {
-                    if(cntSeriesAttackH2 < seriesAttackH2)
-                    {
-                        if(transform.position != centerPosition.position)
-                        {
-                            transform.position = Vector2.MoveTowards(transform.position, centerPosition.position, 20 * Time.deltaTime);
-                        }
-                        else
-                        {
-                            reachedCansadaPos = false;
-                            cntTiredTime = tiredTime;
-                            cntAttacksH2 = 0;
-                            tired = false;
-                        }
-                    }
-                    else
-                    {
-                        if(transform.position != centerPosition.position)
-                        {
-                            transform.position = Vector2.MoveTowards(transform.position, centerPosition.position, 20 * Time.deltaTime);
-                        }
-                        else
-                        {
-                            reachedCansadaPos = false;
-                            cntTiredTime = tiredTime;
-                            cntAttacksH2 = 0;
-                            tired = false;
-                            cntSeriesAttackH2 = 0;
-                            transitions = 2;
-                            actualState = State.Transition;
-                        }
-                    }
+                    ffCrazy = true;
+                    print("GO CRAZY GIRL");
+                    transitions = 2;
+                    actualState = State.Transition;
                 }
             }
         }
@@ -369,6 +414,13 @@ public class NerbuzBoss : MonoBehaviour
         Vector2 posicion;
         posicion = colCenter + new Vector2(Random.Range(-colSize.x/2, colSize.x/2), -colSize.y/2);
         return posicion;
+    }
+    #endregion
+
+    #region H3
+    void UpdateH3()
+    {
+
     }
     #endregion
 

@@ -9,6 +9,7 @@ public class NerbuzDoorTrigger : MonoBehaviour
     public bool playerIn = false;
     public GameObject lockedDoorCollider;
     private NerbuzBoss nerbuzBrain;
+    private bool ffPlayerEnter;
     void Awake()
     {
         nerbuzBrain = GameObject.FindGameObjectWithTag("Nerbuz").GetComponent<NerbuzBoss>();
@@ -21,8 +22,10 @@ public class NerbuzDoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player")){
+        if(other.CompareTag("Player") && !ffPlayerEnter)
+        {
             lockedDoorCollider.SetActive(true);
+            ffPlayerEnter = true;
             nerbuzBrain.actualState = State.Enter;
         }
     }
