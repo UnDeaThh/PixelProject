@@ -45,8 +45,9 @@ public class NerbuzBoss : MonoBehaviour
 
     [Header("Hechizo3")]
     public GameObject spellH3Prefab;
-    public float timeInH3;
-    private float cntTimeInH3;
+    public float timeDoingH3;
+    private float cntTimeDoingH3;
+    private bool alreadyInstantiateH3 = false;
 
 
     [Header("Transitions")]
@@ -420,7 +421,22 @@ public class NerbuzBoss : MonoBehaviour
     #region H3
     void UpdateH3()
     {
-
+        if (!alreadyInstantiateH3)
+        {
+            Instantiate(spellH3Prefab, transform.position, Quaternion.identity);
+            alreadyInstantiateH3 = true;
+        }
+        else
+        {
+            if(cntTimeDoingH3 > 0)
+            {
+                cntTimeDoingH3 -= Time.deltaTime;
+            }
+            else
+            {
+                Destroy(spellH3Prefab.gameObject);
+            }
+        }
     }
     #endregion
 

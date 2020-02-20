@@ -711,6 +711,18 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        if (!isDashing)
+        {
+            PlayerDamaged(1, other.gameObject.transform.position);
+        }
+        else
+        {
+            Debug.Log("was Dashing");
+        }
+    }
+
     void Dead()
     {
         if (isDead)
