@@ -15,7 +15,6 @@ public class AnimationController : MonoBehaviour
 
     private bool isRuning;
     private bool isJumping;
-    private bool isDashing;
 
 	void Start()
 	{
@@ -53,7 +52,7 @@ public class AnimationController : MonoBehaviour
 	void PlayerStopAttack()
 	{
 		plAttack.isAttacking = false;
-		Debug.Log("adas");
+		Debug.Log("AttackDone");
 	}
 
     void StopHealing()
@@ -77,5 +76,10 @@ public class AnimationController : MonoBehaviour
         anim.SetBool("airAttackingFront", plAttack.airAttackingFront);
         anim.SetBool("airAttackingUp", plAttack.airAttackingUp);
         anim.SetBool("isDrinking", player.isDrinking);
+        anim.SetBool("isParry", plParry.isParry);
+        if(player.isDead)
+        {
+            anim.SetBool("isDead", player.isDead);
+        }
     }
 }

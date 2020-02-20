@@ -218,6 +218,10 @@ public class PlayerController2 : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     void AplyMovement()
@@ -320,7 +324,9 @@ public class PlayerController2 : MonoBehaviour
             isDead = false;
         }
         else
+        {
             isDead = true;
+        }
         if(health > maxHealth)
         {
             health = maxHealth;

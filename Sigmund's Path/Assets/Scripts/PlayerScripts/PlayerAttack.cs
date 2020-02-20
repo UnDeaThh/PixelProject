@@ -122,7 +122,6 @@ public class PlayerAttack : MonoBehaviour
             //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
             {
-                Debug.Log("ATACK");
                 isAttacking = true;
                 if (plController2.isGrounded)
                 {
