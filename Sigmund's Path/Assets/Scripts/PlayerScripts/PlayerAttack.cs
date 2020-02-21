@@ -41,6 +41,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Awake()
     {
+        haveSword = false;
         playerPos = GetComponent<Transform>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
         sound = GetComponentInChildren<PlayerAudio>();
@@ -105,7 +106,6 @@ public class PlayerAttack : MonoBehaviour
             //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
             {
-                plController2.heedArrows = false;
                 if (plController2.isGrounded)
                 {
                     plController2.rb.velocity = Vector2.zero;
@@ -122,6 +122,7 @@ public class PlayerAttack : MonoBehaviour
                     airAttackingUp = false;
                 }
                 isAttacking = true;
+                plController2.heedArrows = false;
                 //Primero seteamos la posicion del collider
                 if (plController2.facingDir == 1)
                 {
@@ -180,8 +181,8 @@ public class PlayerAttack : MonoBehaviour
                 if (plController2.isGrounded)
                 {
                     plController2.rb.velocity = Vector2.zero;
-                    gndAttackingFront = true;
-                    gndAttackingUp = false;
+                    gndAttackingFront = false;
+                    gndAttackingUp = true;
                     airAttackingFront = false;
                     airAttackingUp = false;
                 }
@@ -189,8 +190,8 @@ public class PlayerAttack : MonoBehaviour
                 {
                     gndAttackingFront = false;
                     gndAttackingUp = false;
-                    airAttackingFront = true;
-                    airAttackingUp = false;
+                    airAttackingFront = false;
+                    airAttackingUp = true;
                 }
                 isAttacking = true;
 

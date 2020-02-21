@@ -106,33 +106,9 @@ AnimationClip:
       value: {fileID: 4483772686181863128, guid: e9b3769a5f5ecf74abfe3b00341392b2,
         type: 3}
     - time: 0.48333332
-      value: {fileID: 8131568859799479869, guid: e9b3769a5f5ecf74abfe3b00341392b2,
-        type: 3}
-    - time: 0.5
       value: {fileID: -5020130460833609791, guid: e9b3769a5f5ecf74abfe3b00341392b2,
         type: 3}
-    - time: 0.51666665
-      value: {fileID: 6626233164198256103, guid: e9b3769a5f5ecf74abfe3b00341392b2,
-        type: 3}
-    - time: 0.53333336
-      value: {fileID: 7714989828133327259, guid: e9b3769a5f5ecf74abfe3b00341392b2,
-        type: 3}
-    - time: 0.55
-      value: {fileID: 6615125770053367252, guid: e9b3769a5f5ecf74abfe3b00341392b2,
-        type: 3}
-    - time: 0.56666666
-      value: {fileID: -7362245540683205386, guid: e9b3769a5f5ecf74abfe3b00341392b2,
-        type: 3}
-    - time: 0.5833333
-      value: {fileID: 2261379874887675182, guid: e9b3769a5f5ecf74abfe3b00341392b2,
-        type: 3}
-    - time: 0.6
-      value: {fileID: -9172863013152930553, guid: e9b3769a5f5ecf74abfe3b00341392b2,
-        type: 3}
-    - time: 0.6166667
-      value: {fileID: 4599378503338245033, guid: e9b3769a5f5ecf74abfe3b00341392b2,
-        type: 3}
-    - time: 0.6333333
+    - time: 0.5
       value: {fileID: 5740785409298256947, guid: e9b3769a5f5ecf74abfe3b00341392b2,
         type: 3}
     attribute: m_Sprite
@@ -183,22 +159,14 @@ AnimationClip:
     - {fileID: -5578863107700427883, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
     - {fileID: 4935956607136863074, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
     - {fileID: 4483772686181863128, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
-    - {fileID: 8131568859799479869, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
     - {fileID: -5020130460833609791, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
-    - {fileID: 6626233164198256103, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
-    - {fileID: 7714989828133327259, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
-    - {fileID: 6615125770053367252, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
-    - {fileID: -7362245540683205386, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
-    - {fileID: 2261379874887675182, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
-    - {fileID: -9172863013152930553, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
-    - {fileID: 4599378503338245033, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
     - {fileID: 5740785409298256947, guid: e9b3769a5f5ecf74abfe3b00341392b2, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.65
+    m_StopTime: 0.51666665
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -218,7 +186,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.6333333
+  - time: 0.5
     functionName: PlayerStopAttack
     data: 
     objectReferenceParameter: {fileID: 0}

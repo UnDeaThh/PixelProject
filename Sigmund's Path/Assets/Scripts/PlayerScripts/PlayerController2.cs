@@ -658,6 +658,14 @@ public class PlayerController2 : MonoBehaviour
     {
         if (!isInvencible)
         {
+            if (plAttack.isAttacking)
+            {
+                plAttack.isAttacking = false;
+                plAttack.gndAttackingFront = false;
+                plAttack.gndAttackingFront = false;
+                plAttack.airAttackingFront = false;
+                plAttack.airAttackingUp = false;
+            }
             isInvencible = true;
             //isDamaged = true;
             cntinvencibilityTime = 0;

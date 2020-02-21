@@ -58,11 +58,6 @@ public class AnimationController : MonoBehaviour
         plAttack.airAttackingUp = false;
 		Debug.Log("AttackDone");
 	}
-
-    void ReturnHeedArrows()
-    {
-        player.heedArrows = true;
-    }
     void StopHealing()
     {
         player.health++;

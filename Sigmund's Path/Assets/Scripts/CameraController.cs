@@ -20,8 +20,6 @@ public class CameraController : MonoBehaviour
     // Cinemachine Shake
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
-
-    public Collider2D[] bossConfiners;
     private void Awake()
     {
         if(cameraController == null)
