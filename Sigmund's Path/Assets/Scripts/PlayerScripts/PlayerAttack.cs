@@ -113,6 +113,7 @@ public class PlayerAttack : MonoBehaviour
                     gndAttackingUp = false;
                     airAttackingFront = false;
                     airAttackingUp = false;
+                    plController2.heedArrows = false;
                 }
                 else
                 {
@@ -122,7 +123,7 @@ public class PlayerAttack : MonoBehaviour
                     airAttackingUp = false;
                 }
                 isAttacking = true;
-                plController2.heedArrows = false;
+                
                 //Primero seteamos la posicion del collider
                 if (plController2.facingDir == 1)
                 {
@@ -185,6 +186,7 @@ public class PlayerAttack : MonoBehaviour
                     gndAttackingUp = true;
                     airAttackingFront = false;
                     airAttackingUp = false;
+                    plController2.heedArrows = false;
                 }
                 else
                 {

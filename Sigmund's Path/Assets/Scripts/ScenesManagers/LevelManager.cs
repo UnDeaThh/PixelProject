@@ -16,6 +16,10 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
+        for (int i = 0; i < apearsPos.Length; i++)
+        {
+            apearsPos[i].parent.transform.gameObject.SetActive(true);
+        }
         levelScene += 2;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         plAttack = player.gameObject.GetComponent<PlayerAttack>();
@@ -116,12 +120,15 @@ public class LevelManager : MonoBehaviour
         if (player.isDead)
         {
             ScenesManager.scenesManager.comeFromDead = true;
-            StartCoroutine(ReloadLevel());
+            if (player.pasSceneDead)
+            {
+                StartCoroutine(ReloadLevel());
+            }
         }
     }
     IEnumerator ReloadLevel()
     {
-        yield return new WaitForSeconds(1f);
+        yield return null;
         SceneManager.LoadScene(levelScene);
     }
 

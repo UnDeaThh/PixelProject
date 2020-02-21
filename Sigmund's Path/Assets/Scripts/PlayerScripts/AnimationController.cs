@@ -11,6 +11,7 @@ public class AnimationController : MonoBehaviour
 	private PlayerParry plParry;
     public PlayerAudio plAudio;
     private Animator anim;
+    private bool ffDead = false;
 
 
     private bool isRuning;
@@ -80,9 +81,12 @@ public class AnimationController : MonoBehaviour
         anim.SetBool("airAttackingUp", plAttack.airAttackingUp);
         anim.SetBool("isDrinking", player.isDrinking);
         anim.SetBool("isParry", plParry.isParry);
-        if(player.isDead)
+  
+        anim.SetBool("isDead", player.isDead);
+        anim.SetBool("ffDead", ffDead);
+        if (player.isDead && !ffDead)
         {
-            anim.SetBool("isDead", player.isDead);
+            ffDead = true;
         }
     }
 }

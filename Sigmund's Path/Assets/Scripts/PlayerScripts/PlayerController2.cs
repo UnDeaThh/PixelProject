@@ -94,12 +94,10 @@ public class PlayerController2 : MonoBehaviour
     public Transform feetPosLeft;
     public Transform feetPosRight;
 
-    [Header("DeadPanel")]
-    public GameObject deadPanelUI;
-    private float alphaSpeed = 0.02f;
-    private float currentAlphaDeadPanel = 0.0f;
-
     public Vector2 wallJumpDir;
+    [Header("DeadPanel")]
+    [SerializeField] GameObject deadPanelUI;
+    [HideInInspector] public bool pasSceneDead;
 
 
     public RaycastHit2D isGroundedLeft;
@@ -737,17 +735,6 @@ public class PlayerController2 : MonoBehaviour
         {
             heedArrows = false;
             deadPanelUI.SetActive(true);
-            if (currentAlphaDeadPanel >= 1f)
-            {
-                currentAlphaDeadPanel = 1f;
-               // deadChange = true;
-            }
-            else
-            {
-                currentAlphaDeadPanel += alphaSpeed;
-            }
-            Image deadImage = deadPanelUI.GetComponent<Image>();
-            deadImage.color = new Color(0f, 0f, 0f, currentAlphaDeadPanel);
         }
         else
         {
