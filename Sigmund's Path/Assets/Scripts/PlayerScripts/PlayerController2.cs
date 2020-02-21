@@ -489,6 +489,7 @@ public class PlayerController2 : MonoBehaviour
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 if (!plAudio.jumpSound.isPlaying)
                 {
+                    plAudio.jumpSound.pitch = Random.Range(0.7f, 1.3f);
                     plAudio.jumpSound.Play();
                 }
             }

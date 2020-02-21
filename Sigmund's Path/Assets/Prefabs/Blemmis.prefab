@@ -650,7 +650,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3026593303553145713}
   m_HandleRect: {fileID: 3026593303553145712}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -682,7 +682,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3026593301972202794}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.160039, y: 5.38662, z: 0}
+  m_LocalPosition: {x: -3.160039, y: 4.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3026593302788596357}
@@ -1433,7 +1433,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3026593302559015010
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1441,8 +1441,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3026593302559015038}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 156.59766}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 3026593303471776337}
@@ -1452,7 +1452,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 11.16526, y: 7.19662}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &3026593302559015009
@@ -1611,25 +1611,34 @@ MonoBehaviour:
   itemsList:
   - itemName: Potions
     itemID: 1
-    itemImage: {fileID: 21300000, guid: 4cc4c6607bbaedf4dabb1e09df4bfe77, type: 3}
+    itemImage: {fileID: -6459921484562804952, guid: d850a2f69be400e4797c7ac54e5806e8,
+      type: 3}
     itemPrice: 50
     isBought: 0
   - itemName: Bombs
     itemID: 2
-    itemImage: {fileID: 21300000, guid: ed4e75026e1f4f344a0e981fb89e1705, type: 3}
+    itemImage: {fileID: -1963052968944642169, guid: d850a2f69be400e4797c7ac54e5806e8,
+      type: 3}
     itemPrice: 100
     isBought: 0
-  - itemName: TP Element
+  - itemName: Pendant of Halengar's Queen
     itemID: 3
-    itemImage: {fileID: 21300000, guid: c41d5d35c91ff774eabf76a9bca090e0, type: 3}
+    itemImage: {fileID: 634434604258147296, guid: d850a2f69be400e4797c7ac54e5806e8,
+      type: 3}
     itemPrice: 150
     isBought: 0
   content: {fileID: 3026593303265706828}
   descriptionImage: {fileID: 3026593303316757515}
   descriptions:
-  - This is a fucking poti bro
-  - I think u should buy a poti, make love not war
-  - Or u can buy this and dissapear from my sight
+  - 'This potion heals you 1 heart of life.
+
+    When you drink it, you feel a warm sensation '
+  - 'This magic bomb can destroy some walls.
+
+    I think you should buy a potion, make love not war bro'
+  - 'When you destroy this pendant it allows to teleport to any fountain.
+
+    Please use it and dissapears from my sight.'
   questions:
   - How many Potions wanna buy?
   - How many Bombs wanna buy?
@@ -1781,6 +1790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3026593302788596357}
   - component: {fileID: 3026593302788596358}
+  - component: {fileID: 258529127}
   m_Layer: 0
   m_Name: SpriteVendedor
   m_TagString: Untagged
@@ -1796,8 +1806,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3026593302788596356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00000035763, z: 0}
-  m_LocalScale: {x: 8.732004, y: 32.62189, z: 8.732004}
+  m_LocalPosition: {x: 0, y: -0.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3026593301972202797}
   m_RootOrder: 0
@@ -1839,8 +1849,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2082739441
   m_SortingLayer: 4
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: -4193066949160616298, guid: 24aba29224d35574f98522bb46f9904e,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1851,6 +1862,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &258529127
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3026593302788596356}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 850f04ed4acd03a48990bc097938af2c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3026593302921612479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,7 +1915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: -101.00003}
+  m_AnchoredPosition: {x: 0, y: -101}
   m_SizeDelta: {x: -41.9, y: -539.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3026593302921612450
@@ -2115,7 +2145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 645.8, y: 243.4}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &3026593303053707760
@@ -2670,9 +2700,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3026593303186741697
 CanvasRenderer:
@@ -3294,7 +3324,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3653,16 +3683,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3026593303265706828}
     m_Modifications:
-    - target: {fileID: 7056470298192713107, guid: 4996fa090e2b68f4a91f84b6f69046e6,
-        type: 3}
-      propertyPath: m_Name
-      value: ShopButtonElement
-      objectReference: {fileID: 0}
-    - target: {fileID: 7056470298192713107, guid: 4996fa090e2b68f4a91f84b6f69046e6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7056470298192713106, guid: 4996fa090e2b68f4a91f84b6f69046e6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3767,6 +3787,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056470298192713107, guid: 4996fa090e2b68f4a91f84b6f69046e6,
+        type: 3}
+      propertyPath: m_Name
+      value: ShopButtonElement
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056470298192713107, guid: 4996fa090e2b68f4a91f84b6f69046e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4996fa090e2b68f4a91f84b6f69046e6, type: 3}

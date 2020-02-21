@@ -50,6 +50,7 @@ public class Vendedor : MonoBehaviour
     {
         if (inShop)
         {
+            
             UIShop.SetActive(true);
            // ShopController.shopController.enabled = true;
             pressEText.SetActive(false);
@@ -67,6 +68,7 @@ public class Vendedor : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                pauseManager.inShop = false;
                 inShop = false;
             }
         }
@@ -93,6 +95,7 @@ public class Vendedor : MonoBehaviour
                 {
                     print("Enter");
                     inShop = true;
+                    pauseManager.inShop = true;
                 }
             }
         }

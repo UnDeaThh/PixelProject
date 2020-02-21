@@ -27,6 +27,7 @@ public class PlayerAudio : MonoBehaviour
         {
             if (!walkSound.isPlaying)
             {
+                walkSound.pitch = Random.Range(0.75f, 1.3f);
                 walkSound.Play();
             }
         }

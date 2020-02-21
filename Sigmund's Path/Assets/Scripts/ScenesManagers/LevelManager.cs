@@ -116,6 +116,7 @@ public class LevelManager : MonoBehaviour
     {
         AbilitiesGODControl();
         TimeScaleMethod();
+        CursorController();
 
         if (player.isDead)
         {
@@ -129,6 +130,7 @@ public class LevelManager : MonoBehaviour
     IEnumerator ReloadLevel()
     {
         yield return null;
+        player.pasSceneDead = false;
         SceneManager.LoadScene(levelScene);
     }
 
@@ -178,13 +180,15 @@ public class LevelManager : MonoBehaviour
 
     void CursorController()
     {
-        if (!pauseManager.isPaused)
+        if (!pauseManager.isPaused && !pauseManager.inShop)
         {
             //Lockea el cursor en medio de la pantalla y lo deja invisible
+            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
     }

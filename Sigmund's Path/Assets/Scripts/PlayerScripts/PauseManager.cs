@@ -18,6 +18,7 @@ public class PauseManager : MonoBehaviour
     public bool isOnInventory = false;
     private bool isOnSettings = false;
 	private bool isOnMap = false;
+    public bool inShop = false;
     [Header("UI PAUSE")]
     public Image blackFade;
     

@@ -41,7 +41,6 @@ public class PlayerAttack : MonoBehaviour
 
     void Awake()
     {
-        haveSword = false;
         playerPos = GetComponent<Transform>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
         sound = GetComponentInChildren<PlayerAudio>();
@@ -165,13 +164,15 @@ public class PlayerAttack : MonoBehaviour
                 if(enemiesToDamage.Length <= 0)
                 {
                     sound.attackSound.clip = sound.attackClips[0];
-					sound.attackSound.pitch =Random.Range(0.80f, 1.15f);
+					sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
 					sound.attackSound.volume = Random.Range(0.80f, 1.1f);
                     sound.attackSound.Play();
                 }
                 else
                 {
                     sound.attackSound.clip = sound.attackClips[1];
+                    sound.attackSound.pitch = Random.Range(0.8f, 1.15f);
+                    sound.attackSound.volume = Random.Range(0.8f, 1.15f);
                     sound.attackSound.Play();
                 }
             }
@@ -231,11 +232,13 @@ public class PlayerAttack : MonoBehaviour
                 if (enemiesToDamage.Length <= 0)
                 {
                     sound.attackSound.clip = sound.attackClips[0];
+                    sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
                     sound.attackSound.Play();
                 }
                 else
                 {
                     sound.attackSound.clip = sound.attackClips[1];
+                    sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
                     sound.attackSound.Play();
                 }
                 cntTimeBtwttack = timeBtwAttack;

@@ -44,10 +44,13 @@ public class NerbuzBoss : MonoBehaviour
     public AudioSource earthquakeSound;
 
     [Header("Hechizo3")]
-    public GameObject spellH3Prefab;
+    [SerializeField] GameObject spellH3Prefab;
     public float timeDoingH3;
     private float cntTimeDoingH3;
-    private bool alreadyInstantiateH3 = false;
+    private bool alreadyActivatedH3 = false;
+    [SerializeField] float timeTiredForH3;
+    private float cntTimeTiredForH3;
+    private bool finishSpawnH3 = false;
 
 
     [Header("Transitions")]
@@ -96,6 +99,7 @@ public class NerbuzBoss : MonoBehaviour
 
         colSize.x = colTrans.localScale.x * colH1Confiner.bounds.size.x;
         colSize.y = colTrans.localScale.y * colH1Confiner.bounds.size.y;
+        spellH3Prefab.SetActive(false);
     }
 
     private void Update()
@@ -421,10 +425,11 @@ public class NerbuzBoss : MonoBehaviour
     #region H3
     void UpdateH3()
     {
-        if (!alreadyInstantiateH3)
+        if (!alreadyActivatedH3)
         {
-            Instantiate(spellH3Prefab, transform.position, Quaternion.identity);
-            alreadyInstantiateH3 = true;
+            spellH3Prefab.SetActive(true);
+            alreadyActivatedH3 = true;
+            cntTimeDoingH3 = timeDoingH3;
         }
         else
         {
@@ -434,7 +439,23 @@ public class NerbuzBoss : MonoBehaviour
             }
             else
             {
-                Destroy(spellH3Prefab.gameObject);
+                if (!finishSpawnH3)
+                {
+                    spellH3Prefab.SetActive(false);
+                    cntTimeTiredForH3 = timeTiredForH3;
+                    finishSpawnH3 = true;
+                }
+                else
+                {
+                    if (cntTimeTiredForH3 > 0)
+                    {
+                        cntTimeTiredForH3 -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        alreadyActivatedH3 = false;
+                    }
+                }
             }
         }
     }
