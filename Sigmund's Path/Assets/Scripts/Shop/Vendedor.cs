@@ -51,7 +51,6 @@ public class Vendedor : MonoBehaviour
     {
         if (inShop)
         {
-            
             UIShop.SetActive(true);
             pressEText.SetActive(false);
             if(player != null)

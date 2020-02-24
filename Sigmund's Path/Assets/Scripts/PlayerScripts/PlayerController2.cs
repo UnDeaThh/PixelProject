@@ -13,7 +13,7 @@ public class PlayerController2 : MonoBehaviour
 
     public int health = 5;
     public int maxHealth = 5;
-    public int facingDir = 1;
+    public int facingDir;
     public int potions;
     public int maxPotions = 5;
     private int dashDir;
@@ -117,6 +117,20 @@ public class PlayerController2 : MonoBehaviour
         plAttack = GetComponent<PlayerAttack>();
         plParry = GetComponent<PlayerParry>();
     }
+
+    private void Start()
+    {
+        if (facingDir == 1)
+        {
+            Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
+            transform.rotation = rotation;
+        }
+        else if (facingDir == -1)
+        {
+            Quaternion rotation = Quaternion.Euler(0f, 180f, 0f);
+            transform.rotation = rotation;
+        }
+    }
     private void Update()
     {
         GODmode();
@@ -138,7 +152,6 @@ public class PlayerController2 : MonoBehaviour
 
             Dead();
         }
-
     }
 
     private void FixedUpdate()

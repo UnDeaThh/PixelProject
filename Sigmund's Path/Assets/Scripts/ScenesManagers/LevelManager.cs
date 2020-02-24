@@ -50,12 +50,13 @@ public class LevelManager : MonoBehaviour
             {
                 if(levelScene == 3) //ESTANDO EN T1
                 {
-                    if(player.lastScene == 3 || player.lastScene == 0) //vienes de la propia T1
+                    if (player.lastScene == 3 || player.lastScene == 0) //vienes de la propia T1
                     {
                         player.gameObject.transform.position = apearsPos[0].position;
                     }
-                    else if(player.lastScene == 4) //vienes de T2
+                    else if (player.lastScene == 4) //vienes de T2
                     {
+                        player.facingDir = -1;
                         player.gameObject.transform.position = apearsPos[1].position;
                     }
                 }
