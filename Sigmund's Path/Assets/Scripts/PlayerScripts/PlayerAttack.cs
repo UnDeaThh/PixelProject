@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private PlayerController2 plController2;
+    private PlayerController2 player;
     private PlayerParry plParry;
 	private PauseManager pauseManager;
     private AnimationController myAnimator;
@@ -49,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
-        plController2 = GetComponent<PlayerController2>();
+        player = GetComponent<PlayerController2>();
         plParry = GetComponent<PlayerParry>();
 		pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
 
@@ -57,9 +57,9 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
-        if (!plController2.isGODmode)
+        if (!player.isGODmode)
         {
-            if(!plController2.isDead)
+            if(!player.isDead)
             {
 		        if(!pauseManager.isPaused){
 			        CheckIfCanAttack();
@@ -72,14 +72,21 @@ public class PlayerAttack : MonoBehaviour
 
     void CheckIfCanAttack()
     {
-        if (haveSword)
+        if (!player.isOnKinematic)
         {
-            if(!isAttacking && !plController2.isDrinking && !plController2.isWallSliding)
+            if (haveSword)
             {
-                canAttack = true;
+                if(!isAttacking && !player.isDrinking && !player.isWallSliding && !plParry.isParry)
+                {
+                    canAttack = true;
+                }
+                else
+                    canAttack = false;
             }
             else
+            {
                 canAttack = false;
+            }
         }
         else
         {
@@ -90,7 +97,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (plController2.isWallSliding)
+        if (player.isWallSliding)
         {
             isAttacking = false;
         }
@@ -105,14 +112,14 @@ public class PlayerAttack : MonoBehaviour
             //FRONT ATTACK
             if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
             {
-                if (plController2.isGrounded)
+                if (player.isGrounded)
                 {
-                    plController2.rb.velocity = Vector2.zero;
+                    player.rb.velocity = Vector2.zero;
                     gndAttackingFront = true;
                     gndAttackingUp = false;
                     airAttackingFront = false;
                     airAttackingUp = false;
-                    plController2.heedArrows = false;
+                    player.heedArrows = false;
                 }
                 else
                 {
@@ -124,12 +131,12 @@ public class PlayerAttack : MonoBehaviour
                 isAttacking = true;
                 
                 //Primero seteamos la posicion del collider
-                if (plController2.facingDir == 1)
+                if (player.facingDir == 1)
                 {
                     Vector3 finalPos = playerPos.position + frontAttackPos;
                     attackPos.position = finalPos;
                 }
-                else if(plController2.facingDir == -1)
+                else if(player.facingDir == -1)
                 {
                     Vector3 finalPos = playerPos.position + (-frontAttackPos);
                     attackPos.position = finalPos;
@@ -179,15 +186,15 @@ public class PlayerAttack : MonoBehaviour
             //UP ATTACK
             else if(Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.W))
             {
-                plController2.heedArrows = false;
-                if (plController2.isGrounded)
+                player.heedArrows = false;
+                if (player.isGrounded)
                 {
-                    plController2.rb.velocity = Vector2.zero;
+                    player.rb.velocity = Vector2.zero;
                     gndAttackingFront = false;
                     gndAttackingUp = true;
                     airAttackingFront = false;
                     airAttackingUp = false;
-                    plController2.heedArrows = false;
+                    player.heedArrows = false;
                 }
                 else
                 {

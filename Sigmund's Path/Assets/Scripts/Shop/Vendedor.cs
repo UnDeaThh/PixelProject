@@ -9,6 +9,7 @@ public class Vendedor : MonoBehaviour
     public GameObject pressEText;
     public GameObject UIShop;
 	private PauseManager  pauseManager;
+    [SerializeField] PlayerController2 player;
 
     public bool inShop = false;
     private bool playerClose = false;
@@ -52,13 +53,16 @@ public class Vendedor : MonoBehaviour
         {
             
             UIShop.SetActive(true);
-           // ShopController.shopController.enabled = true;
             pressEText.SetActive(false);
+            if(player != null)
+            {
+                player.isOnKinematic = true;
+            }
         }
         else
         {
-            //ShopController.shopController.enabled = false;
             UIShop.SetActive(false);
+            player.isOnKinematic = false;
         }
     }
 
@@ -93,9 +97,9 @@ public class Vendedor : MonoBehaviour
                 playerClose = true;
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    print("Enter");
                     inShop = true;
                     pauseManager.inShop = true;
+                    
                 }
             }
         }

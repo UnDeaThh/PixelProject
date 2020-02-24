@@ -40,6 +40,8 @@ public class ScenesManager : MonoBehaviour
         {
             apearsOnFountain = true;
         }
+
+        CursorController();
     }
 
     public void ChangeScene(int index)
@@ -53,6 +55,15 @@ public class ScenesManager : MonoBehaviour
         if(data != null)
         {
             toLoadScene = data.toLoadScene;
+        }
+    }
+
+    private void CursorController()
+    {
+        if(actualScene == 1 || actualScene == 2)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

@@ -9,6 +9,7 @@ public class PlayerController2 : MonoBehaviour
     private Inventory2 inventory;
     private PlayerAudio plAudio;
     private PlayerAttack plAttack;
+    private PlayerParry plParry;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -114,6 +115,7 @@ public class PlayerController2 : MonoBehaviour
         inventory = GetComponentInChildren<Inventory2>();
         plAudio = GetComponentInChildren<PlayerAudio>();
         plAttack = GetComponent<PlayerAttack>();
+        plParry = GetComponent<PlayerParry>();
     }
     private void Update()
     {
@@ -381,7 +383,7 @@ public class PlayerController2 : MonoBehaviour
     {
         if (dashUnlocked)
         {
-            if (!plAttack.isAttacking)
+            if (!plAttack.isAttacking && !plParry.isParry)
             {
                 if (isGrounded)
                 {
