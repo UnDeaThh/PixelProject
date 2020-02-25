@@ -78,7 +78,7 @@ public class PlayerParry : MonoBehaviour
                 alreadyClicked = true;
                 currentParryTime = parryDuration;
                 plController2.heedArrows = false;
-                plController2.rb.velocity = new Vector2(0f, plController2.rb.velocity.y);
+                plController2.rb.velocity = new Vector2(0f, 0f);
                 isParry = true;
                 ffParry = true;
                 justOneTime = true;

@@ -7,7 +7,7 @@ using TMPro;
 public class ShopController : MonoBehaviour
 {
     public static ShopController shopController;
-    private PlayerController2 plController2;
+    private PlayerController2 player;
 
     public bool alreadyFilled = false;
     private bool buyingItem;
@@ -54,7 +54,7 @@ public class ShopController : MonoBehaviour
     }
     private void Start()
     {
-        plController2 = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
     }
 
     private void OnEnable()
@@ -164,14 +164,43 @@ public class ShopController : MonoBehaviour
     #region BuyingButtonsMethods
     public void ClickOnBuy()
     {
-        buyingItem = true;
+        if(itemSelecteID == 1)
+        {
+            if(player.potions < 5)
+            {
+                buyingItem = true;
+            }
+            else
+            {
+                buyingItem = false;
+                Debug.Log("YA TIENES MUCHAS POTIS");
+            }
+        }
+        else
+        {
+            buyingItem = true;
+        }
     }
 
     public void IncreaseItemsToBuy()
     {
-        if(itemsToBuy < 99)
+        if(itemSelecteID == 1)
         {
-            itemsToBuy++;
+            if(player.potions + itemsToBuy < 5)
+            {
+                itemsToBuy++;
+            }
+            else
+            {
+                Debug.Log("TE PASAS BRO");
+            }
+        }
+        else
+        {
+            if(itemsToBuy < 99)
+            {
+                itemsToBuy++;
+            }
         }
     }
 
@@ -196,7 +225,7 @@ public class ShopController : MonoBehaviour
             switch (itemSelecteID)
             {
                 case 1:
-                    plController2.potions += itemsToBuy;
+                    player.potions += itemsToBuy;
                     break;
                 case 2:
                     Inventory2.inventory.nBombs += itemsToBuy;

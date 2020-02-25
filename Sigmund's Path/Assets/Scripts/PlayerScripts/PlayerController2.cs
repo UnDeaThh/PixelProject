@@ -152,6 +152,10 @@ public class PlayerController2 : MonoBehaviour
 
             Dead();
         }
+        if (isDrinking)
+        {
+            Debug.Log(rb.velocity);
+        }
     }
 
     private void FixedUpdate()
@@ -281,7 +285,7 @@ public class PlayerController2 : MonoBehaviour
             cntJumps = 0;
         }
 
-        if (!isDashing)
+        if (!isDashing && !plParry.isParry)
         {
             if(cntJumps < maxJumps)
             {
@@ -586,7 +590,6 @@ public class PlayerController2 : MonoBehaviour
                 potions--;
                 rb.velocity = Vector2.zero;
                 plAudio.healingSound[0].Play();
-                //StartCoroutine(TimeDrinking());
             }
         }
     }
@@ -635,16 +638,6 @@ public class PlayerController2 : MonoBehaviour
         shiftAlreadyPressed = false;   
     }
 
-    /*
-    IEnumerator TimeDrinking()
-    {
-        
-        yield return new WaitForSeconds(timeDrinking);
-        health++;
-        isDrinking = false;
-        cntTimeNextDrink = 0;
-    }
-    */
     void LimitVelocity()
     {
         if (rb.velocity.y >= maxSpeedY)
@@ -684,17 +677,18 @@ public class PlayerController2 : MonoBehaviour
             //isDamaged = true;
             cntinvencibilityTime = 0;
             health -= damage;
-            if(health > 1)
+            rb.velocity = Vector2.zero;
+            if (health > 1)
             {
                 if(enemyPos.x <= transform.position.x)
                 {
                     heedArrows = false;
                     rb.AddForce(Vector2.one * damagedPushForce);
                 }
-                else if(enemyPos.x > transform.position.x)
+                else
                 {
                     heedArrows = false;
-                    rb.AddForce(Vector2.one * -damagedPushForce);
+                    rb.AddForce(new Vector2( -1 * damagedPushForce, 1 * damagedPushForce));
                 }
             }
             else
