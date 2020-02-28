@@ -14,9 +14,11 @@ public class ScenesManager : MonoBehaviour
 
     public bool comeFromDead = false;
     public bool apearsOnFountain = false;
+    public bool[] palancasState;
 
     private void Awake()
     {
+
         if(scenesManager == null)
         {
             scenesManager = this;
@@ -27,10 +29,6 @@ public class ScenesManager : MonoBehaviour
         }
         
         DontDestroyOnLoad(this.gameObject);
-    }
-
-    private void Start()
-    {
         LoadSceneManager();
     }
     private void Update()
@@ -55,6 +53,10 @@ public class ScenesManager : MonoBehaviour
         if(data != null)
         {
             toLoadScene = data.toLoadScene;
+            for (int i = 0; i < palancasState.Length; i++)
+            {
+                palancasState[i] = data.palancasState[i];
+            }
         }
     }
 
@@ -65,5 +67,10 @@ public class ScenesManager : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    void PalancasSaveSystem()
+    {
+
     }
 }
