@@ -5,15 +5,40 @@ using UnityEngine;
 public class Palanca : MonoBehaviour
 {
     public bool isOpen = false;
+    public bool alreadyOpen;
     [SerializeField] GameObject door;
     [SerializeField] float openSpeed;
+    [SerializeField] float descend;
+    private Vector2 doorFinalPos;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite spriteOpenPalanca;
 
     // Update is called once per frame
+
+    private void Start()
+    {
+        doorFinalPos = new Vector2(door.transform.position.x, transform.position.y - descend);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (alreadyOpen)
+        {
+            spriteRenderer.sprite = spriteOpenPalanca;
+            Collider2D col = GetComponent<Collider2D>();
+            col.enabled = false;
+        }
+    }
     void Update()
     {
-        if (isOpen)
+        if (isOpen && !alreadyOpen)
         {
-            door.transform.position = Vector2.MoveTowards(door.transform.position, door.transform.position - new Vector3(0, 10, 0), openSpeed);
+            if(door != null)
+            {
+                door.transform.position = Vector2.MoveTowards(door.transform.position, doorFinalPos, openSpeed);
+                if(door.transform.position.y <= doorFinalPos.y)
+                {
+                    alreadyOpen = true;
+                    Destroy(door);
+                }      
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     public Transform[] apearsPos;
     private PauseManager pauseManager;
     public Transform fountainPos;
+    [SerializeField] Palanca[] levelPalancas;
 
     public int levelScene;
 
@@ -109,6 +110,14 @@ public class LevelManager : MonoBehaviour
                 {
                     player.gameObject.transform.position = apearsPos[0].position;
                 }
+            }
+        }
+        //CARGA ESTADO DE PALANCAS
+        if(levelPalancas.Length > 0)
+        {
+            for (int i = 0; i < levelPalancas.Length; i++)
+            {
+                //levelPalancas[i].isOpen = 
             }
         }
     }
