@@ -52,13 +52,24 @@ public class AnimationController : MonoBehaviour
 
 	void PlayerStopAttack()
 	{
-		plAttack.isAttacking = false;
+        if(plAttack.nClicks < 2)
+        {
+		    plAttack.isAttacking = false;
+            plAttack.gndAttackingFront = false;
+            plAttack.gndAttackingUp = false;
+            plAttack.airAttackingFront = false;
+            plAttack.airAttackingUp = false;
+        }
+	}
+
+    void PlayerStopSecondAttack()
+    {
+        plAttack.isAttacking = false;
         plAttack.gndAttackingFront = false;
         plAttack.gndAttackingUp = false;
         plAttack.airAttackingFront = false;
         plAttack.airAttackingUp = false;
-		Debug.Log("AttackDone");
-	}
+    }
     void StopHealing()
     {
         player.health++;
@@ -75,6 +86,7 @@ public class AnimationController : MonoBehaviour
         anim.SetBool("isJumping", isJumping);
         anim.SetBool("isDashing", player.isDashing);
         anim.SetBool("isAttacking", plAttack.isAttacking);
+        anim.SetInteger("nClicks", plAttack.nClicks);
         anim.SetBool("gndAttackingFront", plAttack.gndAttackingFront);
         anim.SetBool("gndAttackingUp", plAttack.gndAttackingUp);
         anim.SetBool("airAttackingFront", plAttack.airAttackingFront);

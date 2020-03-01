@@ -12,8 +12,7 @@ public class PlayerAttack : MonoBehaviour
 
     public int damage;
 
-    private float cntTimeBtwttack;
-    public float timeBtwAttack;
+    public int nClicks = 0;
 
     public Vector2 attackRangeFront = new Vector2(3f, 2f);
     public float attackUpDistance = 1f;
@@ -59,12 +58,19 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!player.isGODmode)
         {
+            if (!isAttacking)
+            {
+                nClicks = 0;
+            }
+
             if(!player.isDead)
             {
 		        if(!pauseManager.isPaused){
 			        CheckIfCanAttack();
+                    //SecondAttack();
 			        Attack();
-		        }
+
+                }
 
             }
         }
@@ -93,6 +99,17 @@ public class PlayerAttack : MonoBehaviour
             canAttack = false;
         }
 
+    }
+
+    void SecondAttack()
+    {
+        if (isAttacking)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                nClicks ++;
+            }
+        }
     }
 
     void Attack()
@@ -129,6 +146,7 @@ public class PlayerAttack : MonoBehaviour
                     airAttackingUp = false;
                 }
                 isAttacking = true;
+                nClicks++;
                 
                 //Primero seteamos la posicion del collider
                 if (player.facingDir == 1)
@@ -254,7 +272,6 @@ public class PlayerAttack : MonoBehaviour
                     sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
                     sound.attackSound.Play();
                 }
-                cntTimeBtwttack = timeBtwAttack;
             }
         }
     }
