@@ -29,8 +29,7 @@ public class BaseEnemy : MonoBehaviour
 
     public GameObject soulColectable;
     public EnemyClass enemyType;
-    [HideInInspector] public Animator anim;
-    [HideInInspector] public Collider2D baseCollider;
+    public Animator anim;
 
 
     public virtual void Dead()

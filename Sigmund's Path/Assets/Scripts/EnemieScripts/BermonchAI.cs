@@ -27,7 +27,6 @@ public class BermonchAI : BaseEnemy
 
     public GameObject throwRockPrefab;
     public Collider2D playerFoundCollider;
-    private Animator anim;
 
     private void Awake() {
         anim = GetComponentInChildren<Animator>();
@@ -116,6 +115,11 @@ public class BermonchAI : BaseEnemy
         if(other.CompareTag("Player")){
             playerFound = true;
         }
+    }
+
+    public override void Dead()
+    {
+        base.Dead();
     }
 
     void UpdateAnimations(){

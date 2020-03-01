@@ -285,7 +285,7 @@ public class PlayerController2 : MonoBehaviour
             cntJumps = 0;
         }
 
-        if (!isDashing && !plParry.isParry)
+        if (!isDashing && !plParry.isParry && !plAttack.isAttacking)
         {
             if(cntJumps < maxJumps)
             {

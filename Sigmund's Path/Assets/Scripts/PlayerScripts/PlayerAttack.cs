@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerController2 player;
     private PlayerParry plParry;
 	private PauseManager pauseManager;
+    private Inventory2 inventory;
     private AnimationController myAnimator;
 
 
@@ -51,6 +52,7 @@ public class PlayerAttack : MonoBehaviour
         player = GetComponent<PlayerController2>();
         plParry = GetComponent<PlayerParry>();
 		pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
+        inventory = GetComponentInChildren<Inventory2>();
 
         upAttackPos = new Vector3(0.0f, attackUpDistance, 0.0f);
     }
@@ -118,10 +120,13 @@ public class PlayerAttack : MonoBehaviour
         {
             isAttacking = false;
         }
-        //Doble damage with parry
-        if (plParry.parrySuccesful)
+        if (inventory.swordPasive)
         {
             damage *= 2;
+        }
+        if (plParry.parrySuccesful)
+        {
+            damage += 1;
         }
 
         if (canAttack)
