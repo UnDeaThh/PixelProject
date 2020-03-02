@@ -33,6 +33,7 @@ public class ChangelingAI : BaseEnemy
         seeker = GetComponent<Seeker>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         graphic = GetComponentInChildren<SpriteRenderer>();
+        mat = graphic.material;
         anim = GetComponentInChildren<Animator>();
         normalColor = graphic.color;
     }
