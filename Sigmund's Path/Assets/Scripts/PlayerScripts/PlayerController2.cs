@@ -556,7 +556,6 @@ public class PlayerController2 : MonoBehaviour
                 canFlip = true;
                 Flip();
                 cntStickyTime = 0;
-                print("WallJump");
             }
         }
     }

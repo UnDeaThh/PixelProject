@@ -18,7 +18,7 @@ public class Water : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            if (!collision.GetComponent<Inventory2>().waterPasive)
+            if (!collision.GetComponentInChildren<Inventory2>().waterPasive)
             {
                 collision.GetComponent<PlayerController2>().speedMov = speedReduced;
             }
