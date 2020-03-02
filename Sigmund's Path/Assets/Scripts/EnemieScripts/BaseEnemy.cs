@@ -62,7 +62,7 @@ public class BaseEnemy : MonoBehaviour
         {
             if (deadSound)
             {
-                if (!deadSound.isPlaying)
+                if (!deadSound.isPlaying && fade <= 0f) 
                 {
                     Destroy(gameObject);
                 }

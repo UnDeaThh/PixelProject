@@ -29,10 +29,16 @@ public class BermonchAI : BaseEnemy
     public Collider2D playerFoundCollider;
 
     private void Awake() {
-        anim = GetComponentInChildren<Animator>();
+        
         //El Collider de Collision del bermounch no interacciona con el del player
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), 
         GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider2D>());
+    }
+
+    private void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+        mat = GetComponentInChildren<SpriteRenderer>().material;
     }
 
     void Update(){

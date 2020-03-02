@@ -130,6 +130,7 @@ public class PlayerController2 : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0f, 180f, 0f);
             transform.rotation = rotation;
         }
+        Physics2D.IgnoreLayerCollision(9, 10, false);
     }
     private void Update()
     {
@@ -743,6 +744,7 @@ public class PlayerController2 : MonoBehaviour
         if (isDead)
         {
             heedArrows = false;
+            Physics2D.IgnoreLayerCollision(9, 10);
             deadPanelUI.SetActive(true);
         }
         else

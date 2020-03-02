@@ -32,6 +32,7 @@ public class NachAI : BaseEnemy
         cntTimeToJump = timeToJump + Random.Range(0f, 1f);
         jumpDirection.Normalize();
         anim = GetComponentInChildren<Animator>();
+        mat = GetComponentInChildren<SpriteRenderer>().material;
     }
     private void Update()
     {

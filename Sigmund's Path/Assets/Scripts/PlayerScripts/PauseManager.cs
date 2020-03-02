@@ -20,24 +20,24 @@ public class PauseManager : MonoBehaviour
 	private bool isOnMap = false;
     public bool inShop = false;
     [Header("UI PAUSE")]
-    public Image blackFade;
+    [SerializeField] GameObject blackFade;
     
-    public GameObject bookContainer;
-	public GameObject settingsPanel;
-    public GameObject inventoryPanel;
-	public GameObject mapPanel;
+    [SerializeField] GameObject bookContainer;
+    [SerializeField] GameObject settingsPanel;
+    [SerializeField] GameObject inventoryPanel;
+    [SerializeField] GameObject mapPanel;
 
 	[Header("PAUSE SETTINGS")]
-	public AudioMixer audioMixer;
-    public Slider sliderVolumen;
-    public Toggle fullScreenToggle;
-    public Dropdown qualityDropdown;
-    public Dropdown resolutionDropdown;
+    [SerializeField] AudioMixer audioMixer;
+    [SerializeField] Slider sliderVolumen;
+    [SerializeField] Toggle fullScreenToggle;
+    [SerializeField] Dropdown qualityDropdown;
+    [SerializeField] Dropdown resolutionDropdown;
     private Resolution[] resolutions = new Resolution[3];
 
-    public GameObject rightOptions;
-    public GameObject goToMainMenuQuest;
-    public GameObject exitGameQuest;
+    [SerializeField] GameObject rightOptions;
+    [SerializeField] GameObject goToMainMenuQuest;
+    [SerializeField] GameObject exitGameQuest;
 
     private void Awake()
     {
@@ -52,8 +52,8 @@ public class PauseManager : MonoBehaviour
         }
         isPaused = false;
 
-       
-        blackFade.enabled = false;
+
+        blackFade.SetActive(false);
 		settingsPanel.SetActive(false);
         rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
@@ -122,7 +122,7 @@ public class PauseManager : MonoBehaviour
     public void Resume()
     {
         isPaused = false;
-        blackFade.enabled = false;
+        blackFade.SetActive(false);
         bookContainer.SetActive(false);
         isOnSettings = false;
         isOnInventory = false;
@@ -137,7 +137,7 @@ public class PauseManager : MonoBehaviour
     public void Pause()
     {
         isPaused = true;
-        blackFade.enabled = true;
+        blackFade.SetActive(true);
 		Time.timeScale = 0f;
         bookContainer.SetActive(true);
 

@@ -174,6 +174,7 @@ MonoBehaviour:
   oneCallDead: 0
   sprite: {fileID: 3416743974818929560}
   deadSound: {fileID: 175789354083840117}
+  mat: {fileID: 0}
   movSpeed: 7
   timeStuned: 1
   currentTimeStuned: 0
@@ -266,7 +267,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5a8c00a6d97155d4c88ed4cce5da341b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

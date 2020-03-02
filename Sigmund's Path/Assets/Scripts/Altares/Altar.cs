@@ -1,18 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class DashAltar : MonoBehaviour
+public class Altar : MonoBehaviour
 {
+    private enum AltarType
+    {
+        Dash, DoubleJump, WallJump
+    }
+
+    [SerializeField] AltarType altarType;
     private bool playerClose;
-    public GameObject pressEText;
-    public GameObject dashInstructions;
+    [SerializeField] GameObject pressEText;
+    [SerializeField] TextMeshProUGUI dashInstructions;
     private PlayerController2 player;
-    public float kinematicDuration;
+    [SerializeField] float kinematicDuration;
 
     private void Start()
     {
-        pressEText.SetActive(false);pressEText.SetActive(false);
+        pressEText.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
     }
 
@@ -28,7 +35,7 @@ public class DashAltar : MonoBehaviour
                 }
                 else
                 {
-                    dashInstructions.SetActive(true);
+                    //dashInstructions.SetActive(true);
                 }
                 pressEText.SetActive(false);
             }
@@ -36,7 +43,7 @@ public class DashAltar : MonoBehaviour
         else
         {
             pressEText.SetActive(false);
-            dashInstructions.SetActive(false);
+           // dashInstructions.SetActive(false);
         }
     }
 
@@ -45,7 +52,18 @@ public class DashAltar : MonoBehaviour
         player.isOnKinematic = true;
         player.heedArrows = false;
         yield return new WaitForSeconds(kinematicDuration);
-        player.dashUnlocked = true;
+        switch (altarType)
+        {
+            case AltarType.Dash:
+                player.dashUnlocked = true;
+                break;
+            case AltarType.DoubleJump:
+                player.dobleJumpUnlocked = true;
+                break;
+            case AltarType.WallJump:
+                player.wallJumpUnlocked = true;
+                break;
+        }
         player.isOnKinematic = false;
     }
     private void OnTriggerStay2D(Collider2D collision)
