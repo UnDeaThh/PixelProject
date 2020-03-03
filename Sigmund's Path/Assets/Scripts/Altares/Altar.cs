@@ -14,6 +14,7 @@ public class Altar : MonoBehaviour
     private bool playerClose;
     [SerializeField] GameObject pressEText;
     [SerializeField] TextMeshProUGUI dashInstructions;
+    [SerializeField] string[] textos = new string[3];
     private PlayerController2 player;
     [SerializeField] float kinematicDuration;
 
@@ -21,6 +22,7 @@ public class Altar : MonoBehaviour
     {
         pressEText.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        dashInstructions.SetText("");
     }
 
     private void Update()
@@ -29,13 +31,41 @@ public class Altar : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (!player.dashUnlocked)
+                switch (altarType)
                 {
-                    StartCoroutine(UnlockingDash());
-                }
-                else
-                {
-                    //dashInstructions.SetActive(true);
+                    case AltarType.Dash:
+                        if (player.dashUnlocked)
+                        {
+                            pressEText.SetActive(false);
+                        }
+                        else
+                        {
+                            pressEText.SetActive(false);
+                            dashInstructions.SetText(textos[0]);
+                        }
+                        break;
+                    case AltarType.DoubleJump:
+                        if (player.dobleJumpUnlocked)
+                        {
+                            pressEText.SetActive(false);
+                        }
+                        else
+                        {
+                            pressEText.SetActive(false);
+                            dashInstructions.SetText(textos[1]);
+                        }
+                        break;
+                    case AltarType.WallJump:
+                        if (player.wallJumpUnlocked)
+                        {
+                            pressEText.SetActive(false);
+                        }
+                        else
+                        {
+                            pressEText.SetActive(false);
+                            dashInstructions.SetText(textos[2]);
+                        }
+                        break;
                 }
                 pressEText.SetActive(false);
             }
@@ -43,7 +73,7 @@ public class Altar : MonoBehaviour
         else
         {
             pressEText.SetActive(false);
-           // dashInstructions.SetActive(false);
+            dashInstructions.SetText("");
         }
     }
 

@@ -707,7 +707,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62416829}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.135865, y: -1.6441597, z: -10}
+  m_LocalPosition: {x: -15.132784, y: -1.6441597, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1611457690}
@@ -4006,6 +4006,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &249030314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6412116304531383707, guid: 182569db9a00abe4db14b9ad7f8b9566,
+    type: 3}
+  m_PrefabInstance: {fileID: 6412116304984833357}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &255625206
 GameObject:
   m_ObjectHideFlags: 0
@@ -7571,7 +7577,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.668175, y: -0.70612025, z: -10}
+  m_LocalPosition: {x: -19.81, y: -0.66199994, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2124871146}
@@ -7813,7 +7819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529144871}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.135865, y: -1.6441597, z: -10}
+  m_LocalPosition: {x: -16.500648, y: -4.54, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 595464049}
@@ -10459,18 +10465,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &654907607 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6412116304531383706, guid: 182569db9a00abe4db14b9ad7f8b9566,
-    type: 3}
-  m_PrefabInstance: {fileID: 6412116304984833357}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &656765509
 GameObject:
   m_ObjectHideFlags: 0
@@ -11590,7 +11584,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724224304}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.226238, y: 4.347312, z: -77.40625}
+  m_LocalPosition: {x: 18.23009, y: 4.347312, z: -77.40625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1044730771}
@@ -14714,7 +14708,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910047366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.195549, y: 0, z: 0}
+  m_LocalPosition: {x: 6.200684, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1602568168}
@@ -25828,7 +25822,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650079647}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.0652528, y: 0, z: 0}
+  m_LocalPosition: {x: -2.0669644, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1062226788}
@@ -27699,7 +27693,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778019305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.0977745, y: 0, z: 0}
+  m_LocalPosition: {x: 3.100342, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 323260369}
@@ -54236,7 +54230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124871144}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.141825, y: 0.04412031, z: 0}
+  m_LocalPosition: {x: -8.150383, y: 0.044166565, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2069854442}
@@ -54257,7 +54251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ConfineMode: 0
   m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 1748016214}
+  m_BoundingShape2D: {fileID: 0}
   m_ConfineScreenEdges: 1
   m_Damping: 0
 --- !u!1 &2134259330
@@ -54777,7 +54771,7 @@ PrefabInstance:
         type: 3}
       propertyPath: blackFade
       value: 
-      objectReference: {fileID: 654907607}
+      objectReference: {fileID: 249030314}
     - target: {fileID: 2620612994748527383, guid: 742491f0275099f4db298025a4a8b27a,
         type: 3}
       propertyPath: bookContainer
