@@ -17,9 +17,11 @@ public class Altar : MonoBehaviour
     [SerializeField] string[] textos = new string[3];
     private PlayerController2 player;
     [SerializeField] float kinematicDuration;
+    [SerializeField] GameObject canvasObject;
 
     private void Start()
     {
+        canvasObject.SetActive(true);
         pressEText.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         dashInstructions.SetText("");
@@ -34,9 +36,10 @@ public class Altar : MonoBehaviour
                 switch (altarType)
                 {
                     case AltarType.Dash:
-                        if (player.dashUnlocked)
+                        if (!player.dashUnlocked)
                         {
                             pressEText.SetActive(false);
+                            StartCoroutine(UnlockAbilitie());
                         }
                         else
                         {
@@ -45,9 +48,10 @@ public class Altar : MonoBehaviour
                         }
                         break;
                     case AltarType.DoubleJump:
-                        if (player.dobleJumpUnlocked)
+                        if (!player.dobleJumpUnlocked)
                         {
                             pressEText.SetActive(false);
+                            StartCoroutine(UnlockAbilitie());
                         }
                         else
                         {
@@ -56,9 +60,10 @@ public class Altar : MonoBehaviour
                         }
                         break;
                     case AltarType.WallJump:
-                        if (player.wallJumpUnlocked)
+                        if (!player.wallJumpUnlocked)
                         {
                             pressEText.SetActive(false);
+                            StartCoroutine(UnlockAbilitie());
                         }
                         else
                         {
@@ -77,7 +82,7 @@ public class Altar : MonoBehaviour
         }
     }
 
-    IEnumerator UnlockingDash()
+    IEnumerator UnlockAbilitie()
     {
         player.isOnKinematic = true;
         player.heedArrows = false;
@@ -96,7 +101,8 @@ public class Altar : MonoBehaviour
         }
         player.isOnKinematic = false;
     }
-    private void OnTriggerStay2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -109,7 +115,7 @@ public class Altar : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerClose = false;
+            pressEText.SetActive(false);
         }
-        pressEText.SetActive(false);
     }
 }
