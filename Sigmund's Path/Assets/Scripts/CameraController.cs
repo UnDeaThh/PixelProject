@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour
     // Cinemachine Shake
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
+    private CinemachineConfiner confiner;
+    private Collider2D bounds;
     private void Awake()
     {
         if(cameraController == null)
@@ -30,6 +32,14 @@ public class CameraController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        confiner = virtualCamera.GetComponent<CinemachineConfiner>();
+        if(GameObject.FindGameObjectWithTag("Confiner").TryGetComponent(out Collider2D col))
+        {
+            bounds = GameObject.FindGameObjectWithTag("Confiner").GetComponent<Collider2D>();
+            confiner.m_BoundingShape2D = bounds;
+        }
+
     }
 
     void Start()
@@ -41,6 +51,9 @@ public class CameraController : MonoBehaviour
             //camConfiner = virtualCamera.GetCinemachineComponent<CinemachineConfiner>();
         }
         SetFollowTarget();
+        
+
+        
     }
 
     // Update is called once per frame
