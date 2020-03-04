@@ -862,6 +862,7 @@ GameObject:
   - component: {fileID: 3730924781311067699}
   - component: {fileID: 3944529619844876993}
   - component: {fileID: 8299661826070670118}
+  - component: {fileID: 2460550204698833763}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -1031,7 +1032,7 @@ MonoBehaviour:
   gndAttackingFront: 0
   airAttackingUp: 0
   airAttackingFront: 0
-  haveSword: 1
+  haveSword: 0
   isAttacking: 0
   attackPos: {fileID: 2937485335393459181}
   whatIsEnemie:
@@ -1072,6 +1073,14 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.43, y: 2.95}
   m_Direction: 0
+--- !u!81 &2460550204698833763
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2851571069916491046}
+  m_Enabled: 1
 --- !u!1 &4441032602102135772
 GameObject:
   m_ObjectHideFlags: 0
