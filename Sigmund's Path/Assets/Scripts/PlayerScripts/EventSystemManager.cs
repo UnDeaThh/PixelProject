@@ -12,11 +12,15 @@ public class EventSystemManager : MonoBehaviour
     private void Awake()
     {
         pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
+        if(eventSystem == null)
+        {
+            eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        }
     }
 
     private void Update()
     {
-        if(pauseManager.isPaused && !ffPause)
+        if (pauseManager.isPaused && !ffPause)
         {
             StartCoroutine(HighlightedFirstButton());
         }
@@ -27,6 +31,6 @@ public class EventSystemManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
         yield return null;
         eventSystem.SetSelectedGameObject(eventSystem.firstSelectedGameObject);
-        ffPause = true;
+        ffPause = true; 
     }
 }

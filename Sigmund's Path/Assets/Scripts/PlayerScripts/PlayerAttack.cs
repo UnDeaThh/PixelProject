@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    PlayerInputs inputs;
     private PlayerController2 player;
     private PlayerParry plParry;
 	private PauseManager pauseManager;
@@ -16,9 +17,11 @@ public class PlayerAttack : MonoBehaviour
     public int nClicks = 0;
 
     public Vector2 attackRangeFront = new Vector2(3f, 2f);
+    public Vector2 attackDirection;
     public float attackUpDistance = 1f;
     public float attackRangeUp = 3f;
 
+    private bool clickAttack;
     public bool gndAttackingUp = false;
     public bool gndAttackingFront = false;
     public bool airAttackingUp = false;
@@ -39,8 +42,21 @@ public class PlayerAttack : MonoBehaviour
     private CameraController cameraController;
     private PlayerAudio sound;
 
+    private void OnEnable()
+    {
+        inputs.Controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputs.Controls.Disable();
+    }
     void Awake()
     {
+        inputs = new PlayerInputs();
+        inputs.Controls.Attack.performed += ctx => clickAttack = true;
+        inputs.Controls.AttackDirection.performed += ctx => attackDirection = ctx.ReadValue<Vector2>();
+        inputs.Controls.AttackDirection.canceled += ctx => attackDirection = ctx.ReadValue<Vector2>();
         playerPos = GetComponent<Transform>();
         cameraController = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraController>();
         sound = GetComponentInChildren<PlayerAudio>();
@@ -89,7 +105,10 @@ public class PlayerAttack : MonoBehaviour
                     canAttack = true;
                 }
                 else
+                {
                     canAttack = false;
+                    clickAttack = false;
+                }
             }
             else
             {
@@ -131,153 +150,159 @@ public class PlayerAttack : MonoBehaviour
 
         if (canAttack)
         {
-            //FRONT ATTACK
-            if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.W))
+            if (clickAttack) 
             {
-                if (player.isGrounded)
+                if(attackDirection.y <= 0.1f)
                 {
-                    player.rb.velocity = Vector2.zero;
-                    gndAttackingFront = true;
-                    gndAttackingUp = false;
-                    airAttackingFront = false;
-                    airAttackingUp = false;
-                    player.heedArrows = false;
-                }
-                else
-                {
-                    gndAttackingFront = false;
-                    gndAttackingUp = false;
-                    airAttackingFront = true;
-                    airAttackingUp = false;
-                }
-                isAttacking = true;
-                nClicks++;
-                
-                //Primero seteamos la posicion del collider
-                if (player.facingDir == 1)
-                {
-                    Vector3 finalPos = playerPos.position + frontAttackPos;
-                    attackPos.position = finalPos;
-                }
-                else if(player.facingDir == -1)
-                {
-                    Vector3 finalPos = playerPos.position + (-frontAttackPos);
-                    attackPos.position = finalPos;
-                }
-                //Luego creamos el Collider en ese sitio
-                Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRangeFront, 0, whatIsEnemie);
-                for(int i = 0; i < enemiesToDamage.Length; i++)
-                {
-                    if(enemiesToDamage[i].tag == "Enemy")
+                    //FRONT ATTACK
+                    if (player.isGrounded)
                     {
-                        cameraController.letsShake = true;
-                        if (enemiesToDamage[i].GetComponent<BaseEnemy>())
+                        player.rb.velocity = Vector2.zero;
+                        gndAttackingFront = true;
+                        gndAttackingUp = false;
+                        airAttackingFront = false;
+                        airAttackingUp = false;
+                        player.heedArrows = false;
+                    }
+                    else
+                    {
+                        gndAttackingFront = false;
+                        gndAttackingUp = false;
+                        airAttackingFront = true;
+                        airAttackingUp = false;
+                    }
+                    isAttacking = true;
+                    nClicks++;
+
+                    //Primero seteamos la posicion del collider
+                    if (player.facingDir == 1)
+                    {
+                        Vector3 finalPos = playerPos.position + frontAttackPos;
+                        attackPos.position = finalPos;
+                    }
+                    else if (player.facingDir == -1)
+                    {
+                        Vector3 finalPos = playerPos.position + (-frontAttackPos);
+                        attackPos.position = finalPos;
+                    }
+                    //Luego creamos el Collider en ese sitio
+                    Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(attackPos.position, attackRangeFront, 0, whatIsEnemie);
+                    for (int i = 0; i < enemiesToDamage.Length; i++)
+                    {
+                        if (enemiesToDamage[i].tag == "Enemy")
                         {
-                            enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                            cameraController.letsShake = true;
+                            if (enemiesToDamage[i].GetComponent<BaseEnemy>())
+                            {
+                                enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                                plParry.parrySuccesful = false;
+                            }
+                        }
+                        else if (enemiesToDamage[i].CompareTag("Nerbuz"))
+                        {
+                            if (enemiesToDamage[i].GetComponent<NerbuzBoss>().canBeDamaged)
+                            {
+                                enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
+                            }
                             plParry.parrySuccesful = false;
                         }
-                    }
-                    else if (enemiesToDamage[i].CompareTag("Nerbuz"))
-                    {
-                        if(enemiesToDamage[i].GetComponent<NerbuzBoss>().canBeDamaged)
+                        else if (enemiesToDamage[i].CompareTag("CumuloEsencia"))
                         {
-                            enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
+                            enemiesToDamage[i].GetComponent<CumuloEsencia>().TakeDamage();
                         }
-                        plParry.parrySuccesful = false;
-                    }
-                    else if (enemiesToDamage[i].CompareTag("CumuloEsencia"))
-                    {
-                        enemiesToDamage[i].GetComponent<CumuloEsencia>().TakeDamage();
-                    }
-                    else if (enemiesToDamage[i].CompareTag("Palanca"))
-                    {
-                        enemiesToDamage[i].GetComponent<Animator>().SetTrigger("PalancaActivated");
-                        enemiesToDamage[i].GetComponent<Palanca>().isOpen = true;
-                    }
-
-                }
-
-                if(enemiesToDamage.Length <= 0)
-                {
-                    sound.attackSound.clip = sound.attackClips[0];
-					sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
-					sound.attackSound.volume = Random.Range(0.80f, 1.1f);
-                    sound.attackSound.Play();
-                }
-                else
-                {
-                    sound.attackSound.clip = sound.attackClips[1];
-                    sound.attackSound.pitch = Random.Range(0.8f, 1.15f);
-                    sound.attackSound.volume = Random.Range(0.8f, 1.15f);
-                    sound.attackSound.Play();
-                }
-            }
-            //UP ATTACK
-            else if(Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.W))
-            {
-                player.heedArrows = false;
-                if (player.isGrounded)
-                {
-                    player.rb.velocity = Vector2.zero;
-                    gndAttackingFront = false;
-                    gndAttackingUp = true;
-                    airAttackingFront = false;
-                    airAttackingUp = false;
-                    player.heedArrows = false;
-                }
-                else
-                {
-                    gndAttackingFront = false;
-                    gndAttackingUp = false;
-                    airAttackingFront = false;
-                    airAttackingUp = true;
-                }
-                isAttacking = true;
-
-                Vector3 finalPos = playerPos.position + upAttackPos;
-
-                attackPos.position = finalPos;
-                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRangeUp, whatIsEnemie);
-	
-                Debug.Log(enemiesToDamage.Length);
-                for (int i = 0; i < enemiesToDamage.Length; i++)
-                {
-                    if (enemiesToDamage[i].CompareTag("Enemy"))
-                    {
-                        cameraController.letsShake = true;
-                        if (enemiesToDamage[i].GetComponent<BaseEnemy>())
+                        else if (enemiesToDamage[i].CompareTag("Palanca"))
                         {
-                            enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                            enemiesToDamage[i].GetComponent<Animator>().SetTrigger("PalancaActivated");
+                            enemiesToDamage[i].GetComponent<Palanca>().isOpen = true;
+                        }
+
+                    }
+
+                    if (enemiesToDamage.Length <= 0)
+                    {
+                        sound.attackSound.clip = sound.attackClips[0];
+                        sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
+                        sound.attackSound.volume = Random.Range(0.80f, 1.1f);
+                        sound.attackSound.Play();
+                    }
+                    else
+                    {
+                        sound.attackSound.clip = sound.attackClips[1];
+                        sound.attackSound.pitch = Random.Range(0.8f, 1.15f);
+                        sound.attackSound.volume = Random.Range(0.8f, 1.15f);
+                        sound.attackSound.Play();
+                    }
+                }
+                //UP ATTACK
+                else if(attackDirection.y > 0.1f)
+                {
+
+                    player.heedArrows = false;
+                    if (player.isGrounded)
+                    {
+                        player.rb.velocity = Vector2.zero;
+                        gndAttackingFront = false;
+                        gndAttackingUp = true;
+                        airAttackingFront = false;
+                        airAttackingUp = false;
+                        player.heedArrows = false;
+                    }
+                    else
+                    {
+                        gndAttackingFront = false;
+                        gndAttackingUp = false;
+                        airAttackingFront = false;
+                        airAttackingUp = true;
+                    }
+                    isAttacking = true;
+
+                    Vector3 finalPos = playerPos.position + upAttackPos;
+
+                    attackPos.position = finalPos;
+                    Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRangeUp, whatIsEnemie);
+
+                    Debug.Log(enemiesToDamage.Length);
+                    for (int i = 0; i < enemiesToDamage.Length; i++)
+                    {
+                        if (enemiesToDamage[i].CompareTag("Enemy"))
+                        {
+                            cameraController.letsShake = true;
+                            if (enemiesToDamage[i].GetComponent<BaseEnemy>())
+                            {
+                                enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                                plParry.parrySuccesful = false;
+                            }
+                        }
+                        else if (enemiesToDamage[i].CompareTag("Nerbuz"))
+                        {
+                            if (enemiesToDamage[i].GetComponent<NerbuzBoss>().canBeDamaged)
+                            {
+                                enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
+                            }
                             plParry.parrySuccesful = false;
                         }
-                    }
-                    else if (enemiesToDamage[i].CompareTag("Nerbuz"))
-                    {
-                        if(enemiesToDamage[i].GetComponent<NerbuzBoss>().canBeDamaged)
+
+                        else if (enemiesToDamage[i].CompareTag("CumuloEsencia"))
                         {
-                            enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
+                            enemiesToDamage[i].GetComponent<CumuloEsencia>().TakeDamage();
                         }
-                        plParry.parrySuccesful = false;
                     }
 
-                    else if (enemiesToDamage[i].CompareTag("CumuloEsencia")){
-                        enemiesToDamage[i].GetComponent<CumuloEsencia>().TakeDamage();
+                    if (enemiesToDamage.Length <= 0)
+                    {
+                        sound.attackSound.clip = sound.attackClips[0];
+                        sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
+                        sound.attackSound.Play();
+                    }
+                    else
+                    {
+                        sound.attackSound.clip = sound.attackClips[1];
+                        sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
+                        sound.attackSound.Play();
                     }
                 }
-
-                if (enemiesToDamage.Length <= 0)
-                {
-                    sound.attackSound.clip = sound.attackClips[0];
-                    sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
-                    sound.attackSound.Play();
-                }
-                else
-                {
-                    sound.attackSound.clip = sound.attackClips[1];
-                    sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
-                    sound.attackSound.Play();
-                }
-            }
+                clickAttack = false;
+            } 
         }
     }
     void OnDrawGizmosSelected()

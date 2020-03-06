@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 public class PauseManager : MonoBehaviour
 {
     //SINGLETON
+    PlayerInputs inputs;
     private PlayerController2 player;
     private Inventory2 inventory;
     private PlayerAttack plAttack;
 
     public GameObject pausePanelBegins;
 
-    public bool escClicked;
     public bool isPaused = false;
     public bool isOnInventory = false;
     private bool isOnSettings = false;
@@ -39,8 +40,17 @@ public class PauseManager : MonoBehaviour
     [SerializeField] GameObject goToMainMenuQuest;
     [SerializeField] GameObject exitGameQuest;
 
+    private void OnEnable()
+    {
+        inputs.Controls.Enable();
+    }
+    private void OnDisable()
+    {
+        inputs.Controls.Disable();
+    }
     private void Awake()
     {
+        inputs = new PlayerInputs();
         Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         if(canvas != null)
         {
@@ -99,7 +109,7 @@ public class PauseManager : MonoBehaviour
     {
         if (!player.isOnKinematic)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (inputs.Controls.Pause.triggered)
             {
                 if (isPaused)
                 {

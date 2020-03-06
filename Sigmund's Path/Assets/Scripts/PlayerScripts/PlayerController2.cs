@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerController2 : MonoBehaviour
 {
+    PlayerInputs inputs;
+
     private PauseManager pauseManager;
     private Inventory2 inventory;
     private PlayerAudio plAudio;
@@ -58,7 +61,6 @@ public class PlayerController2 : MonoBehaviour
     private bool oneChanceDirection = false;
     private bool jumpPressed = false;
     private bool jumpHolded;
-    private bool jumpUnhold;
     private bool canJump;
     private bool canNormalJump;
     public bool isWallSliding;
@@ -108,8 +110,20 @@ public class PlayerController2 : MonoBehaviour
     public LayerMask whatIsGround;
     [SerializeField] Collider2D plCollider;
     public GameObject bombPrefab;
+
+    private void OnEnable()
+    {
+        inputs.Controls.Enable();
+    }
+    private void OnDisable()
+    {
+        inputs.Controls.Disable();
+    }
     private void Awake()
     {
+        inputs = new PlayerInputs();
+        InputPlayer();
+
         rb = GetComponent<Rigidbody2D>();
         pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         inventory = GetComponentInChildren<Inventory2>();
@@ -134,7 +148,10 @@ public class PlayerController2 : MonoBehaviour
     }
     private void Update()
     {
+ 
         GODmode();
+        ApplyInputsToPlayer();
+
 
         CheckLife();
         if (!isGODmode)
@@ -145,7 +162,6 @@ public class PlayerController2 : MonoBehaviour
             CheckIfCanDrink();
             CheckPotionsUI();
             CheckIfCanDash();
-            InputPlayer();
             FacingDirection();
             Invencibility();
             ThrowBombs();
@@ -199,8 +215,33 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
+    void ApplyInputsToPlayer()
+    {
+        if (!isOnKinematic)
+        {
+            if (!pauseManager.isPaused && !isDead)
+            {
+                inputs.Controls.Enable();
+            }
+            else
+            {
+                inputs.Controls.Disable();
+            }
+        }
+        else
+        {
+            inputs.Controls.Disable();
+        }
+    }
     void InputPlayer()
     {
+        inputs.Controls.Move.performed += ctx => movDir = ctx.ReadValue<float>();
+        inputs.Controls.Jump.performed += ctx => jumpPressed = true;
+        inputs.Controls.HoldJump.performed += ctx => jumpHolded = true;
+        inputs.Controls.HoldJump.canceled += ctx => jumpHolded = false;
+        inputs.Controls.DrinkPotion.performed += ctx => Drink();
+        inputs.Controls.Dash.performed += ctx => shiftPressed = true;
+        /*
         if (!isOnKinematic)
         {
             if (!isDead && !pauseManager.isPaused)
@@ -244,6 +285,7 @@ public class PlayerController2 : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
+        */
     }
 
     void AplyMovement()
@@ -520,6 +562,7 @@ public class PlayerController2 : MonoBehaviour
             WallJump();
             jumpPressed = false;
         }
+      
 
         if(jumpHolded && isJumping)
         {
