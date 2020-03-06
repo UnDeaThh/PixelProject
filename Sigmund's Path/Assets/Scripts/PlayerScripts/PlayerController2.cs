@@ -203,7 +203,7 @@ public class PlayerController2 : MonoBehaviour
     {
         if (!isOnKinematic)
         {
-            if (!isDead)
+            if (!isDead && !pauseManager.isPaused)
             {
                 movDir = Input.GetAxisRaw("Horizontal");
 
@@ -234,6 +234,10 @@ public class PlayerController2 : MonoBehaviour
                 {
                     bombPressed = true;
                 }
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
             }
         }
         else
