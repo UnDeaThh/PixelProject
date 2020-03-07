@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerParry : MonoBehaviour
 {
+    PlayerInputs inputs;
+
     private PlayerController2 plController2;
     private PlayerAttack plAttack;
 	private PauseManager pauseManager;
@@ -24,8 +26,17 @@ public class PlayerParry : MonoBehaviour
     private bool ffParry;
 
     public Collider2D parryCol;
+    private void OnEnable()
+    {
+        inputs.Controls.Enable();
+    }
+    private void OnDisable()
+    {
+        inputs.Controls.Disable();
+    }
     private void Awake()
     {
+        inputs = new PlayerInputs();
         plAttack = GetComponent<PlayerAttack>();
         isParry = false;
         parryCol.enabled = false;
@@ -73,7 +84,7 @@ public class PlayerParry : MonoBehaviour
     {
         if (canParry)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1) && !alreadyClicked)
+            if (inputs.Controls.Parry.triggered && !alreadyClicked)
             {
                 alreadyClicked = true;
                 currentParryTime = parryDuration;

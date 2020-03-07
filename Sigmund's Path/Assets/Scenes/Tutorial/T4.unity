@@ -13906,6 +13906,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1192748280}
+  ffPause: 0
+  firstSelected:
+  - {fileID: 1229417827}
+  - {fileID: 738108387}
+  - {fileID: 725220324}
 --- !u!1 &195540893
 GameObject:
   m_ObjectHideFlags: 0
@@ -16706,6 +16711,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &725220324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6412116303571413259, guid: 182569db9a00abe4db14b9ad7f8b9566,
+    type: 3}
+  m_PrefabInstance: {fileID: 352685955}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &732013641 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6412116304880373614, guid: 182569db9a00abe4db14b9ad7f8b9566,
@@ -16874,6 +16885,12 @@ Transform:
   m_Father: {fileID: 1621236159}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &738108387 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6412116304123030194, guid: 182569db9a00abe4db14b9ad7f8b9566,
+    type: 3}
+  m_PrefabInstance: {fileID: 352685955}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &755325533 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3647110579458408942, guid: 232773b561dfd35419ebba470d2ee787,
@@ -17949,6 +17966,11 @@ PrefabInstance:
       propertyPath: exitGameQuest
       value: 
       objectReference: {fileID: 732013641}
+    - target: {fileID: 2620612994748527383, guid: 742491f0275099f4db298025a4a8b27a,
+        type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 183552294}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 742491f0275099f4db298025a4a8b27a, type: 3}
 --- !u!1001 &1073069208
@@ -34117,7 +34139,7 @@ PrefabInstance:
     - target: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
       propertyPath: jumpForce
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}

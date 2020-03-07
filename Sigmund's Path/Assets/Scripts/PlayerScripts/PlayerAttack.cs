@@ -126,7 +126,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (isAttacking)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (clickAttack)
             {
                 nClicks ++;
             }

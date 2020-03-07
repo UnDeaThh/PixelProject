@@ -12,13 +12,14 @@ public class PauseManager : MonoBehaviour
     private PlayerController2 player;
     private Inventory2 inventory;
     private PlayerAttack plAttack;
+    [SerializeField] EventSystemManager eventSystem;
 
     public GameObject pausePanelBegins;
 
     public bool isPaused = false;
     public bool isOnInventory = false;
-    private bool isOnSettings = false;
-	private bool isOnMap = false;
+    public bool isOnSettings = false;
+	public bool isOnMap = false;
     public bool inShop = false;
     [Header("UI PAUSE")]
     [SerializeField] GameObject blackFade;
@@ -134,6 +135,8 @@ public class PauseManager : MonoBehaviour
     public void Resume()
     {
         isPaused = false;
+        eventSystem.ffPause = false;
+        player.heedArrows = true;
         blackFade.SetActive(false);
         bookContainer.SetActive(false);
         isOnSettings = false;
@@ -149,6 +152,7 @@ public class PauseManager : MonoBehaviour
     public void Pause()
     {
         isPaused = true;
+        player.heedArrows = false;
         blackFade.SetActive(true);
 		Time.timeScale = 0f;
         bookContainer.SetActive(true);
@@ -158,6 +162,7 @@ public class PauseManager : MonoBehaviour
 
     public void InventoryTab()
     {
+        eventSystem.ffPause = false;
         isOnSettings = false;
         rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
@@ -171,6 +176,7 @@ public class PauseManager : MonoBehaviour
 
     public void PauseTab()
     {
+        eventSystem.ffPause = false;
         isOnInventory = false;
 		isOnMap = false;
         isOnSettings = true;
@@ -180,7 +186,8 @@ public class PauseManager : MonoBehaviour
     }
 
 	public void MapTab(){
-		isOnInventory = false;
+        eventSystem.ffPause = false;
+        isOnInventory = false;
 		isOnSettings =  false;
         rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);

@@ -32,7 +32,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""id"": ""e080e66d-ebff-4cc3-8adc-62db10f2e15f"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press""
+                    ""interactions"": ""Hold(duration=5,pressPoint=0.1)""
                 },
                 {
                     ""name"": ""HoldJump"",
@@ -40,7 +40,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""id"": ""775649c3-1a46-47e1-8f31-0ece7e2d421d"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.1)""
+                    ""interactions"": ""Hold(duration=0.01)""
                 },
                 {
                     ""name"": ""DrinkPotion"",
@@ -78,6 +78,14 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""6cbc6a5d-e06c-4717-94ba-7c1318955225"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""88df90a4-af52-4205-b37d-e2fbb0c642a8"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press""
@@ -314,6 +322,28 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d624873c-af62-4883-91d4-ca0c53db0d7d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""131293d5-c37a-4112-a5d0-1a6895dcb5aa"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -341,6 +371,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_Controls_Attack = m_Controls.FindAction("Attack", throwIfNotFound: true);
         m_Controls_AttackDirection = m_Controls.FindAction("AttackDirection", throwIfNotFound: true);
         m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
+        m_Controls_Parry = m_Controls.FindAction("Parry", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -398,6 +429,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Controls_Attack;
     private readonly InputAction m_Controls_AttackDirection;
     private readonly InputAction m_Controls_Pause;
+    private readonly InputAction m_Controls_Parry;
     public struct ControlsActions
     {
         private @PlayerInputs m_Wrapper;
@@ -410,6 +442,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         public InputAction @Attack => m_Wrapper.m_Controls_Attack;
         public InputAction @AttackDirection => m_Wrapper.m_Controls_AttackDirection;
         public InputAction @Pause => m_Wrapper.m_Controls_Pause;
+        public InputAction @Parry => m_Wrapper.m_Controls_Parry;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -443,6 +476,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
+                @Parry.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnParry;
+                @Parry.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnParry;
+                @Parry.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnParry;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -471,6 +507,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Parry.started += instance.OnParry;
+                @Parry.performed += instance.OnParry;
+                @Parry.canceled += instance.OnParry;
             }
         }
     }
@@ -503,5 +542,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnAttackDirection(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnParry(InputAction.CallbackContext context);
     }
 }

@@ -19,7 +19,7 @@
                     "id": "e080e66d-ebff-4cc3-8adc-62db10f2e15f",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Hold(duration=5,pressPoint=0.1)"
                 },
                 {
                     "name": "HoldJump",
@@ -27,7 +27,7 @@
                     "id": "775649c3-1a46-47e1-8f31-0ece7e2d421d",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.1)"
+                    "interactions": "Hold(duration=0.01)"
                 },
                 {
                     "name": "DrinkPotion",
@@ -65,6 +65,14 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "6cbc6a5d-e06c-4717-94ba-7c1318955225",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Parry",
+                    "type": "Button",
+                    "id": "88df90a4-af52-4205-b37d-e2fbb0c642a8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press"
@@ -299,6 +307,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d624873c-af62-4883-91d4-ca0c53db0d7d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "131293d5-c37a-4112-a5d0-1a6895dcb5aa",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Parry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

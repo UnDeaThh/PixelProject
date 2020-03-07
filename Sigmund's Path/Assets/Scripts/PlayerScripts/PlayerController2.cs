@@ -69,7 +69,7 @@ public class PlayerController2 : MonoBehaviour
     private bool wallJumped;
     private bool canDrink;
     public bool isDrinking;
-    [SerializeField] public bool heedArrows = true;
+    public bool heedArrows = true;
     private bool canDash;
     private bool shiftPressed;
     public bool isDashing;
@@ -225,6 +225,7 @@ public class PlayerController2 : MonoBehaviour
             }
             else
             {
+                movDir = 0f;
                 inputs.Controls.Disable();
             }
         }
@@ -233,12 +234,18 @@ public class PlayerController2 : MonoBehaviour
             inputs.Controls.Disable();
         }
     }
+    void Hold()
+    {
+        jumpPressed = true;
+        jumpHolded = true;
+    }
     void InputPlayer()
     {
         inputs.Controls.Move.performed += ctx => movDir = ctx.ReadValue<float>();
-        inputs.Controls.Jump.performed += ctx => jumpPressed = true;
-        inputs.Controls.HoldJump.performed += ctx => jumpHolded = true;
-        inputs.Controls.HoldJump.canceled += ctx => jumpHolded = false;
+
+        inputs.Controls.Jump.started += ctx => Hold();
+        inputs.Controls.Jump.canceled += ctx => jumpHolded = false;
+
         inputs.Controls.DrinkPotion.performed += ctx => Drink();
         inputs.Controls.Dash.performed += ctx => shiftPressed = true;
         /*
@@ -562,8 +569,8 @@ public class PlayerController2 : MonoBehaviour
             WallJump();
             jumpPressed = false;
         }
-      
 
+        
         if(jumpHolded && isJumping)
         {
             if(cntJumpTime > 0)
@@ -574,6 +581,7 @@ public class PlayerController2 : MonoBehaviour
             else
             {
                 isJumping = false;
+                jumpPressed = false;
             }
         }
         if (!jumpHolded)
