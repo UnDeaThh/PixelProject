@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2620612994748527382}
   - component: {fileID: 2620612994748527383}
+  - component: {fileID: 183552294}
   m_Layer: 0
   m_Name: PauseManager
   m_TagString: PauseManager
@@ -43,10 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a379fe31a2b9fb428477c6e48fc4f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 183552294}
   pausePanelBegins: {fileID: 0}
-  escClicked: 0
   isPaused: 0
   isOnInventory: 0
+  isOnSettings: 0
+  isOnMap: 0
   inShop: 0
   blackFade: {fileID: 0}
   bookContainer: {fileID: 0}
@@ -61,3 +64,21 @@ MonoBehaviour:
   rightOptions: {fileID: 0}
   goToMainMenuQuest: {fileID: 0}
   exitGameQuest: {fileID: 0}
+--- !u!114 &183552294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2620612994748527380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ff184aec3e5374eb11678c891ff5bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSystem: {fileID: 0}
+  ffPause: 0
+  firstSelected:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

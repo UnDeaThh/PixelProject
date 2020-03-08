@@ -187,6 +187,10 @@ public class PlayerController2 : MonoBehaviour
             ReturnControlForMovement();
             LimitVelocity();
         }
+        else
+        {
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+        }
     }
 
     void GODmode()

@@ -14,7 +14,7 @@ public class PauseManager : MonoBehaviour
     private PlayerAttack plAttack;
     [SerializeField] EventSystemManager eventSystem;
 
-    public GameObject pausePanelBegins;
+    [SerializeField] GameObject dadCanvas;
 
     public bool isPaused = false;
     public bool isOnInventory = false;
@@ -52,15 +52,7 @@ public class PauseManager : MonoBehaviour
     private void Awake()
     {
         inputs = new PlayerInputs();
-        Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        if(canvas != null)
-        {
-            canvas.enabled = true;
-        }
-        if(pausePanelBegins != null)
-        {
-            pausePanelBegins.SetActive(true);
-        }
+        dadCanvas.SetActive(true);
         isPaused = false;
 
 
@@ -235,10 +227,10 @@ public class PauseManager : MonoBehaviour
 
 	public void SetFullScreen(bool isFullScreen)
 	{
-		Screen.fullScreen = isFullScreen;
+        Screen.fullScreen = isFullScreen;
         fullScreenToggle.isOn = isFullScreen;
-        PlayerPrefs.SetInt( "isfullScreen", boolToInt(fullScreenToggle.isOn));
-	}
+        PlayerPrefs.SetInt("isFullScreen", boolToInt(fullScreenToggle.isOn));
+    }
 
     public void SetResolution(Dropdown dropdown)
     {

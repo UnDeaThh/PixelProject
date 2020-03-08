@@ -346,6 +346,77 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""LogoControls"",
+            ""id"": ""4cacb013-b7f6-48a7-b688-1bc7f80a447e"",
+            ""actions"": [
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f479f71-0930-41a6-b5ac-3faf13f698e1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""eb969e00-4c43-43f7-9dec-42249322bdc0"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5810a2fb-9553-44c6-b881-d6031d651106"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81bbe49f-1d96-4fa3-8840-c2831c6e3c13"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f45aea3-5712-4d08-9c93-bac1a4abd50f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66ad2284-c6a9-4589-8100-e8d34884c802"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -372,6 +443,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_Controls_AttackDirection = m_Controls.FindAction("AttackDirection", throwIfNotFound: true);
         m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
         m_Controls_Parry = m_Controls.FindAction("Parry", throwIfNotFound: true);
+        // LogoControls
+        m_LogoControls = asset.FindActionMap("LogoControls", throwIfNotFound: true);
+        m_LogoControls_Exit = m_LogoControls.FindAction("Exit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -514,6 +588,39 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         }
     }
     public ControlsActions @Controls => new ControlsActions(this);
+
+    // LogoControls
+    private readonly InputActionMap m_LogoControls;
+    private ILogoControlsActions m_LogoControlsActionsCallbackInterface;
+    private readonly InputAction m_LogoControls_Exit;
+    public struct LogoControlsActions
+    {
+        private @PlayerInputs m_Wrapper;
+        public LogoControlsActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Exit => m_Wrapper.m_LogoControls_Exit;
+        public InputActionMap Get() { return m_Wrapper.m_LogoControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(LogoControlsActions set) { return set.Get(); }
+        public void SetCallbacks(ILogoControlsActions instance)
+        {
+            if (m_Wrapper.m_LogoControlsActionsCallbackInterface != null)
+            {
+                @Exit.started -= m_Wrapper.m_LogoControlsActionsCallbackInterface.OnExit;
+                @Exit.performed -= m_Wrapper.m_LogoControlsActionsCallbackInterface.OnExit;
+                @Exit.canceled -= m_Wrapper.m_LogoControlsActionsCallbackInterface.OnExit;
+            }
+            m_Wrapper.m_LogoControlsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
+            }
+        }
+    }
+    public LogoControlsActions @LogoControls => new LogoControlsActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -543,5 +650,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnAttackDirection(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnParry(InputAction.CallbackContext context);
+    }
+    public interface ILogoControlsActions
+    {
+        void OnExit(InputAction.CallbackContext context);
     }
 }

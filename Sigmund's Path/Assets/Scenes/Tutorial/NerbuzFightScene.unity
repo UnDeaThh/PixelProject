@@ -1290,6 +1290,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 182569db9a00abe4db14b9ad7f8b9566, type: 3}
+--- !u!1 &737678987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6412116304497087592, guid: 182569db9a00abe4db14b9ad7f8b9566,
+    type: 3}
+  m_PrefabInstance: {fileID: 737678986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &767728693 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6412116303630638240, guid: 182569db9a00abe4db14b9ad7f8b9566,
@@ -2572,6 +2578,11 @@ PrefabInstance:
       propertyPath: exitGameQuest
       value: 
       objectReference: {fileID: 1692325510}
+    - target: {fileID: 2620612994748527383, guid: 742491f0275099f4db298025a4a8b27a,
+        type: 3}
+      propertyPath: dadCanvas
+      value: 
+      objectReference: {fileID: 737678987}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 742491f0275099f4db298025a4a8b27a, type: 3}
 --- !u!114 &1571641337 stripped

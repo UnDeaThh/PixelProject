@@ -10,9 +10,12 @@ public enum ItemType
 }
 public class Inventory2 : MonoBehaviour
 {
+
     public static Inventory2 inventory;
     private PlayerController2 plController2;
 	private PauseManager pauseManager;
+
+    
 
     public int actualMoney;
     public int nBombs;

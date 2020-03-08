@@ -5,14 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class LogoManager : MonoBehaviour
 {
+    PlayerInputs inputs;
+
+    private void OnEnable()
+    {
+        inputs.LogoControls.Enable();
+    }
+    private void OnDisable()
+    {
+        inputs.LogoControls.Disable();
+
+    }
     private void Awake()
     {
+        inputs = new PlayerInputs();
         StartCoroutine(GoMainMenu());
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
+        if(inputs.LogoControls.Exit.triggered)
         {
             SceneManager.LoadScene("MainMenuScene");
         }

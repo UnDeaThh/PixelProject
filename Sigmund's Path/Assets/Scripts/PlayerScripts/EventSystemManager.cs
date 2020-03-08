@@ -27,10 +27,9 @@ public class EventSystemManager : MonoBehaviour
         }
     }
 
-    IEnumerator HighlightedFirstButton(int selected)
+    void HighlightedFirstButton(int selected)
     {
         eventSystem.SetSelectedGameObject(null);
-        yield return null;
         eventSystem.SetSelectedGameObject(firstSelected[selected]);
         ffPause = true; 
     }
@@ -41,18 +40,15 @@ public class EventSystemManager : MonoBehaviour
     {
         if(pauseManager.isOnInventory && !ffPause)
         {
-            StartCoroutine(HighlightedFirstButton(0));
-            return;
+            HighlightedFirstButton(0);
         }
         if(pauseManager.isOnMap && !ffPause)
         {
-            StartCoroutine(HighlightedFirstButton(1));
-            return;
+            HighlightedFirstButton(1);
         }
         if(pauseManager.isOnSettings && !ffPause)
         {
-            StartCoroutine(HighlightedFirstButton(2));
-            return;
+            HighlightedFirstButton(2);
         }
     }
 }

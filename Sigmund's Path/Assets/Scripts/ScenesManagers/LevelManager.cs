@@ -133,17 +133,11 @@ public class LevelManager : MonoBehaviour
             ScenesManager.scenesManager.comeFromDead = true;
             if (player.pasSceneDead)
             {
-                StartCoroutine(ReloadLevel());
+                player.pasSceneDead = false;
+                SceneManager.LoadScene(levelScene);
             }
         }
     }
-    IEnumerator ReloadLevel()
-    {
-        yield return null;
-        player.pasSceneDead = false;
-        SceneManager.LoadScene(levelScene);
-    }
-
     void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayerData();
