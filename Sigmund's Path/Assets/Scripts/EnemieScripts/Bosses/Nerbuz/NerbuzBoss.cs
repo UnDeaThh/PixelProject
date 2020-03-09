@@ -53,6 +53,10 @@ public class NerbuzBoss : MonoBehaviour
     private bool finishSpawnH3 = false;
 
 
+    [Header("Hechizo4")]
+    [SerializeField] float positionH4;
+    private Vector3 finalPosH4;
+
     [Header("Transitions")]
     public int transitions = 1;
     [Header("Transition 1")]
@@ -100,6 +104,8 @@ public class NerbuzBoss : MonoBehaviour
         colSize.x = colTrans.localScale.x * colH1Confiner.bounds.size.x;
         colSize.y = colTrans.localScale.y * colH1Confiner.bounds.size.y;
         spellH3Prefab.SetActive(false);
+
+        finalPosH4 = new Vector3(colH1Confiner.bounds.min.x + positionH4, colH1Confiner.bounds.size.y/2, 0f);
     }
 
     private void Update()
@@ -160,7 +166,12 @@ public class NerbuzBoss : MonoBehaviour
 
     void UpdateEnter()
     {
-        StartCoroutine(IsOnEnterState());
+        bool ffEnter = false;
+        if (!ffEnter)
+        {
+            StartCoroutine(IsOnEnterState());
+            ffEnter = true;
+        }
     }
     #region ENTER and TRANSITION
     IEnumerator IsOnEnterState()
@@ -168,6 +179,7 @@ public class NerbuzBoss : MonoBehaviour
         //Reproducir animacion de algo
         yield return new WaitForSeconds(2);
         actualState = State.H1;
+        
     }
 
     void UpdateTransitions()
@@ -227,8 +239,7 @@ public class NerbuzBoss : MonoBehaviour
                         cntTiredTime = tiredTime;
                         cntAttacksH2 = 0;
                         cntSeriesAttackH2 = 0;
-                        transitions = 3;
-                        actualState = State.Transition;
+                        transitions = 3; //hemos acabado h2 y empezamos h3
                     }
                 }
                 break;
@@ -248,6 +259,16 @@ public class NerbuzBoss : MonoBehaviour
                     {
                         actualState = State.H3;
                     }
+                }
+                break;
+            case 4:
+                if(transform.position != finalPosH4)
+                {
+                    transform.position = Vector2.MoveTowards(transform.position, finalPosH4, 15 * Time.deltaTime);
+                }
+                else
+                {
+                    
                 }
                 break;
         }

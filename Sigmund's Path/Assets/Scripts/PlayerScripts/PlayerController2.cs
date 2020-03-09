@@ -123,7 +123,6 @@ public class PlayerController2 : MonoBehaviour
     {
         inputs = new PlayerInputs();
         InputPlayer();
-
         rb = GetComponent<Rigidbody2D>();
         pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         inventory = GetComponentInChildren<Inventory2>();

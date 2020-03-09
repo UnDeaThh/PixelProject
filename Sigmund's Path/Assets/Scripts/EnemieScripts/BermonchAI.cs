@@ -4,35 +4,41 @@ using UnityEngine;
 
 public class BermonchAI : BaseEnemy
 {
+    //MOVEMENT FOR PATROL
+    private bool groundInFront;
+    private bool wallInFront;
+    private int facingDir = 1;
+    [SerializeField] LayerMask floorLayer;
+    [SerializeField] Transform edgeLocatorPos;
+    [SerializeField] float toEdgeDistance;
+    [SerializeField] float maxWalkSpeed = 30f;
+
     private bool playerFound = false;
     //Se construye a traves del Script que controla el evento
     public bool bermBuild = false;
-    private bool firstFrame = true;
     private bool isAttacking = false;
 
     [Range(1.0f, 10.0f)]
-    public float highRangeDistance = 3f;
+    [SerializeField] float highRangeDistance = 3f;
     [Range(10.0f, 25f)]
-    public float maxRangeDistance = 25f;
-    public float timeBtwThrow = 4f;
-    private float currentTimeBtwThrow = 4f;
-    public float timeBtwPunch = 3f;
-    [SerializeField]
-    private float currentTimeBtwPunch = 0;
+    [SerializeField] float maxRangeDistance = 25f;
+    [SerializeField] float timeBtwAttack;
+    private float cntTimeBtwAttack;
 
     public Vector2 attackRange;
-    private RaycastHit2D leftRay;
-    private RaycastHit2D rightRay;
-
-
     public GameObject throwRockPrefab;
     public Collider2D playerFoundCollider;
 
+    private Transform targetPlayer;
+    private float distance;
+
+    private Rigidbody2D rb;
     private void Awake() {
-        
+        rb = GetComponent<Rigidbody2D>();
         //El Collider de Collision del bermounch no interacciona con el del player
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), 
         GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider2D>());
+        targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Start()
@@ -42,53 +48,82 @@ public class BermonchAI : BaseEnemy
     }
 
     void Update(){
-        rightRay = Physics2D.Raycast(transform.position, Vector2.right, attackRange.x/2, whatIsDetected);
-        leftRay = Physics2D.Raycast(transform.position, Vector2.left, attackRange.x/2, whatIsDetected);
-
-        if (bermBuild){
+        if (bermBuild)
+        {
+            distance = Vector2.Distance(transform.position, targetPlayer.position);
             //Desactivar el Collider que detecta al player para que no moleste mas adelante
-            if(playerFoundCollider != null){
+            if (playerFoundCollider != null){
                 playerFoundCollider.enabled = false;
             }
-            //Poner tiempos el primer frame despues de construirse
-            if (firstFrame)
+
+            if(distance <= maxRangeDistance) //El player esta a una distancia atacable
             {
-                currentTimeBtwPunch = timeBtwPunch;
-                firstFrame = false;
+                Attack();
             }
-            Attack();
+            else
+            {
+                CheckEnvironment();
+            }
             Dead();
         }
 
         UpdateAnimations();
     }
 
+    private void FixedUpdate()
+    {
+        if (bermBuild)
+        {
+            if(distance > maxRangeDistance)
+            {
+                if (groundInFront && !wallInFront)
+                {
+                    rb.AddForce(new Vector2(facingDir * movSpeed * Time.fixedDeltaTime, 0f), ForceMode2D.Force);
+                }
+                else
+                {
+                    Flip();
+                }
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+            }
+
+            if(rb.velocity.x >= maxWalkSpeed)
+            {
+                rb.velocity = new Vector2(maxWalkSpeed, rb.velocity.y);
+            }
+        }
+    }
+
+    void CheckEnvironment()
+    {
+        groundInFront = Physics2D.Raycast(edgeLocatorPos.position, Vector2.down, toEdgeDistance, floorLayer);
+        wallInFront = Physics2D.Raycast(edgeLocatorPos.position, transform.right, toEdgeDistance, floorLayer);
+    }
+
+    void Flip()
+    {
+        transform.Rotate(0f, 180f, 0f);
+        facingDir *= -1;
+    }
     void Attack(){
         //Calculamos a que distancia se encuentra el player
-        float distance = Vector2.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position);
 
         if(distance >= 0f && distance < highRangeDistance){
             Collider2D col = Physics2D.OverlapBox(transform.position, attackRange, 0, whatIsDetected);
             if(col != null)
             {
-                if(currentTimeBtwPunch <= 0f)
+                if(cntTimeBtwAttack <= 0f)
                 {
                     isAttacking = true;
-                    if(rightRay)
-                    {
-                        Debug.Log("isRight");
-                        col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
-                    }
-                    else if (leftRay)
-                    {
-                        Debug.Log("isLeft");
-                        col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
-                    }
-                    currentTimeBtwPunch = timeBtwPunch;
+                    col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+                    cntTimeBtwAttack = timeBtwAttack;
                 }
-                else if(currentTimeBtwPunch > 0f)
+                else if(cntTimeBtwAttack > 0f)
                 {
-                    currentTimeBtwPunch -= Time.deltaTime;
+                    cntTimeBtwAttack -= Time.deltaTime;
                     isAttacking = false;
                 }
             }
@@ -97,12 +132,12 @@ public class BermonchAI : BaseEnemy
         #region HighAttackRange
         if(distance >= highRangeDistance && distance <= maxRangeDistance){
             if(throwRockPrefab != null){
-                if(currentTimeBtwThrow <= 0f){
+                if(cntTimeBtwAttack <= 0f){
                     Instantiate(throwRockPrefab, transform.position, Quaternion.identity);
-                    currentTimeBtwThrow = timeBtwThrow;
+                    cntTimeBtwAttack = timeBtwAttack;
                 }
                 else{
-                    currentTimeBtwThrow -= Time.deltaTime;
+                    cntTimeBtwAttack -= Time.deltaTime;
                 }
             }
         }
@@ -120,6 +155,7 @@ public class BermonchAI : BaseEnemy
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player")){
             playerFound = true;
+            cntTimeBtwAttack = timeBtwAttack;
         }
     }
 
@@ -134,16 +170,20 @@ public class BermonchAI : BaseEnemy
 
     private void OnDrawGizmosSelected()
     {
-        //if (bermBuild)
-        //{
-            Gizmos.DrawWireCube(transform.position, attackRange);
-            Gizmos.DrawWireSphere(transform.position, highRangeDistance);
-            Gizmos.DrawWireSphere(transform.position, maxRangeDistance);
-            //RightRaycast
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + (attackRange.x/2), transform.position.y, transform.position.z));
-            //LeftRayCast
-            Gizmos.DrawLine(transform.position, new Vector3(transform.position.x - (attackRange.x/2), transform.position.y, transform.position.z));
-        //}
+
+        Gizmos.DrawWireCube(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, highRangeDistance);
+        Gizmos.DrawWireSphere(transform.position, maxRangeDistance);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(edgeLocatorPos.position, new Vector2(edgeLocatorPos.position.x, edgeLocatorPos.position.y - toEdgeDistance));
+        if (facingDir == 1)
+        {
+            Gizmos.DrawLine(edgeLocatorPos.position, new Vector3(edgeLocatorPos.position.x + toEdgeDistance, edgeLocatorPos.position.y, transform.position.z));
+        }
+        else
+        {
+            Gizmos.DrawLine(edgeLocatorPos.position, new Vector3(edgeLocatorPos.position.x - toEdgeDistance, edgeLocatorPos.position.y, transform.position.z));
+        }
+
     }
 }

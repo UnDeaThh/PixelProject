@@ -10,6 +10,7 @@ public class NerbuzDoorTrigger : MonoBehaviour
     public GameObject lockedDoorCollider;
     private NerbuzBoss nerbuzBrain;
     private bool ffPlayerEnter;
+    [SerializeField] State enterState;
     void Awake()
     {
         nerbuzBrain = GameObject.FindGameObjectWithTag("Nerbuz").GetComponent<NerbuzBoss>();
@@ -26,7 +27,7 @@ public class NerbuzDoorTrigger : MonoBehaviour
         {
             lockedDoorCollider.SetActive(true);
             ffPlayerEnter = true;
-            nerbuzBrain.actualState = State.Enter;
+            nerbuzBrain.actualState = enterState;
         }
     }
 
