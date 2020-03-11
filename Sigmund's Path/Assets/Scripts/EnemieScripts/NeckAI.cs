@@ -5,17 +5,30 @@ using UnityEngine;
 public class NeckAI : BaseEnemy
 {
     private int facingDir = 1;
-    [SerializeField] float maxWalkSpeed;
     [SerializeField] float environmentCheckDistance;
+    [SerializeField] float underWaterDistance;
+    [SerializeField] float leaveWaterSpeed;
+    [SerializeField] float timeBtwAttacks;
+    [SerializeField] float detectionDistance;
+    private float cntTimeBtwAttacks;
+
     [SerializeField] Vector2 attackRange;
+    [SerializeField] Vector2 firstAttackRange;
     [SerializeField] Transform firstAttackPos;
     [SerializeField] Transform environmentLocatorPos;
+    [SerializeField] Transform attackPos;
+    private Transform firstSon;
+    [SerializeField] Collider2D colTrigger;
+    [SerializeField] LayerMask floorMask;
 
-    private bool isSunken = true;
     public bool firstAttack = false;
+    private bool firstAttackFinished;
     private bool ffAtack = false;
     private bool groundInFront;
     private bool wallInFront;
+    private bool playerInFront = false;
+    public bool isAttacking;
+    public bool makeAnAttack;
 
     private Rigidbody2D rb;
     private void Start()
@@ -23,39 +36,30 @@ public class NeckAI : BaseEnemy
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         mat = GetComponentInChildren<SpriteRenderer>().material;
-        
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        sprite.enabled = false;
+        firstSon = transform.GetChild(0).gameObject.transform;
+        firstSon.position = new Vector2(transform.position.x, transform.position.y - underWaterDistance);
+        Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>());
     }
 
     private void Update()
     {
         FirstAttack();
         CheckEnvironment();
+        CanAttack();
+        Attack();
         Dead();
     }
     private void FixedUpdate()
     {
-        if (!isSunken)
-        {
-            if(groundInFront && !wallInFront)
-            {
-                rb.AddForce(new Vector2(facingDir * movSpeed * Time.fixedDeltaTime, 0f), ForceMode2D.Force);
-            }
-            else
-            {
-                Flip();
-            }
-
-            if (rb.velocity.x >= maxWalkSpeed)
-            {
-                rb.velocity = new Vector2(maxWalkSpeed, rb.velocity.y);
-            }
-        }
+        ApplyMovement();
     }
     void FirstAttack()
     {
         if (firstAttack && !ffAtack)
         {
-            Collider2D col = Physics2D.OverlapBox(firstAttackPos.position, attackRange, 0, whatIsDetected);
+            Collider2D col = Physics2D.OverlapBox(firstAttackPos.position, firstAttackRange, 0, whatIsDetected);
             if (col != null)
             {
                 if (col.CompareTag("Player"))
@@ -64,14 +68,34 @@ public class NeckAI : BaseEnemy
                 }
             }
             ffAtack = true;
+            firstAttackFinished = true;
         }
     }
     void CheckEnvironment()
     {
-        if (!isSunken)
+        if (firstAttackFinished)
         {
-            groundInFront = Physics2D.Raycast(environmentLocatorPos.position, Vector2.down, environmentCheckDistance, whatIsDetected);
-            wallInFront = Physics2D.Raycast(environmentLocatorPos.position, transform.right, environmentCheckDistance, whatIsDetected);
+            groundInFront = Physics2D.Raycast(environmentLocatorPos.position, Vector2.down, environmentCheckDistance, floorMask);
+            wallInFront = Physics2D.Raycast(environmentLocatorPos.position, transform.right, environmentCheckDistance, floorMask);
+            playerInFront = Physics2D.Raycast(new Vector2(transform.position.x, attackPos.position.y), transform.right, detectionDistance, whatIsDetected);
+        }
+    }
+
+    void ApplyMovement()
+    {
+        if (firstAttackFinished)
+        {
+            if (!playerInFront)
+            {
+                if (groundInFront && !wallInFront)
+                {
+                    rb.velocity = new Vector2(facingDir * movSpeed * Time.deltaTime, rb.velocity.y);
+                }
+                else
+                {
+                    Flip();
+                }
+            }
         }
     }
     void Flip()
@@ -80,12 +104,43 @@ public class NeckAI : BaseEnemy
         facingDir *= -1;
     }
 
+    void CanAttack()
+    {
+        if (playerInFront)
+        {
+            if(cntTimeBtwAttacks > 0f)
+            {
+                cntTimeBtwAttacks -= Time.deltaTime;
+            }
+            else
+            {
+                isAttacking = true;
+                cntTimeBtwAttacks = timeBtwAttacks;
+            }
+        }
+    }
+    void Attack()
+    {
+        if (makeAnAttack)
+        {
+            Collider2D col = Physics2D.OverlapBox(attackPos.position, attackRange, 0, whatIsDetected);
+            if(col != null)
+            {
+                col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
+            }
+            Destroy(col);
+            makeAnAttack = false;
+        }
+    }
+
+    //El player pasa por encima del agua
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            isSunken = false;
-            //anim.SetTrigger("firstAttack");
+            sprite.enabled = true;
+            anim.SetTrigger("playerAbove");
+            colTrigger.enabled = false;
         }
     }
 
@@ -96,7 +151,7 @@ public class NeckAI : BaseEnemy
 
     public override void TakeDamage(int damage)
     {
-        if (!isSunken)
+        if (firstAttackFinished)
         {
             base.TakeDamage(damage);
         }
@@ -105,15 +160,24 @@ public class NeckAI : BaseEnemy
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(firstAttackPos.position, attackRange);
-        Gizmos.color = Color.green;
+        if (!firstAttackFinished)
+        {
+            Gizmos.DrawWireCube(firstAttackPos.position, firstAttackRange);
+        }
+
+        Gizmos.DrawWireCube(attackPos.position, attackRange);
+        Gizmos.color = Color.black;
         if (facingDir == 1)
         {
-            Gizmos.DrawLine(firstAttackPos.position, new Vector3(firstAttackPos.position.x + environmentCheckDistance, firstAttackPos.position.y, transform.position.z));
+            Gizmos.DrawLine(environmentLocatorPos.position, new Vector3(environmentLocatorPos.position.x + environmentCheckDistance, environmentLocatorPos.position.y, transform.position.z));
+            Gizmos.DrawLine(new Vector2(transform.position.x, attackPos.position.y), new Vector2(transform.position.x + detectionDistance, attackPos.position.y ));
         }
         else
         {
-            Gizmos.DrawLine(firstAttackPos.position, new Vector3(firstAttackPos.position.x - environmentCheckDistance, firstAttackPos.position.y, transform.position.z));
+            Gizmos.DrawLine(environmentLocatorPos.position, new Vector3(environmentLocatorPos.position.x - environmentCheckDistance, environmentLocatorPos.position.y, transform.position.z));
+            Gizmos.DrawLine(new Vector2(transform.position.x, attackPos.position.y), new Vector2(transform.position.x - detectionDistance, attackPos.position.y ));
         }
+        Gizmos.DrawLine(environmentLocatorPos.position, new Vector3(environmentLocatorPos.position.x, environmentLocatorPos.position.y - environmentCheckDistance, transform.position.z));
+        
     }
 }

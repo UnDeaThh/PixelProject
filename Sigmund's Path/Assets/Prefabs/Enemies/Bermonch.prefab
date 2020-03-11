@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &216603942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 216603943}
+  m_Layer: 9
+  m_Name: EdgeLocatorPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &216603943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216603942}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.56, y: -0.458, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8036452561561111355}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6915110713549951512
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +189,7 @@ Transform:
   m_Children:
   - {fileID: 8036452562875173306}
   - {fileID: 5629319218430148274}
+  - {fileID: 216603943}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -174,7 +205,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -219,7 +250,8 @@ MonoBehaviour:
   oneCallDead: 0
   sprite: {fileID: 8036452562875173308}
   deadSound: {fileID: 1232099114676010996}
-  movSpeed: 600
+  mat: {fileID: 0}
+  movSpeed: 1000
   timeStuned: 1
   currentTimeStuned: 0
   detectionRange: 0
@@ -230,12 +262,16 @@ MonoBehaviour:
     type: 3}
   enemyType: 1
   anim: {fileID: 0}
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  edgeLocatorPos: {fileID: 216603943}
+  toEdgeDistance: 0.5
+  maxWalkSpeed: 30
   bermBuild: 0
   highRangeDistance: 2.16
   maxRangeDistance: 13.03
-  timeBtwThrow: 4
-  timeBtwPunch: 3
-  currentTimeBtwPunch: 0
+  timeBtwAttack: 2
   attackRange: {x: 5.83, y: 1.81}
   throwRockPrefab: {fileID: 2652755048085876902, guid: 326d177b977fc2a46bcc0d003bebf021,
     type: 3}
