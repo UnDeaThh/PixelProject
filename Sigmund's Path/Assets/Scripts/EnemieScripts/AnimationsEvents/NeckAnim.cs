@@ -25,4 +25,10 @@ public class NeckAnim : MonoBehaviour
     {
         neckBrain.makeAnAttack = true;
     }
+
+    void CallDead()
+    {
+        neckBrain.callDead = true;
+        neckBrain.InstantiateSoul(neckBrain.enemyType);
+    }
 }
