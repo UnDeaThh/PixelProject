@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController2 : MonoBehaviour
 {
-    PlayerInputs inputs;
+    public PlayerInputs inputs;
 
     private PauseManager pauseManager;
     private Inventory2 inventory;

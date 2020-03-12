@@ -29,88 +29,95 @@ public class LevelManager : MonoBehaviour
 
         //Carga la player Info
         LoadPlayer();
+
         if (ScenesManager.scenesManager.comeFromDead)
         {
             player.health = player.maxHealth;
             ScenesManager.scenesManager.comeFromDead = false;
         }
-
         //POSICIONA AL PLAYER
-        if (ScenesManager.scenesManager.apearsOnFountain)
+        if (ScenesManager.scenesManager.cutSceneDone)
         {
-            if (fountainPos)
+
+            if (ScenesManager.scenesManager.apearsOnFountain)
             {
-                player.gameObject.transform.position = fountainPos.position;
-                ScenesManager.scenesManager.apearsOnFountain = false;
+                if (fountainPos)
+                {
+                    player.gameObject.transform.position = fountainPos.position;
+                    ScenesManager.scenesManager.apearsOnFountain = false;
+                }
+            }
+            else
+            {
+                if(apearsPos.Length > 0)
+                {
+                    if(levelScene == 3) //ESTANDO EN T1
+                    {
+                        if (player.lastScene == 3 || player.lastScene == 0) //vienes de la propia T1
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                        }
+                        else if (player.lastScene == 4) //vienes de T2
+                        {
+                            player.facingDir = -1;
+                            player.gameObject.transform.position = apearsPos[1].position;
+                        }
+                    }
+                    else if(levelScene == 4) //ESTANDO EN T2
+                    {
+                        if(player.lastScene == 3)//vienes de T1
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                        }
+                        else if(player.lastScene == 4)
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                        }
+                        else if(player.lastScene == 5)//vienes de T3
+                        {
+                            player.gameObject.transform.position = apearsPos[1].position;
+                        }
+                    }
+                    else if(levelScene == 5) //ESTANDO EN T3
+                    {
+                        if(player.lastScene == 4) //vienes de T2
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                        }
+                        else if(player.lastScene == 5)
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                        }
+                        else if(player.lastScene == 6) //vienes de T4
+                        {
+                            player.gameObject.transform.position = apearsPos[1].position;
+                        }
+                    }
+                    else if(levelScene == 6)
+                    {
+                        if(player.lastScene == 5) // Vienes de T3
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                        }
+                        else if(player.lastScene == 6) 
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                        }
+                        else if(player.lastScene == 7) // Vienes de S1
+                        {
+                            player.gameObject.transform.position = apearsPos[1].position;
+                        }
+                    }
+                    if(SceneManager.GetActiveScene().name == "NerbuzFightScene")
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                    }
+                }
             }
         }
-
         else
         {
-            if(apearsPos.Length > 0)
-            {
-                if(levelScene == 3) //ESTANDO EN T1
-                {
-                    if (player.lastScene == 3 || player.lastScene == 0) //vienes de la propia T1
-                    {
-                        player.gameObject.transform.position = apearsPos[0].position;
-                    }
-                    else if (player.lastScene == 4) //vienes de T2
-                    {
-                        player.facingDir = -1;
-                        player.gameObject.transform.position = apearsPos[1].position;
-                    }
-                }
-                else if(levelScene == 4) //ESTANDO EN T2
-                {
-                    if(player.lastScene == 3)//vienes de T1
-                    {
-                        player.gameObject.transform.position = apearsPos[0].position;
-                    }
-                    else if(player.lastScene == 4)
-                    {
-                        player.gameObject.transform.position = apearsPos[0].position;
-                    }
-                    else if(player.lastScene == 5)//vienes de T3
-                    {
-                        player.gameObject.transform.position = apearsPos[1].position;
-                    }
-                }
-                else if(levelScene == 5) //ESTANDO EN T3
-                {
-                    if(player.lastScene == 4) //vienes de T2
-                    {
-                        player.gameObject.transform.position = apearsPos[0].position;
-                    }
-                    else if(player.lastScene == 5)
-                    {
-                        player.gameObject.transform.position = apearsPos[0].position;
-                    }
-                    else if(player.lastScene == 6) //vienes de T4
-                    {
-                        player.gameObject.transform.position = apearsPos[1].position;
-                    }
-                }
-                else if(levelScene == 6)
-                {
-                    if(player.lastScene == 5) // Vienes de T3
-                    {
-                        player.gameObject.transform.position = apearsPos[0].position;
-                    }
-                    else if(player.lastScene == 6) 
-                    {
-                        player.gameObject.transform.position = apearsPos[0].position;
-                    }
-                    else if(player.lastScene == 7) // Vienes de S1
-                    {
-                        player.gameObject.transform.position = apearsPos[1].position;
-                    }
-                }
-                if(SceneManager.GetActiveScene().name == "NerbuzFightScene")
-                {
-                    player.gameObject.transform.position = apearsPos[0].position;
-                }
-            }
+            Debug.Log("Primera vez que entra al juego");
         }
         //CARGA ESTADO DE PALANCAS
         if(levelPalancas.Length > 0)

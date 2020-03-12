@@ -69,9 +69,6 @@ public class PauseManager : MonoBehaviour
         sliderVolumen.value = PlayerPrefs.GetFloat("volume", 0);
         qualityDropdown.value = PlayerPrefs.GetInt("quality", 3);
         fullScreenToggle.isOn = intToBool(PlayerPrefs.GetInt("isFullScreen", 1));
-
-
-        Debug.Log(Screen.currentResolution);
     }
 
     private void Start()
@@ -237,7 +234,6 @@ public class PauseManager : MonoBehaviour
         Resolution resolution = resolutions[dropdown.value];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         PlayerPrefs.SetInt("resolution", resolutionDropdown.value);
-        Debug.Log(Screen.currentResolution);
 
     }
 

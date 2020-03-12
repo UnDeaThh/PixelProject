@@ -15,6 +15,7 @@ public class ScenesManager : MonoBehaviour
     public bool comeFromDead = false;
     public bool apearsOnFountain = false;
     public bool[] palancasState;
+    public bool cutSceneDone = false;
 
     private void Awake()
     {
