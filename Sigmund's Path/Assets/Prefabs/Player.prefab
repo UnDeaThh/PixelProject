@@ -993,9 +993,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  fullHeartUI: {fileID: -6463642310866369282, guid: d850a2f69be400e4797c7ac54e5806e8,
+  fullHeartUI: {fileID: -3893394114679921489, guid: 65a38cc98b3cce1499626ac1cda7a972,
     type: 3}
-  emptyHeartUI: {fileID: 2004806588591851539, guid: d850a2f69be400e4797c7ac54e5806e8,
+  emptyHeartUI: {fileID: -7485092496771400987, guid: 65a38cc98b3cce1499626ac1cda7a972,
     type: 3}
   rb: {fileID: 0}
   sprite: {fileID: 6586553254031914776}
@@ -1026,6 +1026,7 @@ MonoBehaviour:
   damage: 1
   nClicks: 0
   attackRangeFront: {x: 2.54, y: 2.53}
+  attackDirection: {x: 0, y: 0}
   attackUpDistance: 1.2
   attackRangeUp: 1.22
   gndAttackingUp: 0
@@ -1161,7 +1162,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
