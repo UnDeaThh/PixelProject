@@ -38,6 +38,7 @@ public static class SaveSystem
         }
     }
 
+    //DATOS DEL SCENEMANAGER
     public static void SaveSceneData(ScenesManager SM)
     {
         BinaryFormatter formatter = new BinaryFormatter();

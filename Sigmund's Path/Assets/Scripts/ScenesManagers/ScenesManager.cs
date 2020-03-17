@@ -55,9 +55,12 @@ public class ScenesManager : MonoBehaviour
         {
             toLoadScene = data.toLoadScene;
             cutSceneDone = data.cutSceneDone;
-            for (int i = 0; i < palancasState.Length; i++)
+            if(palancasState.Length > 0)
             {
-                palancasState[i] = data.palancasState[i];
+                for (int i = 0; i < palancasState.Length; i++)
+                {
+                    palancasState[i] = data.palancasState[i];
+                }
             }
         }
     }
