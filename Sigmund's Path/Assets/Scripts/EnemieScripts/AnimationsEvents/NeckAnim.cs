@@ -6,6 +6,7 @@ public class NeckAnim : MonoBehaviour
 {
     [SerializeField] NeckAI neckBrain;
     private Animator anim;
+    private int nAttacks = 0;
 
     private void Start()
     {
@@ -15,6 +16,7 @@ public class NeckAnim : MonoBehaviour
     private void Update()
     {
         anim.SetBool("isAttacking", neckBrain.isAttacking);
+        anim.SetFloat("movSpeed", Mathf.Abs(neckBrain.rb.velocity.x));
     }
     void FirstAttack()
     {
@@ -24,6 +26,12 @@ public class NeckAnim : MonoBehaviour
     void Attack()
     {
         neckBrain.makeAnAttack = true;
+        nAttacks++;
+        if(nAttacks >= 2)
+        {
+            neckBrain.isAttacking = false;
+            nAttacks = 0;
+        }
     }
 
     void CallDead()

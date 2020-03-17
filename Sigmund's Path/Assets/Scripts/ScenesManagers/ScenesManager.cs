@@ -54,6 +54,7 @@ public class ScenesManager : MonoBehaviour
         if(data != null)
         {
             toLoadScene = data.toLoadScene;
+            cutSceneDone = data.cutSceneDone;
             for (int i = 0; i < palancasState.Length; i++)
             {
                 palancasState[i] = data.palancasState[i];

@@ -6,10 +6,10 @@ public class NeckAI : BaseEnemy
 {
     private int facingDir = 1;
     [SerializeField] float environmentCheckDistance;
-    [SerializeField] float underWaterDistance;
-    [SerializeField] float leaveWaterSpeed;
     [SerializeField] float timeBtwAttacks;
     [SerializeField] float detectionDistance;
+    [SerializeField] float playerLosedTime = 0.3f;
+    private float cntLosedTime;
     private float cntTimeBtwAttacks;
 
     [SerializeField] Vector2 attackRange;
@@ -17,7 +17,6 @@ public class NeckAI : BaseEnemy
     [SerializeField] Transform firstAttackPos;
     [SerializeField] Transform environmentLocatorPos;
     [SerializeField] Transform attackPos;
-    private Transform firstSon;
     [SerializeField] Collider2D colTrigger;
     [SerializeField] LayerMask floorMask;
 
@@ -29,8 +28,11 @@ public class NeckAI : BaseEnemy
     private bool playerInFront = false;
     public bool isAttacking;
     public bool makeAnAttack;
+    private bool canAttack;
+    private bool ffFound;
+    private bool canWalk;
 
-    private Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -38,8 +40,6 @@ public class NeckAI : BaseEnemy
         mat = GetComponentInChildren<SpriteRenderer>().material;
         sprite = GetComponentInChildren<SpriteRenderer>();
         sprite.enabled = false;
-        firstSon = transform.GetChild(0).gameObject.transform;
-        firstSon.position = new Vector2(transform.position.x, transform.position.y - underWaterDistance);
         Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>());
     }
 
@@ -53,7 +53,10 @@ public class NeckAI : BaseEnemy
     }
     private void FixedUpdate()
     {
-        ApplyMovement();
+        if(nLifes > 0)
+        {
+            ApplyMovement();
+        }
     }
     void FirstAttack()
     {
@@ -78,6 +81,26 @@ public class NeckAI : BaseEnemy
             groundInFront = Physics2D.Raycast(environmentLocatorPos.position, Vector2.down, environmentCheckDistance, floorMask);
             wallInFront = Physics2D.Raycast(environmentLocatorPos.position, transform.right, environmentCheckDistance, floorMask);
             playerInFront = Physics2D.Raycast(new Vector2(transform.position.x, attackPos.position.y), transform.right, detectionDistance, whatIsDetected);
+            //Checkear si puede caminar
+            if (playerInFront)
+            {
+                canWalk = false;
+                ffFound = true;
+            }
+
+            if (!playerInFront && ffFound)
+            {
+                if(cntLosedTime > 0)
+                {
+                    cntLosedTime -= Time.deltaTime;
+                }
+                else
+                {
+                    cntLosedTime = playerLosedTime;
+                    canWalk = true;
+                    ffFound = false;
+                }
+            }
         }
     }
 
@@ -85,7 +108,7 @@ public class NeckAI : BaseEnemy
     {
         if (firstAttackFinished)
         {
-            if (!playerInFront)
+            if (canWalk)
             {
                 if (groundInFront && !wallInFront)
                 {
@@ -95,6 +118,7 @@ public class NeckAI : BaseEnemy
                 {
                     Flip();
                 }
+
             }
         }
     }
@@ -106,7 +130,7 @@ public class NeckAI : BaseEnemy
 
     void CanAttack()
     {
-        if (playerInFront)
+        if (playerInFront && !isAttacking)
         {
             if(cntTimeBtwAttacks > 0f)
             {
@@ -123,12 +147,12 @@ public class NeckAI : BaseEnemy
     {
         if (makeAnAttack)
         {
+            Debug.Log("AttackDone");
             Collider2D col = Physics2D.OverlapBox(attackPos.position, attackRange, 0, whatIsDetected);
             if(col != null)
             {
                 col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
             }
-            Destroy(col);
             makeAnAttack = false;
         }
     }
@@ -147,6 +171,10 @@ public class NeckAI : BaseEnemy
     public override void Dead()
     {
         base.Dead();
+        if(nLifes <= 0)
+        {
+            rb.gravityScale = 0;
+        }
     }
 
     public override void TakeDamage(int damage)

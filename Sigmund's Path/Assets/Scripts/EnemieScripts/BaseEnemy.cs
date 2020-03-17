@@ -10,7 +10,6 @@ public class BaseEnemy : MonoBehaviour
 {
     public int nLifes;
     public int damage;
-    [HideInInspector] public bool isAlive;
     [HideInInspector] public bool isStuned;
     [HideInInspector] public bool callDead = false;
     [HideInInspector] public bool oneCallDead = false;
