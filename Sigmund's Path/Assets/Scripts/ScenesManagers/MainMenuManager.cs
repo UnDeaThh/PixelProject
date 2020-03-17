@@ -50,6 +50,7 @@ public class MainMenuManager : MonoBehaviour
         {
             File.Delete(playerDataPath);
         }
+        //REINICIAMOS EL SCENEMANAGER
         ScenesManager.scenesManager.toLoadScene = 0;
         ScenesManager.scenesManager.cutSceneDone = false;
         SceneManager.LoadScene(3);
