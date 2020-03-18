@@ -21,6 +21,7 @@ public class MainMenuManager : MonoBehaviour
         sceneDataPath = Application.persistentDataPath + "/scenesdata.info";
         playerDataPath = Application.persistentDataPath + "/player.info";
         panelDeleteData.SetActive(false);
+
         if (File.Exists(sceneDataPath))
         {
             continueButton.interactable = true;
