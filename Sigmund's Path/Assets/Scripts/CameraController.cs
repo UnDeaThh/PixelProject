@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Events;
+using UnityEngine.Rendering.PostProcessing;
 public class CameraController : MonoBehaviour
 {
     public static CameraController cameraController;
     private Transform player;
+    private PlayerController2 plController;
 
     public float shakeDuration = 0.3f;          // Time the Camera Shake effect will last
     public float shakeAmplitude = 1.2f;         // Cinemachine Noise Profile Parameter
@@ -22,6 +24,10 @@ public class CameraController : MonoBehaviour
     private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
     private CinemachineConfiner confiner;
     private Collider2D bounds;
+
+    [SerializeField] PostProcessVolume volume;
+    [SerializeField] float damagedBloomIntensity;
+    Bloom bloom;
     private void Awake()
     {
         if(cameraController == null)
@@ -33,6 +39,7 @@ public class CameraController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        //CONFINER CINEMACINE
         confiner = virtualCamera.GetComponent<CinemachineConfiner>();
         if(GameObject.FindGameObjectWithTag("Confiner").TryGetComponent(out Collider2D col))
         {
@@ -40,26 +47,25 @@ public class CameraController : MonoBehaviour
             confiner.m_BoundingShape2D = bounds;
         }
 
+        //POSTPROCESSING
+       volume.profile.TryGetSettings(out bloom);
+
     }
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        plController = player.gameObject.GetComponent<PlayerController2>();
         if (virtualCamera != null)
         {
             virtualCameraNoise = virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
-            //camConfiner = virtualCamera.GetCinemachineComponent<CinemachineConfiner>();
         }
         SetFollowTarget();
-        
-
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         if (letsShake)
         {
             shakeCurrentTime = shakeDuration;
@@ -83,10 +89,12 @@ public class CameraController : MonoBehaviour
                 virtualCameraNoise.m_AmplitudeGain = 0f;
                 virtualCameraNoise.m_FrequencyGain = shakeFrequency;
                 shakeCurrentTime = 0f;
-                
             }
         }
-
+        if(plController.health < 3)
+        {
+            bloom.intensity.value = damagedBloomIntensity;
+        }
     }
 
     void SetFollowTarget()
