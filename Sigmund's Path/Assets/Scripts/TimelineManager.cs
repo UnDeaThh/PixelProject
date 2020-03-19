@@ -10,6 +10,7 @@ public class TimelineManager : MonoBehaviour
     [SerializeField] Animator playerAnimator;
     private RuntimeAnimatorController playerAnim;
     [SerializeField] PlayableDirector director;
+    [SerializeField] GameObject nachCutSceneGO;
     void Start()
     {
         playerAnim = playerAnimator.runtimeAnimatorController;
@@ -18,6 +19,10 @@ public class TimelineManager : MonoBehaviour
             playerAnimator.runtimeAnimatorController = null;
             player.isOnKinematic = true;
             director.Play();
+        }
+        else
+        {
+            Destroy(nachCutSceneGO);
         }
     }
 
@@ -32,6 +37,7 @@ public class TimelineManager : MonoBehaviour
                 playerAnimator.runtimeAnimatorController = playerAnim;
                 player.isOnKinematic = false;
                 ScenesManager.scenesManager.cutSceneDone = true;
+                Destroy(nachCutSceneGO);
                 SaveSystem.SaveSceneData(ScenesManager.scenesManager);
             }   
         }

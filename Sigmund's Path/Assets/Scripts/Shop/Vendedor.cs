@@ -9,7 +9,7 @@ public class Vendedor : MonoBehaviour
     public GameObject pressEText;
     public GameObject UIShop;
 	private PauseManager  pauseManager;
-    [SerializeField] PlayerController2 player;
+    private PlayerController2 player;
 
     public bool inShop = false;
     private bool playerClose = false;
@@ -22,7 +22,8 @@ public class Vendedor : MonoBehaviour
     private void Start()
     {
       //  ShopController.shopController.enabled = false;
-	  pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
+	    pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
     }
 
     private void Update()

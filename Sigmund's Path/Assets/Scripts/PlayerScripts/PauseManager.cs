@@ -13,6 +13,7 @@ public class PauseManager : MonoBehaviour
     private Inventory2 inventory;
     private PlayerAttack plAttack;
     [SerializeField] EventSystemManager eventSystem;
+    [SerializeField] DialogueManager dialogueManager;
 
     [SerializeField] GameObject dadCanvas;
 
@@ -97,6 +98,18 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
+        if (dialogueManager)
+        {
+            if (dialogueManager.talking)
+            {
+                dadCanvas.SetActive(false);
+            }
+            else
+            {
+                dadCanvas.SetActive(true);
+            }
+        }
+
         if (!player.isOnKinematic)
         {
             if (inputs.Controls.Pause.triggered)

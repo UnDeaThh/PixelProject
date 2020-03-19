@@ -9,6 +9,8 @@ public class ColectableSword : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerAttack>().haveSword = true;
+            collision.GetComponent<PlayerController2>().isOnKinematic = true;
+            FindObjectOfType<DialogueTrigger>().isTalking = true;
             Destroy(gameObject);
         }
     }

@@ -234,6 +234,7 @@ public class PlayerController2 : MonoBehaviour
         }
         else
         {
+            movDir = 0f;
             inputs.Controls.Disable();
         }
     }
