@@ -58,6 +58,7 @@ public class DialogueManager : MonoBehaviour
         {
             FindObjectOfType<Askafroa>().isSleeping = true;
             ScenesManager.scenesManager.firstTalkAska = true;
+            SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         }
         bgDialogue.SetActive(false);
         FindObjectOfType<PlayerController2>().isOnKinematic = false;

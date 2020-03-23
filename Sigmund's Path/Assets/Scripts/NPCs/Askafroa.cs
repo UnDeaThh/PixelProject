@@ -12,15 +12,12 @@ public class Askafroa : MonoBehaviour
         anim = GetComponent<Animator>();
         if (ScenesManager.scenesManager.firstTalkAska)
         {
-            anim.SetTrigger("sleepingState");
+            isSleeping = true;
         }
     }
 
     private void Update()
     {
-        if (isSleeping)
-        {
-            anim.SetTrigger("sleepingState");
-        }
+        anim.SetBool("sleeping", isSleeping);
     }
 }
