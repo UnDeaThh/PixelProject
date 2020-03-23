@@ -31,7 +31,7 @@ public class Altar : MonoBehaviour
     {
         if (playerClose)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (player.inputs.Controls.Interact.triggered)
             {
                 switch (altarType)
                 {

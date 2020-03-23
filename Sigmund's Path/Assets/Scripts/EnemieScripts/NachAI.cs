@@ -11,11 +11,13 @@ public class NachAI : BaseEnemy
     public float edgeDistance;
     public float wallDistance;
     public float groundDistance;
+    [SerializeField] float stunedForce;
 
     public bool groundFound;
     private bool isGrounded;
     public bool wallFound;
     private bool makeJump;
+    private bool ffStuned;
 
     public Vector2 jumpDirection;
 
@@ -23,6 +25,7 @@ public class NachAI : BaseEnemy
     public Transform edgeLocatorPos;
     public Transform wallLocatorPos;
     public Transform groundCheckerPos;
+    private Transform player;
 
 
     private void Start()
@@ -33,13 +36,14 @@ public class NachAI : BaseEnemy
         jumpDirection.Normalize();
         anim = GetComponentInChildren<Animator>();
         mat = GetComponentInChildren<SpriteRenderer>().material;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     private void Update()
     {
         CheckEnvironment();
         MovementLogic();
 
-        base.Stuned();
+        Stuned();
         Dead();
     }
 
@@ -86,16 +90,35 @@ public class NachAI : BaseEnemy
 
     void ApplyMovement()
     {
-        if (makeJump)
+        if (!isStuned)
         {
-            anim.SetTrigger("isJump");
-            if(facingDir == 1)
+            if (makeJump)
             {
-                rb.AddForce(jumpDirection * movSpeed, ForceMode2D.Impulse);
+                anim.SetTrigger("isJump");
+                if(facingDir == 1)
+                {
+                    rb.AddForce(jumpDirection * movSpeed, ForceMode2D.Impulse);
+                }
+                else if(facingDir == -1)
+                {
+                    rb.AddForce(new Vector2(-jumpDirection.x, jumpDirection.y) * movSpeed, ForceMode2D.Impulse);
+                }
             }
-            else if(facingDir == -1)
+        }
+        else
+        {
+            if (!ffStuned)
             {
-                rb.AddForce(new Vector2(-jumpDirection.x, jumpDirection.y) * movSpeed, ForceMode2D.Impulse);
+                rb.velocity = Vector2.zero;
+                if(transform.position.x >= player.position.x)
+                {
+                    rb.AddForce(Vector2.right * stunedForce);
+                }
+                else
+                {
+                    rb.AddForce(Vector2.left * stunedForce);
+                }
+                ffStuned = true;
             }
         }
     }
@@ -105,6 +128,8 @@ public class NachAI : BaseEnemy
 
         Debug.Log("Nach");
     }
+
+
 
     public override void Dead()
     {
@@ -119,9 +144,42 @@ public class NachAI : BaseEnemy
     {
         if (collision.transform.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
+            if (!collision.gameObject.GetComponent<PlayerParry>().isParry)
+            {
+                collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
+                Debug.Log("LOSER");
+            }
+            else
+            {
+                ffStuned = false;
+                cntTimeStuned = timeStuned;
+            }
         }
     }
+
+    public override void Stuned()
+    {
+        if (isStuned)
+        {
+            if (cntTimeStuned > 0)
+            {
+                cntTimeStuned -= Time.deltaTime;
+            }
+            else
+            {
+                isStuned = false;
+            }
+        }
+    }
+    public override void StartStun()
+    {
+        isStuned = true;
+        cntTimeStuned = timeStuned;
+        ffStuned = false;
+        Debug.Log("Parry to Nach");
+    }
+
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawLine(edgeLocatorPos.position, new Vector3(edgeLocatorPos.position.x, edgeLocatorPos.position.y - edgeDistance, transform.position.z));

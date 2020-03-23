@@ -89,6 +89,14 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""871e2e15-9697-4fee-8d27-ebe43ede0290"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -344,6 +352,28 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""action"": ""Parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""959fd14f-9798-43b2-8354-5cc406d06773"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d3712bc-3c40-4dc6-95b8-b633db3739a6"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -443,6 +473,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_Controls_AttackDirection = m_Controls.FindAction("AttackDirection", throwIfNotFound: true);
         m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
         m_Controls_Parry = m_Controls.FindAction("Parry", throwIfNotFound: true);
+        m_Controls_Interact = m_Controls.FindAction("Interact", throwIfNotFound: true);
         // LogoControls
         m_LogoControls = asset.FindActionMap("LogoControls", throwIfNotFound: true);
         m_LogoControls_Exit = m_LogoControls.FindAction("Exit", throwIfNotFound: true);
@@ -504,6 +535,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Controls_AttackDirection;
     private readonly InputAction m_Controls_Pause;
     private readonly InputAction m_Controls_Parry;
+    private readonly InputAction m_Controls_Interact;
     public struct ControlsActions
     {
         private @PlayerInputs m_Wrapper;
@@ -517,6 +549,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         public InputAction @AttackDirection => m_Wrapper.m_Controls_AttackDirection;
         public InputAction @Pause => m_Wrapper.m_Controls_Pause;
         public InputAction @Parry => m_Wrapper.m_Controls_Parry;
+        public InputAction @Interact => m_Wrapper.m_Controls_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -553,6 +586,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Parry.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnParry;
                 @Parry.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnParry;
                 @Parry.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnParry;
+                @Interact.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -584,6 +620,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Parry.started += instance.OnParry;
                 @Parry.performed += instance.OnParry;
                 @Parry.canceled += instance.OnParry;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -650,6 +689,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnAttackDirection(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnParry(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface ILogoControlsActions
     {

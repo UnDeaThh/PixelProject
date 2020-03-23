@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.LWRP;
 
 public class CumuloEsencia : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class CumuloEsencia : MonoBehaviour
     public ParticleSystem[] ps = new ParticleSystem[3];
     public GameObject souls;
     private Collider2D col;
+    private Animator anim;
+    public Light2D purpleLight;
 
     private Vector2 colSize;
     private Vector2 colCenter;
@@ -21,6 +24,7 @@ public class CumuloEsencia : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         crashSound = GetComponent<AudioSource>();
         col = GetComponent<Collider2D>();
+        anim = GetComponent<Animator>();
 
         Transform colTrans = col.GetComponent<Transform>();
         colCenter = colTrans.position;
@@ -45,12 +49,29 @@ public class CumuloEsencia : MonoBehaviour
                 sr.enabled = false;
                 break;
         }
+
+        if(lifes <= 0)
+        {
+            if (!crashSound.isPlaying)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    public void DesPegado()
+    {
+        anim.SetBool("hit", false);
+        if(lifes <= 0)
+        {
+            purpleLight.enabled = false;
+        }
     }
 
     public void TakeDamage()
     {
         lifes--;
-        
+        anim.SetBool("hit", true);
         if(lifes > 0)
         {
             crashSound.Play();
@@ -65,10 +86,6 @@ public class CumuloEsencia : MonoBehaviour
                 ps[i].Emit(7);
             }
             RandomInstantiateSouls();
-            if (!crashSound.isPlaying)
-            {
-                Destroy(gameObject);
-            }
         }
     }
 

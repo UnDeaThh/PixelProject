@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class ColectableSword : MonoBehaviour
 {
+    private void Start()
+    {
+        if (ScenesManager.scenesManager.swordPicked)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerAttack>().haveSword = true;
             collision.GetComponent<PlayerController2>().isOnKinematic = true;
-            FindObjectOfType<DialogueTrigger>().isTalking = true;
+            FindObjectOfType<NpcDialogue>().isTalking = true;
+            ScenesManager.scenesManager.swordPicked = true;
             Destroy(gameObject);
         }
     }

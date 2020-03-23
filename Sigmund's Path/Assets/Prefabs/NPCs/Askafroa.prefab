@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 565147587838082122}
   - component: {fileID: 565147587838082125}
+  - component: {fileID: 2303490632440286277}
   - component: {fileID: 2862640013066493711}
   - component: {fileID: 565147588307058480}
+  - component: {fileID: 1281267590}
   m_Layer: 0
   m_Name: Askafroa
   m_TagString: Untagged
@@ -82,6 +84,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2303490632440286277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565147587838082124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66b761113b7f6454b9aa4f5c00dc407d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sleepingState: 0
 --- !u!114 &2862640013066493711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,7 +115,7 @@ MonoBehaviour:
     - Mimamamemima
     - nononono
     - alahu
-  talk: 0
+  isTalking: 0
 --- !u!61 &565147588307058480
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -127,3 +142,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10.749971, y: 7.015622}
   m_EdgeRadius: 0
+--- !u!95 &1281267590
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565147587838082124}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb60ea7e8cf9d6141bc65252ce78bffa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

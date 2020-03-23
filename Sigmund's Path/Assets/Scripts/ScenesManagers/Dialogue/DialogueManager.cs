@@ -54,6 +54,11 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         talking = false;
+        if(ScenesManager.scenesManager.actualScene == 4)
+        {
+            FindObjectOfType<Askafroa>().isSleeping = true;
+            ScenesManager.scenesManager.firstTalkAska = true;
+        }
         bgDialogue.SetActive(false);
         FindObjectOfType<PlayerController2>().isOnKinematic = false;
     }

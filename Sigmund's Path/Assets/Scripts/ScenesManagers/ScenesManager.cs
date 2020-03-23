@@ -16,6 +16,9 @@ public class ScenesManager : MonoBehaviour
     public bool apearsOnFountain = false;
     public bool[] palancasState;
     public bool cutSceneDone = false;
+    public bool[] heartsPickUp;
+    public bool swordPicked;
+    public bool firstTalkAska;
 
     private void Awake()
     {
@@ -62,6 +65,15 @@ public class ScenesManager : MonoBehaviour
                     palancasState[i] = data.palancasState[i];
                 }
             }
+            if (heartsPickUp.Length > 0) 
+            {
+                for (int i = 0; i < heartsPickUp.Length; i++)
+                {
+                    heartsPickUp[i] = data.heartsPickUp[i];
+                }
+            }
+            swordPicked = data.swordPicked;
+            firstTalkAska = data.firstTalkAska;
         }
     }
 

@@ -10,13 +10,11 @@ public class ItemHolderButton : MonoBehaviour
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemPrice;
     public Image itemSprite;
-    public Image moneyIcon;
     public GameObject buyButton;
 
     void Update()
     {
         itemSprite.SetNativeSize();
-        moneyIcon.SetNativeSize();
     }
 
 }

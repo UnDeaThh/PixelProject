@@ -10,7 +10,7 @@ public class BaseEnemy : MonoBehaviour
 {
     public int nLifes;
     public int damage;
-    [HideInInspector] public bool isStuned;
+    public bool isStuned;
     [HideInInspector] public bool callDead = false;
     [HideInInspector] public bool oneCallDead = false;
     public SpriteRenderer sprite;
@@ -21,8 +21,8 @@ public class BaseEnemy : MonoBehaviour
 
 
     public float movSpeed;
-    public float timeStuned = 1f;
-    [HideInInspector] public float currentTimeStuned = 0;
+    [SerializeField] protected float timeStuned = 1f;
+    protected float cntTimeStuned = 0;
 
     [HideInInspector]public float detectionRange;
     public LayerMask whatIsDetected;
@@ -95,19 +95,15 @@ public class BaseEnemy : MonoBehaviour
         }
     }
 
-    public void Stuned()
+
+    #region OVERRIDE EMPTY FUNCTIONS
+    public virtual void StartStun()
     {
-        if (isStuned)
-        {
-            if (currentTimeStuned < timeStuned)
-            {
-                currentTimeStuned += Time.deltaTime;
-            }
-            else
-            {
-                isStuned = false;
-                currentTimeStuned = 0;
-            }
-        }
+
     }
+    public virtual void Stuned()
+    {
+
+    }
+    #endregion
 }

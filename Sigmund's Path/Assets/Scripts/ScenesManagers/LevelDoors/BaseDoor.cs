@@ -38,6 +38,7 @@ public class BaseDoor : MonoBehaviour
     {
         player.lastScene = levelManager.levelScene;
         SaveSystem.SavePlayerData(player, inventory, plAttack);
+        SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         anim.SetTrigger("FadeIn");
         yield return new WaitForSeconds(1f);
         ScenesManager.scenesManager.ChangeScene(sceneToLoad);

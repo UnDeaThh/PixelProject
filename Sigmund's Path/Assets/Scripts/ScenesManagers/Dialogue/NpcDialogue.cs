@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DialogueTrigger : MonoBehaviour
+public class NpcDialogue : MonoBehaviour
 {
     public Dialogue dialogue;
     public bool isTalking;

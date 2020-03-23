@@ -23,7 +23,7 @@ public class PlayerParry : MonoBehaviour
     public bool parrySuccesful = false;
     public bool parryFail = false;
     private bool alreadyClicked = false;
-    private bool ffParry;
+
 
     public Collider2D parryCol;
     private void OnEnable()
@@ -91,7 +91,6 @@ public class PlayerParry : MonoBehaviour
                 plController2.heedArrows = false;
                 plController2.rb.velocity = new Vector2(0f, 0f);
                 isParry = true;
-                ffParry = true;
                 justOneTime = true;
                 
             }
@@ -109,7 +108,6 @@ public class PlayerParry : MonoBehaviour
                 currentParryTime -= Time.deltaTime;
                 plController2.heedArrows = false;
                 parryCol.enabled = true;
-
             }
             else if(currentParryTime <= 0f || parryDone)
             {
@@ -148,10 +146,9 @@ public class PlayerParry : MonoBehaviour
         {
             if(other.tag == "Enemy")
             {
-                other.GetComponentInParent<BaseEnemy>().isStuned = true;
+                other.GetComponentInParent<BaseEnemy>().StartStun();
                 parryDone = true;
                 parrySuccesful = true;
-                Debug.Log("parry");
                 
             }
             else if(other.tag == "Arrow")
