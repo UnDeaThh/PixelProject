@@ -6,8 +6,8 @@ using UnityEngine;
 public class ScenesData 
 {
     public int toLoadScene;
-    public bool[] palancasState = new bool[ScenesManager.scenesManager.palancasState.Length];
-    public bool[] heartsPickUp = new bool[ScenesManager.scenesManager.heartsPickUp.Length];
+    public List<bool> palancasState = new List<bool>();
+    public List<bool> heartsPickUp = new List<bool>();
     public bool cutSceneDone;
     public bool swordPicked;
     public bool firstTalkAska;
@@ -15,11 +15,13 @@ public class ScenesData
     {
         toLoadScene = SM.toLoadScene;
         cutSceneDone = SM.cutSceneDone;
-        for (int i = 0; i < palancasState.Length; i++)
+
+        for (int i = 0; i < palancasState.Count; i++)
         {
             palancasState[i] = SM.palancasState[i];
-        }
-        for (int i = 0; i < heartsPickUp.Length; i++)
+        }     
+
+        for (int i = 0; i < heartsPickUp.Count; i++)
         {
             heartsPickUp[i] = SM.heartsPickUp[i];
         }

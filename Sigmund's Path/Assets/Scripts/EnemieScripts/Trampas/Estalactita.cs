@@ -30,7 +30,6 @@ public class Estalactita : MonoBehaviour
                 rb.gravityScale = 5;
                 col.enabled = true;
                 launched = true;
-                Debug.Log("Player");
             }
         }
     }

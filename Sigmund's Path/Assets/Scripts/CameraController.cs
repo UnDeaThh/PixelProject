@@ -60,7 +60,10 @@ public class CameraController : MonoBehaviour
         {
             virtualCameraNoise = virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
         }
-        SetFollowTarget();
+        if(virtualCamera.Follow == null)
+        {
+            SetFollowTarget();
+        }
     }
 
     // Update is called once per frame

@@ -14,9 +14,9 @@ public class ScenesManager : MonoBehaviour
 
     public bool comeFromDead = false;
     public bool apearsOnFountain = false;
-    public bool[] palancasState;
+    public List<bool> palancasState = new List<bool>();
+    public List<bool> heartsPickUp = new List<bool>();
     public bool cutSceneDone = false;
-    public bool[] heartsPickUp;
     public bool swordPicked;
     public bool firstTalkAska;
 
@@ -34,6 +34,7 @@ public class ScenesManager : MonoBehaviour
         
         DontDestroyOnLoad(this.gameObject);
         LoadSceneManager();
+        Debug.Log(heartsPickUp.Count);
     }
     private void Update()
     {
@@ -58,16 +59,16 @@ public class ScenesManager : MonoBehaviour
         {
             toLoadScene = data.toLoadScene;
             cutSceneDone = data.cutSceneDone;
-            if(palancasState.Length > 0)
+            if(palancasState.Count != 0)
             {
-                for (int i = 0; i < palancasState.Length; i++)
+                for (int i = 0; i < palancasState.Count; i++)
                 {
                     palancasState[i] = data.palancasState[i];
                 }
             }
-            if (heartsPickUp.Length > 0) 
+            if (heartsPickUp.Count > 0) 
             {
-                for (int i = 0; i < heartsPickUp.Length; i++)
+                for (int i = 0; i < heartsPickUp.Count; i++)
                 {
                     heartsPickUp[i] = data.heartsPickUp[i];
                 }

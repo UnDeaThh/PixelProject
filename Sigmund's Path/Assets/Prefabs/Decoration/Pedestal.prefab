@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 2082739441
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3893394114679921489, guid: 65a38cc98b3cce1499626ac1cda7a972,
+  m_Sprite: {fileID: -276817381441449676, guid: 222d35ea91861ab4f8e29ef08ce39984,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redLight: {fileID: 3571703353949299957}
+  numberOfHeart: 0
 --- !u!61 &942852412420890893
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -301,7 +302,7 @@ GameObject:
   - component: {fileID: 7067780758247315461}
   - component: {fileID: 7067780758247315458}
   m_Layer: 0
-  m_Name: Estante
+  m_Name: Pedestal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

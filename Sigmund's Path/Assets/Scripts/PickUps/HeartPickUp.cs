@@ -12,7 +12,7 @@ public class HeartPickUp : MonoBehaviour
     public Light2D redLight;
     private Collider2D col;
     private AudioSource sound;
-    private int numberOfHeart = 0;
+    public int numberOfHeart = 0;
     private bool alreadyPicked;
 
     private void Start()
@@ -79,7 +79,7 @@ public class HeartPickUp : MonoBehaviour
                     alreadyPicked = true;
                     col.enabled = false;
                     sound.Play();
-                    ScenesManager.scenesManager.heartsPickUp[numberOfHeart] = true;
+                    ScenesManager.scenesManager.heartsPickUp.Insert(numberOfHeart, true);
                 }
             }
         }

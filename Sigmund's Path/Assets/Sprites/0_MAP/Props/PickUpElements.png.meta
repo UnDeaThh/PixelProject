@@ -1,28 +1,25 @@
 fileFormatVersion: 2
-guid: 65a38cc98b3cce1499626ac1cda7a972
+guid: 222d35ea91861ab4f8e29ef08ce39984
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7485092496771400987
-    second: UIIconsSpriteSheet_0
+      213: -276817381441449676
+    second: PickUpElements_0
   - first:
-      213: -3893394114679921489
-    second: UIIconsSpriteSheet_1
+      213: -5531121559175905746
+    second: PickUpElements_1
   - first:
-      213: 743419142243554633
-    second: UIIconsSpriteSheet_2
+      213: -7094798335341494553
+    second: PickUpElements_2
   - first:
-      213: -6992940754276459516
-    second: UIIconsSpriteSheet_3
+      213: -2083482849273705153
+    second: PickUpElements_3
   - first:
-      213: 6785051354787995316
-    second: UIIconsSpriteSheet_4
+      213: 4717040117384023155
+    second: PickUpElements_4
   - first:
-      213: -5876834307334870323
-    second: UIIconsSpriteSheet_5
-  - first:
-      213: -6114966059911984207
-    second: UIIconsSpriteSheet_6
+      213: 6958712177873217877
+    second: PickUpElements_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -66,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 55
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -119,11 +116,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UIIconsSpriteSheet_0
+      name: PickUpElements_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 103
+        y: 0
         width: 36
         height: 32
       alignment: 0
@@ -133,102 +130,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54456a8408c8b4144bd0247f5b748663
-      internalID: -7485092496771400987
+      spriteID: 8f3d71b8992d557458c3b57e6065bb90
+      internalID: -276817381441449676
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UIIconsSpriteSheet_1
+      name: PickUpElements_1
       rect:
         serializedVersion: 2
-        x: 44
-        y: 103
-        width: 36
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 26484ad8f824a854bbf3650b33651620
-      internalID: -3893394114679921489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UIIconsSpriteSheet_2
-      rect:
-        serializedVersion: 2
-        x: 93
-        y: 104
-        width: 24
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6ebc35391f97bf41894a6013082f01e
-      internalID: 743419142243554633
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UIIconsSpriteSheet_3
-      rect:
-        serializedVersion: 2
-        x: 132
-        y: 104
-        width: 21
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f1474abecb9b05b4e86f0abbfca813a0
-      internalID: -6992940754276459516
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UIIconsSpriteSheet_4
-      rect:
-        serializedVersion: 2
-        x: 170
-        y: 102
-        width: 23
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f20a6608ebda1342885cd5a8a57bae8
-      internalID: 6785051354787995316
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UIIconsSpriteSheet_5
-      rect:
-        serializedVersion: 2
-        x: 211
-        y: 105
+        x: 43
+        y: 2
         width: 16
         height: 28
       alignment: 0
@@ -238,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 663ded092dc2a8e4d8bcc7703bdf9fac
-      internalID: -5876834307334870323
+      spriteID: 61c46280c727da44db565917f715fc0f
+      internalID: -5531121559175905746
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UIIconsSpriteSheet_6
+      name: PickUpElements_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2
-        width: 345
-        height: 94
+        x: 65
+        y: 5
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,8 +172,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea66c636df9f8a24cbee8583011aae9f
-      internalID: -6114966059911984207
+      spriteID: d6050342f4f8d4d4f82937aad48c8b56
+      internalID: -7094798335341494553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PickUpElements_3
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 7
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 847644ee929cab5409dab2343f9b04fa
+      internalID: -2083482849273705153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PickUpElements_4
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 7
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf77145add095c14eb72b9d30260e393
+      internalID: 4717040117384023155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PickUpElements_5
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 8
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69841cb1be22e2043925111f0ba6ceb1
+      internalID: 6958712177873217877
       vertices: []
       indices: 
       edges: []
