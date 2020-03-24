@@ -7,6 +7,7 @@ public class Askafroa : MonoBehaviour
     public int sleepingState = 0;
     private Animator anim;
     public bool isSleeping;
+    [SerializeField] GameObject particle;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -19,5 +20,13 @@ public class Askafroa : MonoBehaviour
     private void Update()
     {
         anim.SetBool("sleeping", isSleeping);
+        if (isSleeping)
+        {
+            particle.SetActive(true);
+        }
+        else
+        {
+            particle.SetActive(false);
+        }
     }
 }
