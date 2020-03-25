@@ -8,6 +8,7 @@ public class Askafroa : MonoBehaviour
     private Animator anim;
     public bool isSleeping;
     [SerializeField] GameObject particle;
+    private bool[] array = new bool[10];
     private void Start()
     {
         anim = GetComponent<Animator>();
