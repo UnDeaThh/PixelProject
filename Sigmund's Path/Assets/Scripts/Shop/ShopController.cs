@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+
 
 public class ShopController : MonoBehaviour
 {
@@ -16,8 +18,6 @@ public class ShopController : MonoBehaviour
     public int itemSelecteID = 0;
     private int itemsToBuy = 1;
     private int moneyToSpend; 
-
-    
 
     public List<ShopItemInfo> itemsList = new List<ShopItemInfo>();
     
@@ -39,6 +39,9 @@ public class ShopController : MonoBehaviour
     public GameObject holderPrefab;
     public GameObject questionFadeBG;
 
+    [SerializeField] EventSystem eventSystem;
+    private bool ffShop = false;
+    [SerializeField] GameObject firstSelected;
     private void Awake()
     {
         questionFadeBG.SetActive(false);
@@ -55,6 +58,10 @@ public class ShopController : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        if(eventSystem == null)
+        {
+            eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        }
     }
 
     private void OnEnable()
@@ -124,6 +131,11 @@ public class ShopController : MonoBehaviour
                     questionText.SetText(questions[i]);
                 }
             }
+            if (ffShop)
+            {
+                eventSystem.SetSelectedGameObject(firstSelected);
+                ffShop = false;
+            }
         }
         else
         {
@@ -169,6 +181,7 @@ public class ShopController : MonoBehaviour
             if(player.potions < 5)
             {
                 buyingItem = true;
+                ffShop = true;
             }
             else
             {
@@ -179,6 +192,7 @@ public class ShopController : MonoBehaviour
         else
         {
             buyingItem = true;
+            ffShop = true;
         }
     }
 
@@ -215,6 +229,7 @@ public class ShopController : MonoBehaviour
     public void CancelPurchase()
     {
         itemsToBuy = 1;
+        eventSystem.SetSelectedGameObject(vendedor.FirstSelected);
         buyingItem = false;
     }
 
@@ -237,6 +252,7 @@ public class ShopController : MonoBehaviour
             Inventory2.inventory.LoseMoney(moneyToSpend);
             //Sonido de Compra
             itemsToBuy = 1;
+            eventSystem.SetSelectedGameObject(vendedor.FirstSelected);
             buyingItem = false;
         }
         else
@@ -246,6 +262,5 @@ public class ShopController : MonoBehaviour
         }
 
     }
-
     #endregion
 }

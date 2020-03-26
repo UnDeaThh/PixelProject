@@ -203,6 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2839535871505186458}
   - component: {fileID: 2839535871505186331}
+  - component: {fileID: 9118570985437185145}
   m_Layer: 0
   m_Name: SoulGraphic
   m_TagString: Untagged
@@ -241,7 +242,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: a0ca1c8d5976bde4d8e581153517bf1a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -262,7 +263,7 @@ SpriteRenderer:
   m_SortingLayerID: 2082739441
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: -5531121559175905746, guid: 222d35ea91861ab4f8e29ef08ce39984,
+  m_Sprite: {fileID: -2352710912805481248, guid: 132761c733772e945abc46ce5f8723cc,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -274,3 +275,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &9118570985437185145
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2839535871505186405}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d6f0b0f257951464b844ca9cabd35998, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

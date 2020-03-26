@@ -75,14 +75,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""interactions"": ""Press""
                 },
                 {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""6cbc6a5d-e06c-4717-94ba-7c1318955225"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": ""Press""
-                },
-                {
                     ""name"": ""Parry"",
                     ""type"": ""Button"",
                     ""id"": ""88df90a4-af52-4205-b37d-e2fbb0c642a8"",
@@ -95,6 +87,14 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""871e2e15-9697-4fee-8d27-ebe43ede0290"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cbc6a5d-e06c-4717-94ba-7c1318955225"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press""
                 }
@@ -311,28 +311,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a3055f8e-5564-4ca3-afd8-de283622e0dc"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""24566bef-35c1-46de-8a13-292b649e9110"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d624873c-af62-4883-91d4-ca0c53db0d7d"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
@@ -372,6 +350,28 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3055f8e-5564-4ca3-afd8-de283622e0dc"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24566bef-35c1-46de-8a13-292b649e9110"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -447,6 +447,44 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Shop"",
+            ""id"": ""78da07a3-30dc-4183-bad5-d4a357e57c1b"",
+            ""actions"": [
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""af6988ba-bb10-4e4b-b4c7-2b481f2c4e54"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f743c848-8cac-46f0-ae8c-401f8842395b"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e890d2c-99a6-423b-af29-96f81173e9fb"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -471,12 +509,15 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_Controls_Dash = m_Controls.FindAction("Dash", throwIfNotFound: true);
         m_Controls_Attack = m_Controls.FindAction("Attack", throwIfNotFound: true);
         m_Controls_AttackDirection = m_Controls.FindAction("AttackDirection", throwIfNotFound: true);
-        m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
         m_Controls_Parry = m_Controls.FindAction("Parry", throwIfNotFound: true);
         m_Controls_Interact = m_Controls.FindAction("Interact", throwIfNotFound: true);
+        m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
         // LogoControls
         m_LogoControls = asset.FindActionMap("LogoControls", throwIfNotFound: true);
         m_LogoControls_Exit = m_LogoControls.FindAction("Exit", throwIfNotFound: true);
+        // Shop
+        m_Shop = asset.FindActionMap("Shop", throwIfNotFound: true);
+        m_Shop_Exit = m_Shop.FindAction("Exit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -533,9 +574,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Controls_Dash;
     private readonly InputAction m_Controls_Attack;
     private readonly InputAction m_Controls_AttackDirection;
-    private readonly InputAction m_Controls_Pause;
     private readonly InputAction m_Controls_Parry;
     private readonly InputAction m_Controls_Interact;
+    private readonly InputAction m_Controls_Pause;
     public struct ControlsActions
     {
         private @PlayerInputs m_Wrapper;
@@ -547,9 +588,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         public InputAction @Dash => m_Wrapper.m_Controls_Dash;
         public InputAction @Attack => m_Wrapper.m_Controls_Attack;
         public InputAction @AttackDirection => m_Wrapper.m_Controls_AttackDirection;
-        public InputAction @Pause => m_Wrapper.m_Controls_Pause;
         public InputAction @Parry => m_Wrapper.m_Controls_Parry;
         public InputAction @Interact => m_Wrapper.m_Controls_Interact;
+        public InputAction @Pause => m_Wrapper.m_Controls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -580,15 +621,15 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @AttackDirection.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAttackDirection;
                 @AttackDirection.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAttackDirection;
                 @AttackDirection.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnAttackDirection;
-                @Pause.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
-                @Pause.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
-                @Pause.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
                 @Parry.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnParry;
                 @Parry.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnParry;
                 @Parry.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnParry;
                 @Interact.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnInteract;
+                @Pause.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -614,15 +655,15 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @AttackDirection.started += instance.OnAttackDirection;
                 @AttackDirection.performed += instance.OnAttackDirection;
                 @AttackDirection.canceled += instance.OnAttackDirection;
-                @Pause.started += instance.OnPause;
-                @Pause.performed += instance.OnPause;
-                @Pause.canceled += instance.OnPause;
                 @Parry.started += instance.OnParry;
                 @Parry.performed += instance.OnParry;
                 @Parry.canceled += instance.OnParry;
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -660,6 +701,39 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         }
     }
     public LogoControlsActions @LogoControls => new LogoControlsActions(this);
+
+    // Shop
+    private readonly InputActionMap m_Shop;
+    private IShopActions m_ShopActionsCallbackInterface;
+    private readonly InputAction m_Shop_Exit;
+    public struct ShopActions
+    {
+        private @PlayerInputs m_Wrapper;
+        public ShopActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Exit => m_Wrapper.m_Shop_Exit;
+        public InputActionMap Get() { return m_Wrapper.m_Shop; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ShopActions set) { return set.Get(); }
+        public void SetCallbacks(IShopActions instance)
+        {
+            if (m_Wrapper.m_ShopActionsCallbackInterface != null)
+            {
+                @Exit.started -= m_Wrapper.m_ShopActionsCallbackInterface.OnExit;
+                @Exit.performed -= m_Wrapper.m_ShopActionsCallbackInterface.OnExit;
+                @Exit.canceled -= m_Wrapper.m_ShopActionsCallbackInterface.OnExit;
+            }
+            m_Wrapper.m_ShopActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
+            }
+        }
+    }
+    public ShopActions @Shop => new ShopActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -687,11 +761,15 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnAttackDirection(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
         void OnParry(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface ILogoControlsActions
+    {
+        void OnExit(InputAction.CallbackContext context);
+    }
+    public interface IShopActions
     {
         void OnExit(InputAction.CallbackContext context);
     }

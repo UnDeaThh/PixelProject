@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+
 
 public class Vendedor : MonoBehaviour
 {
+    private PlayerInputs inputs;
+
     public Canvas canvasVendedor;
     public GameObject pressEText;
     public GameObject UIShop;
@@ -13,6 +18,15 @@ public class Vendedor : MonoBehaviour
 
     public bool inShop = false;
     private bool playerClose = false;
+
+    #region EventSystem Variables
+    [SerializeField] EventSystem eventSystem;
+    [SerializeField] GameObject fatherContent;
+    private GameObject firstSelected;
+    private bool ffShop = false;
+
+    public GameObject FirstSelected { get => firstSelected; set => firstSelected = value; }
+    #endregion
     private void Awake()
     {
         pressEText.SetActive(false);
@@ -21,7 +35,11 @@ public class Vendedor : MonoBehaviour
     }
     private void Start()
     {
-      //  ShopController.shopController.enabled = false;
+        inputs = new PlayerInputs();
+        if(eventSystem == null)
+        {
+            eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        }
 	    pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
     }
@@ -34,12 +52,13 @@ public class Vendedor : MonoBehaviour
         }
         else
             canvasVendedor.enabled = true;
-        PressEControll();
+
+        PressETextControll();
         ActiveShopUi();
         ExitShop();
     }
 
-    void PressEControll() 
+    void PressETextControll()
     {
         if (playerClose)
         {
@@ -52,15 +71,23 @@ public class Vendedor : MonoBehaviour
     {
         if (inShop)
         {
+            inputs.Shop.Enable();
             UIShop.SetActive(true);
             pressEText.SetActive(false);
             if(player != null)
             {
                 player.isOnKinematic = true;
             }
+            if (ffShop)
+            {
+                FirstSelected = fatherContent.transform.GetChild(1).gameObject;
+                eventSystem.SetSelectedGameObject(FirstSelected);
+                ffShop = false;
+            }
         }
         else
         {
+            inputs.Shop.Disable();
             UIShop.SetActive(false);
             player.isOnKinematic = false;
         }
@@ -70,7 +97,7 @@ public class Vendedor : MonoBehaviour
     {
         if (inShop)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (inputs.Shop.Exit.triggered)
             {
                 pauseManager.inShop = false;
                 inShop = false;
@@ -95,11 +122,11 @@ public class Vendedor : MonoBehaviour
             if(!pauseManager.isPaused)
             {
                 playerClose = true;
-                if (Input.GetKeyDown(KeyCode.E))
+                if (player.inputs.Controls.Interact.triggered)
                 {
                     inShop = true;
+                    ffShop = true;
                     pauseManager.inShop = true;
-                    
                 }
             }
         }
@@ -111,5 +138,11 @@ public class Vendedor : MonoBehaviour
         {
             playerClose = false;
         }
+    }
+
+    public void ExitButton()
+    {
+        pauseManager.inShop = false;
+        inShop = false;
     }
 }

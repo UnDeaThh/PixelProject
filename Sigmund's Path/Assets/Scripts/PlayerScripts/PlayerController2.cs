@@ -55,7 +55,6 @@ public class PlayerController2 : MonoBehaviour
     private float cntCoyoteTime;
 
     public bool isDead;
-    //[HideInInspector] bool deadChange;
     public bool isGrounded;
     public bool isJumping;
     private bool oneChanceDirection = false;
@@ -77,6 +76,7 @@ public class PlayerController2 : MonoBehaviour
    // private bool isDamaged;
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
+
     //ABILITIES
     public bool dashUnlocked = false;
     public bool dobleJumpUnlocked = false;
@@ -110,6 +110,7 @@ public class PlayerController2 : MonoBehaviour
     public LayerMask whatIsGround;
     [SerializeField] Collider2D plCollider;
     public GameObject bombPrefab;
+
 
     private void OnEnable()
     {
