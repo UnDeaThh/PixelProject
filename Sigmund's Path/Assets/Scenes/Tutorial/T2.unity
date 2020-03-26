@@ -3083,7 +3083,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378774806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.0455723, y: 0, z: 0}
+  m_LocalPosition: {x: -6.0447345, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 268877872}
@@ -3442,7 +3442,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465318951}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.0463605, y: 0, z: 0}
+  m_LocalPosition: {x: 6.045942, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1873561329}
@@ -5392,7 +5392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845990620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.092721, y: 0, z: 0}
+  m_LocalPosition: {x: 12.091884, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 217946184}
@@ -11084,7 +11084,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627081715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.13752, y: 0, z: 0}
+  m_LocalPosition: {x: 18.135426, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1258595148}
@@ -32169,26 +32169,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6586553254031914776, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-    - target: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: potionsUI.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: heartsUI.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
-        type: 3}
-      propertyPath: deadPanelUI
-      value: 
-      objectReference: {fileID: 1043714244}
     - target: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
       propertyPath: potionsUI.Array.data[0]
@@ -32264,6 +32244,11 @@ PrefabInstance:
       propertyPath: heartsUI.Array.data[9]
       value: 
       objectReference: {fileID: 1869429492}
+    - target: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
+        type: 3}
+      propertyPath: deadPanelUI
+      value: 
+      objectReference: {fileID: 1043714244}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
 --- !u!1001 &1430741573845264100
