@@ -57,7 +57,7 @@ public class DialogueManager : MonoBehaviour
         if(ScenesManager.scenesManager.actualScene == 4)
         {
             FindObjectOfType<Askafroa>().isSleeping = true;
-            ScenesManager.scenesManager.firstTalkAska = true;
+            ScenesManager.scenesManager.FirstTalkAska = true;
             SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         }
         bgDialogue.SetActive(false);

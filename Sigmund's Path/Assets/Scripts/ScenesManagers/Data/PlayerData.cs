@@ -13,7 +13,6 @@ public class PlayerData
     public int bombs;
     public int telePorts;
     public int lastScene;
-    public int facingDir;
 
     public bool haveSword;
     public bool dashUnlocked;
@@ -30,7 +29,6 @@ public class PlayerData
         potions = plController2.potions;
         maxPotions = plController2.maxPotions;
         lastScene = plController2.lastScene;
-        facingDir = plController2.facingDir;
         money = inventory2.actualMoney;
         bombs = inventory2.nBombs;
         telePorts = inventory2.nTP;

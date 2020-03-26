@@ -54,6 +54,18 @@ public class MainMenuManager : MonoBehaviour
         //REINICIAMOS EL SCENEMANAGER
         ScenesManager.scenesManager.toLoadScene = 0;
         ScenesManager.scenesManager.cutSceneDone = false;
+        ScenesManager.scenesManager.FirstTalkAska = false;
+        ScenesManager.scenesManager.SwordPicked = false;
+
+        for (int i = 0; i < ScenesManager.scenesManager.palancasState.Length; i++)
+        {
+            ScenesManager.scenesManager.palancasState[i] = false;
+        }
+        for (int i = 0; i < ScenesManager.scenesManager.heartsPickUp.Length; i++)
+        {
+            ScenesManager.scenesManager.heartsPickUp[i] = false;
+        }
+
         SceneManager.LoadScene(3);
     }
     public void NoDeleteData()

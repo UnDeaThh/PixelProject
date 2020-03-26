@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -261,7 +262,7 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = false;
         SaveSystem.SavePlayerData(player, inventory, plAttack);
-        ScenesManager.scenesManager.ChangeScene(1);
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void NoMainMenu()

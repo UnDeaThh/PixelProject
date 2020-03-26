@@ -37,7 +37,7 @@ public class TimelineManager : MonoBehaviour
                 playerAnimator.runtimeAnimatorController = playerAnim;
                 player.isOnKinematic = false;
                 ScenesManager.scenesManager.cutSceneDone = true;
-                Destroy(nachCutSceneGO);
+                nachCutSceneGO.SetActive(false);
                 SaveSystem.SaveSceneData(ScenesManager.scenesManager);
             }   
         }

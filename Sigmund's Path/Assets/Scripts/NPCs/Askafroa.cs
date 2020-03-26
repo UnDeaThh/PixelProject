@@ -12,7 +12,7 @@ public class Askafroa : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
-        if (ScenesManager.scenesManager.firstTalkAska)
+        if (ScenesManager.scenesManager.FirstTalkAska)
         {
             isSleeping = true;
         }

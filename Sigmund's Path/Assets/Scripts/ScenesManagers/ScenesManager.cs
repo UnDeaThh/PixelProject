@@ -14,15 +14,17 @@ public class ScenesManager : MonoBehaviour
 
     public bool comeFromDead = false;
     public bool apearsOnFountain = false;
-    public List<bool> palancasState = new List<bool>();
-    public List<bool> heartsPickUp = new List<bool>();
+    public bool[] palancasState = new bool[10];
+    public bool[] heartsPickUp = new bool[10];
     public bool cutSceneDone = false;
-    public bool swordPicked;
-    public bool firstTalkAska;
+    private bool swordPicked;
+    private bool firstTalkAska;
+
+    public bool SwordPicked { get => swordPicked; set => swordPicked = value; }
+    public bool FirstTalkAska { get => firstTalkAska; set => firstTalkAska = value; }
 
     private void Awake()
     {
-
         if(scenesManager == null)
         {
             scenesManager = this;
@@ -31,10 +33,8 @@ public class ScenesManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
         DontDestroyOnLoad(this.gameObject);
         LoadSceneManager();
-        Debug.Log(heartsPickUp.Count);
     }
     private void Update()
     {
@@ -47,11 +47,6 @@ public class ScenesManager : MonoBehaviour
         CursorController();
     }
 
-    public void ChangeScene(int index)
-    {
-        SceneManager.LoadScene(index);
-    }
-
     private void LoadSceneManager()
     {
         ScenesData data = SaveSystem.LoadSceneData();
@@ -59,23 +54,32 @@ public class ScenesManager : MonoBehaviour
         {
             toLoadScene = data.toLoadScene;
             cutSceneDone = data.cutSceneDone;
-            if(palancasState.Count != 0)
+  
+            for (int i = 0; i < palancasState.Length; i++)
             {
-                for (int i = 0; i < palancasState.Count; i++)
-                {
-                    palancasState[i] = data.palancasState[i];
-                }
+                palancasState[i] = data.palancasState[i];
             }
-            if (heartsPickUp.Count > 0) 
+            
+            for (int i = 0; i < heartsPickUp.Length; i++)
             {
-                for (int i = 0; i < heartsPickUp.Count; i++)
-                {
-                    heartsPickUp[i] = data.heartsPickUp[i];
-                }
+                heartsPickUp[i] = data.heartsPickUp[i];
             }
-            swordPicked = data.swordPicked;
-            firstTalkAska = data.firstTalkAska;
+            
+            SwordPicked = data.swordPicked;
+            FirstTalkAska = data.firstTalkAska;
         }
+        else
+        {
+            for (int i = 0; i < palancasState.Length; i++)
+            {
+                palancasState[i] = false;
+            }
+            for (int i = 0; i < heartsPickUp.Length; i++)
+            {
+                heartsPickUp[i] = false;
+            }
+        }
+
     }
 
     private void CursorController()

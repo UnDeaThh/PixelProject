@@ -6,7 +6,7 @@ public class ColectableSword : MonoBehaviour
 {
     private void Start()
     {
-        if (ScenesManager.scenesManager.swordPicked)
+        if (ScenesManager.scenesManager.SwordPicked)
         {
             Destroy(gameObject);
         }
@@ -18,7 +18,7 @@ public class ColectableSword : MonoBehaviour
             collision.GetComponent<PlayerAttack>().haveSword = true;
             collision.GetComponent<PlayerController2>().isOnKinematic = true;
             FindObjectOfType<NpcDialogue>().isTalking = true;
-            ScenesManager.scenesManager.swordPicked = true;
+            ScenesManager.scenesManager.SwordPicked = true;
             Destroy(gameObject);
         }
     }

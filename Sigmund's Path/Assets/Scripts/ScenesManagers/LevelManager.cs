@@ -155,7 +155,6 @@ public class LevelManager : MonoBehaviour
             player.potions = data.potions;
             player.maxPotions = data.maxPotions;
             player.lastScene = data.lastScene;
-            player.facingDir = data.facingDir;
             inventory.actualMoney = data.money;
             inventory.nBombs = data.bombs;
             inventory.nTP = data.telePorts;

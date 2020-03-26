@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cumulo
-  m_Shader: {fileID: -6465566751694194690, guid: c6e45e1d44e07cc4bbed8be3a2116180,
+  m_Name: GreenAltarMat
+  m_Shader: {fileID: -6465566751694194690, guid: 04d9abfbbba2f13489c7e74bd7303ac8,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -21,13 +21,13 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Emission:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d59185360ebed6b45a2a6f765f416ec0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d2607a47192c0c74c9b0c39309448df3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Color_4F665453: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 0}
+    - Color_C2DE84C7: {r: 0, g: 2.270603, b: 0.17831959, a: 0}

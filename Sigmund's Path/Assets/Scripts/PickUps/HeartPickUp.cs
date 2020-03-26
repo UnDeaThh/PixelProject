@@ -79,7 +79,7 @@ public class HeartPickUp : MonoBehaviour
                     alreadyPicked = true;
                     col.enabled = false;
                     sound.Play();
-                    ScenesManager.scenesManager.heartsPickUp.Insert(numberOfHeart, true);
+                    ScenesManager.scenesManager.heartsPickUp.SetValue(true, numberOfHeart);
                 }
             }
         }

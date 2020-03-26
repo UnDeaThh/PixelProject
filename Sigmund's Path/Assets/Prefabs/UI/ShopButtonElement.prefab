@@ -32,11 +32,11 @@ RectTransform:
   m_Father: {fileID: 7056470298192713106}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 36, y: -21.7}
-  m_SizeDelta: {x: 75, y: 106.25}
-  m_Pivot: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -190.6, y: -0.0000038146973}
+  m_SizeDelta: {x: 43.636364, y: 61.81818}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8886323419069799477
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -63,8 +63,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4889896516591861602, guid: e208f107573f9c34d803c4fca5c8eb72,
-    type: 3}
+  m_Sprite: {fileID: 743419142243554633, guid: 65a38cc98b3cce1499626ac1cda7a972, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -108,7 +107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 199.29, y: -9.62}
+  m_AnchoredPosition: {x: 199.29, y: -9.620003}
   m_SizeDelta: {x: -433.31, y: -124.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8102352925586532297
@@ -264,8 +263,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -24.65, y: 0}
-  m_SizeDelta: {x: -333.3, y: 0}
+  m_AnchoredPosition: {x: -24.649994, y: -4.7}
+  m_SizeDelta: {x: -333.3, y: -40.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7056470298017537664
 CanvasRenderer:
@@ -295,8 +294,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6b53f2c02a5f3cc449b342b39642adb0, type: 2}
-  m_sharedMaterial: {fileID: 2116333357628077441, guid: 6b53f2c02a5f3cc449b342b39642adb0,
+  m_fontAsset: {fileID: 11400000, guid: 3c3522b524cff7f44b4ba2170520bddb, type: 2}
+  m_sharedMaterial: {fileID: -3439793414800159869, guid: 3c3522b524cff7f44b4ba2170520bddb,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -322,8 +321,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -570,5 +569,4 @@ MonoBehaviour:
   itemName: {fileID: 7056470298017537665}
   itemPrice: {fileID: 973006892632432768}
   itemSprite: {fileID: 2764530884191196833}
-  moneyIcon: {fileID: 0}
   buyButton: {fileID: 7056470298192713107}
