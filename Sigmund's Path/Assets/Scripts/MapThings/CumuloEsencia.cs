@@ -18,6 +18,7 @@ public class CumuloEsencia : MonoBehaviour
 
     private Vector2 colSize;
     private Vector2 colCenter;
+    [SerializeField] DestructibleWalls destructibleWalls;
 
     private void Awake()
     {
@@ -57,6 +58,24 @@ public class CumuloEsencia : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        ActiveLightBehindWall();
+    }
+
+    void ActiveLightBehindWall()
+    {
+        if (destructibleWalls != null)
+        {
+            if (destructibleWalls.IsDestroyed)
+            {
+                purpleLight.enabled = true;
+            }
+            else
+            {
+                purpleLight.enabled = false;
+            }
+        }
+        else
+            return;
     }
 
     public void DesPegado()

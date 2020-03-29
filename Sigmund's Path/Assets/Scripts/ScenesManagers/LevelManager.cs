@@ -21,7 +21,9 @@ public class LevelManager : MonoBehaviour
         {
             apearsPos[i].parent.transform.gameObject.SetActive(true);
         }
+
         levelScene += 2;
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         plAttack = player.gameObject.GetComponent<PlayerAttack>();
         inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
@@ -36,6 +38,20 @@ public class LevelManager : MonoBehaviour
             ScenesManager.scenesManager.comeFromDead = false;
         }
         //POSICIONA AL PLAYER
+        PlayerPosition();
+        //CARGA ESTADO DE PALANCAS
+        if(levelPalancas.Length > 0)
+        {
+            for (int i = 0; i < levelPalancas.Length; i++)
+            {
+                //levelPalancas[i].isOpen = 
+            }
+        }
+    }
+
+    void PlayerPosition()
+    {
+        
         if (ScenesManager.scenesManager.cutSceneDone)
         {
 
@@ -49,66 +65,67 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                if(apearsPos.Length > 0)
+                if (apearsPos.Length > 0)
                 {
-                    if(levelScene == 3) //ESTANDO EN T1
+                    if (levelScene == 3) //ESTANDO EN T1
                     {
-                        if (player.lastScene == 3 || player.lastScene == 0) //vienes de la propia T1
-                        {
-                            player.gameObject.transform.position = apearsPos[0].position;
-                        }
-                        else if (player.lastScene == 4) //vienes de T2
+                        if (player.lastScene > 3) //vienes de T2
                         {
                             player.facingDir = -1;
                             player.gameObject.transform.position = apearsPos[1].position;
                         }
+                        else
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                            player.facingDir = 1;
+                        }
                     }
-                    else if(levelScene == 4) //ESTANDO EN T2
+                    else if (levelScene == 4) //ESTANDO EN T2
                     {
-                        if(player.lastScene == 3)//vienes de T1
+                        if (player.lastScene == 3)//vienes de T1
                         {
                             player.gameObject.transform.position = apearsPos[0].position;
                         }
-                        else if(player.lastScene == 4)
+                        else if (player.lastScene == 4)
                         {
                             player.gameObject.transform.position = apearsPos[0].position;
                         }
-                        else if(player.lastScene == 5)//vienes de T3
+                        else if (player.lastScene == 5)//vienes de T3
                         {
                             player.gameObject.transform.position = apearsPos[1].position;
                         }
                     }
-                    else if(levelScene == 5) //ESTANDO EN T3
+                    else if (levelScene == 5) //ESTANDO EN T3
                     {
-                        if(player.lastScene == 4) //vienes de T2
+                        if (player.lastScene == 4) //vienes de T2
                         {
                             player.gameObject.transform.position = apearsPos[0].position;
                         }
-                        else if(player.lastScene == 5)
+                        else if (player.lastScene == 5)
                         {
                             player.gameObject.transform.position = apearsPos[0].position;
                         }
-                        else if(player.lastScene == 6) //vienes de T4
+                        else if (player.lastScene == 6) //vienes de T4
                         {
                             player.gameObject.transform.position = apearsPos[1].position;
                         }
                     }
-                    else if(levelScene == 6)
+                    else if (levelScene == 6)
                     {
-                        if(player.lastScene == 5) // Vienes de T3
+                        if (player.lastScene == 5) // Vienes de T3
                         {
                             player.gameObject.transform.position = apearsPos[0].position;
                         }
-                        else if(player.lastScene == 6) 
+                        else if (player.lastScene == 6)
                         {
                             player.gameObject.transform.position = apearsPos[0].position;
                         }
-                        else if(player.lastScene == 7) // Vienes de S1
+                        else if (player.lastScene == 7) // Vienes de S1
                         {
                             player.gameObject.transform.position = apearsPos[1].position;
                         }
                     }
-                    if(SceneManager.GetActiveScene().name == "NerbuzFightScene")
+                    if (SceneManager.GetActiveScene().name == "NerbuzFightScene")
                     {
                         player.gameObject.transform.position = apearsPos[0].position;
                     }
@@ -119,14 +136,19 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("Primera vez que entra al juego");
         }
-        //CARGA ESTADO DE PALANCAS
-        if(levelPalancas.Length > 0)
-        {
-            for (int i = 0; i < levelPalancas.Length; i++)
-            {
-                //levelPalancas[i].isOpen = 
-            }
-        }
+
+        /*
+    if(player.lastScene <= levelScene)
+    {
+        player.gameObject.transform.position = apearsPos[0].position;
+        player.facingDir = 1;
+    }
+    else if(player.lastScene > levelScene)
+    {
+        player.gameObject.transform.position = apearsPos[1].position;
+        player.facingDir = -1;
+    }
+    */
     }
 
     private void Update()

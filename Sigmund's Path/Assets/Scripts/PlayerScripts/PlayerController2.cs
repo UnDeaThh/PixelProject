@@ -164,7 +164,6 @@ public class PlayerController2 : MonoBehaviour
             CheckIfCanDash();
             FacingDirection();
             Invencibility();
-            ThrowBombs();
 
 
             Dead();
@@ -252,52 +251,9 @@ public class PlayerController2 : MonoBehaviour
         inputs.Controls.Jump.canceled += ctx => jumpHolded = false;
 
         inputs.Controls.DrinkPotion.performed += ctx => Drink();
+        inputs.Controls.Bomb.performed += ctx => ThrowBomb();
+
         inputs.Controls.Dash.performed += ctx => shiftPressed = true;
-        /*
-        if (!isOnKinematic)
-        {
-            if (!isDead && !pauseManager.isPaused)
-            {
-                movDir = Input.GetAxisRaw("Horizontal");
-
-                if (Input.GetButtonDown("Jump"))
-                {
-                    jumpPressed = true;
-                }
-                if (Input.GetButton("Jump"))
-                {
-                    jumpHolded = true;
-                }
-                else
-                {
-                    jumpHolded = false;
-                }
-
-                if (Input.GetKeyDown(KeyCode.X))
-                {
-                    Drink();
-                }
-
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    shiftPressed = true;
-                }
-
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    bombPressed = true;
-                }
-            }
-            else
-            {
-                rb.velocity = Vector2.zero;
-            }
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-        }
-        */
     }
 
     void AplyMovement()
@@ -653,7 +609,6 @@ public class PlayerController2 : MonoBehaviour
             }
         }
     }
-
     void Dash()
     {
         if (canDash || isDashing)
@@ -706,19 +661,15 @@ public class PlayerController2 : MonoBehaviour
         }
     }
 
-    void ThrowBombs()
+    void ThrowBomb()
     {
-        if (bombPressed)
+        if (inventory.nBombs > 0)
         {
-            if (inventory.nBombs > 0)
-            {
-                Instantiate(bombPrefab, transform.position + new Vector3(0.8f * facingDir, 0f, 0f), Quaternion.identity);
-                inventory.nBombs--;
-            }
-            else
-                Debug.Log("NO BOMS");
-            bombPressed = false;
+            Instantiate(bombPrefab, transform.position + new Vector3(0.8f * facingDir, 0f, 0f), Quaternion.identity);
+            inventory.nBombs--;
         }
+        else
+            Debug.Log("NO BOMS");
     }
 
     public void PlayerDamaged(int damage, Vector2 enemyPos)

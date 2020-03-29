@@ -97,6 +97,14 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Bomb"",
+                    ""type"": ""Button"",
+                    ""id"": ""43cb37e8-8ce7-4f90-a1e5-f8714fa12d00"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -374,6 +382,28 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a282ec38-2e67-427f-9c72-60a17b2cdae7"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Bomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d5b88f97-ca12-4f3f-bf69-eebf6c2fc136"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Bomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -512,6 +542,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_Controls_Parry = m_Controls.FindAction("Parry", throwIfNotFound: true);
         m_Controls_Interact = m_Controls.FindAction("Interact", throwIfNotFound: true);
         m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
+        m_Controls_Bomb = m_Controls.FindAction("Bomb", throwIfNotFound: true);
         // LogoControls
         m_LogoControls = asset.FindActionMap("LogoControls", throwIfNotFound: true);
         m_LogoControls_Exit = m_LogoControls.FindAction("Exit", throwIfNotFound: true);
@@ -577,6 +608,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Controls_Parry;
     private readonly InputAction m_Controls_Interact;
     private readonly InputAction m_Controls_Pause;
+    private readonly InputAction m_Controls_Bomb;
     public struct ControlsActions
     {
         private @PlayerInputs m_Wrapper;
@@ -591,6 +623,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         public InputAction @Parry => m_Wrapper.m_Controls_Parry;
         public InputAction @Interact => m_Wrapper.m_Controls_Interact;
         public InputAction @Pause => m_Wrapper.m_Controls_Pause;
+        public InputAction @Bomb => m_Wrapper.m_Controls_Bomb;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -630,6 +663,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPause;
+                @Bomb.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnBomb;
+                @Bomb.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnBomb;
+                @Bomb.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnBomb;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -664,6 +700,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Bomb.started += instance.OnBomb;
+                @Bomb.performed += instance.OnBomb;
+                @Bomb.canceled += instance.OnBomb;
             }
         }
     }
@@ -764,6 +803,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnParry(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnBomb(InputAction.CallbackContext context);
     }
     public interface ILogoControlsActions
     {

@@ -71,7 +71,7 @@ public class NachAI : BaseEnemy
             else
             {
                 makeJump = true;
-                cntTimeToJump = timeToJump + Random.Range(0f, 1f);
+                cntTimeToJump = timeToJump;
             }
         }
         else
@@ -147,7 +147,6 @@ public class NachAI : BaseEnemy
             if (!collision.gameObject.GetComponent<PlayerParry>().isParry)
             {
                 collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
-                Debug.Log("LOSER");
             }
             else
             {

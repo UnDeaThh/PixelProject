@@ -50,20 +50,24 @@ public class BermonchAI : BaseEnemy
     void Update(){
         if (bermBuild)
         {
-            distance = Vector2.Distance(transform.position, targetPlayer.position);
-            //Desactivar el Collider que detecta al player para que no moleste mas adelante
-            if (playerFoundCollider != null){
-                playerFoundCollider.enabled = false;
+            if(nLifes > 0)
+            {
+                distance = Vector2.Distance(transform.position, targetPlayer.position);
+                //Desactivar el Collider que detecta al player para que no moleste mas adelante
+                if (playerFoundCollider != null){
+                    playerFoundCollider.enabled = false;
+                }
+
+                if(distance <= maxRangeDistance) //El player esta a una distancia atacable
+                {
+                    Attack();
+                }
+                else
+                {
+                    CheckEnvironment();
+                }
             }
 
-            if(distance <= maxRangeDistance) //El player esta a una distancia atacable
-            {
-                Attack();
-            }
-            else
-            {
-                CheckEnvironment();
-            }
             Dead();
         }
 
@@ -89,7 +93,6 @@ public class BermonchAI : BaseEnemy
             {
                 rb.velocity = Vector2.zero;
             }
-
             if(rb.velocity.x >= maxWalkSpeed)
             {
                 rb.velocity = new Vector2(maxWalkSpeed, rb.velocity.y);
@@ -162,7 +165,40 @@ public class BermonchAI : BaseEnemy
 
     public override void Dead()
     {
-        base.Dead();
+        //base.Dead();
+        if (nLifes <= 0 && !oneCallDead)
+        {
+            //Instantiate Soul desde el Animation Event
+            anim.SetTrigger("callDead");
+            deadSound.Play();
+            Collider2D col = GetComponent<Collider2D>();
+            col.enabled = false;
+            oneCallDead = true;
+        }
+        if (IsDisolving)
+        {
+            fade -= Time.deltaTime;
+            if (fade <= 0)
+            {
+                fade = 0;
+                IsDisolving = false;
+            }
+            mat.SetFloat("_Fade", fade);
+        }
+        if (callDead)
+        {
+            if (deadSound)
+            {
+                if (!deadSound.isPlaying && fade <= 0f)
+                {
+                    Destroy(gameObject);
+                }
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     void UpdateAnimations(){

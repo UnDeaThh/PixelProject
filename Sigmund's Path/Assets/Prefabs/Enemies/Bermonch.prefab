@@ -227,8 +227,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.2}
-  m_Size: {x: 1.45, y: 1.88}
+  m_Offset: {x: -0.27, y: 1.07}
+  m_Size: {x: 2.36, y: 3.89}
   m_Direction: 0
 --- !u!114 &8036452561561111357
 MonoBehaviour:
@@ -267,10 +267,10 @@ MonoBehaviour:
   toEdgeDistance: 0.5
   maxWalkSpeed: 30
   bermBuild: 0
-  highRangeDistance: 2.16
-  maxRangeDistance: 13.03
+  highRangeDistance: 3.86
+  maxRangeDistance: 13.49
   timeBtwAttack: 2
-  attackRange: {x: 5.83, y: 1.81}
+  attackRange: {x: 7.56, y: 1.81}
   throwRockPrefab: {fileID: 2652755048085876902, guid: 326d177b977fc2a46bcc0d003bebf021,
     type: 3}
   playerFoundCollider: {fileID: 8036452562875173309}
@@ -302,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8036452562875173305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8036452561561111355}
@@ -325,7 +325,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: ab724b578eede8c4997f5e6c2ccb40ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -346,9 +346,9 @@ SpriteRenderer:
   m_SortingLayerID: 2082739441
   m_SortingLayer: 4
   m_SortingOrder: -1
-  m_Sprite: {fileID: 5583501071265110144, guid: 23f7214dee1c4f9428552b12aec54f8d,
+  m_Sprite: {fileID: -4573027963574076847, guid: 3a7250cba262d99408bbe9d0a01975c9,
     type: 3}
-  m_Color: {r: 0.8867924, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -384,9 +384,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.91}
   serializedVersion: 2
-  m_Radius: 1.37
+  m_Radius: 2.42
 --- !u!95 &8036452562875173307
 Animator:
   serializedVersion: 3

@@ -16,8 +16,8 @@ public class BaseEnemy : MonoBehaviour
     public SpriteRenderer sprite;
     public AudioSource deadSound;
     public Material mat;
-    protected bool isDisolving;
-    private float fade = 1;
+    private bool isDisolving;
+    protected float fade = 1;
 
 
     public float movSpeed;
@@ -33,6 +33,7 @@ public class BaseEnemy : MonoBehaviour
     public EnemyClass enemyType;
     public Animator anim;
 
+    public bool IsDisolving { get => isDisolving; set => isDisolving = value; }
 
     public virtual void Dead()
     {
@@ -43,16 +44,16 @@ public class BaseEnemy : MonoBehaviour
             deadSound.Play();
             Collider2D col = GetComponent<Collider2D>();
             col.enabled = false;
-            isDisolving = true;
+            IsDisolving = true;
             oneCallDead = true;
         }
-        if (isDisolving)
+        if (IsDisolving)
         {
             fade -= Time.deltaTime;
             if(fade <= 0)
             {
                 fade = 0;
-                isDisolving = false;
+                IsDisolving = false;
             }
             mat.SetFloat("_Fade", fade);
         }

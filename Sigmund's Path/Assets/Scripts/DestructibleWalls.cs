@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestructibleWalls : MonoBehaviour
 {
-    public bool isDestroyed = false;
+    private bool isDestroyed = false;
 
     public ParticleSystem psHit;
     public ParticleSystem psDestroy;
@@ -15,6 +15,8 @@ public class DestructibleWalls : MonoBehaviour
 
     private Collider2D col;
 
+    public bool IsDestroyed { get => isDestroyed; set => isDestroyed = value; }
+
     private void Awake()
     {
         col = GetComponent<Collider2D>();
@@ -23,7 +25,7 @@ public class DestructibleWalls : MonoBehaviour
     }
     public void WallDestroyed()
     {
-        isDestroyed = true;
+        IsDestroyed = true;
        // psDestroy.Play();
         col.enabled = false;
         wallSprite.enabled = false;

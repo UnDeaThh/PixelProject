@@ -14,7 +14,6 @@ public class HeartPickUp : MonoBehaviour
     private AudioSource sound;
     public int numberOfHeart = 0;
     private bool alreadyPicked;
-
     private void Start()
     {
         mat = GetComponent<SpriteRenderer>().material;
@@ -27,7 +26,6 @@ public class HeartPickUp : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     void Update()
     {
         if (disolve)
@@ -44,14 +42,14 @@ public class HeartPickUp : MonoBehaviour
                 Debug.Log("DatosGuardados");
                 disolve = false;
             }
-            if(redLight.intensity <= 0)
+            if (redLight.intensity <= 0)
             {
                 redLight.intensity = 0f;
             }
             mat.SetFloat("_Fade", fade);
         }
 
-        if(!disolve && fade <= 0f && alreadyPicked && !sound.isPlaying)
+        if (!disolve && fade <= 0f && alreadyPicked && !sound.isPlaying)
         {
             Destroy(gameObject);
         }
