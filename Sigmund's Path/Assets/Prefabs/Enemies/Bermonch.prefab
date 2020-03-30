@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216603942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.56, y: -0.458, z: 0}
+  m_LocalPosition: {x: 2.411, y: -0.458, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8036452561561111355}
@@ -250,7 +250,7 @@ MonoBehaviour:
   sprite: {fileID: 8036452562875173308}
   deadSound: {fileID: 1232099114676010996}
   mat: {fileID: 0}
-  movSpeed: 1000
+  movSpeed: 20
   timeStuned: 1
   detectionRange: 0
   whatIsDetected:
@@ -265,7 +265,6 @@ MonoBehaviour:
     m_Bits: 256
   edgeLocatorPos: {fileID: 216603943}
   toEdgeDistance: 0.5
-  maxWalkSpeed: 30
   bermBuild: 0
   highRangeDistance: 3.86
   maxRangeDistance: 13.49
@@ -303,7 +302,7 @@ Transform:
   m_GameObject: {fileID: 8036452562875173305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8036452561561111355}
   m_RootOrder: 0

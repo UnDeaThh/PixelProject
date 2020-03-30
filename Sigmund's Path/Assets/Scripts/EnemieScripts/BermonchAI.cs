@@ -11,7 +11,6 @@ public class BermonchAI : BaseEnemy
     [SerializeField] LayerMask floorLayer;
     [SerializeField] Transform edgeLocatorPos;
     [SerializeField] float toEdgeDistance;
-    [SerializeField] float maxWalkSpeed = 30f;
 
     private bool playerFound = false;
     //Se construye a traves del Script que controla el evento
@@ -76,13 +75,24 @@ public class BermonchAI : BaseEnemy
 
     private void FixedUpdate()
     {
+        ApplyMovement();
+    }
+
+    void CheckEnvironment()
+    {
+        groundInFront = Physics2D.Raycast(edgeLocatorPos.position, Vector2.down, toEdgeDistance, floorLayer);
+        wallInFront = Physics2D.Raycast(edgeLocatorPos.position, transform.right, toEdgeDistance, floorLayer);
+    }
+
+    void ApplyMovement()
+    {
         if (bermBuild)
         {
             if(distance > maxRangeDistance)
             {
-                if (groundInFront && !wallInFront)
+                if(groundInFront && !wallInFront)
                 {
-                    rb.AddForce(new Vector2(facingDir * movSpeed * Time.fixedDeltaTime, 0f), ForceMode2D.Force);
+                    rb.velocity = new Vector2(facingDir * movSpeed * Time.fixedDeltaTime, 0f);
                 }
                 else
                 {
@@ -92,18 +102,18 @@ public class BermonchAI : BaseEnemy
             else
             {
                 rb.velocity = Vector2.zero;
-            }
-            if(rb.velocity.x >= maxWalkSpeed)
-            {
-                rb.velocity = new Vector2(maxWalkSpeed, rb.velocity.y);
+                if (targetPlayer.position.x < transform.position.x)
+                {
+                    transform.rotation = new Quaternion(0f, 180f, 0f, 0f);
+                    facingDir = -1;
+                }
+                else
+                {
+                    transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+                    facingDir = 1;
+                }
             }
         }
-    }
-
-    void CheckEnvironment()
-    {
-        groundInFront = Physics2D.Raycast(edgeLocatorPos.position, Vector2.down, toEdgeDistance, floorLayer);
-        wallInFront = Physics2D.Raycast(edgeLocatorPos.position, transform.right, toEdgeDistance, floorLayer);
     }
 
     void Flip()
