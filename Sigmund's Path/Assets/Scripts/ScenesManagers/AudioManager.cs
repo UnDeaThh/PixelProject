@@ -39,13 +39,14 @@ public class AudioManager : MonoBehaviour
                 song[1].Play();
             }
         }
-
-        if (ScenesManager.scenesManager.actualScene == 7)
+        /*
+        if (ScenesManager.scenesManager.actualScene == nerbuzFightScene)
         {
             for (int i = 0; i < song.Length; i++)
             {
                 song[i].Stop();
             }
         }
+        */
     }
 }

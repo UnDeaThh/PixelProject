@@ -8,10 +8,9 @@ public class LevelManager : MonoBehaviour
     private PlayerController2 player;
     private Inventory2 inventory;
     private PlayerAttack plAttack;
-    public Transform[] apearsPos;
+    [SerializeField] Transform[] apearsPos;
     private PauseManager pauseManager;
     public Transform fountainPos;
-    [SerializeField] Palanca[] levelPalancas;
 
     public int levelScene;
 
@@ -39,14 +38,6 @@ public class LevelManager : MonoBehaviour
         }
         //POSICIONA AL PLAYER
         PlayerPosition();
-        //CARGA ESTADO DE PALANCAS
-        if(levelPalancas.Length > 0)
-        {
-            for (int i = 0; i < levelPalancas.Length; i++)
-            {
-                //levelPalancas[i].isOpen = 
-            }
-        }
     }
 
     void PlayerPosition()
@@ -63,6 +54,55 @@ public class LevelManager : MonoBehaviour
                     ScenesManager.scenesManager.apearsOnFountain = false;
                 }
             }
+            else
+            {
+                if (apearsPos.Length <= 2)
+                {
+                    if (player.lastScene <= levelScene)
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                        player.facingDir = 1;
+                    }
+                    else
+                    {
+                        player.gameObject.transform.position = apearsPos[1].position;
+                        player.facingDir = -1;
+                    }
+                }
+                else
+                {
+                    if (levelScene == player.lastScene)
+                    {
+                        player.gameObject.transform.position = apearsPos[0].position;
+                        player.facingDir = 1;
+                    }
+
+                    else if (levelScene == 7)
+                    {
+                        switch (player.lastScene)
+                        {
+                            case 6:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                                break;
+                            case 8:
+                                player.gameObject.transform.position = apearsPos[3].position;
+                                player.facingDir = 1;
+                                break;
+                            case 9:
+                                player.gameObject.transform.position = apearsPos[2].position;
+                                player.facingDir = 1;
+                                break;
+                            default:
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = -1;
+                                break;
+                        }
+                    }
+                }
+            }
+            #region Old Appears System
+            /*
             else
             {
                 if (apearsPos.Length > 0)
@@ -131,24 +171,13 @@ public class LevelManager : MonoBehaviour
                     }
                 }
             }
+            */
+            #endregion
         }
         else
         {
             Debug.Log("Primera vez que entra al juego");
         }
-
-        /*
-    if(player.lastScene <= levelScene)
-    {
-        player.gameObject.transform.position = apearsPos[0].position;
-        player.facingDir = 1;
-    }
-    else if(player.lastScene > levelScene)
-    {
-        player.gameObject.transform.position = apearsPos[1].position;
-        player.facingDir = -1;
-    }
-    */
     }
 
     private void Update()

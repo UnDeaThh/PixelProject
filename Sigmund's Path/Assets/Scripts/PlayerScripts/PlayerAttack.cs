@@ -212,8 +212,7 @@ public class PlayerAttack : MonoBehaviour
                         }
                         else if (enemiesToDamage[i].CompareTag("Palanca"))
                         {
-                            enemiesToDamage[i].GetComponent<Animator>().SetTrigger("PalancaActivated");
-                            enemiesToDamage[i].GetComponent<Palanca>().isOpen = true;
+                            enemiesToDamage[i].GetComponent<Palanca>().OpenDoor();
                         }
 
                     }

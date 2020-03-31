@@ -5,7 +5,7 @@ using UnityEngine;
 public class Palanca : MonoBehaviour
 {
     public bool isOpen = false;
-    public bool alreadyOpen;
+    public bool isDoorDown;
     [SerializeField] GameObject door;
     [SerializeField] float openSpeed;
     [SerializeField] float descend;
@@ -13,16 +13,17 @@ public class Palanca : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField] Sprite spriteOpenPalanca;
     [SerializeField] int numberOfPalanca;
-    private bool oneTimeSave = false;
+    private Animator anim;
     private void Start()
     {
         doorFinalPos = new Vector2(door.transform.position.x, transform.position.y - descend);
         spriteRenderer = GetComponent<SpriteRenderer>();
- 
-        alreadyOpen = ScenesManager.scenesManager.palancasState[numberOfPalanca];
-        if (alreadyOpen)
+        anim = GetComponent<Animator>();
+
+        isOpen = ScenesManager.scenesManager.palancasState[numberOfPalanca];
+        if (isOpen)
         {
-            Animator anim = GetComponent<Animator>();
+            isDoorDown = true;
             Destroy(anim);
             spriteRenderer.sprite = spriteOpenPalanca;
             Destroy(door);
@@ -32,25 +33,35 @@ public class Palanca : MonoBehaviour
     }
     void Update()
     {
-        if (isOpen && !alreadyOpen)
+        BajandoPuerta();
+    }
+    void BajandoPuerta()
+    {
+        if (isOpen && !isDoorDown)
+        {
+            if (door != null)
+            {
+                door.transform.position = Vector2.MoveTowards(door.transform.position, doorFinalPos, openSpeed);
+                if (door.transform.position.y <= doorFinalPos.y)
+                {
+                    isDoorDown = true;
+                    Destroy(door);
+                }
+            }
+        }
+    }
+
+    public void OpenDoor()
+    {
+        if (!isOpen)
         {
             if(door != null)
             {
+                anim.SetTrigger("PalancaActivated");
+                isOpen = true;
                 ScenesManager.scenesManager.palancasState[numberOfPalanca] = true;
-                door.transform.position = Vector2.MoveTowards(door.transform.position, doorFinalPos, openSpeed);
-                if(door.transform.position.y <= doorFinalPos.y)
-                {
-                    alreadyOpen = true;
-                    oneTimeSave = true;
-                    Destroy(door);
-                }      
+                SaveSystem.SaveSceneData(ScenesManager.scenesManager);
             }
-        }
-
-        if (oneTimeSave)
-        {
-            SaveSystem.SaveSceneData(ScenesManager.scenesManager);
-            oneTimeSave = false;
         }
     }
 }
