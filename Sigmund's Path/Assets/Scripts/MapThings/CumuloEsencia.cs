@@ -19,6 +19,9 @@ public class CumuloEsencia : MonoBehaviour
     private Vector2 colSize;
     private Vector2 colCenter;
     [SerializeField] DestructibleWalls destructibleWalls;
+    [SerializeField] int numberOfCumulo;
+    private bool isDestroyed = false;
+    private GameObject player;
 
     private void Awake()
     {
@@ -31,6 +34,18 @@ public class CumuloEsencia : MonoBehaviour
         colCenter = colTrans.position;
         colSize.x = colTrans.localScale.x * col.bounds.size.x;
         colSize.y = colTrans.localScale.y * col.bounds.size.y;
+
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    private void Start()
+    {
+        isDestroyed = ScenesManager.scenesManager.cumuloState[numberOfCumulo];
+
+        if (isDestroyed)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()
@@ -105,6 +120,12 @@ public class CumuloEsencia : MonoBehaviour
                 ps[i].Emit(7);
             }
             RandomInstantiateSouls();
+
+            Debug.Log("Save");
+            ScenesManager.scenesManager.cumuloState[numberOfCumulo] = true;
+
+            SaveSystem.SavePlayerData(player.GetComponent<PlayerController2>(), player.GetComponentInChildren<Inventory2>(), player.GetComponent<PlayerAttack>());
+            SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         }
     }
 

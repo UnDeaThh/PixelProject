@@ -6,8 +6,11 @@ using UnityEngine;
 public class ScenesData 
 {
     public int toLoadScene;
+
     public bool[] palancasState = new bool[10];
     public bool[] heartsPickUp = new bool[10];
+    public bool[] cumuloState = new bool[20];
+
     public bool cutSceneDone;
     public bool swordPicked;
     public bool firstTalkAska;
@@ -24,6 +27,11 @@ public class ScenesData
         {
             heartsPickUp[i] = SM.heartsPickUp[i];
         }
+        for (int i = 0; i < SM.cumuloState.Length; i++)
+        {
+            cumuloState[i] = SM.cumuloState[i];
+        }
+
         swordPicked = SM.SwordPicked;
         firstTalkAska = SM.FirstTalkAska;
     }

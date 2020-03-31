@@ -14,8 +14,11 @@ public class ScenesManager : MonoBehaviour
 
     public bool comeFromDead = false;
     public bool apearsOnFountain = false;
+
     public bool[] palancasState = new bool[10];
     public bool[] heartsPickUp = new bool[10];
+    public bool[] cumuloState = new bool[20];
+
     public bool cutSceneDone = false;
     private bool swordPicked;
     private bool firstTalkAska;
@@ -64,7 +67,12 @@ public class ScenesManager : MonoBehaviour
             {
                 heartsPickUp[i] = data.heartsPickUp[i];
             }
-            
+
+            for (int i = 0; i < cumuloState.Length; i++)
+            {
+                cumuloState[i] = data.cumuloState[i];
+            }
+
             SwordPicked = data.swordPicked;
             FirstTalkAska = data.firstTalkAska;
         }
@@ -77,6 +85,10 @@ public class ScenesManager : MonoBehaviour
             for (int i = 0; i < heartsPickUp.Length; i++)
             {
                 heartsPickUp[i] = false;
+            }
+            for (int i = 0; i < cumuloState.Length; i++)
+            {
+                cumuloState[i] = false;
             }
         }
 
