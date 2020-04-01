@@ -54,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
     void Awake()
     {
         inputs = new PlayerInputs();
-        inputs.Controls.Attack.performed += ctx => clickAttack = true;
+        //inputs.Controls.Attack.performed += ctx => clickAttack = true;
         inputs.Controls.AttackDirection.performed += ctx => attackDirection = ctx.ReadValue<Vector2>();
         inputs.Controls.AttackDirection.canceled += ctx => attackDirection = ctx.ReadValue<Vector2>();
         playerPos = GetComponent<Transform>();
@@ -85,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
             {
 		        if(!pauseManager.isPaused){
 			        CheckIfCanAttack();
-                    //SecondAttack();
+                    SecondAttack();
 			        Attack();
 
                 }
@@ -108,7 +108,14 @@ public class PlayerAttack : MonoBehaviour
                     }
                     else
                     {
-                        canAttack = false;
+                        if(nClicks < 2)
+                        {
+                            canAttack = true;
+                        }
+                        else
+                        {
+                            canAttack = false;
+                        }
                     }
                 }
 
@@ -132,11 +139,14 @@ public class PlayerAttack : MonoBehaviour
 
     void SecondAttack()
     {
-        if (isAttacking)
+        if (myAnimator.Anim.GetCurrentAnimatorStateInfo(0).IsName("Player_FrontAttack"))
         {
-            if (clickAttack)
+            if (inputs.Controls.Attack.triggered)
             {
-                nClicks ++;
+                if(nClicks < 2)
+                {
+                    nClicks++;
+                }
             }
         }
     }
@@ -158,7 +168,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (canAttack)
         {
-            if (clickAttack) 
+            if (inputs.Controls.Attack.triggered) 
             {
                 if(attackDirection.y <= 0.1f)
                 {

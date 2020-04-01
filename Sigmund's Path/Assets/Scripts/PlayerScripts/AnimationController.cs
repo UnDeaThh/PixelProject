@@ -17,14 +17,16 @@ public class AnimationController : MonoBehaviour
     private bool isRuning;
     private bool isJumping;
 
-	void Start()
+    public Animator Anim { get => anim; set => anim = value; }
+
+    void Start()
 	{
 		//anim = GetComponent<Animator>();
 		player = GetComponentInParent<PlayerController2>();
 		plAttack = GetComponentInParent<PlayerAttack>();
 		plParry = GetComponentInParent<PlayerParry>();
 		inventory = GetComponentInChildren<Inventory2>();
-        anim = GetComponent<Animator>();
+        Anim = GetComponent<Animator>();
 	}
 
 	void Update()
@@ -50,7 +52,8 @@ public class AnimationController : MonoBehaviour
         UpdateAnimations();
 	}
 
-	void PlayerStopAttack()
+    /*
+	public void PlayerStopAttack()
 	{
         if(plAttack.nClicks < 2)
         {
@@ -62,13 +65,41 @@ public class AnimationController : MonoBehaviour
         }
 	}
 
-    void PlayerStopSecondAttack()
+    public void PlayerStopSecondAttack()
     {
+        Debug.Log("StopAttack2");
         plAttack.isAttacking = false;
         plAttack.gndAttackingFront = false;
         plAttack.gndAttackingUp = false;
         plAttack.airAttackingFront = false;
         plAttack.airAttackingUp = false;
+        plAttack.nClicks = 0;
+    }
+    */
+    public void StopAttacks()
+    {
+        if (Anim.GetCurrentAnimatorStateInfo(0).IsName("Player_FrontAttack"))
+        {
+            if(plAttack.nClicks < 2)
+            {
+                plAttack.isAttacking = false;
+                plAttack.gndAttackingFront = false;
+                plAttack.gndAttackingUp = false;
+                plAttack.airAttackingFront = false;
+                plAttack.airAttackingUp = false;
+                plAttack.nClicks = 0;
+            }
+        }
+        else
+        {
+            Debug.Log("StopAttack2");
+            plAttack.isAttacking = false;
+            plAttack.gndAttackingFront = false;
+            plAttack.gndAttackingUp = false;
+            plAttack.airAttackingFront = false;
+            plAttack.airAttackingUp = false;
+            plAttack.nClicks = 0;
+        }
     }
     void StopHealing()
     {
@@ -81,21 +112,21 @@ public class AnimationController : MonoBehaviour
 
     void UpdateAnimations()
     {
-        anim.SetFloat("velocityY", player.rb.velocity.y);
-        anim.SetBool("isRuning", isRuning);
-        anim.SetBool("isJumping", isJumping);
-        anim.SetBool("isDashing", player.isDashing);
-        anim.SetBool("isAttacking", plAttack.isAttacking);
-        anim.SetInteger("nClicks", plAttack.nClicks);
-        anim.SetBool("gndAttackingFront", plAttack.gndAttackingFront);
-        anim.SetBool("gndAttackingUp", plAttack.gndAttackingUp);
-        anim.SetBool("airAttackingFront", plAttack.airAttackingFront);
-        anim.SetBool("airAttackingUp", plAttack.airAttackingUp);
-        anim.SetBool("isDrinking", player.isDrinking);
-        anim.SetBool("isParry", plParry.isParry);
+        Anim.SetFloat("velocityY", player.rb.velocity.y);
+        Anim.SetBool("isRuning", isRuning);
+        Anim.SetBool("isJumping", isJumping);
+        Anim.SetBool("isDashing", player.isDashing);
+        Anim.SetBool("isAttacking", plAttack.isAttacking);
+        Anim.SetInteger("nClicks", plAttack.nClicks);
+        Anim.SetBool("gndAttackingFront", plAttack.gndAttackingFront);
+        Anim.SetBool("gndAttackingUp", plAttack.gndAttackingUp);
+        Anim.SetBool("airAttackingFront", plAttack.airAttackingFront);
+        Anim.SetBool("airAttackingUp", plAttack.airAttackingUp);
+        Anim.SetBool("isDrinking", player.isDrinking);
+        Anim.SetBool("isParry", plParry.isParry);
   
-        anim.SetBool("isDead", player.isDead);
-        anim.SetBool("ffDead", ffDead);
+        Anim.SetBool("isDead", player.isDead);
+        Anim.SetBool("ffDead", ffDead);
         if (player.isDead && !ffDead)
         {
             ffDead = true;
