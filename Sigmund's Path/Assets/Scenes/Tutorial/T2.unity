@@ -1708,7 +1708,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 62.59375, y: 61.8125}
+  m_Size: {x: 20.03, y: 19.78}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -12805,7 +12805,6 @@ MonoBehaviour:
   - {fileID: 1698798629}
   - {fileID: 3911752389915393830}
   fountainPos: {fileID: 0}
-  levelPalancas: []
   levelScene: 2
 --- !u!1001 &1946911675
 PrefabInstance:
@@ -13909,7 +13908,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 62.59375, y: 61.8125}
+  m_Size: {x: 20.03, y: 19.78}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -33345,7 +33344,7 @@ PrefabInstance:
     - target: {fileID: 6362024359258380346, guid: 234cb62aafe4e8145bd36fa7f2877e2b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8168554
+      value: -2.123455
       objectReference: {fileID: 0}
     - target: {fileID: 6362024359258380347, guid: 234cb62aafe4e8145bd36fa7f2877e2b,
         type: 3}
@@ -33416,6 +33415,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362024360863667631, guid: 234cb62aafe4e8145bd36fa7f2877e2b,
+        type: 3}
+      propertyPath: orthographic size
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 234cb62aafe4e8145bd36fa7f2877e2b, type: 3}

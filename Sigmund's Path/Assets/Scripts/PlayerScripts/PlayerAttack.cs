@@ -100,10 +100,18 @@ public class PlayerAttack : MonoBehaviour
         {
             if (haveSword)
             {
-                if(!isAttacking && !player.isDrinking && !player.isWallSliding && !plParry.isParry)
+                if(!player.isDrinking && ! player.isWallSliding && !plParry.isParry)
                 {
-                    canAttack = true;
+                    if (!isAttacking)
+                    {
+                        canAttack = true;
+                    }
+                    else
+                    {
+                        canAttack = false;
+                    }
                 }
+
                 else
                 {
                     canAttack = false;
