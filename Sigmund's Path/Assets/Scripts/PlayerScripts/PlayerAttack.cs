@@ -27,6 +27,7 @@ public class PlayerAttack : MonoBehaviour
     public bool airAttackingUp = false;
     public bool airAttackingFront = false;
     public bool haveSword = false;
+    [SerializeField]private bool canSecondAttack = false;
 
     private bool canAttack;
 	public bool isAttacking = false;
@@ -41,6 +42,8 @@ public class PlayerAttack : MonoBehaviour
 
     private CameraController cameraController;
     private PlayerAudio sound;
+
+    public bool CanSecondAttack { get => canSecondAttack; set => canSecondAttack = value; }
 
     private void OnEnable()
     {
@@ -79,18 +82,22 @@ public class PlayerAttack : MonoBehaviour
             if (!isAttacking)
             {
                 nClicks = 0;
+                canSecondAttack = false;
             }
 
             if(!player.isDead)
             {
 		        if(!pauseManager.isPaused){
 			        CheckIfCanAttack();
-                    SecondAttack();
 			        Attack();
 
                 }
 
             }
+        }
+        if(canSecondAttack && isAttacking && nClicks > 1)
+        {
+            Debug.Log("FUNCIONA");
         }
     }
 
@@ -108,7 +115,7 @@ public class PlayerAttack : MonoBehaviour
                     }
                     else
                     {
-                        if(nClicks < 2)
+                        if (canSecondAttack)
                         {
                             canAttack = true;
                         }
@@ -136,21 +143,6 @@ public class PlayerAttack : MonoBehaviour
         }
 
     }
-
-    void SecondAttack()
-    {
-        if (myAnimator.Anim.GetCurrentAnimatorStateInfo(0).IsName("Player_FrontAttack"))
-        {
-            if (inputs.Controls.Attack.triggered)
-            {
-                if(nClicks < 2)
-                {
-                    nClicks++;
-                }
-            }
-        }
-    }
-
     void Attack()
     {
         if (player.isWallSliding)
@@ -170,8 +162,10 @@ public class PlayerAttack : MonoBehaviour
         {
             if (inputs.Controls.Attack.triggered) 
             {
-                if(attackDirection.y <= 0.1f)
+                #region FRONT ATTACK
+                if (attackDirection.y <= 0.1f)
                 {
+                    
                     //FRONT ATTACK
                     if (player.isGrounded)
                     {
@@ -250,8 +244,10 @@ public class PlayerAttack : MonoBehaviour
                         sound.attackSound.Play();
                     }
                 }
+                #endregion
+                #region UP ATTACK
                 //UP ATTACK
-                else if(attackDirection.y > 0.1f)
+                else if (attackDirection.y > 0.1f)
                 {
 
                     player.heedArrows = false;
@@ -317,6 +313,12 @@ public class PlayerAttack : MonoBehaviour
                         sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
                         sound.attackSound.Play();
                     }
+                }
+                #endregion
+
+                if (canSecondAttack)
+                {
+                    canSecondAttack = false;
                 }
                 clickAttack = false;
             } 

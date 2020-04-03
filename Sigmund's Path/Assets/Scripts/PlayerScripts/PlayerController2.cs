@@ -92,7 +92,7 @@ public class PlayerController2 : MonoBehaviour
     public Sprite emptyHeartUI;
 
     [HideInInspector] public Rigidbody2D rb;
-    [SerializeField] private SpriteRenderer sprite; 
+    private SpriteRenderer sprite; 
     public Transform frontPos;
     public Transform feetPosLeft;
     public Transform feetPosRight;
@@ -108,7 +108,7 @@ public class PlayerController2 : MonoBehaviour
     private RaycastHit2D isTouchingWall;
 
     public LayerMask whatIsGround;
-    [SerializeField] Collider2D plCollider;
+    private Collider2D plCollider;
     public GameObject bombPrefab;
 
 
@@ -130,6 +130,8 @@ public class PlayerController2 : MonoBehaviour
         plAudio = GetComponentInChildren<PlayerAudio>();
         plAttack = GetComponent<PlayerAttack>();
         plParry = GetComponent<PlayerParry>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        plCollider = GetComponent<Collider2D>();
     }
 
     private void Start()

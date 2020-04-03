@@ -76,11 +76,17 @@ public class AnimationController : MonoBehaviour
         plAttack.nClicks = 0;
     }
     */
+
+    public void EnableSecondAttack()
+    {
+        plAttack.CanSecondAttack = true;
+    }
+
     public void StopAttacks()
     {
         if (Anim.GetCurrentAnimatorStateInfo(0).IsName("Player_FrontAttack"))
         {
-            if(plAttack.nClicks < 2)
+            if(plAttack.nClicks < 2) // Al final del primer ataque
             {
                 plAttack.isAttacking = false;
                 plAttack.gndAttackingFront = false;
@@ -93,6 +99,7 @@ public class AnimationController : MonoBehaviour
         else
         {
             Debug.Log("StopAttack2");
+            plAttack.CanSecondAttack = false;
             plAttack.isAttacking = false;
             plAttack.gndAttackingFront = false;
             plAttack.gndAttackingUp = false;

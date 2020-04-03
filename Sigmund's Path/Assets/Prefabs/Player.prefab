@@ -944,21 +944,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b2f514080b4b04ca3cf354cc5f04f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   maxHealth: 5
-  facingDir: 1
+  facingDir: -1
   potions: 3
   maxPotions: 5
-  lastScene: 0
+  lastScene: 7
   speedMov: 500
   jumpTime: 0.2
   wallDistance: 0.2
   groundDistance: 0.2
   jumpForce: 5
-  maxSpeedY: 13
+  maxSpeedY: 15.5
   wallSlideSpeed: 5
   wallJumpForce: 800
-  cntTimeNextDrink: 0
+  cntTimeNextDrink: 0.70728886
   timeNextDrink: 0.7
   timeDrinking: 1
   dashSpeed: 2000
@@ -967,15 +967,15 @@ MonoBehaviour:
   invencibilityTime: 1
   damagedPushForce: 700
   isDead: 0
-  isGrounded: 0
+  isGrounded: 1
   isJumping: 0
   isWallSliding: 0
   isDrinking: 0
   heedArrows: 1
   isDashing: 0
-  dashUnlocked: 0
-  dobleJumpUnlocked: 0
-  wallJumpUnlocked: 0
+  dashUnlocked: 1
+  dobleJumpUnlocked: 1
+  wallJumpUnlocked: 1
   isOnKinematic: 0
   isGODmode: 0
   potionsUI:
@@ -1000,7 +1000,6 @@ MonoBehaviour:
   emptyHeartUI: {fileID: -7485092496771400987, guid: 65a38cc98b3cce1499626ac1cda7a972,
     type: 3}
   rb: {fileID: 0}
-  sprite: {fileID: 6586553254031914776}
   frontPos: {fileID: 4869392952835096927}
   feetPosLeft: {fileID: 1152810502}
   feetPosRight: {fileID: 1193467327482447221}
@@ -1010,7 +1009,6 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  plCollider: {fileID: 2851571069916491047}
   bombPrefab: {fileID: 8510034027146057706, guid: 12151b63c6ae3dd4f9ffaef48f708971,
     type: 3}
 --- !u!114 &3730924781311067699
@@ -1036,6 +1034,7 @@ MonoBehaviour:
   airAttackingUp: 0
   airAttackingFront: 0
   haveSword: 1
+  canSecondAttack: 0
   isAttacking: 0
   attackPos: {fileID: 2937485335393459181}
   whatIsEnemie:

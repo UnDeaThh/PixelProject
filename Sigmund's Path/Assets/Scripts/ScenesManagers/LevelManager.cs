@@ -99,6 +99,28 @@ public class LevelManager : MonoBehaviour
                                 break;
                         }
                     }
+                    else if(levelScene == 8)
+                    {
+                        switch (player.lastScene)
+                        {
+                            case 7:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = -1;
+                                break;
+                            case 9:
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = 1;
+                                break;
+                            case 10:
+                                player.gameObject.transform.position = apearsPos[2].position;
+                                player.facingDir = 1;
+                                break;
+                            default:
+                                player.gameObject.transform.position = apearsPos[3].position;
+                                player.facingDir = -1;
+                                break;
+                        }
+                    }
                 }
             }
             #region Old Appears System
@@ -219,7 +241,20 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            print("no Data");
+            player.health = 3;
+            player.maxHealth = 5;
+            player.potions = 2;
+            player.maxPotions = 5;
+            player.lastScene = 0;
+            inventory.actualMoney = 0;
+            inventory.nBombs = 0;
+            inventory.nTP = 0;
+            plAttack.haveSword = false;
+            player.dashUnlocked = false;
+            player.dobleJumpUnlocked = false;
+            player.wallJumpUnlocked = false;
+            inventory.waterPasive = false;
+            inventory.swordPasive = false;
         }
     }
 
