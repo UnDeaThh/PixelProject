@@ -98,7 +98,6 @@ public class AnimationController : MonoBehaviour
         }
         else
         {
-            Debug.Log("StopAttack2");
             plAttack.CanSecondAttack = false;
             plAttack.isAttacking = false;
             plAttack.gndAttackingFront = false;
