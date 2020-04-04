@@ -156,11 +156,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5634c5eee37d78d4a85e3e4c002b944e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDestroyed: 0
-  psHit: {fileID: 0}
   psDestroy: {fileID: 0}
   wallSprite: {fileID: 2245220964193305139}
   caveSprite: {fileID: 2245220964796787163}
+  tiles:
+  - {fileID: 252738650900118944}
+  - {fileID: 8439756788913343599}
 --- !u!95 &2245220963971549877
 Animator:
   serializedVersion: 3

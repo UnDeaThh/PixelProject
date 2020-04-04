@@ -15,10 +15,12 @@ public class ColectableSword : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            GameObject player = collision.gameObject;
             collision.GetComponent<PlayerAttack>().haveSword = true;
             collision.GetComponent<PlayerController2>().isOnKinematic = true;
             FindObjectOfType<NpcDialogue>().isTalking = true;
             ScenesManager.scenesManager.SwordPicked = true;
+            SaveSystem.SavePlayerData(player.GetComponent<PlayerController2>(), player.GetComponentInChildren<Inventory2>(), player.GetComponent<PlayerAttack>());
             Destroy(gameObject);
         }
     }

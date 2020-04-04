@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class FountainController : MonoBehaviour
 {
-    private bool canHeal = true;
     private bool playerIn = false;
-    public int reserveHeal = 4;
-    private int currentHeal;
-    public float timeHealOne;
+    private float timeHealOne;
     private float currentTimeHealOne;
 
     public int sceneFountain;
@@ -26,7 +23,7 @@ public class FountainController : MonoBehaviour
 
     private void Update()
     {
-        if (playerIn && canHeal)
+        if (playerIn)
         {
             if(currentTimeHealOne > 0)
             {
@@ -34,16 +31,10 @@ public class FountainController : MonoBehaviour
             }
             else if(currentTimeHealOne <= 0)
             {
-                if(reserveHeal > 0 && plController2.health < plController2.maxHealth)
+                if(plController2.health < plController2.maxHealth)
                 {
                     plController2.health++;
-                    reserveHeal--;
                     currentTimeHealOne = timeHealOne;
-                }
-                if(reserveHeal <= 0)
-                {
-                    reserveHeal = 0;
-                    canHeal = false;
                 }
             }
         }

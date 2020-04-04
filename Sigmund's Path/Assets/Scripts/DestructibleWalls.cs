@@ -6,7 +6,6 @@ public class DestructibleWalls : MonoBehaviour
 {
     private bool isDestroyed = false;
 
-    public ParticleSystem psHit;
     public ParticleSystem psDestroy;
 
     public SpriteRenderer wallSprite;
@@ -14,6 +13,7 @@ public class DestructibleWalls : MonoBehaviour
     private Animator anim;
 
     private Collider2D col;
+    [SerializeField] SpriteRenderer[] tiles;
 
     public bool IsDestroyed { get => isDestroyed; set => isDestroyed = value; }
 
@@ -29,11 +29,10 @@ public class DestructibleWalls : MonoBehaviour
        // psDestroy.Play();
         col.enabled = false;
         wallSprite.enabled = false;
+        for (int i = 0; i < tiles.Length; i++)
+        {
+            tiles[i].enabled = false;
+        }
         anim.SetTrigger("FadeOut");
-    }
-
-    void WallHitted()
-    {
-        //psHit.Play();
     }
 }

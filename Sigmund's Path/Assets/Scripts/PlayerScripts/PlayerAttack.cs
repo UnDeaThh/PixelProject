@@ -327,10 +327,10 @@ public class PlayerAttack : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        if (gndAttackingFront)
-        {
-            Gizmos.DrawWireCube(attackPos.position, attackRangeFront);
-        }
+        // if (gndAttackingFront)
+        // {
+        Gizmos.DrawWireCube(attackPos.position, attackRangeFront);
+        //}
         if (gndAttackingUp)
         {
         Gizmos.DrawWireSphere(attackPos.position, attackRangeUp);

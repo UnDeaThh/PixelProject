@@ -45,7 +45,6 @@ public class LevelManager : MonoBehaviour
         
         if (ScenesManager.scenesManager.cutSceneDone)
         {
-
             if (ScenesManager.scenesManager.apearsOnFountain)
             {
                 if (fountainPos)

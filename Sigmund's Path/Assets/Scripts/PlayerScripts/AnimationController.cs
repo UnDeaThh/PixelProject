@@ -31,7 +31,7 @@ public class AnimationController : MonoBehaviour
 
 	void Update()
 	{
-        if(Mathf.Abs(player.rb.velocity.x) > 0.1)
+        if(Mathf.Abs(player.rb.velocity.x) > 0.2)
         {
             isRuning = true;
         }
@@ -133,6 +133,7 @@ public class AnimationController : MonoBehaviour
   
         Anim.SetBool("isDead", player.isDead);
         Anim.SetBool("ffDead", ffDead);
+        Anim.SetBool("haveSword", plAttack.haveSword);
         if (player.isDead && !ffDead)
         {
             ffDead = true;

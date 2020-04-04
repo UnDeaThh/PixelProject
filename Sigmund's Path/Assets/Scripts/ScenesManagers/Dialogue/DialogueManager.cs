@@ -54,7 +54,7 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         talking = false;
-        if(ScenesManager.scenesManager.actualScene == 4)
+        if(ScenesManager.scenesManager.actualScene == 4) //HABLANDO CON EL ASKA
         {
             FindObjectOfType<Askafroa>().isSleeping = true;
             ScenesManager.scenesManager.FirstTalkAska = true;

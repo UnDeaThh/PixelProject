@@ -7,6 +7,7 @@ public class SoulPickUp : MonoBehaviour
     private int moneyToAdd;
     private AudioSource sound;
     private bool picked;
+    private AddingPickUp addingPickUp;
 
     private void Awake()
     {
@@ -16,6 +17,10 @@ public class SoulPickUp : MonoBehaviour
         Physics2D.IgnoreLayerCollision(11, 9);
     }
 
+    private void Start()
+    {
+        addingPickUp = GameObject.Find("BGMoneyAdd").gameObject.GetComponent<AddingPickUp>();
+    }
     private void Update()
     {
         if (picked)
@@ -52,9 +57,10 @@ public class SoulPickUp : MonoBehaviour
 
             Inventory2 inventory = collision.transform.GetComponentInChildren<Inventory2>();
             inventory.WinMoney(moneyToAdd);
-            //Lanzar Sonido
             sound.Play();
-            
+
+
+            addingPickUp.PrintPickUpInfo(GFX.sprite, moneyToAdd);
         }
     }
 }
