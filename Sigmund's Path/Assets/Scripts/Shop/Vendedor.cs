@@ -42,6 +42,7 @@ public class Vendedor : MonoBehaviour
         }
 	    pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        canvasVendedor.gameObject.SetActive(true);
     }
 
     private void Update()

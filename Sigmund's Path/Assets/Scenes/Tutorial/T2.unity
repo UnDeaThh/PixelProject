@@ -10162,8 +10162,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3c3522b524cff7f44b4ba2170520bddb, type: 2}
-  m_sharedMaterial: {fileID: -3439793414800159869, guid: 3c3522b524cff7f44b4ba2170520bddb,
+  m_fontAsset: {fileID: 11400000, guid: 6b53f2c02a5f3cc449b342b39642adb0, type: 2}
+  m_sharedMaterial: {fileID: 2116333357628077441, guid: 6b53f2c02a5f3cc449b342b39642adb0,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -10189,8 +10189,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -32208,6 +32208,39 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Askafroa
+      objectReference: {fileID: 0}
+    - target: {fileID: 2862640013066493711, guid: ac8d70fda3f095b43af7987604e00857,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2862640013066493711, guid: ac8d70fda3f095b43af7987604e00857,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[0]
+      value: "Oh hey, I suppose this is your\u2019s, I\u2019m sick of watching these
+        monsters stealing things all the time.memima"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2862640013066493711, guid: ac8d70fda3f095b43af7987604e00857,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[1]
+      value: The entire forest is acting strange these days, I guess the time is finally
+        coming. Everything was so much better before that human girl arrived.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2862640013066493711, guid: ac8d70fda3f095b43af7987604e00857,
+        type: 3}
+      propertyPath: isTalking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2862640013066493711, guid: ac8d70fda3f095b43af7987604e00857,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[3]
+      value: "Now leave me alone, I\u2019m tired and I still have a long way to grow..."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2862640013066493711, guid: ac8d70fda3f095b43af7987604e00857,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[2]
+      value: Anyways, be careful, humans are not welcome over here. You should take
+        whatever you lost and go back.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac8d70fda3f095b43af7987604e00857, type: 3}

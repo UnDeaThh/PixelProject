@@ -18,6 +18,7 @@ public class ScenesManager : MonoBehaviour
     public bool[] palancasState = new bool[10];
     public bool[] heartsPickUp = new bool[10];
     public bool[] cumuloState = new bool[20];
+    public bool[] unlokedZone = new bool[20];
 
     public bool cutSceneDone = false;
     private bool swordPicked;
@@ -73,6 +74,11 @@ public class ScenesManager : MonoBehaviour
                 cumuloState[i] = data.cumuloState[i];
             }
 
+            for (int i = 0; i < unlokedZone.Length; i++)
+            {
+                unlokedZone[i] = data.unlokedZone[i];
+            }
+
             SwordPicked = data.swordPicked;
             FirstTalkAska = data.firstTalkAska;
         }
@@ -90,6 +96,15 @@ public class ScenesManager : MonoBehaviour
             {
                 cumuloState[i] = false;
             }
+            for (int i = 0; i < unlokedZone.Length; i++)
+            {
+                unlokedZone[i] = false;
+            }
+            
+            SwordPicked = false;
+            FirstTalkAska = false;
+            toLoadScene = 0;
+            cutSceneDone = false;
         }
 
     }
@@ -101,10 +116,5 @@ public class ScenesManager : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
-    }
-
-    void PalancasSaveSystem()
-    {
-
     }
 }

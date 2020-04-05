@@ -99,6 +99,11 @@ public class PlayerAttack : MonoBehaviour
         {
             Debug.Log("FUNCIONA");
         }
+
+        if(nClicks >= 2)
+        {
+            nClicks = 2;
+        }
     }
 
     void CheckIfCanAttack()
@@ -129,7 +134,7 @@ public class PlayerAttack : MonoBehaviour
                 else
                 {
                     canAttack = false;
-                    clickAttack = false;
+                    //clickAttack = false;
                 }
             }
             else
@@ -320,7 +325,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     canSecondAttack = false;
                 }
-                clickAttack = false;
+               // clickAttack = false;
             } 
         }
     }

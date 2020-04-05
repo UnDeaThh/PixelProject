@@ -51,32 +51,6 @@ public class AnimationController : MonoBehaviour
 
         UpdateAnimations();
 	}
-
-    /*
-	public void PlayerStopAttack()
-	{
-        if(plAttack.nClicks < 2)
-        {
-		    plAttack.isAttacking = false;
-            plAttack.gndAttackingFront = false;
-            plAttack.gndAttackingUp = false;
-            plAttack.airAttackingFront = false;
-            plAttack.airAttackingUp = false;
-        }
-	}
-
-    public void PlayerStopSecondAttack()
-    {
-        Debug.Log("StopAttack2");
-        plAttack.isAttacking = false;
-        plAttack.gndAttackingFront = false;
-        plAttack.gndAttackingUp = false;
-        plAttack.airAttackingFront = false;
-        plAttack.airAttackingUp = false;
-        plAttack.nClicks = 0;
-    }
-    */
-
     public void EnableSecondAttack()
     {
         plAttack.CanSecondAttack = true;
@@ -88,6 +62,7 @@ public class AnimationController : MonoBehaviour
         {
             if(plAttack.nClicks < 2) // Al final del primer ataque
             {
+                plAttack.CanSecondAttack = false;
                 plAttack.isAttacking = false;
                 plAttack.gndAttackingFront = false;
                 plAttack.gndAttackingUp = false;

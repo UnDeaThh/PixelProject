@@ -39,6 +39,7 @@ public class TimelineManager : MonoBehaviour
                 ScenesManager.scenesManager.cutSceneDone = true;
                 nachCutSceneGO.SetActive(false);
                 SaveSystem.SaveSceneData(ScenesManager.scenesManager);
+                player.facingDir = 1;
             }   
         }
         

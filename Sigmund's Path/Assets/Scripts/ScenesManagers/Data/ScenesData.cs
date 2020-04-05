@@ -10,6 +10,7 @@ public class ScenesData
     public bool[] palancasState = new bool[10];
     public bool[] heartsPickUp = new bool[10];
     public bool[] cumuloState = new bool[20];
+    public bool[] unlokedZone = new bool[20];
 
     public bool cutSceneDone;
     public bool swordPicked;
@@ -31,7 +32,11 @@ public class ScenesData
         {
             cumuloState[i] = SM.cumuloState[i];
         }
-
+        for (int i = 0; i < SM.unlokedZone.Length; i++)
+        {
+            unlokedZone[i] = SM.unlokedZone[i];
+        }
+        
         swordPicked = SM.SwordPicked;
         firstTalkAska = SM.FirstTalkAska;
     }
