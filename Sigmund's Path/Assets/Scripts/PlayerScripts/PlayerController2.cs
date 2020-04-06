@@ -691,7 +691,7 @@ public class PlayerController2 : MonoBehaviour
             cntinvencibilityTime = 0;
             health -= damage;
             rb.velocity = Vector2.zero;
-            if (health > 1)
+            if (health >= 1)
             {
                 if(enemyPos.x <= transform.position.x)
                 {
@@ -704,11 +704,6 @@ public class PlayerController2 : MonoBehaviour
                     rb.AddForce(new Vector2( -1 * damagedPushForce, 1 * damagedPushForce));
                 }
             }
-            else
-            {
-                print("muerto");
-            }
-
             CameraController.cameraController.letsShake = true;
             StartCoroutine(Blinking());
         }
