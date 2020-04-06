@@ -99,11 +99,6 @@ public class PlayerAttack : MonoBehaviour
         {
             Debug.Log("FUNCIONA");
         }
-
-        if(nClicks >= 2)
-        {
-            nClicks = 2;
-        }
     }
 
     void CheckIfCanAttack()

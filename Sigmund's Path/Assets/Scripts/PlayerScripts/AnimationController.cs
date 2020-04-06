@@ -56,22 +56,9 @@ public class AnimationController : MonoBehaviour
         plAttack.CanSecondAttack = true;
     }
 
-    public void StopAttacks()
+    public void StopFirstAttack()
     {
-        if (Anim.GetCurrentAnimatorStateInfo(0).IsName("Player_FrontAttack"))
-        {
-            if(plAttack.nClicks < 2) // Al final del primer ataque
-            {
-                plAttack.CanSecondAttack = false;
-                plAttack.isAttacking = false;
-                plAttack.gndAttackingFront = false;
-                plAttack.gndAttackingUp = false;
-                plAttack.airAttackingFront = false;
-                plAttack.airAttackingUp = false;
-                plAttack.nClicks = 0;
-            }
-        }
-        else
+        if(plAttack.nClicks < 2) // Al final del primer ataque
         {
             plAttack.CanSecondAttack = false;
             plAttack.isAttacking = false;
@@ -81,6 +68,17 @@ public class AnimationController : MonoBehaviour
             plAttack.airAttackingUp = false;
             plAttack.nClicks = 0;
         }
+    }
+
+    public void StopSecondAttack()
+    {
+        plAttack.CanSecondAttack = false;
+        plAttack.isAttacking = false;
+        plAttack.gndAttackingFront = false;
+        plAttack.gndAttackingUp = false;
+        plAttack.airAttackingFront = false;
+        plAttack.airAttackingUp = false;
+        plAttack.nClicks = 0;
     }
     void StopHealing()
     {
