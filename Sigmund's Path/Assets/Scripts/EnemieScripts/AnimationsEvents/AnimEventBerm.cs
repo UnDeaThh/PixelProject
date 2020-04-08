@@ -25,4 +25,14 @@ public class AnimEventBerm : MonoBehaviour
     {
         berm.IsDisolving = true;
     }
+
+    void CloseAttack()
+    {
+        berm.CloseAttack1 = true;
+    }
+
+    void RangeAttack()
+    {
+        berm.RangeAttack1 = true;
+    }
 }

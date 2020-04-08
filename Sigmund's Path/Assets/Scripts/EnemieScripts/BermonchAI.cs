@@ -15,7 +15,8 @@ public class BermonchAI : BaseEnemy
     private bool playerFound = false;
     //Se construye a traves del Script que controla el evento
     public bool bermBuild = false;
-    private bool isAttacking = false;
+    private bool closeAttack = false;
+    private bool rangeAttack = false;
 
     [Range(1.0f, 10.0f)]
     [SerializeField] float highRangeDistance = 3f;
@@ -32,6 +33,11 @@ public class BermonchAI : BaseEnemy
     private float distance;
 
     private Rigidbody2D rb;
+
+    public float CntTimeBtwAttack { get => cntTimeBtwAttack; set => cntTimeBtwAttack = value; }
+    public bool RangeAttack1 { get => rangeAttack; set => rangeAttack = value; }
+    public bool CloseAttack1 { get => closeAttack; set => closeAttack = value; }
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         //El Collider de Collision del bermounch no interacciona con el del player
@@ -60,11 +66,14 @@ public class BermonchAI : BaseEnemy
                 if(distance <= maxRangeDistance) //El player esta a una distancia atacable
                 {
                     Attack();
+                    CloseAttack();
+                    RangeAttack();
                 }
                 else
                 {
                     CheckEnvironment();
                 }
+      
             }
 
             Dead();
@@ -121,42 +130,66 @@ public class BermonchAI : BaseEnemy
         transform.Rotate(0f, 180f, 0f);
         facingDir *= -1;
     }
-    void Attack(){
+    void Attack()
+    {
         //Calculamos a que distancia se encuentra el player
-
-        if(distance >= 0f && distance < highRangeDistance){
-            Collider2D col = Physics2D.OverlapBox(transform.position, attackRange, 0, whatIsDetected);
-            if(col != null)
+        #region CloseAttack
+        if (distance >= 0f && distance < highRangeDistance)
+        {
+            if(CntTimeBtwAttack <= 0f)
             {
-                if(cntTimeBtwAttack <= 0f)
-                {
-                    isAttacking = true;
-                    col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
-                    cntTimeBtwAttack = timeBtwAttack;
-                }
-                else if(cntTimeBtwAttack > 0f)
-                {
-                    cntTimeBtwAttack -= Time.deltaTime;
-                    isAttacking = false;
-                }
+                anim.SetBool("closeAttack", true);
+
+            }
+            else if(CntTimeBtwAttack > 0f)
+            {
+                CntTimeBtwAttack -= Time.deltaTime;
             }
         }
-        
+        #endregion
+
         #region HighAttackRange
-        if(distance >= highRangeDistance && distance <= maxRangeDistance){
-            if(throwRockPrefab != null){
-                if(cntTimeBtwAttack <= 0f){
-                    Instantiate(throwRockPrefab, transform.position, Quaternion.identity);
-                    cntTimeBtwAttack = timeBtwAttack;
+        if (distance >= highRangeDistance && distance <= maxRangeDistance){
+            if(throwRockPrefab != null)
+            {
+                if(CntTimeBtwAttack <= 0f)
+                {
+                    anim.SetBool("rangeAttack", true);
                 }
-                else{
-                    cntTimeBtwAttack -= Time.deltaTime;
+                else
+                {
+                    CntTimeBtwAttack -= Time.deltaTime;
                 }
             }
         }
         #endregion
     }
 
+    void CloseAttack()
+    {
+        if (closeAttack)
+        {
+            Collider2D col = Physics2D.OverlapBox(transform.position, attackRange, 0, whatIsDetected);
+            if(col != null)
+            {
+                col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+            }
+            anim.SetBool("closeAttack", false);
+            cntTimeBtwAttack = timeBtwAttack;
+            closeAttack = false;
+        }
+
+    }
+    void RangeAttack()
+    {
+        if (rangeAttack)
+        {
+            Instantiate(throwRockPrefab, transform.position, Quaternion.identity);
+            anim.SetBool("rangeAttack", false);
+            cntTimeBtwAttack = timeBtwAttack;
+            rangeAttack = false;
+        }
+    }
     public override void TakeDamage(int damage){
         if (bermBuild)
         {
@@ -169,7 +202,7 @@ public class BermonchAI : BaseEnemy
         if(other.CompareTag("Player"))
         {
             playerFound = true;
-            cntTimeBtwAttack = timeBtwAttack;
+            CntTimeBtwAttack = timeBtwAttack;
         }
     }
 
@@ -213,6 +246,7 @@ public class BermonchAI : BaseEnemy
 
     void UpdateAnimations(){
         anim.SetBool("playerFound", playerFound);
+        anim.SetFloat("movSpeed", Mathf.Abs(rb.velocity.x));
     }
 
     private void OnDrawGizmosSelected()

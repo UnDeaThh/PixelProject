@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Palanca : MonoBehaviour
 {
+    private enum Horientacion
+    {
+        Vertical, Horizontal,
+    }
+
+    [SerializeField] Horientacion horientacion;
     public bool isOpen = false;
     public bool isDoorDown;
     [SerializeField] GameObject door;
@@ -16,7 +22,14 @@ public class Palanca : MonoBehaviour
     private Animator anim;
     private void Start()
     {
-        doorFinalPos = new Vector2(door.transform.position.x, transform.position.y - descend);
+        if(horientacion == Horientacion.Vertical)
+        {
+            doorFinalPos = new Vector2(door.transform.position.x, door.transform.position.y - descend);
+        }
+        else
+        {
+            doorFinalPos = new Vector2(door.transform.position.x - descend, door.transform.position.y);
+        }
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
@@ -41,11 +54,22 @@ public class Palanca : MonoBehaviour
         {
             if (door != null)
             {
-                door.transform.position = Vector2.MoveTowards(door.transform.position, doorFinalPos, openSpeed);
-                if (door.transform.position.y <= doorFinalPos.y)
+                    door.transform.position = Vector2.MoveTowards(door.transform.position, doorFinalPos, openSpeed);
+                if(horientacion == Horientacion.Vertical)
                 {
-                    isDoorDown = true;
-                    Destroy(door);
+                    if (door.transform.position.y <= doorFinalPos.y)
+                    {
+                        isDoorDown = true;
+                        Destroy(door);
+                    }
+                }
+                else
+                {
+                    if(door.transform.position.x <= doorFinalPos.x)
+                    {
+                        isDoorDown = true;
+                        Destroy(door);
+                    }
                 }
             }
         }

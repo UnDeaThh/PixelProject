@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 899287989865772480}
   - component: {fileID: 7945236397939276410}
   - component: {fileID: 1790560258415042617}
+  - component: {fileID: 4650076663057042534}
   m_Layer: 9
   m_Name: ThrowingRock
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2652755048085876902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.1738, y: 2.1738, z: 2.1738}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7270013355615991095}
   m_Father: {fileID: 0}
@@ -127,7 +128,7 @@ SpriteRenderer:
   m_SortingLayerID: 2082739441
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3392433926787056370, guid: fcbefff4ee113aa4f84a97c77c9b613b,
+  m_Sprite: {fileID: -6524006151226133040, guid: daba0580551943644932276947fbd618,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -139,6 +140,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4650076663057042534
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2652755048085876902}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 34780dadcdd3eb94cb26bee817b69c97, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3978984615514811215
 GameObject:
   m_ObjectHideFlags: 0
