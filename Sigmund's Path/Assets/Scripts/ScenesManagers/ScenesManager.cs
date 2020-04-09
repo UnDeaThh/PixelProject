@@ -19,13 +19,14 @@ public class ScenesManager : MonoBehaviour
     public bool[] heartsPickUp = new bool[10];
     public bool[] cumuloState = new bool[20];
     public bool[] unlokedZone = new bool[20];
-
+    private bool[] destruibleWall = new bool[50];
     public bool cutSceneDone = false;
     private bool swordPicked;
     private bool firstTalkAska;
 
     public bool SwordPicked { get => swordPicked; set => swordPicked = value; }
     public bool FirstTalkAska { get => firstTalkAska; set => firstTalkAska = value; }
+    public bool[] DestruibleWall { get => destruibleWall; set => destruibleWall = value; }
 
     private void Awake()
     {
@@ -78,6 +79,10 @@ public class ScenesManager : MonoBehaviour
             {
                 unlokedZone[i] = data.unlokedZone[i];
             }
+            for (int i = 0; i < destruibleWall.Length; i++)
+            {
+                destruibleWall[i] = data.destruibleWall[i];
+            }
 
             SwordPicked = data.swordPicked;
             FirstTalkAska = data.firstTalkAska;
@@ -99,6 +104,10 @@ public class ScenesManager : MonoBehaviour
             for (int i = 0; i < unlokedZone.Length; i++)
             {
                 unlokedZone[i] = false;
+            }
+            for (int i = 0; i < destruibleWall.Length; i++)
+            {
+                destruibleWall[i] = false;
             }
             
             SwordPicked = false;

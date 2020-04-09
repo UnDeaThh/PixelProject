@@ -16,12 +16,19 @@ public class DestructibleWalls : MonoBehaviour
     [SerializeField] SpriteRenderer[] tiles;
 
     public bool IsDestroyed { get => isDestroyed; set => isDestroyed = value; }
-
+    [SerializeField] int numberOfWall;
     private void Awake()
     {
         col = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
         
+    }
+    private void Start()
+    {
+        if (ScenesManager.scenesManager.DestruibleWall[numberOfWall] == true)
+        {
+            Destroy(gameObject);
+        }
     }
     public void WallDestroyed()
     {
@@ -34,5 +41,7 @@ public class DestructibleWalls : MonoBehaviour
             tiles[i].enabled = false;
         }
         anim.SetTrigger("FadeOut");
+        ScenesManager.scenesManager.DestruibleWall[numberOfWall] = true;
+        SaveSystem.SaveSceneData(ScenesManager.scenesManager);
     }
 }

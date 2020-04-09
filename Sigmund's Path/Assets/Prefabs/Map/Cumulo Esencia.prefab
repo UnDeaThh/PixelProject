@@ -4875,6 +4875,8 @@ MonoBehaviour:
   - {fileID: 3554563493120972427}
   souls: {fileID: 2839535871100496487, guid: fa786ac904c9ce54998329654ec7937f, type: 3}
   purpleLight: {fileID: 3952001622388512147}
+  destructibleWalls: {fileID: 0}
+  numberOfCumulo: 0
 --- !u!212 &4371291011228367543
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4912,7 +4914,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2082739441
   m_SortingLayer: 4
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 7356892654843301993, guid: 89f427d7c45bb284f9311a7bc12ff788,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
