@@ -5,10 +5,14 @@ using UnityEngine;
 public class FountainController : MonoBehaviour
 {
     private bool playerIn = false;
-    private float timeHealOne;
+    [SerializeField] private float timeHealOne;
     private float currentTimeHealOne;
 
     public int sceneFountain;
+    [Header("PARTICLES")]
+    [SerializeField] ParticleSystem ps;
+    [SerializeField] float enterParticlesSpeed = 1.5f;
+    [SerializeField] float simulationSpeed;
 
     private LevelManager levelManager;
     private PlayerController2 plController2;
@@ -45,6 +49,11 @@ public class FountainController : MonoBehaviour
         {
             playerIn = true;
             currentTimeHealOne = timeHealOne;
+            ParticleSystem.EmissionModule emidMod = ps.emission;
+            emidMod.rateOverTime = enterParticlesSpeed;
+            ParticleSystem.MainModule mainModule = ps.main;
+            mainModule.simulationSpeed = simulationSpeed;
+
             ScenesManager.scenesManager.toLoadScene = sceneFountain;
 
             SaveSystem.SaveSceneData(ScenesManager.scenesManager);
@@ -55,6 +64,11 @@ public class FountainController : MonoBehaviour
     {
         if(other.tag == "Player")
         {
+            ParticleSystem.EmissionModule emidMod = ps.emission;
+            emidMod.rateOverTime = 1;
+            ParticleSystem.MainModule mainModule = ps.main;
+            mainModule.simulationSpeed = 1;
+
             playerIn = false;
         }
     }

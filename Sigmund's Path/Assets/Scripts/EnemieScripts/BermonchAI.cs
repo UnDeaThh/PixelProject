@@ -37,7 +37,7 @@ public class BermonchAI : BaseEnemy
     public float CntTimeBtwAttack { get => cntTimeBtwAttack; set => cntTimeBtwAttack = value; }
     public bool RangeAttack1 { get => rangeAttack; set => rangeAttack = value; }
     public bool CloseAttack1 { get => closeAttack; set => closeAttack = value; }
-
+    private bool isAttacking = false;
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         //El Collider de Collision del bermounch no interacciona con el del player
@@ -138,8 +138,12 @@ public class BermonchAI : BaseEnemy
         {
             if(CntTimeBtwAttack <= 0f)
             {
-                anim.SetBool("closeAttack", true);
+                if (!isAttacking)
+                {
+                    anim.SetBool("closeAttack", true);
+                    isAttacking = true;
 
+                }
             }
             else if(CntTimeBtwAttack > 0f)
             {
@@ -154,7 +158,11 @@ public class BermonchAI : BaseEnemy
             {
                 if(CntTimeBtwAttack <= 0f)
                 {
-                    anim.SetBool("rangeAttack", true);
+                    if (!isAttacking)
+                    {
+                        anim.SetBool("rangeAttack", true);
+                        isAttacking = true;
+                    }
                 }
                 else
                 {
@@ -175,6 +183,7 @@ public class BermonchAI : BaseEnemy
                 col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
             }
             anim.SetBool("closeAttack", false);
+            isAttacking = false;
             cntTimeBtwAttack = timeBtwAttack;
             closeAttack = false;
         }
@@ -187,6 +196,7 @@ public class BermonchAI : BaseEnemy
             Instantiate(throwRockPrefab, transform.position, Quaternion.identity);
             anim.SetBool("rangeAttack", false);
             cntTimeBtwAttack = timeBtwAttack;
+            isAttacking = false;
             rangeAttack = false;
         }
     }

@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5436,6 +5436,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 606157655}
     m_Modifications:
+    - target: {fileID: 2245220963971549876, guid: ba52060bd65aea240a156b7b499418f6,
+        type: 3}
+      propertyPath: numberOfWall
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2245220963971549878, guid: ba52060bd65aea240a156b7b499418f6,
         type: 3}
       propertyPath: m_Name
@@ -14131,6 +14136,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cumulo Esencia
       objectReference: {fileID: 0}
+    - target: {fileID: 7973733364827862182, guid: d115e22c3c76ab14bb2979cd524ea8e2,
+        type: 3}
+      propertyPath: numberOfCumulo
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d115e22c3c76ab14bb2979cd524ea8e2, type: 3}
 --- !u!4 &1276218494 stripped
@@ -17916,6 +17926,11 @@ PrefabInstance:
       propertyPath: destructibleWalls
       value: 
       objectReference: {fileID: 1988244621}
+    - target: {fileID: 7973733364827862182, guid: d115e22c3c76ab14bb2979cd524ea8e2,
+        type: 3}
+      propertyPath: numberOfCumulo
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d115e22c3c76ab14bb2979cd524ea8e2, type: 3}
 --- !u!4 &1563180488 stripped

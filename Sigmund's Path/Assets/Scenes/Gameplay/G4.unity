@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2395,6 +2395,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 606157655}
     m_Modifications:
+    - target: {fileID: 2245220963971549876, guid: ba52060bd65aea240a156b7b499418f6,
+        type: 3}
+      propertyPath: numberOfWall
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2245220963971549878, guid: ba52060bd65aea240a156b7b499418f6,
         type: 3}
       propertyPath: m_Name
@@ -5640,6 +5645,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231246469047102126, guid: 2e6e3ac85cb46ac49bda3fcbdf829b10,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4231246469223497549, guid: 2e6e3ac85cb46ac49bda3fcbdf829b10,
         type: 3}
@@ -10050,6 +10060,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cumulo Esencia
       objectReference: {fileID: 0}
+    - target: {fileID: 7973733364827862182, guid: d115e22c3c76ab14bb2979cd524ea8e2,
+        type: 3}
+      propertyPath: numberOfCumulo
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d115e22c3c76ab14bb2979cd524ea8e2, type: 3}
 --- !u!4 &1258173210 stripped
@@ -10448,6 +10463,22 @@ PolygonCollider2D:
       - {x: -119.598724, y: 11.257977}
       - {x: -118.88453, y: 11.5698185}
       - {x: -118.45351, y: 12.249645}
+      - {x: -58.389965, y: 12.288655}
+      - {x: -58.367706, y: 10.907871}
+      - {x: -57.962967, y: 10.47033}
+      - {x: -57.484787, y: 10.263496}
+      - {x: -54.44687, y: 10.2674675}
+      - {x: -53.853558, y: 10.5518465}
+      - {x: -53.554153, y: 11.03474}
+      - {x: -53.54599, y: 12.364437}
+      - {x: -47.418495, y: 12.359167}
+      - {x: -47.395756, y: 11.030543}
+      - {x: -47.132317, y: 10.535289}
+      - {x: -46.514713, y: 10.256178}
+      - {x: -43.597054, y: 10.217895}
+      - {x: -42.867313, y: 10.499079}
+      - {x: -42.56387, y: 11.057371}
+      - {x: -42.536343, y: 12.213607}
       - {x: -5.4086914, y: 12.323084}
       - {x: -5.3828316, y: 0.029849052}
       - {x: -5.1637573, y: -0.43364716}
@@ -17471,7 +17502,7 @@ PrefabInstance:
     - target: {fileID: 3022001946639273072, guid: 2c74bea441873ea47899e07eb8bfe60b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -21.043196
+      value: -21.162
       objectReference: {fileID: 0}
     - target: {fileID: 3022001946639273072, guid: 2c74bea441873ea47899e07eb8bfe60b,
         type: 3}

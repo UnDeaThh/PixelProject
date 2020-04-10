@@ -266,9 +266,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8daa203e46a3384b87d6e21aab0a302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reserveHeal: 4
   timeHealOne: 1
   sceneFountain: 0
+  ps: {fileID: 8350063174106880719}
+  enterParticlesSpeed: 4
+  simulationSpeed: 2
+  spriteRend: {fileID: 4846354936984408597}
 --- !u!1 &8561029378871493302
 GameObject:
   m_ObjectHideFlags: 0

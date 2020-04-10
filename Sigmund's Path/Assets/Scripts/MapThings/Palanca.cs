@@ -28,7 +28,7 @@ public class Palanca : MonoBehaviour
         }
         else
         {
-            doorFinalPos = new Vector2(door.transform.position.x - descend, door.transform.position.y);
+            doorFinalPos = new Vector2(door.transform.position.x + descend, door.transform.position.y);
         }
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -54,7 +54,7 @@ public class Palanca : MonoBehaviour
         {
             if (door != null)
             {
-                    door.transform.position = Vector2.MoveTowards(door.transform.position, doorFinalPos, openSpeed);
+                door.transform.position = Vector2.MoveTowards(door.transform.position, doorFinalPos, openSpeed);
                 if(horientacion == Horientacion.Vertical)
                 {
                     if (door.transform.position.y <= doorFinalPos.y)

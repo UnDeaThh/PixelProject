@@ -95,10 +95,6 @@ public class PlayerAttack : MonoBehaviour
 
             }
         }
-        if(canSecondAttack && isAttacking && nClicks > 1)
-        {
-            Debug.Log("FUNCIONA");
-        }
     }
 
     void CheckIfCanAttack()
@@ -115,7 +111,7 @@ public class PlayerAttack : MonoBehaviour
                     }
                     else
                     {
-                        if (canSecondAttack)
+                        if (canSecondAttack && nClicks < 2)
                         {
                             canAttack = true;
                         }
@@ -315,11 +311,6 @@ public class PlayerAttack : MonoBehaviour
                     }
                 }
                 #endregion
-
-                if (canSecondAttack)
-                {
-                    canSecondAttack = false;
-                }
                // clickAttack = false;
             } 
         }
