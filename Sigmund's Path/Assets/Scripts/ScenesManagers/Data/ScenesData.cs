@@ -12,6 +12,7 @@ public class ScenesData
     public bool[] cumuloState = new bool[20];
     public bool[] unlokedZone = new bool[20];
     public bool[] destruibleWall = new bool[50];
+    public bool[] bossKilled = new bool[3];
 
     public bool cutSceneDone;
     public bool swordPicked;
@@ -40,6 +41,10 @@ public class ScenesData
         for (int i = 0; i < SM.DestruibleWall.Length; i++)
         {
             destruibleWall[i] = SM.DestruibleWall[i];
+        }
+        for (int i = 0; i < SM.BossKilled.Length; i++)
+        {
+            bossKilled[i] = SM.BossKilled[i];
         }
         
         swordPicked = SM.SwordPicked;
