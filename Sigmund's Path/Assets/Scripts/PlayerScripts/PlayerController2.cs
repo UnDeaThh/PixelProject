@@ -51,8 +51,8 @@ public class PlayerController2 : MonoBehaviour
     public float invencibilityTime;
     private float cntinvencibilityTime;
     public float damagedPushForce;
-    const float coyoteTime = 0.07f;
-    private float cntCoyoteTime;
+    const float coyoteTime = 0.1f;
+    [SerializeField] private float cntCoyoteTime;
 
     public bool isDead;
     public bool isGrounded;
@@ -297,13 +297,49 @@ public class PlayerController2 : MonoBehaviour
             maxJumps = 2;
         }
 
-        if (isGrounded && !isJumping)
+        if (isGrounded && !isJumping || isWallSliding)
         {
             cntJumps = 0;
         }
 
+        if (isGrounded)
+        {
+            cntCoyoteTime = coyoteTime;
+        }
+        else
+        {
+            if(cntCoyoteTime > 0)
+            {
+                cntCoyoteTime -= Time.deltaTime;
+            }
+        }
+
         if (!isDashing && !plParry.isParry && !plAttack.isAttacking)
         {
+            if (isGrounded || cntCoyoteTime > 0)
+            {
+                canJump = true;
+            }
+
+            else
+            {
+                if (dobleJumpUnlocked)
+                {
+                    if (cntJumps < maxJumps)
+                    {
+                        canJump = true;
+                    }
+                    else
+                    {
+                        canJump = false;
+                    }
+                }
+                else
+                {
+                    canJump = false;
+                }
+            }
+            /*
             if(cntJumps < maxJumps)
             {
                 canJump = true;
@@ -312,11 +348,14 @@ public class PlayerController2 : MonoBehaviour
             {
                 canJump = false;
             }
+            */
         }
         else
         {
             canJump = false;
         }
+      /*  
+        */
     }
 
     void CheckIfWallSliding()
@@ -571,6 +610,7 @@ public class PlayerController2 : MonoBehaviour
             if (isWallSliding)
             {
                 heedArrows = false; //Mientras 
+                rb.velocity = new Vector2(rb.velocity.x, 0f);
                 rb.AddForce(new Vector2(wallJumpDir.x * wallJumpForce * -facingDir, wallJumpDir.y * wallJumpForce));
                 canFlip = true;
                 Flip();

@@ -90,7 +90,7 @@ public class Vendedor : MonoBehaviour
         {
             inputs.Shop.Disable();
             UIShop.SetActive(false);
-            player.isOnKinematic = false;
+           
         }
     }
 
@@ -100,6 +100,7 @@ public class Vendedor : MonoBehaviour
         {
             if (inputs.Shop.Exit.triggered)
             {
+                player.isOnKinematic = false;
                 pauseManager.inShop = false;
                 inShop = false;
             }
@@ -144,6 +145,7 @@ public class Vendedor : MonoBehaviour
     public void ExitButton()
     {
         pauseManager.inShop = false;
+        player.isOnKinematic = false;
         inShop = false;
     }
 }
