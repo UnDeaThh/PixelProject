@@ -22,7 +22,8 @@ public class LevelDoor : MonoBehaviour
             canvasDoor = transform.Find("CanvasDoor").gameObject;
         }
         canvasDoor.SetActive(true);
-        
+
+        Physics2D.IgnoreLayerCollision(9, 10, false);
         sceneToLoad += 2;
         alreadyEntered = false;
         anim = GetComponent<Animator>();
@@ -47,6 +48,7 @@ public class LevelDoor : MonoBehaviour
 
     IEnumerator LoadLevel()
     {
+        Physics2D.IgnoreLayerCollision(9, 10, true);
         player.lastScene = levelManager.levelScene;
         SaveSystem.SavePlayerData(player, inventory, plAttack);
         SaveSystem.SaveSceneData(ScenesManager.scenesManager);

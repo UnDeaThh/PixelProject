@@ -26,10 +26,11 @@ public class Palanca : MonoBehaviour
         {
             doorFinalPos = new Vector2(door.transform.position.x, door.transform.position.y - descend);
         }
-        else
+        else if(horientacion == Horientacion.Horizontal)
         {
             doorFinalPos = new Vector2(door.transform.position.x + descend, door.transform.position.y);
         }
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
@@ -63,9 +64,9 @@ public class Palanca : MonoBehaviour
                         Destroy(door);
                     }
                 }
-                else
+                else if(horientacion == Horientacion.Horizontal)
                 {
-                    if(door.transform.position.x <= doorFinalPos.x)
+                    if(door.transform.position.x >= doorFinalPos.x)
                     {
                         isDoorDown = true;
                         Destroy(door);

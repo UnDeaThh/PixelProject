@@ -291,15 +291,19 @@ public class LevelManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            player.dashUnlocked = true;
+            player.dashUnlocked = !player.dashUnlocked;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            player.dobleJumpUnlocked = true;
+            player.dobleJumpUnlocked = !player.dobleJumpUnlocked;
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            player.wallJumpUnlocked = true;
+            player.wallJumpUnlocked = !player.wallJumpUnlocked;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            plAttack.haveSword = !plAttack.haveSword;
         }
     }
 

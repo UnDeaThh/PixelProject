@@ -454,13 +454,21 @@ public class PlayerController2 : MonoBehaviour
 
     void CheckIfCanDash()
     {
-        if (dashUnlocked)
+        if (!isOnKinematic)
         {
-            if (!plAttack.isAttacking && !plParry.isParry)
+            if (dashUnlocked)
             {
-                if (isGrounded)
+                if (!plAttack.isAttacking && !plParry.isParry)
                 {
-                    canDash = true;
+                    if (isGrounded)
+                    {
+                        canDash = true;
+                    }
+                    else
+                    {
+                        canDash = false;
+                        shiftPressed = false;
+                    }
                 }
                 else
                 {
@@ -470,12 +478,12 @@ public class PlayerController2 : MonoBehaviour
             }
             else
             {
-                canDash = false;
                 shiftPressed = false;
             }
         }
         else
         {
+            canDash = false;
             shiftPressed = false;
         }
     }
