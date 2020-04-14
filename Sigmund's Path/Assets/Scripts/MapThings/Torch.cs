@@ -5,7 +5,7 @@ using UnityEngine.Experimental.Rendering.LWRP;
 
 public class Torch : MonoBehaviour
 {
-    [SerializeField] UnityEngine.Experimental.Rendering.Universal.Light2D orangeLight;
+    [SerializeField] Light2D orangeLight;
     [SerializeField] float maxLight;
     [SerializeField] float minLight;
     [SerializeField] float lightSpeed;

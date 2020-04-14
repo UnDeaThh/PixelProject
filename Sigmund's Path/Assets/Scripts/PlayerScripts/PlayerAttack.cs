@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
 
     public int damage;
 
-    //public int nClicks = 0;
+    public int nClicks = 0;
 
     public Vector2 attackRangeFront = new Vector2(3f, 2f);
     public Vector2 attackDirection;
@@ -27,9 +27,7 @@ public class PlayerAttack : MonoBehaviour
     public bool airAttackingUp = false;
     public bool airAttackingFront = false;
     public bool haveSword = false;
-    private bool canSecondAttack = false;
-    private bool isSecondAttacking = false;
-
+    [SerializeField]private bool canSecondAttack = false;
 
     private bool canAttack;
 	public bool isAttacking = false;
@@ -44,9 +42,9 @@ public class PlayerAttack : MonoBehaviour
 
     private CameraController cameraController;
     private PlayerAudio sound;
+    public readonly Object nClicksLock = new Object();
 
     public bool CanSecondAttack { get => canSecondAttack; set => canSecondAttack = value; }
-    public bool IsSecondAttacking { get => isSecondAttacking; set => isSecondAttacking = value; }
 
     private void OnEnable()
     {
@@ -82,20 +80,29 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!player.isGODmode)
         {
-            if (!isAttacking)
+            lock (nClicksLock)
             {
-                //nClicks = 0;
-                canSecondAttack = false;
-            }
+                Debug.LogError("canAttack = " + canAttack);
+                Debug.LogError("isAttacking = " + isAttacking);
+                Debug.LogError("nClicks = " + nClicks);
+                Debug.LogError("canSecondAttack = " + canSecondAttack);
 
-            if(!player.isDead)
-            {
-		        if(!pauseManager.isPaused){
-			        CheckIfCanAttack();
-			        Attack();
+                if (!isAttacking)
+                {
+                    nClicks = 0;
+                    canSecondAttack = false;
+                }
 
+                if(!player.isDead)
+                {
+		            if(!pauseManager.isPaused){
+			            CheckIfCanAttack();
+			            Attack();
+
+                    }
                 }
             }
+
         }
     }
 
@@ -113,7 +120,7 @@ public class PlayerAttack : MonoBehaviour
                     }
                     else
                     {
-                        if (canSecondAttack /*&& nClicks < 2*/)
+                        if (canSecondAttack && nClicks < 2)
                         {
                             canAttack = true;
                         }
@@ -160,10 +167,6 @@ public class PlayerAttack : MonoBehaviour
         {
             if (inputs.Controls.Attack.triggered) 
             {
-                if (canSecondAttack)
-                {
-                    isSecondAttacking = true;
-                }
                 #region FRONT ATTACK
                 if (attackDirection.y <= 0.1f)
                 {
@@ -186,7 +189,7 @@ public class PlayerAttack : MonoBehaviour
                         airAttackingUp = false;
                     }
                     isAttacking = true;
-                    //nClicks++;
+                    nClicks++;
                  
 
                     //Primero seteamos la posicion del collider
@@ -318,6 +321,7 @@ public class PlayerAttack : MonoBehaviour
                     }
                 }
                 #endregion
+               // clickAttack = false;
             } 
         }
     }

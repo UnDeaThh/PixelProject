@@ -58,32 +58,35 @@ public class AnimationController : MonoBehaviour
 
     public void StopFirstAttack()
     {
-        //if(plAttack.nClicks < 2) // Al final del primer ataque
-        //{
+        lock (plAttack.nClicksLock)
+        {
+            if(plAttack.nClicks < 2) // Al final del primer ataque
+            {
+                plAttack.CanSecondAttack = false;
+                plAttack.isAttacking = false;
+                plAttack.gndAttackingFront = false;
+                plAttack.gndAttackingUp = false;
+                plAttack.airAttackingFront = false;
+                plAttack.airAttackingUp = false;
+                plAttack.nClicks = 0;
+            }
+        }
+    }
+
+    public void StopSecondAttack()
+    {
+        lock (plAttack.nClicksLock)
+        {
+            Debug.LogError("AAAAAAAAAAAAA");
             plAttack.CanSecondAttack = false;
             plAttack.isAttacking = false;
             plAttack.gndAttackingFront = false;
             plAttack.gndAttackingUp = false;
             plAttack.airAttackingFront = false;
             plAttack.airAttackingUp = false;
-            //plAttack.nClicks = 0;
-        // }
-    }
-
-    public void StopSecondAttack()
-    {
-
-        Debug.LogError("AAAAAAAAAAAAA");
-        plAttack.CanSecondAttack = false;
-        plAttack.isAttacking = false;
-        plAttack.gndAttackingFront = false;
-        plAttack.gndAttackingUp = false;
-        plAttack.airAttackingFront = false;
-        plAttack.airAttackingUp = false;
-        plAttack.IsSecondAttacking = false;
-        // plAttack.nClicks = 0;
+            plAttack.nClicks = 0;
+        }
         
-       
     }
     void StopHealing()
     {
@@ -101,8 +104,7 @@ public class AnimationController : MonoBehaviour
         Anim.SetBool("isJumping", isJumping);
         Anim.SetBool("isDashing", player.isDashing);
         Anim.SetBool("isAttacking", plAttack.isAttacking);
-        //Anim.SetInteger("nClicks", plAttack.nClicks);
-        Anim.SetBool("isSecondAttacking", plAttack.IsSecondAttacking);
+        Anim.SetInteger("nClicks", plAttack.nClicks);
         Anim.SetBool("gndAttackingFront", plAttack.gndAttackingFront);
         Anim.SetBool("gndAttackingUp", plAttack.gndAttackingUp);
         Anim.SetBool("airAttackingFront", plAttack.airAttackingFront);

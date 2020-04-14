@@ -9,7 +9,7 @@ public class HeartPickUp : MonoBehaviour
     private bool disolve;
     private float fade = 1;
     private Material mat;
-    public UnityEngine.Experimental.Rendering.Universal.Light2D redLight;
+    public Light2D redLight;
     private Collider2D col;
     private AudioSource sound;
     public int numberOfHeart = 0;
