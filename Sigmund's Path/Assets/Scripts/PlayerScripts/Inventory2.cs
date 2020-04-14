@@ -40,6 +40,14 @@ public class Inventory2 : MonoBehaviour
     public Sprite[] bigHeartSprite;
     public Sprite[] abilitiesSprite;
 
+
+
+    [SerializeField] Image buttonPotionDeviceImage;
+    [SerializeField] Image buttonBombDeviceImage;
+
+    [SerializeField] Sprite[] potionDevicesSprite;
+    [SerializeField] Sprite[] bombDevicesSprites;
+
     [System.Serializable]
     public class Slot
     {
@@ -73,9 +81,6 @@ public class Inventory2 : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-
-        
         itemDescription = ItemType.Nothing;
     }
 
@@ -89,6 +94,7 @@ public class Inventory2 : MonoBehaviour
         CheckIsFill();
         UpdateText();
         ImageDisplayed();
+        DevicesImages();
         DescriptionText();
 
         LimitObjectToZero();
@@ -283,4 +289,24 @@ public class Inventory2 : MonoBehaviour
             itemDescription = ItemType.Nothing;
         }
     }
+
+    #region DevicesImages
+
+    void DevicesImages()
+    {
+        if(plController2.Gamepad != null) //MANDO CONECTADO
+        {
+            buttonPotionDeviceImage.sprite = potionDevicesSprite[1];
+            buttonBombDeviceImage.sprite = bombDevicesSprites[1];
+        }
+        else
+        {
+            buttonPotionDeviceImage.sprite = potionDevicesSprite[0];
+            buttonBombDeviceImage.sprite = bombDevicesSprites[0];
+        }
+        buttonBombDeviceImage.SetNativeSize();
+        buttonPotionDeviceImage.SetNativeSize();
+    }
+
+    #endregion
 }

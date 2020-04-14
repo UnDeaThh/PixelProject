@@ -115,13 +115,13 @@ public class CumuloEsencia : MonoBehaviour
         {
             crashSound.clip = bigCrashSound;
             crashSound.Play();
+
             for (int i = 0; i < ps.Length; i++)
             {
                 ps[i].Emit(7);
             }
+            GetComponent<Collider2D>().enabled = false;
             RandomInstantiateSouls();
-
-            Debug.Log("Save");
             ScenesManager.scenesManager.cumuloState[numberOfCumulo] = true;
 
             SaveSystem.SavePlayerData(player.GetComponent<PlayerController2>(), player.GetComponentInChildren<Inventory2>(), player.GetComponent<PlayerAttack>());

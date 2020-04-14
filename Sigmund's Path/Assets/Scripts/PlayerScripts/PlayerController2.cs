@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerController2 : MonoBehaviour
 {
     public PlayerInputs inputs;
+    private Gamepad gamepad = Gamepad.current;
+    public Gamepad Gamepad { get => gamepad;}
 
     private PauseManager pauseManager;
     private Inventory2 inventory;
@@ -111,6 +113,7 @@ public class PlayerController2 : MonoBehaviour
     private Collider2D plCollider;
     public GameObject bombPrefab;
 
+  
 
     private void OnEnable()
     {
@@ -150,10 +153,25 @@ public class PlayerController2 : MonoBehaviour
     }
     private void Update()
     {
- 
+
+        InputSystem.onDeviceChange +=
+            (device, change) =>
+            {
+                switch (change)
+                {
+                    case InputDeviceChange.Added:
+                        gamepad = Gamepad.current;
+                        Debug.Log("New device added: " + device);
+                        break;
+
+                    case InputDeviceChange.Removed:
+                        gamepad = Gamepad.current;
+                        Debug.Log("Device removed: " + device);
+                        break;
+                }
+            };
         GODmode();
         ApplyInputsToPlayer();
-
 
         CheckLife();
         if (!isGODmode)

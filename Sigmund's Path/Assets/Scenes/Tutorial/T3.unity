@@ -7091,6 +7091,30 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 591346564}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &591346582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 866011345198169161, guid: 182569db9a00abe4db14b9ad7f8b9566,
+    type: 3}
+  m_PrefabInstance: {fileID: 591346564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &591346583 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4793193891361257462, guid: 182569db9a00abe4db14b9ad7f8b9566,
+    type: 3}
+  m_PrefabInstance: {fileID: 591346564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &603367151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37080,6 +37104,14 @@ PrefabInstance:
       propertyPath: utilityItems.Array.data[2].filledSlot
       value: 
       objectReference: {fileID: 696113902}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: buttonPotionDeviceImage
+      value: 
+      objectReference: {fileID: 591346583}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: buttonBombDeviceImage
+      value: 
+      objectReference: {fileID: 591346582}
     - target: {fileID: 2851571069916491046, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
       propertyPath: m_Name

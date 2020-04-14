@@ -58,26 +58,8 @@ public class AnimationController : MonoBehaviour
 
     public void StopFirstAttack()
     {
-        lock (plAttack.nClicksLock)
+        if(plAttack.nClicks < 2) // Al final del primer ataque
         {
-            if(plAttack.nClicks < 2) // Al final del primer ataque
-            {
-                plAttack.CanSecondAttack = false;
-                plAttack.isAttacking = false;
-                plAttack.gndAttackingFront = false;
-                plAttack.gndAttackingUp = false;
-                plAttack.airAttackingFront = false;
-                plAttack.airAttackingUp = false;
-                plAttack.nClicks = 0;
-            }
-        }
-    }
-
-    public void StopSecondAttack()
-    {
-        lock (plAttack.nClicksLock)
-        {
-            Debug.LogError("AAAAAAAAAAAAA");
             plAttack.CanSecondAttack = false;
             plAttack.isAttacking = false;
             plAttack.gndAttackingFront = false;
@@ -87,6 +69,17 @@ public class AnimationController : MonoBehaviour
             plAttack.nClicks = 0;
         }
         
+    }
+
+    public void StopSecondAttack()
+    {
+        plAttack.CanSecondAttack = false;
+        plAttack.isAttacking = false;
+        plAttack.gndAttackingFront = false;
+        plAttack.gndAttackingUp = false;
+        plAttack.airAttackingFront = false;
+        plAttack.airAttackingUp = false;
+        plAttack.nClicks = 0; 
     }
     void StopHealing()
     {

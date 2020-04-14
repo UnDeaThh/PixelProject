@@ -42,7 +42,6 @@ public class PlayerAttack : MonoBehaviour
 
     private CameraController cameraController;
     private PlayerAudio sound;
-    public readonly Object nClicksLock = new Object();
 
     public bool CanSecondAttack { get => canSecondAttack; set => canSecondAttack = value; }
 
@@ -80,28 +79,21 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!player.isGODmode)
         {
-            lock (nClicksLock)
+            if (!isAttacking)
             {
-                Debug.LogError("canAttack = " + canAttack);
-                Debug.LogError("isAttacking = " + isAttacking);
-                Debug.LogError("nClicks = " + nClicks);
-                Debug.LogError("canSecondAttack = " + canSecondAttack);
+                nClicks = 0;
+                canSecondAttack = false;
+            }
 
-                if (!isAttacking)
-                {
-                    nClicks = 0;
-                    canSecondAttack = false;
-                }
+            if(!player.isDead)
+            {
+		        if(!pauseManager.isPaused){
+			        CheckIfCanAttack();
+			        Attack();
 
-                if(!player.isDead)
-                {
-		            if(!pauseManager.isPaused){
-			            CheckIfCanAttack();
-			            Attack();
-
-                    }
                 }
             }
+            
 
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Altar : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Altar : MonoBehaviour
     private PlayerController2 player;
     [SerializeField] float kinematicDuration;
     [SerializeField] GameObject canvasObject;
+    [SerializeField] Image image;
+    [SerializeField] Sprite[] deviceButtonSprite;
 
     private void Start()
     {
@@ -31,6 +34,16 @@ public class Altar : MonoBehaviour
     {
         if (playerClose)
         {
+            if(player.Gamepad != null)
+            {
+                image.sprite = deviceButtonSprite[0];
+            }
+            else
+            {
+                image.sprite = deviceButtonSprite[1];
+            }
+
+
             if (player.inputs.Controls.Interact.triggered)
             {
                 switch (altarType)
@@ -72,7 +85,7 @@ public class Altar : MonoBehaviour
                         }
                         break;
                 }
-                pressEText.SetActive(false);
+
             }
         }
         else
@@ -86,6 +99,7 @@ public class Altar : MonoBehaviour
     {
         player.isOnKinematic = true;
         player.heedArrows = false;
+        player.rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(kinematicDuration);
         switch (altarType)
         {
