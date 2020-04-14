@@ -14,7 +14,7 @@ public class CumuloEsencia : MonoBehaviour
     public GameObject souls;
     private Collider2D col;
     private Animator anim;
-    public Light2D purpleLight;
+    public UnityEngine.Experimental.Rendering.Universal.Light2D purpleLight;
 
     private Vector2 colSize;
     private Vector2 colCenter;

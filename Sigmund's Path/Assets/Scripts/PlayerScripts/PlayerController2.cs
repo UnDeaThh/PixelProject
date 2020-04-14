@@ -362,8 +362,6 @@ public class PlayerController2 : MonoBehaviour
         {
             canJump = false;
         }
-      /*  
-        */
     }
 
     void CheckIfWallSliding()
