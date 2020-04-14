@@ -24,6 +24,8 @@ public class BermonchAI : BaseEnemy
     [SerializeField] float maxRangeDistance = 25f;
     [SerializeField] float timeBtwAttack;
     private float cntTimeBtwAttack;
+    [SerializeField] float stillTime = 1.5f;
+    [SerializeField] float cntStillTime;
 
     public Vector2 attackRange;
     public GameObject throwRockPrefab;
@@ -66,14 +68,14 @@ public class BermonchAI : BaseEnemy
                 if(distance <= maxRangeDistance) //El player esta a una distancia atacable
                 {
                     Attack();
-                    CloseAttack();
-                    RangeAttack();
+                    cntStillTime = stillTime;
                 }
                 else
                 {
                     CheckEnvironment();
                 }
-      
+                CloseAttack();
+                RangeAttack();
             }
 
             Dead();
@@ -99,14 +101,19 @@ public class BermonchAI : BaseEnemy
         {
             if(distance > maxRangeDistance)
             {
-                if(groundInFront && !wallInFront)
+                if (cntStillTime <= 0)
                 {
-                    rb.velocity = new Vector2(facingDir * movSpeed * Time.fixedDeltaTime, 0f);
+                    if (groundInFront && !wallInFront)
+                    {
+                        rb.velocity = new Vector2(facingDir * movSpeed * Time.fixedDeltaTime, 0f);
+                    }
+                    else
+                    {
+                        Flip();
+                    }
                 }
                 else
-                {
-                    Flip();
-                }
+                    cntStillTime -= Time.deltaTime;
             }
             else
             {
@@ -132,7 +139,6 @@ public class BermonchAI : BaseEnemy
     }
     void Attack()
     {
-        //Calculamos a que distancia se encuentra el player
         #region CloseAttack
         if (distance >= 0f && distance < highRangeDistance)
         {
@@ -200,10 +206,10 @@ public class BermonchAI : BaseEnemy
             rangeAttack = false;
         }
     }
-    public override void TakeDamage(int damage){
+    public override void TakeDamage(int damage, Vector2 playerPos){
         if (bermBuild)
         {
-            base.TakeDamage(damage);
+            base.TakeDamage(damage, playerPos);
         }
         else
             return;

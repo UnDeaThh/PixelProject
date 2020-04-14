@@ -338,6 +338,14 @@ public class PlayerController2 : MonoBehaviour
                 {
                     canJump = false;
                 }
+
+                if (!isWallSliding)
+                {
+                    if(!isJumping && cntJumps < 2)
+                    {
+                        cntJumps = 1;
+                    }
+                }
             }
             /*
             if(cntJumps < maxJumps)

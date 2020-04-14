@@ -177,11 +177,11 @@ public class NeckAI : BaseEnemy
         }
     }
 
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Vector2 playerPos)
     {
         if (firstAttackFinished)
         {
-            base.TakeDamage(damage);
+            base.TakeDamage(damage, playerPos);
         }
     }
 

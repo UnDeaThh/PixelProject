@@ -129,38 +129,22 @@ public class ChangelingAI : BaseEnemy
             spriteChangeling.localScale = new Vector3(1f, 1f, 1f);
         }
     }
-
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Vector2 playerPos)
     {
-        base.TakeDamage(damage);
-        if(rb.velocity.x <= -0.01)
+        base.TakeDamage(damage, playerPos);
+        rb.velocity = Vector2.zero;
+        if (playerPos.x <= transform.position.x)
         {
             Vector2 hitDir = new Vector2(1f, 0f);
             rb.AddForce(hitDir * damagePushForce);
-            StartCoroutine(Blinking());
         }
-        else if(rb.velocity.x >= 0.01f)
+        else
         {
             Vector2 hitForce = new Vector2(-1f, 0f);
             rb.AddForce(hitForce * damagePushForce);
-            StartCoroutine(Blinking());
         }
         Debug.Log("Changeling");
-
-    }
-
-    IEnumerator Blinking()
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            graphic.color = damagedColor;
-            yield return new WaitForSeconds(0.1f);
-            graphic.color = normalColor;
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-
-    
+    }    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -42,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
 
     private CameraController cameraController;
     private PlayerAudio sound;
+    public readonly Object nClicksLock = new Object();
 
     public bool CanSecondAttack { get => canSecondAttack; set => canSecondAttack = value; }
 
@@ -79,21 +80,29 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!player.isGODmode)
         {
-            if (!isAttacking)
+            lock (nClicksLock)
             {
-                nClicks = 0;
-                canSecondAttack = false;
-            }
+                Debug.LogError("canAttack = " + canAttack);
+                Debug.LogError("isAttacking = " + isAttacking);
+                Debug.LogError("nClicks = " + nClicks);
+                Debug.LogError("canSecondAttack = " + canSecondAttack);
 
-            if(!player.isDead)
-            {
-		        if(!pauseManager.isPaused){
-			        CheckIfCanAttack();
-			        Attack();
-
+                if (!isAttacking)
+                {
+                    nClicks = 0;
+                    canSecondAttack = false;
                 }
 
+                if(!player.isDead)
+                {
+		            if(!pauseManager.isPaused){
+			            CheckIfCanAttack();
+			            Attack();
+
+                    }
+                }
             }
+
         }
     }
 
@@ -181,6 +190,7 @@ public class PlayerAttack : MonoBehaviour
                     }
                     isAttacking = true;
                     nClicks++;
+                 
 
                     //Primero seteamos la posicion del collider
                     if (player.facingDir == 1)
@@ -202,7 +212,7 @@ public class PlayerAttack : MonoBehaviour
                             cameraController.letsShake = true;
                             if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                             {
-                                enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                                enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
                                 plParry.parrySuccesful = false;
                             }
                         }
@@ -278,7 +288,7 @@ public class PlayerAttack : MonoBehaviour
                             cameraController.letsShake = true;
                             if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                             {
-                                enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage);
+                                enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
                                 plParry.parrySuccesful = false;
                             }
                         }

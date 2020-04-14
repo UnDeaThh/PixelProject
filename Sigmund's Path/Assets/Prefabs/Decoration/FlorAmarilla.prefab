@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3012236780721898961}
   - component: {fileID: 5665797419220652635}
+  - component: {fileID: 461624137116042947}
   m_Layer: 0
   m_Name: FlorAmarilla
   m_TagString: Untagged
@@ -70,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 2082739441
   m_SortingLayer: 4
   m_SortingOrder: -1
-  m_Sprite: {fileID: -5887112817663380779, guid: d2607a47192c0c74c9b0c39309448df3,
+  m_Sprite: {fileID: -7888779642742563912, guid: c4d15e750f584ad4bb62789c9fb7d6b5,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -82,6 +83,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &461624137116042947
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646008740668556400}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bfbb29fee08158340afbb259c03afd7d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5717093913170759472
 GameObject:
   m_ObjectHideFlags: 0

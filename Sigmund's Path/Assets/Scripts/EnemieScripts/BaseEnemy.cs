@@ -78,8 +78,16 @@ public class BaseEnemy : MonoBehaviour
         soulColectable.GetComponent<SoulPickUp>().MoneyValor(enemyTipo);
         Instantiate(soulColectable, transform.position, Quaternion.identity);
     }
-
+/*
     public virtual void TakeDamage(int damage)
+    {
+        nLifes -= damage;
+        Debug.Log(nLifes);
+        StartCoroutine(Blinking());
+    }
+    */
+
+    public virtual void TakeDamage(int damage, Vector2 playerPos)
     {
         nLifes -= damage;
         Debug.Log(nLifes);
