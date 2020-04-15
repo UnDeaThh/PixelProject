@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -44235,35 +44235,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1043347031, guid: 2c99d9fda17b02442845765a093ba07f, type: 3}
-      propertyPath: m_Intensity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851487824832765, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851487824832765, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851487824832765, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851487824832765, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851487824832765, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 502851488018008674, guid: 2c99d9fda17b02442845765a093ba07f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -44323,31 +44294,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Altar
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851489121393689, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851489121393689, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851489121393689, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851489121393689, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 502851489121393689, guid: 2c99d9fda17b02442845765a093ba07f,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c99d9fda17b02442845765a093ba07f, type: 3}

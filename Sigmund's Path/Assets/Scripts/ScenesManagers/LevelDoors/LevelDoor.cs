@@ -24,7 +24,7 @@ public class LevelDoor : MonoBehaviour
         canvasDoor.SetActive(true);
 
         Physics2D.IgnoreLayerCollision(9, 10, false);
-        sceneToLoad += 2;
+        sceneToLoad += 3;
         alreadyEntered = false;
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();

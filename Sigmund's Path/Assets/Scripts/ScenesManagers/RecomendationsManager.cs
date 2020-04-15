@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LogoManager : MonoBehaviour
+public class RecomendationsManager : MonoBehaviour
 {
     PlayerInputs inputs;
 
@@ -24,14 +24,15 @@ public class LogoManager : MonoBehaviour
 
     private void Update()
     {
-        if(inputs.LogoControls.Exit.triggered)
+        if (inputs.LogoControls.Exit.triggered)
         {
-            SceneManager.LoadScene("GamepadScene");
+            SceneManager.LoadScene("MainMenuScene");
         }
     }
     IEnumerator GoMainMenu()
     {
-        yield return new WaitForSeconds(6.1f);
-        SceneManager.LoadScene("GamepadScene");
+        yield return new WaitForSeconds(6f);
+        SceneManager.LoadScene("MainMenuScene");
     }
 }
+

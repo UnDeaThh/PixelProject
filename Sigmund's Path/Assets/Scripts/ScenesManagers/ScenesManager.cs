@@ -46,7 +46,7 @@ public class ScenesManager : MonoBehaviour
     private void Update()
     {
         actualScene = SceneManager.GetActiveScene().buildIndex;
-        if(toLoadScene != 0 && actualScene == 1)
+        if(toLoadScene != 0 && actualScene == 2)
         {
             apearsOnFountain = true;
         }

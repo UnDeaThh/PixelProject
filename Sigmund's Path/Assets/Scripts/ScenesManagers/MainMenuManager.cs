@@ -40,7 +40,7 @@ public class MainMenuManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene("T1");
         }
     }
 
@@ -66,7 +66,7 @@ public class MainMenuManager : MonoBehaviour
             ScenesManager.scenesManager.heartsPickUp[i] = false;
         }
 
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("T1");
     }
     public void NoDeleteData()
     {
@@ -77,7 +77,7 @@ public class MainMenuManager : MonoBehaviour
     {
         if(ScenesManager.scenesManager.toLoadScene == 0)
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene("T1");
         }
         else 
         {

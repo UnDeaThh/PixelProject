@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
             apearsPos[i].parent.transform.gameObject.SetActive(true);
         }
 
-        levelScene += 2;
+        levelScene += 3;
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         plAttack = player.gameObject.GetComponent<PlayerAttack>();
