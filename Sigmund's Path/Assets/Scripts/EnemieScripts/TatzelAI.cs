@@ -1,0 +1,289 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TatzelAI : BaseEnemy
+{
+    private Rigidbody2D rb;
+    private bool isGrounded;
+    private bool groundFound;
+    private bool wallFound;
+    private bool playerFoundedBack = false;
+    private bool ffBack;
+    private bool playerFoundedFront;
+    private bool playerFounded;
+    private bool playerJustInFront;
+
+
+
+
+    private bool canAttack = false;
+    private bool attack;
+
+    private bool makeOneattack;
+    public bool MakeOneattack { get => makeOneattack; set => makeOneattack = value; }
+
+    [SerializeField] float backDistance;
+    [SerializeField] float frontDistance;
+    private float distancia;
+    [SerializeField] float runingSpeed;
+    [SerializeField] float maxDistanceToPlayer;
+    [SerializeField] float groundDistance;
+    [SerializeField] float checkDistance;
+
+    [SerializeField] float timeBtwAttacks = 2f;
+    [SerializeField] float cntTimeBtwAttacks;
+
+
+    [SerializeField] Transform groundCheckerPos;
+    [SerializeField] Transform frontCheckerPos;
+    [SerializeField] Transform backChecker;
+    [SerializeField] Transform attackPos;
+
+    [SerializeField] Vector2 backArea;
+    [SerializeField] Vector2 attackRange;
+    [SerializeField] LayerMask playerMask;
+
+    private Transform player;
+
+    private int facingDir;
+
+    public bool Attack1 { get => attack; set => attack = value; }
+   
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        Physics2D.IgnoreLayerCollision(9, 9);
+        anim = GetComponentInChildren<Animator>();
+        mat = GetComponentInChildren<SpriteRenderer>().material;
+        sprite = GetComponentInChildren<SpriteRenderer>();
+
+        int randomNumber = 0;
+        while(randomNumber == 0)
+        {
+            randomNumber = Random.Range(-1, 1);
+        }
+
+        facingDir = randomNumber;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(nLifes > 0)
+        {
+            CheckEnvironment();
+            PlayerAlreadyDetected();
+            CheckIfCanAttack();
+
+            if (makeOneattack)
+            {
+                Collider2D col = Physics2D.OverlapBox(attackPos.position, attackRange, 0, playerMask);
+                if (col != null)
+                {
+                    col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+                }
+                makeOneattack = false;
+            }
+
+
+
+            UpdateAnimations();
+            Stuned();
+        }
+
+        Dead();
+    }
+
+    private void FixedUpdate()
+    {
+        AplyMovement();
+    }
+
+
+
+    void CheckEnvironment()
+    {
+        isGrounded = Physics2D.Raycast(groundCheckerPos.position, Vector2.down, groundDistance, whatIsDetected);
+        groundFound = Physics2D.Raycast(frontCheckerPos.position, Vector2.down, checkDistance, whatIsDetected);
+        wallFound = Physics2D.Raycast(frontCheckerPos.position, transform.right, checkDistance, whatIsDetected);
+
+        playerFoundedBack = Physics2D.OverlapBox(backChecker.position, backArea, 0, playerMask);
+        if (playerFoundedBack)
+        {
+            ffBack = true;
+        }
+ 
+        if(facingDir > 0)
+        {
+            if(player.position.x > transform.position.x && player.position.x <= transform.position.x + frontDistance)
+            {
+                playerFoundedFront = true;
+            }
+            else
+            {
+                playerFoundedFront = false;
+            }
+        }
+        else
+        {
+            if(player.position.x < transform.position.x && player.position.x >= transform.position.x - frontDistance)
+            {
+                playerFoundedFront = true;
+            }
+            else
+            {
+                playerFoundedFront = false;
+            }
+        }
+
+        if (playerFoundedBack || playerFoundedFront)
+        {
+            playerFounded = true;
+        }
+        else if(!playerFoundedBack && !playerFoundedFront)
+        {
+            playerFounded = false;
+        }
+    }
+    void PlayerAlreadyDetected()
+    {
+        if (playerFounded)
+        {
+            distancia = Vector2.Distance(transform.position, player.position);
+
+            if (distancia > maxDistanceToPlayer)
+            {
+                playerJustInFront = false;
+            }
+            else
+            {
+                playerJustInFront = true;
+            }
+        }
+        else
+        {
+            playerJustInFront = false;
+        }
+    }
+
+    void AplyMovement()
+    {
+        //Caminando Tranquilico por el barrio
+        if (isGrounded)
+        {
+            if (!playerFounded)
+            {
+                if(groundFound && !wallFound)
+                {
+                    rb.velocity = new Vector2(facingDir * movSpeed * Time.deltaTime, rb.velocity.y);
+                }
+                else
+                {
+                    Flip();
+                }
+            }
+            else
+            {
+                if (ffBack)
+                {
+                    Flip();
+                    ffBack = false;
+                }
+
+                if (playerFoundedFront && !playerJustInFront)
+                {
+                    if (!attack)
+                    {
+                        rb.velocity = new Vector2(facingDir * runingSpeed * Time.deltaTime, rb.velocity.y);
+                    }
+                }
+
+                if (playerJustInFront)
+                {
+                    rb.velocity = Vector2.zero;
+                }
+            }
+        }
+    }
+
+
+    void Flip()
+    {
+        transform.Rotate(0f, 180f, 0f);
+        facingDir *= -1;
+    }
+
+    void CheckIfCanAttack()
+    {
+        if (playerJustInFront)
+        {
+            if(cntTimeBtwAttacks > 0)
+            {
+                cntTimeBtwAttacks -= Time.deltaTime;
+            }
+            else
+            {
+                attack = true;
+                cntTimeBtwAttacks = timeBtwAttacks;
+            }
+        }
+    }
+
+    public override void Stuned()
+    {
+        base.Stuned();
+    }
+
+    public override void StartStun()
+    {
+        base.StartStun();
+    }
+    public override void Dead()
+    {
+        base.Dead();
+    }
+
+    void UpdateAnimations()
+    {
+        if(Mathf.Abs(rb.velocity.x) > 0.1f)
+        {
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
+
+        anim.SetBool("attack", attack);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.transform.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(groundCheckerPos.position, new Vector3(groundCheckerPos.position.x, groundCheckerPos.position.y - groundDistance, transform.position.z));
+        Gizmos.DrawLine(frontCheckerPos.position, new Vector3(frontCheckerPos.position.x, frontCheckerPos.position.y - checkDistance, transform.position.z));
+
+        if (facingDir == 1)
+        {
+            Gizmos.DrawLine(frontCheckerPos.position, new Vector3(frontCheckerPos.position.x + checkDistance, frontCheckerPos.position.y, transform.position.z));
+        }
+        else
+        {
+            Gizmos.DrawLine(frontCheckerPos.position, new Vector3(frontCheckerPos.position.x - checkDistance, frontCheckerPos.position.y, transform.position.z));
+        }
+
+        Gizmos.DrawWireCube(backChecker.position, backArea);
+
+        Gizmos.DrawWireCube(attackPos.position, attackRange);
+    }
+}

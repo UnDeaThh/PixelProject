@@ -60,7 +60,7 @@ public class BaseEnemy : MonoBehaviour
 
         if (callDead)
         {
-            if (deadSound)
+            if (deadSound.clip != null)
             {
                 if (!deadSound.isPlaying && fade <= 0f) 
                 {
