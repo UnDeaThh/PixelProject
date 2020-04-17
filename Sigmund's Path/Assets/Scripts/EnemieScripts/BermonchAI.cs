@@ -18,6 +18,8 @@ public class BermonchAI : BaseEnemy
     private bool closeAttack = false;
     private bool rangeAttack = false;
 
+    private bool closeAttackAnimation;
+
     [Range(1.0f, 10.0f)]
     [SerializeField] float highRangeDistance = 3f;
     [Range(10.0f, 25f)]
@@ -31,7 +33,8 @@ public class BermonchAI : BaseEnemy
     public GameObject throwRockPrefab;
     public Collider2D playerFoundCollider;
 
-    private Transform targetPlayer;
+    private Transform player;
+    private PlayerParry plParry;
     private float distance;
 
     private Rigidbody2D rb;
@@ -39,13 +42,16 @@ public class BermonchAI : BaseEnemy
     public float CntTimeBtwAttack { get => cntTimeBtwAttack; set => cntTimeBtwAttack = value; }
     public bool RangeAttack1 { get => rangeAttack; set => rangeAttack = value; }
     public bool CloseAttack1 { get => closeAttack; set => closeAttack = value; }
+    public bool CloseAttackAnimation { get => closeAttackAnimation; set => closeAttackAnimation = value; }
+
     private bool isAttacking = false;
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         //El Collider de Collision del bermounch no interacciona con el del player
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), 
         GameObject.FindGameObjectWithTag("Player").GetComponent<CapsuleCollider2D>());
-        targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        plParry = player.gameObject.GetComponent<PlayerParry>();
     }
 
     private void Start()
@@ -59,25 +65,31 @@ public class BermonchAI : BaseEnemy
         {
             if(nLifes > 0)
             {
-                distance = Vector2.Distance(transform.position, targetPlayer.position);
+                distance = Vector2.Distance(transform.position, player.position);
                 //Desactivar el Collider que detecta al player para que no moleste mas adelante
-                if (playerFoundCollider != null){
-                    playerFoundCollider.enabled = false;
+
+                    if (playerFoundCollider != null){
+                        playerFoundCollider.enabled = false;
+                    }
+
+                if (!isStuned)
+                {
+                        if(distance <= maxRangeDistance) //El player esta a una distancia atacable
+                        {
+                            Attack();
+                            cntStillTime = stillTime;
+                        }
+                        else
+                        {
+                            CheckEnvironment();
+                        }
                 }
 
-                if(distance <= maxRangeDistance) //El player esta a una distancia atacable
-                {
-                    Attack();
-                    cntStillTime = stillTime;
-                }
-                else
-                {
-                    CheckEnvironment();
-                }
-                CloseAttack();
-                RangeAttack();
+                    CloseAttack();
+                    RangeAttack();
             }
 
+            Stuned();
             Dead();
         }
 
@@ -118,7 +130,7 @@ public class BermonchAI : BaseEnemy
             else
             {
                 rb.velocity = Vector2.zero;
-                if (targetPlayer.position.x < transform.position.x)
+                if (player.position.x < transform.position.x)
                 {
                     transform.rotation = new Quaternion(0f, 180f, 0f, 0f);
                     facingDir = -1;
@@ -146,7 +158,7 @@ public class BermonchAI : BaseEnemy
             {
                 if (!isAttacking)
                 {
-                    anim.SetBool("closeAttack", true);
+                    closeAttackAnimation = true;
                     isAttacking = true;
 
                 }
@@ -186,9 +198,15 @@ public class BermonchAI : BaseEnemy
             Collider2D col = Physics2D.OverlapBox(transform.position, attackRange, 0, whatIsDetected);
             if(col != null)
             {
-                col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+                if (plParry.IsParry)
+                {
+                    StartStun();
+                }
+                else
+                {
+                    col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, gameObject.transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+                }
             }
-            anim.SetBool("closeAttack", false);
             isAttacking = false;
             cntTimeBtwAttack = timeBtwAttack;
             closeAttack = false;
@@ -205,6 +223,15 @@ public class BermonchAI : BaseEnemy
             isAttacking = false;
             rangeAttack = false;
         }
+    }
+
+    public override void StartStun()
+    {
+        isStuned = true;
+        closeAttack = false;
+        isAttacking = false;
+        plParry.CallParry();
+        cntTimeStuned = timeStuned;
     }
     public override void TakeDamage(int damage, Vector2 playerPos){
         if (bermBuild)
@@ -260,9 +287,12 @@ public class BermonchAI : BaseEnemy
         }
     }
 
-    void UpdateAnimations(){
+    void UpdateAnimations()
+    {
         anim.SetBool("playerFound", playerFound);
         anim.SetFloat("movSpeed", Mathf.Abs(rb.velocity.x));
+        anim.SetBool("closeAttack", closeAttackAnimation);
+        anim.SetBool("isStuned", isStuned);
     }
 
     private void OnDrawGizmosSelected()

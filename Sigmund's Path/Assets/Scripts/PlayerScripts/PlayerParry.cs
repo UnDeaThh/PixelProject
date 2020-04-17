@@ -152,9 +152,16 @@ public class PlayerParry : MonoBehaviour
         {
             if(other.tag == "Enemy")
             {
-                other.GetComponentInParent<BaseEnemy>().StartStun();
-                ParryDone = true;
-                ParrySuccesful = true;
+                if(other.GetComponent<BaseEnemy>().enemyType == EnemyClass.Nach || other.GetComponent<BaseEnemy>().enemyType == EnemyClass.Changeling)
+                {      
+                    other.GetComponentInParent<BaseEnemy>().StartStun();
+                    ParryDone = true;
+                    ParrySuccesful = true;
+                }
+                else
+                {
+                    Debug.Log("NADADA");
+                }
                 
             }
             else

@@ -103,7 +103,17 @@ public class BaseEnemy : MonoBehaviour
     }
     public virtual void Stuned()
     {
-
+        if (isStuned)
+        {
+            if (cntTimeStuned > 0)
+            {
+                cntTimeStuned -= Time.deltaTime;
+            }
+            else
+            {
+                isStuned = false;
+            }
+        }
     }
     #endregion
 }

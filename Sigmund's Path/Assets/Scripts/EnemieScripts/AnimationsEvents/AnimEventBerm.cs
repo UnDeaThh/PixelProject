@@ -31,6 +31,11 @@ public class AnimEventBerm : MonoBehaviour
         berm.CloseAttack1 = true;
     }
 
+    void FinishCloseAttack()
+    {
+        berm.CloseAttackAnimation = false;
+    }
+
     void RangeAttack()
     {
         berm.RangeAttack1 = true;
