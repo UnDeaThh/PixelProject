@@ -332,7 +332,7 @@ public class PlayerController2 : MonoBehaviour
             }
         }
 
-        if (!isDashing && !plParry.isParry && !plAttack.isAttacking)
+        if (!isDashing && !plParry.IsParry && !plAttack.isAttacking)
         {
             if (isGrounded || cntCoyoteTime > 0)
             {
@@ -484,7 +484,7 @@ public class PlayerController2 : MonoBehaviour
         {
             if (dashUnlocked)
             {
-                if (!plAttack.isAttacking && !plParry.isParry)
+                if (!plAttack.isAttacking && !plParry.IsParry)
                 {
                     if (isGrounded)
                     {

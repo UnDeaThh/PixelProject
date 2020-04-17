@@ -144,7 +144,7 @@ public class NachAI : BaseEnemy
     {
         if (collision.transform.CompareTag("Player"))
         {
-            if (!collision.gameObject.GetComponent<PlayerParry>().isParry)
+            if (!collision.gameObject.GetComponent<PlayerParry>().IsParry)
             {
                 collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
             }
@@ -154,6 +154,13 @@ public class NachAI : BaseEnemy
                 cntTimeStuned = timeStuned;
             }
         }
+    }
+    public override void StartStun()
+    {
+        isStuned = true;
+        cntTimeStuned = timeStuned;
+        ffStuned = false;
+        Debug.Log("Parry to Nach");
     }
 
     public override void Stuned()
@@ -170,13 +177,7 @@ public class NachAI : BaseEnemy
             }
         }
     }
-    public override void StartStun()
-    {
-        isStuned = true;
-        cntTimeStuned = timeStuned;
-        ffStuned = false;
-        Debug.Log("Parry to Nach");
-    }
+
 
 
     private void OnDrawGizmosSelected()

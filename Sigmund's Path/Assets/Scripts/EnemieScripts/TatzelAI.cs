@@ -45,6 +45,7 @@ public class TatzelAI : BaseEnemy
     [SerializeField] LayerMask playerMask;
 
     private Transform player;
+    private PlayerParry plParry;
 
     private int facingDir;
 
@@ -67,6 +68,7 @@ public class TatzelAI : BaseEnemy
 
         facingDir = randomNumber;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        plParry = player.gameObject.GetComponent<PlayerParry>();
     }
 
     // Update is called once per frame
@@ -83,7 +85,14 @@ public class TatzelAI : BaseEnemy
                 Collider2D col = Physics2D.OverlapBox(attackPos.position, attackRange, 0, playerMask);
                 if (col != null)
                 {
-                    col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+                    if (player.gameObject.GetComponent<PlayerParry>().IsParry)
+                    {
+                        StartStun();
+                    }
+                    else
+                    {
+                        col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position); //Pongo los vectores al reves ya que en el metodo le doy la vuelta
+                    }
                 }
                 makeOneattack = false;
             }
@@ -174,37 +183,44 @@ public class TatzelAI : BaseEnemy
         //Caminando Tranquilico por el barrio
         if (isGrounded)
         {
-            if (!playerFounded)
+            if (!isStuned)
             {
-                if(groundFound && !wallFound)
+                if (!playerFounded)
                 {
-                    rb.velocity = new Vector2(facingDir * movSpeed * Time.deltaTime, rb.velocity.y);
+                    if(groundFound && !wallFound)
+                    {
+                        rb.velocity = new Vector2(facingDir * movSpeed * Time.deltaTime, rb.velocity.y);
+                    }
+                    else
+                    {
+                        Flip();
+                    }
                 }
                 else
                 {
-                    Flip();
+                    if (ffBack)
+                    {
+                        Flip();
+                        ffBack = false;
+                    }
+
+                    if (playerFoundedFront && !playerJustInFront)
+                    {
+                        if (!attack)
+                        {
+                            rb.velocity = new Vector2(facingDir * runingSpeed * Time.deltaTime, rb.velocity.y);
+                        }
+                    }
+
+                    if (playerJustInFront)
+                    {
+                        rb.velocity = Vector2.zero;
+                    }
                 }
             }
             else
             {
-                if (ffBack)
-                {
-                    Flip();
-                    ffBack = false;
-                }
-
-                if (playerFoundedFront && !playerJustInFront)
-                {
-                    if (!attack)
-                    {
-                        rb.velocity = new Vector2(facingDir * runingSpeed * Time.deltaTime, rb.velocity.y);
-                    }
-                }
-
-                if (playerJustInFront)
-                {
-                    rb.velocity = Vector2.zero;
-                }
+                rb.velocity = Vector2.zero;
             }
         }
     }
@@ -234,13 +250,28 @@ public class TatzelAI : BaseEnemy
 
     public override void Stuned()
     {
-        base.Stuned();
+        if (isStuned)
+        {
+            if(cntTimeStuned > 0)
+            {
+                cntTimeStuned -= Time.deltaTime;
+            }
+            else
+            {
+                isStuned = false;
+            }
+        }
     }
 
     public override void StartStun()
     {
-        base.StartStun();
+        isStuned = true;
+        attack = false;
+        makeOneattack = false;
+        plParry.CallParry();
+        cntTimeStuned = timeStuned;
     }
+
     public override void Dead()
     {
         base.Dead();
@@ -258,6 +289,7 @@ public class TatzelAI : BaseEnemy
         }
 
         anim.SetBool("attack", attack);
+        anim.SetBool("isStuned", isStuned);
     }
 
     private void OnCollisionEnter2D(Collision2D other)

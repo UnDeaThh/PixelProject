@@ -104,7 +104,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (haveSword)
             {
-                if(!player.isDrinking && ! player.isWallSliding && !plParry.isParry && !player.isDashing)
+                if(!player.isDrinking && ! player.isWallSliding && !plParry.IsParry && !player.isDashing)
                 {
                     if (!isAttacking)
                     {
@@ -150,7 +150,7 @@ public class PlayerAttack : MonoBehaviour
         {
             damage *= 2;
         }
-        if (plParry.parrySuccesful)
+        if (plParry.ParrySuccesful)
         {
             damage += 1;
         }
@@ -205,7 +205,7 @@ public class PlayerAttack : MonoBehaviour
                             if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                             {
                                 enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
-                                plParry.parrySuccesful = false;
+                                plParry.ParrySuccesful = false;
                             }
                         }
                         else if (enemiesToDamage[i].CompareTag("Nerbuz"))
@@ -214,7 +214,7 @@ public class PlayerAttack : MonoBehaviour
                             {
                                 enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
                             }
-                            plParry.parrySuccesful = false;
+                            plParry.ParrySuccesful = false;
                         }
                         else if (enemiesToDamage[i].CompareTag("CumuloEsencia"))
                         {
@@ -281,7 +281,7 @@ public class PlayerAttack : MonoBehaviour
                             if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                             {
                                 enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
-                                plParry.parrySuccesful = false;
+                                plParry.ParrySuccesful = false;
                             }
                         }
                         else if (enemiesToDamage[i].CompareTag("Nerbuz"))
@@ -290,7 +290,7 @@ public class PlayerAttack : MonoBehaviour
                             {
                                 enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
                             }
-                            plParry.parrySuccesful = false;
+                            plParry.ParrySuccesful = false;
                         }
 
                         else if (enemiesToDamage[i].CompareTag("CumuloEsencia"))

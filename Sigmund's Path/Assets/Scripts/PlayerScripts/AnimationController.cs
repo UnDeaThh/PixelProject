@@ -103,7 +103,7 @@ public class AnimationController : MonoBehaviour
         Anim.SetBool("airAttackingFront", plAttack.airAttackingFront);
         Anim.SetBool("airAttackingUp", plAttack.airAttackingUp);
         Anim.SetBool("isDrinking", player.isDrinking);
-        Anim.SetBool("isParry", plParry.isParry);
+        Anim.SetBool("isParry", plParry.IsParry);
   
         Anim.SetBool("isDead", player.isDead);
         Anim.SetBool("ffDead", ffDead);

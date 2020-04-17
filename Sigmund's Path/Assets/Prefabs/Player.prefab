@@ -1064,10 +1064,10 @@ MonoBehaviour:
   startTimeBtwParry: 0.4
   parryDuration: 1
   failParryTime: 1
-  isParry: 0
-  parrySuccesful: 0
   parryFail: 0
   parryCol: {fileID: 8299661826070670118}
+  parryParticle: {fileID: 7653774854683568875, guid: 66ef440f29378b149915656d5acf36aa,
+    type: 3}
 --- !u!70 &8299661826070670118
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

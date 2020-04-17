@@ -17,15 +17,21 @@ public class PlayerParry : MonoBehaviour
     public float failParryTime = 0.3f;
 
     private bool canParry;
-    public bool isParry;
+    private bool isParry;
     private bool parryDone = false;
     private bool justOneTime = false;
-    public bool parrySuccesful = false;
+    private bool parrySuccesful = false;
     public bool parryFail = false;
     private bool alreadyClicked = false;
 
 
     public Collider2D parryCol;
+    [SerializeField] GameObject parryParticle;
+
+    public bool IsParry { get => isParry; set => isParry = value; }
+    public bool ParryDone { get => parryDone; set => parryDone = value; }
+    public bool ParrySuccesful { get => parrySuccesful; set => parrySuccesful = value; }
+
     private void OnEnable()
     {
         inputs.Controls.Enable();
@@ -38,7 +44,7 @@ public class PlayerParry : MonoBehaviour
     {
         inputs = new PlayerInputs();
         plAttack = GetComponent<PlayerAttack>();
-        isParry = false;
+        IsParry = false;
         parryCol.enabled = false;
         
     }
@@ -90,7 +96,7 @@ public class PlayerParry : MonoBehaviour
                 currentParryTime = parryDuration;
                 plController2.heedArrows = false;
                 plController2.rb.velocity = new Vector2(0f, 0f);
-                isParry = true;
+                IsParry = true;
                 justOneTime = true;
                 
             }
@@ -101,29 +107,29 @@ public class PlayerParry : MonoBehaviour
     void Parry()
     {
         //Stay till is doing parry see at PlayerController
-        if (isParry)
+        if (IsParry)
         {
-            if(currentParryTime > 0f && !parryDone)
+            if(currentParryTime > 0f && !ParryDone)
             {
                 currentParryTime -= Time.deltaTime;
                 plController2.heedArrows = false;
                 parryCol.enabled = true;
             }
-            else if(currentParryTime <= 0f || parryDone)
+            else if(currentParryTime <= 0f || ParryDone)
             {
                 parryCol.enabled = false;
                 timeBtwParry = startTimeBtwParry;
                 plController2.heedArrows = true;
 
-                isParry = false;
-                parryDone = false;
+                IsParry = false;
+                ParryDone = false;
                 alreadyClicked = false;
             }
 
         }
 
         //AFTER PARRY NOT DONE, OSEA LO HE FALLADO
-        else if (currentParryTime <= 0f && !parryDone && justOneTime)
+        else if (currentParryTime <= 0f && !ParryDone && justOneTime)
         {
             Debug.Log("salsa");
             parryFail = true;
@@ -142,25 +148,26 @@ public class PlayerParry : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (isParry)
+        if (IsParry)
         {
             if(other.tag == "Enemy")
             {
                 other.GetComponentInParent<BaseEnemy>().StartStun();
-                parryDone = true;
-                parrySuccesful = true;
-                
-            }
-            else if(other.tag == "Arrow")
-            {
-                Destroy(other.gameObject);
-                parryDone = true;
+                ParryDone = true;
+                ParrySuccesful = true;
                 
             }
             else
             {
-                parryDone = false;
+                ParryDone = false;
             }
         }
+    }
+
+    public void CallParry()
+    {
+        parryDone = true;
+        parrySuccesful = true;
+        Instantiate(parryParticle, transform.position, Quaternion.identity);
     }
 }
