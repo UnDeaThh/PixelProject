@@ -37,6 +37,7 @@ public class PlayerAttack : MonoBehaviour
 
     public Transform attackPos;
     private Transform playerPos;
+    [SerializeField] Transform particlePos;
 
     public LayerMask whatIsEnemie;
 
@@ -44,6 +45,9 @@ public class PlayerAttack : MonoBehaviour
     private PlayerAudio sound;
 
     public bool CanSecondAttack { get => canSecondAttack; set => canSecondAttack = value; }
+
+    [SerializeField] GameObject[] hitParticle;
+    [SerializeField] GameObject bigHitParticle;
 
     private void OnEnable()
     {
@@ -205,6 +209,18 @@ public class PlayerAttack : MonoBehaviour
                             if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                             {
                                 enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
+
+                                Vector3 randomPosParticle = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
+                                if (plParry.ParrySuccesful)
+                                {
+                                    cameraController.CallHitAfterParry();
+                                    Instantiate(bigHitParticle, particlePos.position + randomPosParticle, Quaternion.identity);
+                                }
+                                else
+                                {
+                                    int randomParticle = Random.Range(0, 2);
+                                    Instantiate(hitParticle[randomParticle], particlePos.position + randomPosParticle, Quaternion.identity);
+                                }
                                 plParry.ParrySuccesful = false;
                             }
                         }

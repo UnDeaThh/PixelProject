@@ -10,14 +10,15 @@ public class CameraController : MonoBehaviour
     private Transform player;
     private PlayerController2 plController;
 
-    public float shakeDuration = 0.3f;          // Time the Camera Shake effect will last
+    public float shakeTime = 0.3f;          // Time the Camera Shake effect will last
     public float shakeAmplitude = 1.2f;         // Cinemachine Noise Profile Parameter
     public float shakeFrequency = 2.0f;
 
-    private float shakeCurrentTime = 0f;
+    private float cntShakeTime = 0f;
     public bool letsShake = false;
 
     public bool isOnBossFight = false;
+    private bool hitAfterParry;
 
     // Cinemachine Shake
     public CinemachineVirtualCamera virtualCamera;
@@ -28,6 +29,13 @@ public class CameraController : MonoBehaviour
     [SerializeField] PostProcessVolume volume;
     [SerializeField] float damagedBloomIntensity;
     Bloom bloom;
+
+    [Header("Parry Shake")]
+    [SerializeField] float parryAmplitude;
+    [SerializeField] float parryFrequency;
+    
+    public bool HitAfterParry1 { get => hitAfterParry; set => hitAfterParry = value; }
+
     private void Awake()
     {
         if(cameraController == null)
@@ -71,37 +79,70 @@ public class CameraController : MonoBehaviour
     {
         if (letsShake)
         {
-            shakeCurrentTime = shakeDuration;
+            cntShakeTime = shakeTime;
             letsShake = false;
         }
-        if (virtualCamera != null && virtualCameraNoise != null)
+        if (!hitAfterParry)
         {
-            // If Camera Shake effect is still playing
-            if (shakeCurrentTime > 0)
+            if (virtualCamera != null && virtualCameraNoise != null)
             {
-                // Set Cinemachine Camera Noise parameters
-                virtualCameraNoise.m_AmplitudeGain = shakeAmplitude;
-                virtualCameraNoise.m_FrequencyGain = shakeFrequency;
+                // If Camera Shake effect is still playing
+                if (cntShakeTime > 0)
+                {
+                    // Set Cinemachine Camera Noise parameters
+                    virtualCameraNoise.m_AmplitudeGain = shakeAmplitude;
+                    virtualCameraNoise.m_FrequencyGain = shakeFrequency;
 
-                // Update Shake Timer
-                shakeCurrentTime -= Time.deltaTime;
-            }
-            else
-            {
-                // If Camera Shake effect is over, reset variables
-                virtualCameraNoise.m_AmplitudeGain = 0f;
-                virtualCameraNoise.m_FrequencyGain = shakeFrequency;
-                shakeCurrentTime = 0f;
+                    // Update Shake Timer
+                    cntShakeTime -= Time.deltaTime;
+                }
+                else
+                {
+                    // If Camera Shake effect is over, reset variables
+                    virtualCameraNoise.m_AmplitudeGain = 0f;
+                    virtualCameraNoise.m_FrequencyGain = shakeFrequency;
+                    cntShakeTime = 0f;
+                }
             }
         }
+
         if(plController.health < 3)
         {
             bloom.intensity.value = damagedBloomIntensity;
         }
+
+        ShakeHitAfterParry();
     }
 
     void SetFollowTarget()
     {
         virtualCamera.Follow = player;
+    }
+
+    void ShakeHitAfterParry()
+    {
+        if (HitAfterParry1)
+        {
+            if(cntShakeTime > 0)
+            {
+                cntShakeTime -= Time.deltaTime;
+
+                virtualCameraNoise.m_AmplitudeGain = parryAmplitude;
+                virtualCameraNoise.m_FrequencyGain = parryFrequency;
+            }
+            else
+            {
+                virtualCameraNoise.m_AmplitudeGain = 0f;
+                virtualCameraNoise.m_FrequencyGain = shakeFrequency;
+                hitAfterParry = false;
+                cntShakeTime = 0f;
+            }
+        }
+    }
+
+    public void CallHitAfterParry()
+    {
+        hitAfterParry = true;
+        cntShakeTime = shakeTime;
     }
 }
