@@ -14,9 +14,11 @@ public class NeckAI : BaseEnemy
 
     [SerializeField] Vector2 attackRange;
     [SerializeField] Vector2 firstAttackRange;
+    [SerializeField] Vector2 backArea;
     [SerializeField] Transform firstAttackPos;
     [SerializeField] Transform environmentLocatorPos;
     [SerializeField] Transform attackPos;
+    [SerializeField] Transform backPos;
     [SerializeField] Collider2D colTrigger;
     [SerializeField] LayerMask floorMask;
 
@@ -26,13 +28,17 @@ public class NeckAI : BaseEnemy
     private bool groundInFront;
     private bool wallInFront;
     private bool playerInFront = false;
+    private bool playerFoundedBack;
+    private bool ffBack;
     public bool isAttacking;
     public bool makeAnAttack;
     private bool canAttack;
     private bool ffFound;
-    private bool canWalk;
+    private bool playerFounded;
+
 
     [HideInInspector] public Rigidbody2D rb;
+    private Transform player;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -41,14 +47,20 @@ public class NeckAI : BaseEnemy
         sprite = GetComponentInChildren<SpriteRenderer>();
         sprite.enabled = false;
         Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>());
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
     {
-        FirstAttack();
-        CheckEnvironment();
-        CanAttack();
-        Attack();
+        if(nLifes > 0)
+        {
+            FirstAttack();
+            CheckEnvironment();
+            CanAttack();
+            Attack();
+        }
+
+        Stuned();
         Dead();
     }
     private void FixedUpdate()
@@ -65,7 +77,11 @@ public class NeckAI : BaseEnemy
             Collider2D col = Physics2D.OverlapBox(firstAttackPos.position, firstAttackRange, 0, whatIsDetected);
             if (col != null)
             {
-                if (col.CompareTag("Player"))
+                if (player.GetComponent<PlayerParry>().IsParry)
+                {
+                    StartStun();
+                }
+                else
                 {
                     col.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
                 }
@@ -81,14 +97,43 @@ public class NeckAI : BaseEnemy
             groundInFront = Physics2D.Raycast(environmentLocatorPos.position, Vector2.down, environmentCheckDistance, floorMask);
             wallInFront = Physics2D.Raycast(environmentLocatorPos.position, transform.right, environmentCheckDistance, floorMask);
             playerInFront = Physics2D.Raycast(new Vector2(transform.position.x, attackPos.position.y), transform.right, detectionDistance, whatIsDetected);
-            //Checkear si puede caminar
-            if (playerInFront)
+
+
+            playerFoundedBack = Physics2D.OverlapBox(backPos.position, backArea, 0, whatIsDetected);
+
+            if(facingDir > 0)
             {
-                canWalk = false;
-                ffFound = true;
+                if(player.position.x < transform.position.x)
+                {
+                    if (playerFoundedBack)
+                    {
+                        ffBack = true;
+                    }
+                }
+            }
+            else
+            {
+                if(player.position.x > transform.position.x)
+                {
+                    if (playerFoundedBack)
+                    {
+                        ffBack = true;
+                    }
+                }
             }
 
-            if (!playerInFront && ffFound)
+            //Checkear si puede caminar
+            if (playerInFront || playerFoundedBack)
+            {
+                playerFounded = true;
+                ffFound = true;
+            }
+            else if(!playerInFront && !playerFoundedBack)
+            {
+                playerFounded = false;
+            }
+
+            if (!playerInFront && ffFound) // El player se aleja y esperas unos segundos para moverte
             {
                 if(cntLosedTime > 0)
                 {
@@ -97,7 +142,7 @@ public class NeckAI : BaseEnemy
                 else
                 {
                     cntLosedTime = playerLosedTime;
-                    canWalk = true;
+                    playerFounded = false;
                     ffFound = false;
                 }
             }
@@ -108,17 +153,32 @@ public class NeckAI : BaseEnemy
     {
         if (firstAttackFinished)
         {
-            if (canWalk)
+            if (!isStuned)
             {
-                if (groundInFront && !wallInFront)
+                if (!playerFounded)
                 {
-                    rb.velocity = new Vector2(facingDir * movSpeed * Time.deltaTime, rb.velocity.y);
+                    if (groundInFront && !wallInFront)
+                    {
+                        rb.velocity = new Vector2(facingDir * movSpeed * Time.deltaTime, rb.velocity.y);
+                    }
+                    else
+                    {
+                        Flip();
+                    }
+
                 }
                 else
                 {
-                    Flip();
+                    if (ffBack)
+                    {
+                        Flip();
+                        ffBack = false;
+                    }
                 }
-
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
             }
         }
     }
@@ -147,16 +207,30 @@ public class NeckAI : BaseEnemy
     {
         if (makeAnAttack)
         {
-            Debug.Log("AttackDone");
             Collider2D col = Physics2D.OverlapBox(attackPos.position, attackRange, 0, whatIsDetected);
             if(col != null)
             {
-                col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
+                if (player.GetComponent<PlayerParry>().IsParry)
+                {
+                    StartStun();
+                }
+                else
+                {
+                    col.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
+                }
             }
             makeAnAttack = false;
         }
     }
 
+    public override void StartStun()
+    {
+        isStuned = true;
+        isAttacking = false;
+        makeAnAttack = false;
+        player.GetComponent<PlayerParry>().CallParry();
+        cntTimeStuned = timeStuned;
+    }
     //El player pasa por encima del agua
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -193,6 +267,7 @@ public class NeckAI : BaseEnemy
             Gizmos.DrawWireCube(firstAttackPos.position, firstAttackRange);
         }
 
+        Gizmos.DrawWireCube(backPos.position, backArea);
         Gizmos.DrawWireCube(attackPos.position, attackRange);
         Gizmos.color = Color.black;
         if (facingDir == 1)
@@ -206,6 +281,5 @@ public class NeckAI : BaseEnemy
             Gizmos.DrawLine(new Vector2(transform.position.x, attackPos.position.y), new Vector2(transform.position.x - detectionDistance, attackPos.position.y ));
         }
         Gizmos.DrawLine(environmentLocatorPos.position, new Vector3(environmentLocatorPos.position.x, environmentLocatorPos.position.y - environmentCheckDistance, transform.position.z));
-        
     }
 }

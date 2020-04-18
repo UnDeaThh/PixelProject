@@ -17,6 +17,7 @@ public class NeckAnim : MonoBehaviour
     {
         anim.SetBool("isAttacking", neckBrain.isAttacking);
         anim.SetFloat("movSpeed", Mathf.Abs(neckBrain.rb.velocity.x));
+        anim.SetBool("isStuned", neckBrain.isStuned);
     }
     void FirstAttack()
     {
