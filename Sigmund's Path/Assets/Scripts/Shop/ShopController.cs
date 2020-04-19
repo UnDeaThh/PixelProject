@@ -38,6 +38,7 @@ public class ShopController : MonoBehaviour
     public GameObject buyButton;
     public GameObject holderPrefab;
     public GameObject questionFadeBG;
+    [SerializeField] GameObject[] flechas;
 
     [SerializeField] EventSystem eventSystem;
     private bool ffShop = false;
@@ -93,15 +94,59 @@ public class ShopController : MonoBehaviour
         {
             for (int i = 0; i < itemsList.Count; i++)
             {
-                GameObject holder = Instantiate(holderPrefab, content);
-                ItemHolderButton holderScript = holder.GetComponent<ItemHolderButton>();
+                if(i != 3 && i != 4)
+                {
+                    GameObject holder = Instantiate(holderPrefab, content);
+                    ItemHolderButton holderScript = holder.GetComponent<ItemHolderButton>();
 
-                holderScript.itemName.text = itemsList[i].itemName;
-                holderScript.itemPrice.text = itemsList[i].itemPrice.ToString();
-                holderScript.itemID = itemsList[i].itemID;
-                holderScript.itemSprite.sprite = itemsList[i].itemImage;
+                    holderScript.itemName.text = itemsList[i].itemName;
+                    holderScript.itemPrice.text = itemsList[i].itemPrice.ToString();
+                    holderScript.itemID = itemsList[i].itemID;
+                    holderScript.itemSprite.sprite = itemsList[i].itemImage;
 
-                holderScript.buyButton.GetComponent<BuyButton>().itemID = itemsList[i].itemID;
+                    holderScript.buyButton.GetComponent<BuyButton>().itemID = itemsList[i].itemID;
+                }
+                else
+                {
+                    if(i == 3)
+                    {
+                        if (Inventory2.inventory.swordPasive)
+                        {
+                            //Esta vendido
+                        }
+                        else
+                        {
+                            GameObject holder = Instantiate(holderPrefab, content);
+                            ItemHolderButton holderScript = holder.GetComponent<ItemHolderButton>();
+
+                            holderScript.itemName.text = itemsList[i].itemName;
+                            holderScript.itemPrice.text = itemsList[i].itemPrice.ToString();
+                            holderScript.itemID = itemsList[i].itemID;
+                            holderScript.itemSprite.sprite = itemsList[i].itemImage;
+
+                            holderScript.buyButton.GetComponent<BuyButton>().itemID = itemsList[i].itemID;
+                        }
+                    }
+                    else if(i == 4)
+                    {
+                        if (Inventory2.inventory.waterPasive)
+                        {
+                            
+                        }
+                        else
+                        {
+                            GameObject holder = Instantiate(holderPrefab, content);
+                            ItemHolderButton holderScript = holder.GetComponent<ItemHolderButton>();
+
+                            holderScript.itemName.text = itemsList[i].itemName;
+                            holderScript.itemPrice.text = itemsList[i].itemPrice.ToString();
+                            holderScript.itemID = itemsList[i].itemID;
+                            holderScript.itemSprite.sprite = itemsList[i].itemImage;
+
+                            holderScript.buyButton.GetComponent<BuyButton>().itemID = itemsList[i].itemID;
+                        }
+                    }
+                }
             }
             alreadyFilled = true;
         }
@@ -123,6 +168,7 @@ public class ShopController : MonoBehaviour
     {
         if (buyingItem)
         {
+
             questionFadeBG.SetActive(true);
             for (int i = 0; i < itemsList.Count; i++)
             {
@@ -136,13 +182,36 @@ public class ShopController : MonoBehaviour
                 eventSystem.SetSelectedGameObject(firstSelected);
                 ffShop = false;
             }
+
+            if (itemSelecteID != 4 && itemSelecteID != 5)
+            {
+                for (int i = 0; i < flechas.Length; i++)
+                {
+                    flechas[i].SetActive(true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < flechas.Length; i++)
+                {
+                    flechas[i].SetActive(false);
+                }
+            }
+
         }
         else
         {
             questionFadeBG.SetActive(false);
         }
 
-        cantidadText.SetText(itemsToBuy.ToString());
+        if(itemSelecteID != 4 && itemSelecteID != 5)
+        {
+            cantidadText.SetText(itemsToBuy.ToString());
+        }
+        else
+        {
+            cantidadText.SetText("");
+        }
     }
 
 
@@ -170,6 +239,12 @@ public class ShopController : MonoBehaviour
                     itemDescriptionText.SetText(descriptions[i]);
                 }
             }
+
+            if (Inventory2.inventory.swordPasive)
+            {
+                content.transform.GetChild(4).gameObject.GetComponent<Button>().interactable = false;
+            }
+            
         }
     }
 
@@ -198,22 +273,25 @@ public class ShopController : MonoBehaviour
 
     public void IncreaseItemsToBuy()
     {
-        if(itemSelecteID == 1)
+        if(itemSelecteID != 4 && itemSelecteID != 5)
         {
-            if(player.potions + itemsToBuy < 5)
+            if(itemSelecteID == 1)
             {
-                itemsToBuy++;
+                if(player.potions + itemsToBuy < 5)
+                {
+                    itemsToBuy++;
+                }
+                else
+                {
+                    Debug.Log("TE PASAS BRO");
+                }
             }
             else
             {
-                Debug.Log("TE PASAS BRO");
-            }
-        }
-        else
-        {
-            if(itemsToBuy < 99)
-            {
-                itemsToBuy++;
+                if(itemsToBuy < 99)
+                {
+                    itemsToBuy++;
+                }
             }
         }
     }
@@ -247,6 +325,9 @@ public class ShopController : MonoBehaviour
                     break;
                 case 3:
                     Inventory2.inventory.nTP += itemsToBuy;
+                    break;
+                case 4:
+                    Inventory2.inventory.swordPasive = true;
                     break;
             }
             Inventory2.inventory.LoseMoney(moneyToSpend);

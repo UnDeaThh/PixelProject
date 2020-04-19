@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6375278302653428168}
   - component: {fileID: 8858040804001438081}
   m_Layer: 0
-  m_Name: Carrito
+  m_Name: CarritoSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,13 +246,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3026593301749419582}
-    characterCount: 0
+    characterCount: 2
     spriteCount: 0
     spaceCount: 0
-    wordCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -603,13 +603,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3026593302043785102}
-    characterCount: 0
+    characterCount: 27
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 0
+    spaceCount: 5
+    wordCount: 6
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 2
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -1372,6 +1372,12 @@ MonoBehaviour:
       type: 3}
     itemPrice: 150
     isBought: 0
+  - itemName: SwordPasive
+    itemID: 4
+    itemImage: {fileID: 4484918310264812951, guid: 2536c89545214334a988aa835bfa6a4f,
+      type: 3}
+    itemPrice: 1500
+    isBought: 0
   content: {fileID: 3026593303265706828}
   descriptionImage: {fileID: 3026593303316757515}
   descriptions:
@@ -1384,10 +1390,12 @@ MonoBehaviour:
   - 'When you destroy this pendant it allows to teleport to any fountain.
 
     Please use it and dissapears from my sight.'
+  - More power in your sword baby
   questions:
   - How many Potions wanna buy?
   - How many Bombs wanna buy?
   - How many TP pendants wanna buy?
+  - Want to buy this item?
   itemDescriptionText: {fileID: 3026593302921612449}
   moneyText: {fileID: 3026593303122087171}
   questionText: {fileID: 3026593302043785102}
@@ -1396,6 +1404,9 @@ MonoBehaviour:
   holderPrefab: {fileID: 7056470298192713107, guid: 4996fa090e2b68f4a91f84b6f69046e6,
     type: 3}
   questionFadeBG: {fileID: 3026593302965042242}
+  flechas:
+  - {fileID: 3026593302713436121}
+  - {fileID: 3026593302297387961}
   eventSystem: {fileID: 0}
   firstSelected: {fileID: 3026593302713436121}
 --- !u!1 &3026593302713436121
@@ -3056,13 +3067,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3026593303622850255}
-    characterCount: 0
+    characterCount: 6
     spriteCount: 0
     spaceCount: 0
-    wordCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -3212,13 +3223,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3026593303625163705}
-    characterCount: 0
+    characterCount: 6
     spriteCount: 0
     spaceCount: 0
-    wordCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -3558,6 +3569,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3026593303265706828}
     m_Modifications:
+    - target: {fileID: 973006892632432768, guid: 4996fa090e2b68f4a91f84b6f69046e6,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 973006892632432768, guid: 4996fa090e2b68f4a91f84b6f69046e6,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7056470298192713106, guid: 4996fa090e2b68f4a91f84b6f69046e6,
         type: 3}
       propertyPath: m_LocalPosition.x
