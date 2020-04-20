@@ -27,10 +27,22 @@ public class BossChange : BossBase
     private int transitionFases = 0;
     float cntTimeTransition;
     [SerializeField] Transform altitudeForH2;
+    private int comeFrom = 1;
 
     [Header("H2")]
     [SerializeField] float timeDoingH2;
     [SerializeField] float movSpeedH3;
+    [SerializeField] float timeToSpit;
+    float cntTimeToSpit;
+    [SerializeField] GameObject potionBall;
+    [SerializeField] Transform mouth;
+
+    [Header("H3")]
+    private bool throwBalls;
+    [SerializeField] float timeThrowH3;
+    float cntTimeToThrowH3;
+    [SerializeField] ParticleSystem particleSystemH3;
+    ParticleSystem.EmissionModule emidMod;
 
 
     private void Start()
@@ -42,6 +54,9 @@ public class BossChange : BossBase
         col = GetComponent<Collider2D>();
         audioSource = GetComponentInChildren<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        emidMod = particleSystemH3.emission;
+        emidMod.enabled = false;
+        
     }
 
     private void Update()
@@ -85,6 +100,7 @@ public class BossChange : BossBase
                         cntTime = 0;
                         cntTimeTransition = 1.5f;
                         transitionFases = 1;
+                        comeFrom = 1;
                         actualState = State.Transition;
                     }
                     break;
@@ -92,15 +108,35 @@ public class BossChange : BossBase
                     if(cntTime > 0)
                     {
                         cntTime -= Time.deltaTime;
+                        if(cntTimeToSpit > 0)
+                        {
+                            cntTimeToSpit -= Time.deltaTime;
+                        }
+                        else
+                        {
+                            Instantiate(potionBall, mouth.position, Quaternion.identity);
+                            audioSource.clip = clips[1];
+                            audioSource.Play();
+                            cntTimeToSpit = timeToSpit;
+                        }
                     }
                     else
                     {
-
+                        transitionFases = 1;
+                        cntTimeTransition = 1.5f;
+                        comeFrom = 2;
+                        actualState = State.Transition;
                     }
                     break;
                 case State.H3:
-                    break;
-                case State.H4:
+                    if(cntTimeToThrowH3 > 0)
+                    {
+                        cntTimeToThrowH3 -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        emidMod.enabled = true;
+                    }
                     break;
                 case State.Transition:
                     if(transitionFases == 1)
@@ -133,18 +169,27 @@ public class BossChange : BossBase
                    
                         if(transform.position.y > altitudeForH2.position.y - 1f && transform.position.y < altitudeForH2.position.y + 1f)
                         {
-                            if (transform.position.x < altitudeForH2.position.x)
+                            if(comeFrom == 1)
                             {
-                                movDir = Vector2.right;
+
+                                if (transform.position.x < altitudeForH2.position.x)
+                                {
+                                    movDir = Vector2.right;
+                                }
+                                else
+                                {
+                                    movDir = Vector2.left;
+                                }
+                                cntTime = timeDoingH2;
+                                cntTimeToSpit = timeToSpit;
+                                actualState = State.H2;
                             }
-                            else
+                            else if(comeFrom == 2)
                             {
-                                movDir = Vector2.left;
+                                cntTimeToThrowH3 = 0.7f;
+                                actualState = State.H3;
                             }
-                            cntTime = timeDoingH2;
-                            actualState = State.H2;
                             Debug.Log(movDir);
-                            Debug.Log("State: " + actualState);
                         }
                         else
                         {
@@ -188,8 +233,7 @@ public class BossChange : BossBase
                     rb.velocity = movDir * movSpeedH3 * Time.deltaTime;
                     break;
                 case State.H3:
-                    break;
-                case State.H4:
+                    rb.velocity = Vector2.zero;
                     break;
                 case State.Transition:
                     if(transitionFases == 1)
