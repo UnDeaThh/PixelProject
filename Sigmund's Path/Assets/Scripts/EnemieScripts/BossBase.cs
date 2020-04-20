@@ -16,6 +16,8 @@ public class BossBase : MonoBehaviour
 
     private float fade = 1;
 
+    protected int facingDir = 1;
+
     public void TakeDamage(int damage)
     {
         if (nLifes > 0)
@@ -36,6 +38,12 @@ public class BossBase : MonoBehaviour
             sprite.color = Color.white;
             yield return new WaitForSeconds(0.15f);
         }
+    }
+
+    public virtual void Flip()
+    {
+        transform.Rotate(0f, 180f, 0f);
+        facingDir *= -1;
     }
 
     public virtual void Dead()
