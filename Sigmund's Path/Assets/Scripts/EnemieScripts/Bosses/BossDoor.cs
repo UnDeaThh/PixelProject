@@ -14,6 +14,7 @@ public class BossDoor : MonoBehaviour
     [SerializeField] GameObject doorGO;
 
     [SerializeField] int bossNumber;
+    [SerializeField] GameObject theBoss;
     void Start()
     {
         if(doorGO == null)
@@ -43,6 +44,10 @@ public class BossDoor : MonoBehaviour
             if (!ScenesManager.scenesManager.BossKilled[bossNumber])
             {
                 closeDoor = true;
+                if(theBoss.TryGetComponent(out BossChange boss))
+                {
+                    boss.ActualState = State.Enter;
+                }
             }
         }
     }

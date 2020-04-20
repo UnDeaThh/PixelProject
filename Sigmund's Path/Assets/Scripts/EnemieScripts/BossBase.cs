@@ -8,18 +8,13 @@ public class BossBase : MonoBehaviour
     protected SpriteRenderer sprite;
     protected Material mat;
     protected Collider2D col;
+    protected Rigidbody2D rb;
+    protected AudioSource audioSource;
 
     protected bool isDisolve;
     protected bool oneCallDead;
 
-    private float fade;
-
-
-
-    private void Start()
-    {
-        fade = 1;
-    }
+    private float fade = 1;
 
     public void TakeDamage(int damage)
     {

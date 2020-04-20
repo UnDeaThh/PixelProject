@@ -54,6 +54,7 @@ public class BaseEnemy : MonoBehaviour
             {
                 fade = 0;
                 IsDisolving = false;
+                Debug.Log(gameObject.name);
             }
             mat.SetFloat("_Fade", fade);
         }

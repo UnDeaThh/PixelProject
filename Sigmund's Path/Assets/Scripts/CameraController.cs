@@ -9,16 +9,24 @@ public class CameraController : MonoBehaviour
     public static CameraController cameraController;
     private Transform player;
     private PlayerController2 plController;
+    [SerializeField] Transform phisicCamera;
 
     public float shakeTime = 0.3f;          // Time the Camera Shake effect will last
     public float shakeAmplitude = 1.2f;         // Cinemachine Noise Profile Parameter
     public float shakeFrequency = 2.0f;
 
+
+
+    private float givenAmplitude;
+    private float givenFrequency;
+
     private float cntShakeTime = 0f;
     public bool letsShake = false;
 
+    private bool isShaking;
     public bool isOnBossFight = false;
     private bool hitAfterParry;
+    private bool isGenerateCS;
 
     // Cinemachine Shake
     public CinemachineVirtualCamera virtualCamera;
@@ -35,6 +43,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] float parryFrequency;
     
     public bool HitAfterParry1 { get => hitAfterParry; set => hitAfterParry = value; }
+    public bool IsGenerateCS { get => isGenerateCS; set => isGenerateCS = value; }
 
     private void Awake()
     {
@@ -77,31 +86,39 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (letsShake)
+        if (!isShaking)
         {
-            cntShakeTime = shakeTime;
-            letsShake = false;
+            phisicCamera.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
-        if (!hitAfterParry)
-        {
-            if (virtualCamera != null && virtualCameraNoise != null)
-            {
-                // If Camera Shake effect is still playing
-                if (cntShakeTime > 0)
-                {
-                    // Set Cinemachine Camera Noise parameters
-                    virtualCameraNoise.m_AmplitudeGain = shakeAmplitude;
-                    virtualCameraNoise.m_FrequencyGain = shakeFrequency;
 
-                    // Update Shake Timer
-                    cntShakeTime -= Time.deltaTime;
-                }
-                else
+        if (!isGenerateCS)
+        {
+            if (letsShake)
+            {
+                cntShakeTime = shakeTime;
+                letsShake = false;
+            }
+            if (!hitAfterParry)
+            {
+                if (virtualCamera != null && virtualCameraNoise != null)
                 {
-                    // If Camera Shake effect is over, reset variables
-                    virtualCameraNoise.m_AmplitudeGain = 0f;
-                    virtualCameraNoise.m_FrequencyGain = shakeFrequency;
-                    cntShakeTime = 0f;
+                    // If Camera Shake effect is still playing
+                    if (cntShakeTime > 0)
+                    {
+                        // Set Cinemachine Camera Noise parameters
+                        virtualCameraNoise.m_AmplitudeGain = shakeAmplitude;
+                        virtualCameraNoise.m_FrequencyGain = shakeFrequency;
+
+                        // Update Shake Timer
+                        cntShakeTime -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        // If Camera Shake effect is over, reset variables
+                        virtualCameraNoise.m_AmplitudeGain = 0f;
+                        virtualCameraNoise.m_FrequencyGain = shakeFrequency;
+                        cntShakeTime = 0f;
+                    }
                 }
             }
         }
@@ -112,6 +129,7 @@ public class CameraController : MonoBehaviour
         }
 
         ShakeHitAfterParry();
+        CameraShake(); // Esta la llamamos desde scripts externos
     }
 
     void SetFollowTarget()
@@ -144,5 +162,35 @@ public class CameraController : MonoBehaviour
     {
         hitAfterParry = true;
         cntShakeTime = shakeTime;
+    }
+
+    void CameraShake()
+    {
+        if (isGenerateCS)
+        {
+            if (cntShakeTime > 0)
+            {
+                cntShakeTime -= Time.deltaTime;
+                virtualCameraNoise.m_AmplitudeGain = givenAmplitude;
+                virtualCameraNoise.m_FrequencyGain = givenFrequency;
+            }
+            else
+            {
+                virtualCameraNoise.m_AmplitudeGain = 0f;
+                virtualCameraNoise.m_FrequencyGain = shakeFrequency;
+                isGenerateCS = false;
+                isShaking = false;
+                cntShakeTime = 0f;
+            }
+        }
+    }
+
+    public void GenerateCamerashake(float amplitude, float frequency, float time)
+    {
+        givenAmplitude = amplitude;
+        givenFrequency = frequency;
+        cntShakeTime = time;
+        isGenerateCS = true;
+        isShaking = true;
     }
 }

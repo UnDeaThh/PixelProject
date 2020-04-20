@@ -125,8 +125,6 @@ public class NachAI : BaseEnemy
     public override void TakeDamage(int damage, Vector2 playerPos)
     {
         base.TakeDamage(damage, playerPos);
-
-        Debug.Log("Nach");
     }
 
 
