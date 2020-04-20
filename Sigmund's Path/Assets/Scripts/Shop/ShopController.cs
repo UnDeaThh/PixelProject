@@ -227,8 +227,16 @@ public class ShopController : MonoBehaviour
         }
         else
         {
+            if(itemSelecteID == 4 && Inventory2.inventory.swordPasive || itemSelecteID == 5 && Inventory2.inventory.waterPasive)
+            {
+                 buyButton.SetActive(false);
+            }
+            else
+            {
+                buyButton.SetActive(true);
+            }
+
             descriptionImage.gameObject.SetActive(true);
-            buyButton.SetActive(true);
 
             for (int i = 0; i < itemsList.Count; i++)
             {  
@@ -239,12 +247,6 @@ public class ShopController : MonoBehaviour
                     itemDescriptionText.SetText(descriptions[i]);
                 }
             }
-
-            if (Inventory2.inventory.swordPasive)
-            {
-                content.transform.GetChild(4).gameObject.GetComponent<Button>().interactable = false;
-            }
-            
         }
     }
 

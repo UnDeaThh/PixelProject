@@ -84,38 +84,16 @@ public class LevelManager : MonoBehaviour
                         player.facingDir = 1;
                     }
 
-                    else if (levelScene == 7)
-                    {
-                        switch (player.lastScene)
-                        {
-                            case 6:
-                                player.gameObject.transform.position = apearsPos[0].position;
-                                player.facingDir = 1;
-                                break;
-                            case 8:
-                                player.gameObject.transform.position = apearsPos[3].position;
-                                player.facingDir = 1;
-                                break;
-                            case 9:
-                                player.gameObject.transform.position = apearsPos[2].position;
-                                player.facingDir = 1;
-                                break;
-                            default:
-                                player.gameObject.transform.position = apearsPos[1].position;
-                                player.facingDir = -1;
-                                break;
-                        }
-                    }
-                    else if(levelScene == 8)
+                    else if (levelScene == 8)
                     {
                         switch (player.lastScene)
                         {
                             case 7:
                                 player.gameObject.transform.position = apearsPos[0].position;
-                                player.facingDir = -1;
+                                player.facingDir = 1;
                                 break;
                             case 9:
-                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.gameObject.transform.position = apearsPos[3].position;
                                 player.facingDir = 1;
                                 break;
                             case 10:
@@ -123,7 +101,7 @@ public class LevelManager : MonoBehaviour
                                 player.facingDir = 1;
                                 break;
                             default:
-                                player.gameObject.transform.position = apearsPos[3].position;
+                                player.gameObject.transform.position = apearsPos[1].position;
                                 player.facingDir = -1;
                                 break;
                         }
@@ -136,11 +114,33 @@ public class LevelManager : MonoBehaviour
                                 player.gameObject.transform.position = apearsPos[0].position;
                                 player.facingDir = -1;
                                 break;
-                            case 7:
+                            case 10:
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = 1;
+                                break;
+                            case 11:
+                                player.gameObject.transform.position = apearsPos[2].position;
+                                player.facingDir = 1;
+                                break;
+                            default:
+                                player.gameObject.transform.position = apearsPos[3].position;
+                                player.facingDir = -1;
+                                break;
+                        }
+                    }
+                    else if(levelScene == 10)
+                    {
+                        switch (player.lastScene)
+                        {
+                            case 9:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = -1;
+                                break;
+                            case 8:
                                 player.gameObject.transform.position = apearsPos[1].position;
                                 player.facingDir = -1;
                                 break;
-                            case 12:
+                            case 13:
                                 player.gameObject.transform.position = apearsPos[2].position;
                                 player.facingDir = 1;
                                 break;

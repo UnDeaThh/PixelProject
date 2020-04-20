@@ -11,7 +11,12 @@ public class Vendedor : MonoBehaviour
     private PlayerInputs inputs;
 
     public Canvas canvasVendedor;
-    public GameObject pressEText;
+    public GameObject pressText;
+
+    [SerializeField] Image buttonImage;
+    [SerializeField] Sprite[] buttonDeviceSprite;
+
+
     public GameObject UIShop;
 	private PauseManager  pauseManager;
     private PlayerController2 player;
@@ -29,7 +34,7 @@ public class Vendedor : MonoBehaviour
     #endregion
     private void Awake()
     {
-        pressEText.SetActive(false);
+        pressText.SetActive(false);
         canvasVendedor.enabled = true;
         
     }
@@ -63,10 +68,19 @@ public class Vendedor : MonoBehaviour
     {
         if (playerClose)
         {
-            pressEText.SetActive(true);
+            buttonImage.SetNativeSize();
+            pressText.SetActive(true);
+            if(player.Gamepad != null)
+            {
+                buttonImage.sprite = buttonDeviceSprite[1];
+            }
+            else
+            {
+                buttonImage.sprite = buttonDeviceSprite[0];
+            }
         }
         else
-            pressEText.SetActive(false);
+            pressText.SetActive(false);
     }
     void ActiveShopUi()
     {
@@ -74,7 +88,7 @@ public class Vendedor : MonoBehaviour
         {
             inputs.Shop.Enable();
             UIShop.SetActive(true);
-            pressEText.SetActive(false);
+            pressText.SetActive(false);
             if(player != null)
             {
                 player.isOnKinematic = true;

@@ -224,6 +224,9 @@ public class PlayerAttack : MonoBehaviour
                                 plParry.ParrySuccesful = false;
                             }
                         }
+
+
+
                         else if (enemiesToDamage[i].CompareTag("Nerbuz"))
                         {
                             if (enemiesToDamage[i].GetComponent<NerbuzBoss>().canBeDamaged)
@@ -232,6 +235,28 @@ public class PlayerAttack : MonoBehaviour
                             }
                             plParry.ParrySuccesful = false;
                         }
+
+
+                        else if (enemiesToDamage[i].GetComponent<BossBase>())
+                        {
+                            enemiesToDamage[i].GetComponent<BossBase>().TakeDamage(damage);
+
+                            Vector3 randomPosParticle = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
+                            if (plParry.ParrySuccesful)
+                            {
+                                cameraController.CallHitAfterParry();
+                                Instantiate(bigHitParticle, particlePos.position + randomPosParticle, Quaternion.identity);
+                            }
+                            else
+                            {
+                                int randomParticle = Random.Range(0, 2);
+                                Instantiate(hitParticle[randomParticle], particlePos.position + randomPosParticle, Quaternion.identity);
+                            }
+                            plParry.ParrySuccesful = false;
+                        }
+
+
+
                         else if (enemiesToDamage[i].CompareTag("CumuloEsencia"))
                         {
                             enemiesToDamage[i].GetComponent<CumuloEsencia>().TakeDamage();
