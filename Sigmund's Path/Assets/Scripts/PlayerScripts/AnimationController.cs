@@ -118,6 +118,7 @@ public class AnimationController : MonoBehaviour
         Anim.SetBool("isDead", player.isDead);
         Anim.SetBool("ffDead", ffDead);
         Anim.SetBool("haveSword", plAttack.haveSword);
+        anim.SetBool("isWallSliding", player.isWallSliding);
         if (player.isDead && !ffDead)
         {
             ffDead = true;

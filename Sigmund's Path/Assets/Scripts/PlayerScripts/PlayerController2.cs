@@ -387,7 +387,7 @@ public class PlayerController2 : MonoBehaviour
 
     void CheckIfWallSliding()
     {
-        if (isTouchingWall && !isGroundedLeft && wallJumpUnlocked)
+        if (isTouchingWall && !isGrounded && wallJumpUnlocked)
         {
             isWallSliding = true;
         }
