@@ -6,6 +6,9 @@ public class BossChange : BossBase
 {
     private State actualState;
     public State ActualState { get => actualState; set => actualState = value; }
+    public bool ThrowBalls { get => throwBalls; set => throwBalls = value; }
+    public float TimeThrowH3 { get => timeThrowH3; }
+    public float CntTimeToThrowH3 { get => cntTimeToThrowH3; set => cntTimeToThrowH3 = value; }
 
     [SerializeField] AudioClip[] clips;
 
@@ -13,6 +16,7 @@ public class BossChange : BossBase
 
     [SerializeField] Vector2 movDir;
     private Transform player;
+    [SerializeField] GameObject cameraFight;
 
     [Header("H1")]
     [SerializeField] private float movSpeedH1 = 700;
@@ -38,13 +42,31 @@ public class BossChange : BossBase
     [SerializeField] Transform mouth;
 
     [Header("H3")]
+    [SerializeField] int nSeries;
+    int cntSeries;
     private bool throwBalls;
     [SerializeField] float timeThrowH3;
+    [SerializeField] GameObject ballH3Prefab;
+    [SerializeField] int maxBallsH3;
     float cntTimeToThrowH3;
-    [SerializeField] ParticleSystem particleSystemH3;
-    ParticleSystem.EmissionModule emidMod;
+    Animator anim;
 
+    [Header("DEAD")]
+    [SerializeField] float timeFreeze;
+    private float cntTimeFreeze;
+    [SerializeField] float amplitudeShaking;
+    [SerializeField] float frequencyShaking;
+    [SerializeField] float timeShaking;
+    float cntTimeShaking;
+    bool oneShake = false;
 
+    private void Awake()
+    {
+        if (ScenesManager.scenesManager.BossKilled[nBoss])
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         actualState = State.Nothing;
@@ -52,11 +74,14 @@ public class BossChange : BossBase
         sprite = GetComponentInChildren<SpriteRenderer>();
         mat = sprite.material;
         col = GetComponent<Collider2D>();
+        col.enabled = false;
         audioSource = GetComponentInChildren<AudioSource>();
+        anim = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        emidMod = particleSystemH3.emission;
-        emidMod.enabled = false;
-        
+        cameraFight.SetActive(false);
+
+        cntTimeFreeze = timeFreeze;
+        cntTimeShaking = timeShaking;
     }
 
     private void Update()
@@ -86,7 +111,9 @@ public class BossChange : BossBase
                     }
                     if(!audioSource.isPlaying && hasSounded)
                     {
+                        cameraFight.SetActive(true);
                         cntTime = timeH1;
+                        col.enabled = true;
                         actualState = State.H1;
                     }
                     break;
@@ -135,7 +162,26 @@ public class BossChange : BossBase
                     }
                     else
                     {
-                        emidMod.enabled = true;
+                        anim.SetBool("makeH3", true);
+                        cntTimeToThrowH3 = timeThrowH3 + 10;
+                    }
+
+                    if (throwBalls)
+                    {
+                        for (int i = 0; i < maxBallsH3; i++)
+                        {
+                            Instantiate(ballH3Prefab, transform.position, Quaternion.Euler(0f, 0f, Random.Range(0 , 359)));
+                        }
+                        cntSeries++;
+                        throwBalls = false;
+                    }
+
+                    if (cntSeries == nSeries && anim.GetBool("makeH3") == false)
+                    {
+                        transitionFases = 1;
+                        cntTimeTransition = 1.5f;
+                        comeFrom = 3;
+                        actualState = State.Transition;
                     }
                     break;
                 case State.Transition:
@@ -164,41 +210,48 @@ public class BossChange : BossBase
                             cntTimeTransition = 0;
                         }
                     }
-                    else
+                    else if(transitionFases == 3)
                     {
-                   
-                        if(transform.position.y > altitudeForH2.position.y - 1f && transform.position.y < altitudeForH2.position.y + 1f)
+                        if(comeFrom != 3)
                         {
-                            if(comeFrom == 1)
+                            if(transform.position.y > altitudeForH2.position.y - 1f && transform.position.y < altitudeForH2.position.y + 1f)
                             {
+                                if(comeFrom == 1)
+                                {
 
-                                if (transform.position.x < altitudeForH2.position.x)
-                                {
-                                    movDir = Vector2.right;
+                                    if (transform.position.x < altitudeForH2.position.x)
+                                    {
+                                        movDir = Vector2.right;
+                                    }
+                                    else
+                                    {
+                                        movDir = Vector2.left;
+                                    }
+                                    cntTime = timeDoingH2;
+                                    cntTimeToSpit = timeToSpit;
+                                    actualState = State.H2;
                                 }
-                                else
+                                else if(comeFrom == 2)
                                 {
-                                    movDir = Vector2.left;
+                                    cntTimeToThrowH3 = 0.7f;
+                                    cntSeries = 0;
+                                    actualState = State.H3;
                                 }
-                                cntTime = timeDoingH2;
-                                cntTimeToSpit = timeToSpit;
-                                actualState = State.H2;
+                                Debug.Log(movDir);
                             }
-                            else if(comeFrom == 2)
+                            else
                             {
-                                cntTimeToThrowH3 = 0.7f;
-                                actualState = State.H3;
+                                Vector2 dir;
+                                dir = new Vector2(altitudeForH2.position.x - transform.position.x, altitudeForH2.position.y - transform.position.y).normalized;
+                                movDir = dir;
                             }
-                            Debug.Log(movDir);
                         }
                         else
                         {
-                            Vector2 dir;
-                            dir = new Vector2(altitudeForH2.position.x - transform.position.x, altitudeForH2.position.y - transform.position.y).normalized;
-                            movDir = dir;
+                            cntTime = timeH1;
+                            actualState = State.H1;
                         }
                     }
-
                     break;
                 case State.Dead:
                     break;
@@ -208,8 +261,41 @@ public class BossChange : BossBase
                     break;
             }
         }
-
-        Dead();
+        else
+        {
+            if(cntTimeFreeze > 0)
+            {
+                cntTimeFreeze -= Time.deltaTime;
+                col.enabled = false;
+                anim.speed = 0;
+                if(cntTimeFreeze < 0.15f)
+                {
+                    cameraFight.SetActive(false);
+                }
+            }
+            else
+            {
+                if (!oneShake)
+                {
+                    CameraController.cameraController.GenerateCamerashake(amplitudeShaking, frequencyShaking, timeShaking);
+                    oneShake = true;
+                }
+                if(cntTimeShaking > 0)
+                {
+                    cntTimeShaking -= Time.deltaTime;
+                    if(cntTimeShaking < timeShaking / 3)
+                    {
+                        if (!oneCallDead)
+                        {
+                            anim.speed = 1;
+                            anim.SetBool("isDead", true);
+                            oneCallDead = true;
+                        }
+                    }
+                }
+                Dead();
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -253,13 +339,16 @@ public class BossChange : BossBase
                     }
                     else
                     {
-                        if(transform.position.y > altitudeForH2.position.y - 1f && transform.position.y < altitudeForH2.position.y + 1f)
+                        if(comeFrom != 3)
                         {
-                            rb.velocity = Vector2.zero;
-                        }
-                        else
-                        {
-                            rb.velocity = movDir * movSpeedTransition * Time.deltaTime;
+                            if(transform.position.y > altitudeForH2.position.y - 1f && transform.position.y < altitudeForH2.position.y + 1f)
+                            {
+                                rb.velocity = Vector2.zero;
+                            }
+                            else
+                            {
+                                rb.velocity = movDir * movSpeedTransition * Time.deltaTime;
+                            }
                         }
                     }
                     break;
@@ -276,7 +365,6 @@ public class BossChange : BossBase
             rb.velocity = Vector2.zero;
         }
     }
-
     void CalculNewDirection()
     {
         if(transform.position.x < player.position.x)

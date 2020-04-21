@@ -333,9 +333,12 @@ MonoBehaviour:
   - {fileID: 5695445911933199689, guid: 6eddf54d41148354e80084c319be60c6, type: 3}
   - {fileID: 8013648960630750224, guid: 6eddf54d41148354e80084c319be60c6, type: 3}
   imageInstructions: {fileID: 941512488184830786}
-  abilitieDeviceButtonSprite:
+  dashDeviceSprite:
   - {fileID: -7141538564909651240, guid: 6eddf54d41148354e80084c319be60c6, type: 3}
   - {fileID: -1115784701462888749, guid: 6eddf54d41148354e80084c319be60c6, type: 3}
+  jumpDeviceSprite:
+  - {fileID: -7141538564909651240, guid: 6eddf54d41148354e80084c319be60c6, type: 3}
+  - {fileID: -1485370381389508874, guid: 6eddf54d41148354e80084c319be60c6, type: 3}
 --- !u!1 &502851488432017408
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,11 +535,11 @@ RectTransform:
   m_Father: {fileID: 502851488927322558}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.12, y: -464.6}
-  m_SizeDelta: {x: 217.42, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -828.17, y: 50.399994}
+  m_SizeDelta: {x: 217.42004, y: 50}
+  m_Pivot: {x: 1, y: 0}
 --- !u!222 &502851489121393688
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -6,12 +6,15 @@ public class BossDoor : MonoBehaviour
 {
     private bool closeDoor = false;
 
-    [SerializeField] float toMove = 6f;
+    [SerializeField] float toMoveDoor1 = 6f;
+    [SerializeField] float toMoveAltarDoor = 7;
 
     private Vector2 doorClosePos;
     private Vector2 doorOpenPos;
+    private Vector2 doorAltarOpenPos;
     [SerializeField] float movSpeed = 0.1f;
     [SerializeField] GameObject doorGO;
+    [SerializeField] GameObject doorAltar;
 
     [SerializeField] int bossNumber;
     [SerializeField] GameObject theBoss;
@@ -28,13 +31,14 @@ public class BossDoor : MonoBehaviour
         }
 
         doorOpenPos = doorGO.transform.position;
-        doorClosePos = new Vector2( doorGO.transform.position.x, doorGO.transform.position.y + toMove);
+        doorClosePos = new Vector2( doorGO.transform.position.x, doorGO.transform.position.y + toMoveDoor1);
+
+        doorAltarOpenPos = new Vector2(doorAltar.transform.position.x, doorAltar.transform.position.y - toMoveAltarDoor);
     }
 
     void Update()
     {
-        CloseDoorOnEnter();
-        OpenDoorOnDefeatedBoss();
+        DoorLogic();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -53,28 +57,33 @@ public class BossDoor : MonoBehaviour
         }
     }
 
-    void CloseDoorOnEnter()
+    void DoorLogic()
     {
-        if (closeDoor)
+        if (!ScenesManager.scenesManager.BossKilled[bossNumber])
         {
-            if(doorGO.transform.position.y < doorClosePos.y)
+            if (closeDoor)
             {
-                doorGO.transform.position = Vector2.MoveTowards(doorGO.transform.position, doorClosePos, movSpeed);
-            }
-            else
-            {
+                if(doorGO.transform.position.y < doorClosePos.y)
+                {
+                    doorGO.transform.position = Vector2.MoveTowards(doorGO.transform.position, doorClosePos, movSpeed);
+                }
+                else
+                {
+                }
             }
         }
-
-    }
-
-    void OpenDoorOnDefeatedBoss()
-    {
-        if (ScenesManager.scenesManager.BossKilled[bossNumber])
+        else
         {
-            if(doorGO.transform.position.y > doorOpenPos.y)
+            if (doorGO.transform.position.y > doorOpenPos.y)
             {
                 doorGO.transform.position = Vector2.MoveTowards(doorGO.transform.position, doorOpenPos, movSpeed);
+            }
+            if (doorAltar)
+            {
+                if(doorAltar.transform.position.y > doorAltarOpenPos.y)
+                {
+                    doorAltar.transform.position = Vector2.MoveTowards(doorAltar.transform.position, doorAltarOpenPos, movSpeed);
+                }
             }
         }
     }

@@ -2,30 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PotionBall : MonoBehaviour
+public class H3Balls : MonoBehaviour
 {
-    [SerializeField] ParticleSystem ps;
+    [SerializeField] int speed;
     SpriteRenderer spriteRenderer;
+    [SerializeField] ParticleSystem ps;
     [SerializeField] GameObject lightV;
-
-    private void Start()
+    void Start()
     {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            GetComponent<Collider2D>().enabled = false;
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
             other.GetComponent<PlayerController2>().PlayerDamaged(1, transform.position);
-            rb.velocity = Vector2.zero;
-            rb.gravityScale = 0;
-            Destroy(gameObject);
+            spriteRenderer.enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+            lightV.SetActive(false);
+            Destroy( gameObject, 0.1f);
         }
         else if (other.CompareTag("Floor"))
         {
-            if(other.transform.name == "LimitDown")
+            if (other.transform.name == "LimitDown")
             {
                 GetComponent<Collider2D>().enabled = false;
                 spriteRenderer.enabled = false;

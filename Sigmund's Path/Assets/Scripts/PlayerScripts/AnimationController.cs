@@ -40,13 +40,23 @@ public class AnimationController : MonoBehaviour
             isRuning = false;
         }
 
-        if (!player.isGrounded)
+        if (!player.IsGrounded)
         {
             isJumping = true;
         }
         else
         {
             isJumping = false;
+        }
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("AirFrontAttack2"))
+        {
+            if (player.IsGrounded)
+            {
+                plAttack.nClicks = 0;
+                plAttack.isAttacking = false;
+                plAttack.airAttackingFront = false;
+            }
         }
 
         UpdateAnimations();

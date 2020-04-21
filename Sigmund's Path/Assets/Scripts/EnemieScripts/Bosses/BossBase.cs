@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossBase : MonoBehaviour
 {
+    [SerializeField] protected int nBoss;
     [SerializeField] protected int nLifes;
     protected SpriteRenderer sprite;
     protected Material mat;
@@ -11,8 +12,8 @@ public class BossBase : MonoBehaviour
     protected Rigidbody2D rb;
     protected AudioSource audioSource;
 
-    protected bool isDisolve;
-    protected bool oneCallDead;
+    public bool isDisolve;
+    protected bool oneCallDead = false;
 
     private float fade = 1;
 
@@ -48,19 +49,14 @@ public class BossBase : MonoBehaviour
 
     public virtual void Dead()
     {
-        if(nLifes <= 0 && !oneCallDead)
-        {
-            col.enabled = false;
-            isDisolve = true;
-            oneCallDead = true;
-        }
-
         if (isDisolve)
         {
             fade -= Time.deltaTime;
             if (fade <= 0)
             {
                 fade = 0;
+                ScenesManager.scenesManager.BossKilled[nBoss] = true;
+                SaveSystem.SaveSceneData(ScenesManager.scenesManager);
                 isDisolve = false;
             }
             mat.SetFloat("_Fade", fade);

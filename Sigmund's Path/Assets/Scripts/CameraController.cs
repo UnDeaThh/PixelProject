@@ -21,7 +21,6 @@ public class CameraController : MonoBehaviour
     private float givenFrequency;
 
     private float cntShakeTime = 0f;
-    public bool letsShake = false;
 
     private bool isShaking;
     public bool isOnBossFight = false;
@@ -29,6 +28,7 @@ public class CameraController : MonoBehaviour
     private bool isGenerateCS;
 
     // Cinemachine Shake
+    [SerializeField] CinemachineBrain cinemaBrain;
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
     private CinemachineConfiner confiner;
@@ -91,13 +91,8 @@ public class CameraController : MonoBehaviour
             phisicCamera.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
-        if (!isGenerateCS)
+        if(!isGenerateCS)
         {
-            if (letsShake)
-            {
-                cntShakeTime = shakeTime;
-                letsShake = false;
-            }
             if (!hitAfterParry)
             {
                 if (virtualCamera != null && virtualCameraNoise != null)

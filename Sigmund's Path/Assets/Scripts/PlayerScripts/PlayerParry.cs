@@ -71,7 +71,7 @@ public class PlayerParry : MonoBehaviour
     {
         if (plAttack.haveSword)
         {
-            if (timeBtwParry <= 0 && plController2.isGrounded == true)
+            if (timeBtwParry <= 0 && plController2.IsGrounded == true)
             {
                 canParry = true;
 

@@ -23,10 +23,13 @@ public class Altar : MonoBehaviour
     [SerializeField] Sprite[] deviceButtonSprite;
 
     [SerializeField] Image imageInstructions;
-    [SerializeField] Sprite[] abilitieDeviceButtonSprite;
+    [SerializeField] Sprite[] dashDeviceSprite;
+    [SerializeField] Sprite[] jumpDeviceSprite;
 
 
-    private bool clickedForDash = false;
+    private bool clicked = false;
+    private bool onKinematic = false;
+
     private void Start()
     {
         canvasObject.SetActive(true);
@@ -38,6 +41,11 @@ public class Altar : MonoBehaviour
 
     private void Update()
     {
+        if (onKinematic)
+        {
+            player.rb.velocity = Vector2.zero;
+        }
+
         if (playerClose)
         {
             if(image.transform.localScale != Vector3.one)
@@ -46,7 +54,7 @@ public class Altar : MonoBehaviour
             }
 
             image.SetNativeSize();
-            if(player.Gamepad != null)
+            if(player.Gamepad != null) // Esto es el button al que le has de dar para abrir el altar
             {
                 image.sprite = deviceButtonSprite[1];
             }
@@ -55,17 +63,38 @@ public class Altar : MonoBehaviour
                 image.sprite = deviceButtonSprite[0];
             }
 
-            if (clickedForDash)
+            if (clicked)
             {
-                imageInstructions.transform.localScale = Vector3.one;
-                imageInstructions.SetNativeSize();
-                if (player.Gamepad != null)
+                switch (altarType)
                 {
-                    imageInstructions.sprite = abilitieDeviceButtonSprite[1];
-                }
-                else
-                {
-                    imageInstructions.sprite = abilitieDeviceButtonSprite[0];
+                    case AltarType.Dash:
+                        imageInstructions.transform.localScale = Vector3.one;
+                        imageInstructions.SetNativeSize();
+                        if (player.Gamepad != null)
+                        {
+                            imageInstructions.sprite = dashDeviceSprite[1];
+                        }
+                        else
+                        {
+                            imageInstructions.sprite = dashDeviceSprite[0];
+                        }
+                        break;
+                    case AltarType.DoubleJump:
+                        imageInstructions.transform.localScale = Vector3.one;
+                        imageInstructions.SetNativeSize();
+                        if (player.Gamepad != null)
+                        {
+                            imageInstructions.sprite = jumpDeviceSprite[1];
+                        }
+                        else
+                        {
+                            imageInstructions.sprite = jumpDeviceSprite[0];
+                        }
+                        break;
+                    case AltarType.WallJump:
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -82,7 +111,7 @@ public class Altar : MonoBehaviour
                         }
                         else
                         {
-                            clickedForDash = true;
+                            clicked = true;
                             pressEText.SetActive(false);
                             abilitiesInstructions.SetText(textos[0]);
 
@@ -90,6 +119,7 @@ public class Altar : MonoBehaviour
  
                         }
                         break;
+
                     case AltarType.DoubleJump:
                         if (!player.dobleJumpUnlocked)
                         {
@@ -98,10 +128,13 @@ public class Altar : MonoBehaviour
                         }
                         else
                         {
+                            clicked = true;
                             pressEText.SetActive(false);
                             abilitiesInstructions.SetText(textos[1]);
+                            imageInstructions.enabled = true;
                         }
                         break;
+
                     case AltarType.WallJump:
                         if (!player.wallJumpUnlocked)
                         {
@@ -123,7 +156,7 @@ public class Altar : MonoBehaviour
             pressEText.SetActive(false);
             abilitiesInstructions.SetText("");
             imageInstructions.enabled = false;
-            clickedForDash = false;
+            clicked = false;
         }
     }
 
@@ -131,7 +164,7 @@ public class Altar : MonoBehaviour
     {
         player.isOnKinematic = true;
         player.heedArrows = false;
-        player.rb.velocity = Vector2.zero;
+        onKinematic = true;
         yield return new WaitForSeconds(kinematicDuration);
         switch (altarType)
         {
@@ -145,6 +178,7 @@ public class Altar : MonoBehaviour
                 player.wallJumpUnlocked = true;
                 break;
         }
+        onKinematic = false;
         player.isOnKinematic = false;
     }
 

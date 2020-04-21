@@ -9,6 +9,7 @@ public class PlayerController2 : MonoBehaviour
     public PlayerInputs inputs;
     private Gamepad gamepad = Gamepad.current;
     public Gamepad Gamepad { get => gamepad;}
+    public bool IsGrounded { get => isGrounded; set => isGrounded = value; }
 
     private PauseManager pauseManager;
     private Inventory2 inventory;
@@ -57,7 +58,7 @@ public class PlayerController2 : MonoBehaviour
     [SerializeField] private float cntCoyoteTime;
 
     public bool isDead;
-    public bool isGrounded;
+    private bool isGrounded;
     public bool isJumping;
     private bool oneChanceDirection = false;
     private bool jumpPressed = false;
@@ -778,7 +779,7 @@ public class PlayerController2 : MonoBehaviour
                     rb.AddForce(new Vector2( -1 * damagedPushForce, 1 * damagedPushForce));
                 }
             }
-            CameraController.cameraController.letsShake = true;
+            CameraController.cameraController.GenerateCamerashake(0.3f, 0.5f, 0.5f);
             StartCoroutine(Blinking());
         }
 

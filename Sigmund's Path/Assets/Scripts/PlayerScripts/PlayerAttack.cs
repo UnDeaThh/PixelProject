@@ -130,7 +130,6 @@ public class PlayerAttack : MonoBehaviour
                 else
                 {
                     canAttack = false;
-                    //clickAttack = false;
                 }
             }
             else
@@ -168,7 +167,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     
                     //FRONT ATTACK
-                    if (player.isGrounded)
+                    if (player.IsGrounded)
                     {
                         player.rb.velocity = Vector2.zero;
                         gndAttackingFront = true;
@@ -205,7 +204,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         if (enemiesToDamage[i].tag == "Enemy")
                         {
-                            cameraController.letsShake = true;
+                            cameraController.GenerateCamerashake(0.3f, 0.5f, 0.3f);
                             if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                             {
                                 enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
@@ -290,7 +289,7 @@ public class PlayerAttack : MonoBehaviour
                 {
 
                     player.heedArrows = false;
-                    if (player.isGrounded)
+                    if (player.IsGrounded)
                     {
                         player.rb.velocity = Vector2.zero;
                         gndAttackingFront = false;
@@ -307,6 +306,7 @@ public class PlayerAttack : MonoBehaviour
                         airAttackingUp = true;
                     }
                     isAttacking = true;
+                    nClicks++;
 
                     Vector3 finalPos = playerPos.position + upAttackPos;
 
@@ -318,7 +318,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         if (enemiesToDamage[i].CompareTag("Enemy"))
                         {
-                            cameraController.letsShake = true;
+                            cameraController.GenerateCamerashake(0.3f, 0.5f, 0.3f);
                             if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                             {
                                 enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
@@ -379,10 +379,7 @@ public class PlayerAttack : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        // if (gndAttackingFront)
-        // {
         Gizmos.DrawWireCube(attackPos.position, attackRangeFront);
-        //}
         if (gndAttackingUp)
         {
         Gizmos.DrawWireSphere(attackPos.position, attackRangeUp);
