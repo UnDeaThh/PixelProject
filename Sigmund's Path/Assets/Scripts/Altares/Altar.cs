@@ -170,12 +170,21 @@ public class Altar : MonoBehaviour
         {
             case AltarType.Dash:
                 player.dashUnlocked = true;
+                imageInstructions.enabled = true;
+                abilitiesInstructions.SetText(textos[0]);
+                clicked = true;
                 break;
             case AltarType.DoubleJump:
                 player.dobleJumpUnlocked = true;
+                imageInstructions.enabled = true;
+                abilitiesInstructions.SetText(textos[1]);
+                clicked = true;
                 break;
             case AltarType.WallJump:
                 player.wallJumpUnlocked = true;
+                imageInstructions.enabled = true;
+                abilitiesInstructions.SetText(textos[2]);
+                clicked = true;
                 break;
         }
         onKinematic = false;

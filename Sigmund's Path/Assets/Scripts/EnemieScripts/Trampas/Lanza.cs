@@ -8,9 +8,12 @@ public class Lanza : MonoBehaviour
     public float speed;
     private float timeIgnoring = 0.2f;
     private float cntTimeIgnoring;
+    private AudioSource source;
+    [SerializeField] ParticleSystem ps;
 
     private void Start()
     {
+        source = GetComponent<AudioSource>();
         Physics2D.IgnoreLayerCollision(12, 8);
         cntTimeIgnoring = timeIgnoring;
     }
@@ -30,12 +33,15 @@ public class Lanza : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerController2>().PlayerDamaged(1, transform.position);
+            ps.Play();
             sprite.enabled = false;
             Destroy(gameObject, 1f);
         }
         else if (collision.CompareTag("Floor"))
         {
             sprite.enabled = false;
+            ps.Play();
+            source.Play();
             speed = 0;
             Destroy(gameObject, 0.5f);
         }

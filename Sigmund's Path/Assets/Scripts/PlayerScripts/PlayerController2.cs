@@ -16,6 +16,7 @@ public class PlayerController2 : MonoBehaviour
     private PlayerAudio plAudio;
     private PlayerAttack plAttack;
     private PlayerParry plParry;
+    [SerializeField] AudioSource hitSource;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -779,7 +780,8 @@ public class PlayerController2 : MonoBehaviour
                     rb.AddForce(new Vector2( -1 * damagedPushForce, 1 * damagedPushForce));
                 }
             }
-            CameraController.cameraController.GenerateCamerashake(0.3f, 0.5f, 0.5f);
+            hitSource.Play();
+            CameraController.cameraController.GenerateCamerashake(3, 10, 0.5f);
             StartCoroutine(Blinking());
         }
 

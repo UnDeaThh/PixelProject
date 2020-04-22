@@ -22,7 +22,7 @@ public class BossChange : BossBase
     [SerializeField] private float movSpeedH1 = 700;
     [SerializeField] float timeH1;
     float cntTime;
-    [SerializeField] AudioSource roomSounds;
+    [SerializeField] AudioSource hitGndSound;
     [SerializeField] GameObject impactGrounsParticle;
 
     [Header("Transition")]
@@ -59,6 +59,7 @@ public class BossChange : BossBase
     [SerializeField] float timeShaking;
     float cntTimeShaking;
     bool oneShake = false;
+    [SerializeField] AudioSource earthquakeSound;
 
     private void Awake()
     {
@@ -75,7 +76,6 @@ public class BossChange : BossBase
         mat = sprite.material;
         col = GetComponent<Collider2D>();
         col.enabled = false;
-        audioSource = GetComponentInChildren<AudioSource>();
         anim = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         cameraFight.SetActive(false);
@@ -112,6 +112,8 @@ public class BossChange : BossBase
                     if(!audioSource.isPlaying && hasSounded)
                     {
                         cameraFight.SetActive(true);
+                        AudioManager.instanceAudio.StartBossSong = true;
+                        Debug.Log("Start");
                         cntTime = timeH1;
                         col.enabled = true;
                         actualState = State.H1;
@@ -265,6 +267,7 @@ public class BossChange : BossBase
         {
             if(cntTimeFreeze > 0)
             {
+                AudioManager.instanceAudio.EndBossSong = true;
                 cntTimeFreeze -= Time.deltaTime;
                 col.enabled = false;
                 anim.speed = 0;
@@ -277,6 +280,7 @@ public class BossChange : BossBase
             {
                 if (!oneShake)
                 {
+                    earthquakeSound.Play();
                     CameraController.cameraController.GenerateCamerashake(amplitudeShaking, frequencyShaking, timeShaking);
                     oneShake = true;
                 }
@@ -290,6 +294,10 @@ public class BossChange : BossBase
                             anim.speed = 1;
                             anim.SetBool("isDead", true);
                             oneCallDead = true;
+                        }
+                        if(earthquakeSound.volume > 0)
+                        {
+                            earthquakeSound.volume -= 0.008f;
                         }
                     }
                 }
@@ -396,14 +404,14 @@ public class BossChange : BossBase
                 {
                     movDir.y *= -1;
                     Instantiate(impactGrounsParticle, transform.position + new Vector3(0f, -2f, 0f), Quaternion.identity);
-                    roomSounds.Play();
+                    hitGndSound.Play();
                     CameraController.cameraController.GenerateCamerashake(4, 10, 0.2f);
                 }
                 else if (other.transform.name == "LimitUp")
                 {
                     movDir.y *= -1;
                     Instantiate(impactGrounsParticle, transform.position + new Vector3(0f, +2f, 0f), Quaternion.identity);
-                    roomSounds.Play();
+                    hitGndSound.Play();
                     CameraController.cameraController.GenerateCamerashake(4, 10, 0.2f);
                 }
                 else if (other.transform.name == "LimitLeft")

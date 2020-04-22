@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         talking = false;
-        if(ScenesManager.scenesManager.actualScene == 4) //HABLANDO CON EL ASKA
+        if(SceneManager.GetActiveScene().name == "T2") //HABLANDO CON EL ASKA
         {
             FindObjectOfType<Askafroa>().isSleeping = true;
             ScenesManager.scenesManager.FirstTalkAska = true;

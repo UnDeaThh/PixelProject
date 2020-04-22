@@ -1497,6 +1497,133 @@ MonoBehaviour:
   playerAnimator: {fileID: 2119169504}
   director: {fileID: 330808166}
   nachCutSceneGO: {fileID: 0}
+--- !u!1 &333349359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 333349361}
+  - component: {fileID: 333349360}
+  m_Layer: 0
+  m_Name: EarthQuakeSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &333349360
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333349359}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d730772b01159ee4691b8c3b539d7162, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &333349361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333349359}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -143.13791, y: 27.092003, z: -170.41405}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &359495312 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6412116304772271069, guid: 182569db9a00abe4db14b9ad7f8b9566,
@@ -2007,7 +2134,7 @@ GameObject:
   - component: {fileID: 620095461}
   - component: {fileID: 620095460}
   m_Layer: 0
-  m_Name: RoomSounds
+  m_Name: HitGndSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6213,16 +6340,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nBoss: 0
-  nLifes: 1
+  nLifes: 5
+  audioSource: {fileID: 1708710714}
   isDisolve: 0
   clips:
-  - {fileID: 8300000, guid: ed519f833e970714ab769b022b1e4433, type: 3}
+  - {fileID: 8300000, guid: 55955f456434ef146ae2d68d52da3071, type: 3}
   - {fileID: 8300000, guid: 27ed82a50ffc8e045a4833c5ad534afe, type: 3}
   movDir: {x: 1, y: -3}
   cameraFight: {fileID: 1247913631739200766}
+  audioManager: {fileID: 6782420735798254480}
   movSpeedH1: 700
   timeH1: 10
-  roomSounds: {fileID: 620095460}
+  hitGndSound: {fileID: 620095460}
   impactGrounsParticle: {fileID: 5103510976369475547, guid: e724092c8155e2947ab5203022595e3a,
     type: 3}
   movSpeedTransition: 200
@@ -6243,6 +6372,7 @@ MonoBehaviour:
   amplitudeShaking: 7
   frequencyShaking: 2
   timeShaking: 4
+  earthquakeSound: {fileID: 333349360}
 --- !u!50 &1900451065
 Rigidbody2D:
   serializedVersion: 4
@@ -21441,7 +21571,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -828.17, y: 50.399994}
+  m_AnchoredPosition: {x: -828.17, y: 50.399902}
   m_SizeDelta: {x: 217.42004, y: 50}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &6072922945185811233
@@ -22767,6 +22897,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 614271664c5768149b158b7f57050342, type: 3}
+--- !u!114 &6782420735798254480 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1216599422, guid: 614271664c5768149b158b7f57050342,
+    type: 3}
+  m_PrefabInstance: {fileID: 6782420735798254476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edbe8a3d1a47c154892aadb95a3ed12d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &6834382241161985585
 CanvasRenderer:
   m_ObjectHideFlags: 0

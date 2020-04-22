@@ -42,6 +42,7 @@ public class ScenesManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         LoadSceneManager();
+        
     }
     private void Update()
     {

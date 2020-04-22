@@ -10,7 +10,7 @@ public class BossBase : MonoBehaviour
     protected Material mat;
     protected Collider2D col;
     protected Rigidbody2D rb;
-    protected AudioSource audioSource;
+    [SerializeField] protected AudioSource audioSource;
 
     public bool isDisolve;
     protected bool oneCallDead = false;
