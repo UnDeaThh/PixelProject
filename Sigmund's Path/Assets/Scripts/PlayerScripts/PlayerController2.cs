@@ -769,14 +769,13 @@ public class PlayerController2 : MonoBehaviour
             rb.velocity = Vector2.zero;
             if (health >= 1)
             {
+                heedArrows = false;
                 if(enemyPos.x <= transform.position.x)
                 {
-                    heedArrows = false;
                     rb.AddForce(Vector2.one * damagedPushForce);
                 }
                 else
                 {
-                    heedArrows = false;
                     rb.AddForce(new Vector2( -1 * damagedPushForce, 1 * damagedPushForce));
                 }
             }

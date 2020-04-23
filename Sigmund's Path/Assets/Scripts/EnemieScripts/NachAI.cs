@@ -133,6 +133,8 @@ public class NachAI : BaseEnemy
     {
         if(nLifes <= 0 && !oneCallDead)
         {
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0;    
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
         base.Dead();

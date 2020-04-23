@@ -5,11 +5,11 @@ using UnityEngine;
 public class TatzelAI : BaseEnemy
 {
     private Rigidbody2D rb;
-    private bool isGrounded;
     private bool groundFound;
     private bool wallFound;
     private bool playerFoundedBack = false;
     private bool ffBack;
+    private bool ffAttack;
     private bool playerFoundedFront;
     private bool playerFounded;
     private bool playerJustInFront;
@@ -97,8 +97,6 @@ public class TatzelAI : BaseEnemy
                 makeOneattack = false;
             }
 
-
-
             UpdateAnimations();
             Stuned();
         }
@@ -115,7 +113,6 @@ public class TatzelAI : BaseEnemy
 
     void CheckEnvironment()
     {
-        isGrounded = Physics2D.Raycast(groundCheckerPos.position, Vector2.down, groundDistance, whatIsDetected);
         groundFound = Physics2D.Raycast(frontCheckerPos.position, Vector2.down, checkDistance, whatIsDetected);
         wallFound = Physics2D.Raycast(frontCheckerPos.position, transform.right, checkDistance, whatIsDetected);
 
@@ -170,6 +167,11 @@ public class TatzelAI : BaseEnemy
             else
             {
                 playerJustInFront = true;
+                if (!ffAttack)
+                {
+                    cntTimeBtwAttacks = 0.1f;
+                    ffAttack = true;
+                }
             }
         }
         else
@@ -180,48 +182,44 @@ public class TatzelAI : BaseEnemy
 
     void AplyMovement()
     {
-        //Caminando Tranquilico por el barrio
-        if (isGrounded)
+        if (!isStuned)
         {
-            if (!isStuned)
+            if (!playerFounded)
             {
-                if (!playerFounded)
+                if(groundFound && !wallFound)
                 {
-                    if(groundFound && !wallFound)
-                    {
-                        rb.velocity = new Vector2(facingDir * movSpeed * Time.deltaTime, rb.velocity.y);
-                    }
-                    else
-                    {
-                        Flip();
-                    }
+                    rb.velocity = new Vector2(facingDir * movSpeed * Time.deltaTime, rb.velocity.y);
                 }
                 else
                 {
-                    if (ffBack)
-                    {
-                        Flip();
-                        ffBack = false;
-                    }
-
-                    if (playerFoundedFront && !playerJustInFront)
-                    {
-                        if (!attack)
-                        {
-                            rb.velocity = new Vector2(facingDir * runingSpeed * Time.deltaTime, rb.velocity.y);
-                        }
-                    }
-
-                    if (playerJustInFront)
-                    {
-                        rb.velocity = Vector2.zero;
-                    }
+                    Flip();
                 }
             }
             else
             {
-                rb.velocity = Vector2.zero;
+                if (ffBack)
+                {
+                    Flip();
+                    ffBack = false;
+                }
+
+                if (playerFoundedFront && !playerJustInFront)
+                {
+                    if (!attack)
+                    {
+                        rb.velocity = new Vector2(facingDir * runingSpeed * Time.deltaTime, rb.velocity.y);
+                    }
+                }
+
+                if (playerJustInFront)
+                {
+                    rb.velocity = Vector2.zero;
+                }
             }
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
     }
 
@@ -274,6 +272,12 @@ public class TatzelAI : BaseEnemy
 
     public override void Dead()
     {
+        if (nLifes <= 0 && !oneCallDead)
+        {
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0;
+            rb.bodyType = RigidbodyType2D.Kinematic;
+        }
         base.Dead();
     }
 
@@ -313,6 +317,10 @@ public class TatzelAI : BaseEnemy
         {
             Gizmos.DrawLine(frontCheckerPos.position, new Vector3(frontCheckerPos.position.x - checkDistance, frontCheckerPos.position.y, transform.position.z));
         }
+
+
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + frontDistance * facingDir, transform.position.y, 0));
+        
 
         Gizmos.DrawWireCube(backChecker.position, backArea);
 

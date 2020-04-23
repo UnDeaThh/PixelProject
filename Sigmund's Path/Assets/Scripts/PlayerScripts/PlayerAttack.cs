@@ -288,7 +288,6 @@ public class PlayerAttack : MonoBehaviour
                 else if (attackDirection.y > 0.1f)
                 {
 
-                    player.heedArrows = false;
                     if (player.IsGrounded)
                     {
                         player.rb.velocity = Vector2.zero;

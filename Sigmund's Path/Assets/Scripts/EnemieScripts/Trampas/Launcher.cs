@@ -8,6 +8,7 @@ public class Launcher : MonoBehaviour
     private float cntLaunchTime;
     public GameObject prefabLanza;
     public Vector3 rotation;
+    [SerializeField] AudioSource source;
 
     private void Update()
     {
@@ -17,6 +18,7 @@ public class Launcher : MonoBehaviour
         }
         else
         {
+            source.Play();
             Instantiate(prefabLanza, transform.position, Quaternion.Euler(rotation));
             cntLaunchTime = 0;
         }

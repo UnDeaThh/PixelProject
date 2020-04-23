@@ -26,10 +26,14 @@ public class Altar : MonoBehaviour
     [SerializeField] Sprite[] dashDeviceSprite;
     [SerializeField] Sprite[] jumpDeviceSprite;
 
+    [SerializeField] GameObject particulaSayan;
+    [SerializeField] Material[] materialesParticula;
 
     private bool clicked = false;
     private bool onKinematic = false;
-
+    [SerializeField] AudioSource source;
+    [SerializeField] ParticleSystem ps;
+    [SerializeField] int nParticlesEnter;
     private void Start()
     {
         canvasObject.SetActive(true);
@@ -37,6 +41,30 @@ public class Altar : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         abilitiesInstructions.SetText("");
         imageInstructions.enabled = false;
+
+        switch (altarType)
+        {
+            case AltarType.Dash:
+                if (player.dashUnlocked)
+                {
+                    Destroy(ps);
+                }
+                break;
+            case AltarType.DoubleJump:
+                if (player.dobleJumpUnlocked)
+                {
+                    Destroy(ps);
+                }
+                break;
+            case AltarType.WallJump:
+                if (player.wallJumpUnlocked)
+                {
+                    Destroy(ps);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private void Update()
@@ -163,8 +191,26 @@ public class Altar : MonoBehaviour
     IEnumerator UnlockAbilitie()
     {
         player.isOnKinematic = true;
+        ParticleSystem.EmissionModule emidMod = ps.emission;
+        emidMod.rateOverTime = nParticlesEnter;
         player.heedArrows = false;
         onKinematic = true;
+        source.Play();
+        GameObject particle = Instantiate(particulaSayan, player.transform.position, Quaternion.identity);
+        switch (altarType)
+        {
+            case AltarType.Dash:
+                particle.GetComponent<SpriteRenderer>().material = materialesParticula[0];
+                break;
+            case AltarType.DoubleJump:
+                particle.GetComponent<SpriteRenderer>().material = materialesParticula[1];
+                break;
+            case AltarType.WallJump:
+                particle.GetComponent<SpriteRenderer>().material = materialesParticula[2];
+                break;
+            default:
+                break;
+        }
         yield return new WaitForSeconds(kinematicDuration);
         switch (altarType)
         {
@@ -187,6 +233,7 @@ public class Altar : MonoBehaviour
                 clicked = true;
                 break;
         }
+        emidMod.rateOverTime = 0;
         onKinematic = false;
         player.isOnKinematic = false;
     }

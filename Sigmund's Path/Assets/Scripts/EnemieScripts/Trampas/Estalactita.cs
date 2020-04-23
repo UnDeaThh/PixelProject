@@ -10,7 +10,11 @@ public class Estalactita : MonoBehaviour
     public GameObject ps;
     private SpriteRenderer sprite;
     private bool launched;
+    private bool playerDetected;
     private AudioSource sound;
+    [SerializeField] float timeToLaunch;
+    float cntTimeToLaunch;
+    [SerializeField] ParticleSystem polvo;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -19,17 +23,34 @@ public class Estalactita : MonoBehaviour
         col.enabled = false;
         rb.gravityScale = 0;
         sound = GetComponent<AudioSource>();
+        cntTimeToLaunch = timeToLaunch;
+        polvo.gameObject.transform.parent = null;
     }
     private void Update()
     {
         if (!launched)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1000, collidesWith);
-            if(hit.transform.CompareTag("Player"))
+            if (!playerDetected)
             {
-                rb.gravityScale = 5;
-                col.enabled = true;
-                launched = true;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1000, collidesWith);
+                if(hit.transform.CompareTag("Player"))
+                {
+                    playerDetected = true;
+                    polvo.Play();
+                }
+            }
+            else
+            {
+                if(cntTimeToLaunch > 0)
+                {
+                    cntTimeToLaunch -= Time.deltaTime;
+                }
+                else
+                {
+                    rb.gravityScale = 5;
+                    col.enabled = true;
+                    launched = true;
+                }
             }
         }
     }

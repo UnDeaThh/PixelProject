@@ -70,7 +70,10 @@ public class BaseEnemy : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                if(fade <= 0f)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
