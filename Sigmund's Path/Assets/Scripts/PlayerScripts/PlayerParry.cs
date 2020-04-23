@@ -158,11 +158,6 @@ public class PlayerParry : MonoBehaviour
                     ParryDone = true;
                     ParrySuccesful = true;
                 }
-                else
-                {
-                    Debug.Log("NADADA");
-                }
-                
             }
             else
             {

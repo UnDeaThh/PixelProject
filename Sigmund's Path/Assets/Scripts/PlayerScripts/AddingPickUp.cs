@@ -42,7 +42,7 @@ public class AddingPickUp : MonoBehaviour
     {
         anim.SetTrigger("appears");
         showPanel = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         showPanel = false;
         anim.SetTrigger("disappears");
     }

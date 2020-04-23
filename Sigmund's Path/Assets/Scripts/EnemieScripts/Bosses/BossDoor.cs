@@ -49,9 +49,12 @@ public class BossDoor : MonoBehaviour
             {
                 closeDoor = true;
                 GetComponent<Collider2D>().enabled = false;
-                if (theBoss.TryGetComponent(out BossChange boss))
+                if (theBoss)
                 {
-                    boss.ActualState = State.Enter;
+                    if (theBoss.TryGetComponent(out BossChange boss))
+                    {
+                        boss.ActualState = State.Enter;
+                    }
                 }
             }
         }
@@ -66,9 +69,6 @@ public class BossDoor : MonoBehaviour
                 if(doorGO.transform.position.y < doorClosePos.y)
                 {
                     doorGO.transform.position = Vector2.MoveTowards(doorGO.transform.position, doorClosePos, movSpeed);
-                }
-                else
-                {
                 }
             }
         }

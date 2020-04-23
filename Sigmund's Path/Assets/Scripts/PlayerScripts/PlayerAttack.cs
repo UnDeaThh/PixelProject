@@ -153,15 +153,15 @@ public class PlayerAttack : MonoBehaviour
         {
             damage *= 2;
         }
-        if (plParry.ParrySuccesful)
-        {
-            damage += 1;
-        }
 
         if (canAttack)
         {
             if (inputs.Controls.Attack.triggered) 
             {
+                if (plParry.ParrySuccesful)
+                {
+                    damage += 1;
+                }
                 #region FRONT ATTACK
                 if (attackDirection.y <= 0.1f)
                 {

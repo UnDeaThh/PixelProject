@@ -36,7 +36,7 @@ public class ColectableSword : MonoBehaviour
             GameObject player = collision.gameObject;
             collision.GetComponent<PlayerAttack>().haveSword = true;
             collision.GetComponent<PlayerController2>().isOnKinematic = true;
-            FindObjectOfType<NpcDialogue>().isTalking = true;
+            FindObjectOfType<NpcDialogue>().TriggerDialogue();
             ScenesManager.scenesManager.SwordPicked = true;
             SaveSystem.SavePlayerData(player.GetComponent<PlayerController2>(), player.GetComponentInChildren<Inventory2>(), player.GetComponent<PlayerAttack>());
             GetComponent<Collider2D>().enabled = false;

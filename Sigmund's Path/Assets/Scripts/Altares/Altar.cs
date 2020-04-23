@@ -10,7 +10,7 @@ public class Altar : MonoBehaviour
     {
         Dash, DoubleJump, WallJump
     }
-
+    private SpriteRenderer sr;
     [SerializeField] AltarType altarType;
     private bool playerClose;
     [SerializeField] GameObject pressEText;
@@ -26,6 +26,8 @@ public class Altar : MonoBehaviour
     [SerializeField] Sprite[] dashDeviceSprite;
     [SerializeField] Sprite[] jumpDeviceSprite;
 
+    [SerializeField] Material[] materialPiedra;
+
     [SerializeField] GameObject particulaSayan;
     [SerializeField] Material[] materialesParticula;
 
@@ -36,6 +38,7 @@ public class Altar : MonoBehaviour
     [SerializeField] int nParticlesEnter;
     private void Start()
     {
+        sr = GetComponentInChildren<SpriteRenderer>();
         canvasObject.SetActive(true);
         pressEText.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
@@ -45,18 +48,21 @@ public class Altar : MonoBehaviour
         switch (altarType)
         {
             case AltarType.Dash:
+                sr.material = materialPiedra[0];
                 if (player.dashUnlocked)
                 {
                     Destroy(ps);
                 }
                 break;
             case AltarType.DoubleJump:
+                sr.material = materialPiedra[1];
                 if (player.dobleJumpUnlocked)
                 {
                     Destroy(ps);
                 }
                 break;
             case AltarType.WallJump:
+                sr.material = materialPiedra[2];
                 if (player.wallJumpUnlocked)
                 {
                     Destroy(ps);
