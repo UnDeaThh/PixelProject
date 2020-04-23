@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8006975757785507906}
   - component: {fileID: 8006975757785507933}
+  - component: {fileID: 6888725460262816728}
   m_Layer: 0
   m_Name: Hierbajo4
   m_TagString: Untagged
@@ -69,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 2082739441
   m_SortingLayer: 4
   m_SortingOrder: -1
-  m_Sprite: {fileID: 5046037210029891413, guid: d2607a47192c0c74c9b0c39309448df3,
+  m_Sprite: {fileID: 8316314237009523879, guid: 9f4ab3b5e5b514c48bf3ad0cad963d6c,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -81,3 +82,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6888725460262816728
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8006975757785507932}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2da88baa5397d0e46b3aaef66eb15570, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
