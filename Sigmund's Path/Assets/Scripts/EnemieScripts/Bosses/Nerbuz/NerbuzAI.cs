@@ -15,6 +15,7 @@ public class NerbuzAI : BossBase
     public int AttacksH2 { get => attacksH2; set => attacksH2 = value; }
     public bool H2AttackAnim1 { get => H2AttackAnim; set => H2AttackAnim = value; }
     public bool IsCrazy { get => isCrazy; set => isCrazy = value; }
+    public bool MakingH3 { get => makingH3; set => makingH3 = value; }
 
     private Vector2 movDir;
     private Transform playerPos;
@@ -22,6 +23,7 @@ public class NerbuzAI : BossBase
     [Header("Enter")]
     [SerializeField] float timeToH1;
     private float cntTimeToH1;
+    [SerializeField] GameObject cameraFight;
 
     [Header("H1")]
     [SerializeField] float speedH1;
@@ -43,6 +45,7 @@ public class NerbuzAI : BossBase
 
     [Header("H2")]
     [SerializeField] int seriesH2;
+ 
     private bool H2ChargingAnim;
     private bool H2AttackAnim;
     private int cntSeriesH2;
@@ -69,6 +72,15 @@ public class NerbuzAI : BossBase
     private bool deactivateShield;
     private bool isCrazy;
 
+    [Header("H3")]
+    [SerializeField] ParticleSystem[] particlesH3;
+    private bool makingH3;
+    private bool h3Activated;
+    [SerializeField] float timeH3;
+    private float cntTimeH3;
+    [SerializeField] int seriesH3;
+    private int cntSeriesH3;
+
     [Header("CAMERA SHAKE")]
     [SerializeField] float shakeAmplitude;
     [SerializeField] float shakeFrequency;
@@ -92,6 +104,13 @@ public class NerbuzAI : BossBase
         colSize.y = colTrans.localScale.y * roomSpace.bounds.size.y;
 
         tiredPos = new Vector2(centerPos.position.x, centerPos.position.y - cansadaAltitude);
+        cameraFight.SetActive(false);
+
+        for (int i = 0; i < particlesH3.Length; i++)
+        {
+            ParticleSystem.EmissionModule emidMod = particlesH3[i].emission;
+            emidMod.enabled = false;
+        }
     }
     void Update()
     {
@@ -103,6 +122,7 @@ public class NerbuzAI : BossBase
                     if(cntTimeToH1 > 0)
                     {
                         cntTimeToH1 -= Time.deltaTime;
+                        cameraFight.SetActive(true);
                     }
                     else
                     {
@@ -237,10 +257,99 @@ public class NerbuzAI : BossBase
                     }
                     else
                     {
-                        actualState = State.H3;
+                        if(cntTiredTime > 0)
+                        {
+                            cntTiredTime -= Time.deltaTime;
+                        }
+                        else
+                        {
+                            transition = 2;
+                            transitionState = 1;
+                            actualState = State.Transition;
+                        }
                     }
                     break;
                 case State.H3:
+                    if(cntSeriesH3 < seriesH3)
+                    {
+                        if (!isTired)
+                        {
+                            makingH3 = true;
+                            if (!h3Activated)
+                            {
+                                for (int i = 0; i < particlesH3.Length; i++)
+                                {
+                                    ParticleSystem.EmissionModule emidMod = particlesH3[i].emission;
+                                    emidMod.enabled = true;
+                                }
+                                h3Activated = true;
+                            }
+                            if(cntTimeH3 > 0)
+                            {
+                                cntTimeH3 -= Time.deltaTime;
+                            }
+                            else
+                            {
+                                for (int i = 0; i < particlesH3.Length; i++)
+                                {
+                                    ParticleSystem.EmissionModule emidMod = particlesH3[i].emission;
+                                    emidMod.enabled = false;
+                                }
+                                cntSeriesH3++;
+                                makingH3 = false;
+                                isTired = true;
+                            }
+                        }
+                        else
+                        {
+                            if (!reachedTiredPos)
+                            {
+                                if(transform.position.y > tiredPos.y)
+                                {
+                                    Vector2 dir;
+                                    dir = new Vector2(tiredPos.x - transform.position.x, tiredPos.y - transform.position.y).normalized;
+                                    movDir = dir;
+                                    Debug.Log("incoming");
+                                }
+                                else
+                                {
+                                    reachedTiredPos = true;
+                                }
+                            }
+                            else
+                            {
+                                transition = 2;
+                                transitionState = 1;
+                                actualState = State.Transition;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (isTired)
+                        {
+                            if (!reachedTiredPos)
+                            {
+                                if (transform.position.y > tiredPos.y)
+                                {
+                                    Vector2 dir;
+                                    dir = new Vector2(tiredPos.x - transform.position.x, tiredPos.y - transform.position.y).normalized;
+                                    movDir = dir;
+                                }
+                                else
+                                {
+                                    reachedTiredPos = true;
+                                }
+                            }
+                            else
+                            {
+                                transition = 3;
+                                transitionState = 1;
+                                cntTiredTime = tiredTime;
+                                actualState = State.Transition;
+                            }
+                        }
+                    }
                     break;
                 case State.H4:
                     break;
@@ -275,6 +384,60 @@ public class NerbuzAI : BossBase
                                 cntAttacksH2 = 0;
                                 generatorInPlace = false;
                                 actualState = State.H2;
+                            }
+                        }
+                    }
+                    else if(transition == 2)
+                    {
+                        if(transitionState == 1)
+                        {
+                            if(cntTiredTime > 0)
+                            {
+                                cntTiredTime -= Time.deltaTime;
+                            }
+                            else
+                            {
+                                isCrazy = true;
+                                transitionState = 2;
+                            }
+                        }
+                        else if(transitionState == 2)
+                        {
+                            if (transform.position.y > centerPos.position.y - 0.1f && transform.position.y < centerPos.position.y + 0.1f && transform.position.x > centerPos.position.x - 0.1f
+                                && transform.position.x < centerPos.position.x + 0.1f)
+                            {
+                                shieldActivated = false;
+                                h3Activated = false;
+                                isTired = false;
+                                cntTiredTime = tiredTime;
+                                cntTimeH3 = timeH3;
+                                reachedTiredPos = false;
+                                if(cntSeriesH3 != seriesH3)
+                                {
+                                    Debug.Log("cargarH3");
+                                    actualState = State.H3;
+                                }
+                            }
+                            else
+                            {
+                                Vector2 dir;
+                                dir = new Vector2(centerPos.position.x - transform.position.x, centerPos.position.y - transform.position.y).normalized;
+                                movDir = dir;
+                            }
+                        }
+                    }
+                    else if(transition == 3)
+                    {
+                        if (isTired)
+                        {
+                            if(cntTiredTime > 0)
+                            {
+                                cntTiredTime -= Time.deltaTime;
+                            }
+                            else
+                            {
+                                IsCrazy = true;
+                                actualState = State.H4;
                             }
                         }
                     }
@@ -316,6 +479,21 @@ public class NerbuzAI : BossBase
                 }
                 break;
             case State.H3:
+                if (!isTired)
+                {
+                    rb.velocity = Vector2.zero;
+                }
+                else
+                {
+                    if (!reachedTiredPos)
+                    {
+                        rb.velocity = movDir * tiredSpeed * Time.deltaTime;
+                    }
+                    else
+                    {
+                        rb.velocity = Vector2.zero;
+                    }
+                }
                 break;
             case State.H4:
                 break;
@@ -327,6 +505,24 @@ public class NerbuzAI : BossBase
                         rb.velocity = movDir * transitionSpeed * Time.deltaTime;
                     }
                     else if(transitionState == 2)
+                    {
+                        rb.velocity = Vector2.zero;
+                    }
+                }
+                else if(transition == 2)
+                {
+                    if(transitionState == 1)
+                    {
+                        rb.velocity = Vector2.zero;
+                    }
+                    else if(transitionState == 2)
+                    {
+                        rb.velocity = movDir * transitionSpeed * Time.deltaTime;
+                    }
+                }
+                else if(transition == 3)
+                {
+                    if (isTired)
                     {
                         rb.velocity = Vector2.zero;
                     }

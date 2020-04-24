@@ -36,7 +36,7 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        if(SceneManager.GetActiveScene().name != "Boss1Scene")
+        if(SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene")
         {
             if(!instanceAudio.songSource[0].isPlaying && !instanceAudio.songSource[1].isPlaying)
             {
@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
     {
 
         
-        if(SceneManager.GetActiveScene().name != "Boss1Scene")
+        if(SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene")
         {
             if (!instanceAudio.songSource[0].isPlaying && instanceAudio.playedFirstSong)
             {
@@ -72,6 +72,14 @@ public class AudioManager : MonoBehaviour
                 {
                     bossSongSource[0].Play();
                     playedFirstBossSong = true;
+                }
+
+                if(!instanceAudio.bossSongSource[0].isPlaying && instanceAudio.playedFirstBossSong)
+                {
+                    if (!instanceAudio.bossSongSource[1].isPlaying)
+                    {
+                        bossSongSource[1].Play();
+                    }
                 }
             }
             else if(startBossSong && endBossSong)

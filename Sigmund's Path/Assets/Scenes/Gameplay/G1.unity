@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -30762,7 +30762,7 @@ GameObject:
   - component: {fileID: 1435829057}
   m_Layer: 0
   m_Name: MapConfiner2
-  m_TagString: Confiner
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31634,7 +31634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ConfineMode: 0
   m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 0}
+  m_BoundingShape2D: {fileID: 1748016214}
   m_ConfineScreenEdges: 1
   m_Damping: 0
 --- !u!1001 &1474527196
@@ -36788,11 +36788,7 @@ PolygonCollider2D:
       - {x: -43.79773, y: -41.835537}
       - {x: 17.233986, y: -41.769695}
       - {x: 17.215328, y: -50.790615}
-      - {x: 51.225994, y: -50.81428}
-      - {x: 65.84361, y: -46.643692}
-      - {x: 71.587616, y: -26.867552}
-      - {x: 71.56702, y: -17.35024}
-      - {x: 72.95187, y: -10.934674}
+      - {x: 72.59947, y: -50.826164}
       - {x: 72.835754, y: 12.02245}
 --- !u!1001 &1750087151
 PrefabInstance:
@@ -43103,7 +43099,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.51360893, y: 3.44805}
+  m_Offset: {x: 5.5974846, y: 3.808473}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -43114,7 +43110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20.328701, y: 11.5319395}
+  m_Size: {x: 30.496452, y: 12.252786}
   m_EdgeRadius: 0
 --- !u!4 &2011754655
 Transform:

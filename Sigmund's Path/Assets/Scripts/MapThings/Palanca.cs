@@ -103,6 +103,7 @@ public class Palanca : MonoBehaviour
             {
                 anim.SetTrigger("PalancaActivated");
                 isOpen = true;
+                Debug.Log("Save");
                 ScenesManager.scenesManager.palancasState[numberOfPalanca] = true;
                 SaveSystem.SaveSceneData(ScenesManager.scenesManager);
             }

@@ -270,7 +270,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            player.health = 3;
+            player.health = player.maxHealth;
             player.maxHealth = 5;
             player.potions = 2;
             player.maxPotions = 5;

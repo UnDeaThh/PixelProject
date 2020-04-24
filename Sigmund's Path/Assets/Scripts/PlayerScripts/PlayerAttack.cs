@@ -351,6 +351,7 @@ public class PlayerAttack : MonoBehaviour
                     }
                 }
                 #endregion
+                plParry.ParrySuccesful = false;
                // clickAttack = false;
             } 
         }

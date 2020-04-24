@@ -73,6 +73,7 @@ public class DialogueManager : MonoBehaviour
         else if(SceneManager.GetActiveScene().name == "NerbuzScene")
         {
             FindObjectOfType<NerbuzAI>().ActualState = State.Enter;
+            AudioManager.instanceAudio.StartBossSong = true;
         }
 
         bgDialogue.SetActive(false);

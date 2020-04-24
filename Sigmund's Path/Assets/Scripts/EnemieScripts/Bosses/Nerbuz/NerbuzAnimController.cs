@@ -26,6 +26,7 @@ public class NerbuzAnimController : MonoBehaviour
         anim.SetBool("H2Attack", nerbuzBrain.H2AttackAnim1);
         anim.SetBool("isTired", nerbuzBrain.IsTired);
         anim.SetBool("isCrazy", nerbuzBrain.IsCrazy);
+        anim.SetBool("makingH3", nerbuzBrain.MakingH3);
     }
     public void StopH2Attack()
     {
