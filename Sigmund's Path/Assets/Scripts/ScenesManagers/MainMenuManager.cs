@@ -59,11 +59,27 @@ public class MainMenuManager : MonoBehaviour
 
         for (int i = 0; i < ScenesManager.scenesManager.palancasState.Length; i++)
         {
-            ScenesManager.scenesManager.palancasState[i] = false;
+                ScenesManager.scenesManager.palancasState[i] = false;
         }
         for (int i = 0; i < ScenesManager.scenesManager.heartsPickUp.Length; i++)
         {
             ScenesManager.scenesManager.heartsPickUp[i] = false;
+        }
+        for (int i = 0; i < ScenesManager.scenesManager.cumuloState.Length; i++)
+        {
+            ScenesManager.scenesManager.cumuloState[i] = false;
+        }
+        for (int i = 0; i < ScenesManager.scenesManager.unlokedZone.Length; i++)
+        {
+            ScenesManager.scenesManager.unlokedZone[i] = false;
+        }
+        for (int i = 0; i < ScenesManager.scenesManager.DestruibleWall.Length; i++)
+        {
+            ScenesManager.scenesManager.DestruibleWall[i] = false;
+        }
+        for (int i = 0; i < ScenesManager.scenesManager.DestruibleWall.Length; i++)
+        {
+            ScenesManager.scenesManager.DestruibleWall[i] = false;
         }
 
         SceneManager.LoadScene("T1");

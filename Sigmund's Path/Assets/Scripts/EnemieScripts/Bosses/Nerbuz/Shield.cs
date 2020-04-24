@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    private NerbuzBoss nerbuzBrain;
+    private NerbuzAI nerbuzBrain;
     private Collider2D col;
     private Animator anim;
-    private bool ffDestroy;
+    Material material;
     public bool shieldBuild;
+    private bool isDisolve;
+    private float fade;
 
+    public bool IsDisolve { get => isDisolve; set => isDisolve = value; }
 
-    private void Awake()
+    private void Start()
     {
-        nerbuzBrain = GameObject.FindGameObjectWithTag("Nerbuz").GetComponent<NerbuzBoss>();
+        nerbuzBrain = GameObject.FindGameObjectWithTag("Nerbuz").GetComponent<NerbuzAI>();
         col = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
+        material = GetComponent<SpriteRenderer>().material;
+
+        fade = 1;
     }
     void Update()
     {
@@ -28,10 +34,9 @@ public class Shield : MonoBehaviour
             col.enabled = true;
         }
 
-        if (nerbuzBrain.isTired && !ffDestroy)
+        if (nerbuzBrain.IsTired)
         {
-            anim.SetTrigger("destroyTrigger");
-            ffDestroy = true;
+            DisolveShield();
         }
     }
     void ActivateShield()
@@ -39,8 +44,20 @@ public class Shield : MonoBehaviour
         shieldBuild = true;
     }
 
-    void DeactivateShield()
+    void DisolveShield()
     {
-        Destroy(gameObject);
+        if (isDisolve)
+        {
+            if(fade <= 0)
+            {
+                fade = 0;
+                Destroy(gameObject);
+            }
+            else
+            {
+                fade -= Time.deltaTime;
+            }
+            material.SetFloat("_Fade", fade);
+        }
     }
 }

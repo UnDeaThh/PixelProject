@@ -224,18 +224,6 @@ public class PlayerAttack : MonoBehaviour
                             }
                         }
 
-
-
-                        else if (enemiesToDamage[i].CompareTag("Nerbuz"))
-                        {
-                            if (enemiesToDamage[i].GetComponent<NerbuzBoss>().canBeDamaged)
-                            {
-                                enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
-                            }
-                            plParry.ParrySuccesful = false;
-                        }
-
-
                         else if (enemiesToDamage[i].GetComponent<BossBase>())
                         {
                             enemiesToDamage[i].GetComponent<BossBase>().TakeDamage(damage);
@@ -323,14 +311,6 @@ public class PlayerAttack : MonoBehaviour
                                 enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
                                 plParry.ParrySuccesful = false;
                             }
-                        }
-                        else if (enemiesToDamage[i].CompareTag("Nerbuz"))
-                        {
-                            if (enemiesToDamage[i].GetComponent<NerbuzBoss>().canBeDamaged)
-                            {
-                                enemiesToDamage[i].GetComponent<NerbuzBoss>().TakeDamge(damage);
-                            }
-                            plParry.ParrySuccesful = false;
                         }
 
                         else if (enemiesToDamage[i].GetComponent<BossBase>())

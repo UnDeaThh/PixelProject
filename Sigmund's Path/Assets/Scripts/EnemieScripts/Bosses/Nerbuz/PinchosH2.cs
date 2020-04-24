@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PinchosH2 : MonoBehaviour
 {
-    private NerbuzBoss nerbuzBrain;
+    private NerbuzAI nerbuzBrain;
     public float speed;
     public float subida;
     private float maxHigh;
@@ -19,7 +19,7 @@ public class PinchosH2 : MonoBehaviour
 
     void Awake()
     {
-        nerbuzBrain = GameObject.FindGameObjectWithTag("Nerbuz").GetComponent<NerbuzBoss>();
+        nerbuzBrain = GameObject.FindGameObjectWithTag("Nerbuz").GetComponent<NerbuzAI>();
         raizSound = GetComponentInChildren<AudioSource>();
         minHigh = transform.position.y;
         maxHigh = transform.position.y + subida;
@@ -29,8 +29,6 @@ public class PinchosH2 : MonoBehaviour
 
     private void Start()
     {
-        nerbuzBrain.H2ChargingAnim = false;
-        nerbuzBrain.H2attackAnim = true;
         raizSound.Play();
     }
     void Update()
@@ -44,7 +42,6 @@ public class PinchosH2 : MonoBehaviour
             else
             {
                 reachedMaxY = true;
-                Debug.Log("ReachedMaxY");
             }
         }
 
@@ -60,6 +57,7 @@ public class PinchosH2 : MonoBehaviour
                 {
                     transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, minHigh), speed * Time.deltaTime);
                 }
+
                 if(transform.position.y > minHigh)
                 {
                     reachedMinY = false;
@@ -79,12 +77,12 @@ public class PinchosH2 : MonoBehaviour
             }
             else
             {
-                nerbuzBrain.generatorInPlace = false;
+                nerbuzBrain.GeneratorInPlace = false;
                 Destroy(gameObject);
             }
-            if(nerbuzBrain.cntAttacksH2 >= nerbuzBrain.numberOfAttacksH2)
+            if(nerbuzBrain.CntAttacksH2 >= nerbuzBrain.AttacksH2)
             {
-                nerbuzBrain.isTired = true;
+                nerbuzBrain.IsTired = true;
             }
         }
     }

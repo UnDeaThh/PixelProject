@@ -199,8 +199,8 @@ public class NerbuzBoss : MonoBehaviour
                     if(!shieldActivated)
                     {
                         Instantiate(shieldPrefab, transform.position, Quaternion.identity);
-                        actualState = State.H2;
                         shieldActivated = true;
+                        actualState = State.H2;
                     }
                     else
                         return;

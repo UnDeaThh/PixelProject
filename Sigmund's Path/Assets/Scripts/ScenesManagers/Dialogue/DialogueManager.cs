@@ -13,18 +13,28 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] EventSystem eventSystem;
     [SerializeField] GameObject butonNextSentence;
+    private PlayerController2 player;
     public bool talking;
     void Start()
     {
         sentences = new Queue<string>();
         bgDialogue.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         if(eventSystem == null)
         {
             eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         }
-    } 
+    }
+    private void Update()
+    {
+        if (talking)
+        {
+            eventSystem.SetSelectedGameObject(butonNextSentence);
+        }
+    }
     public void StartDialogue(Dialogue dialogue)
     {
+        player.isOnKinematic = true;
         talking = true;
         bgDialogue.SetActive(true);
         eventSystem.SetSelectedGameObject(butonNextSentence);
@@ -38,7 +48,6 @@ public class DialogueManager : MonoBehaviour
 
         DisplayNextSentence();
     }
-
     public void DisplayNextSentence()
     {
         if(sentences.Count == 0)
@@ -61,7 +70,12 @@ public class DialogueManager : MonoBehaviour
             ScenesManager.scenesManager.FirstTalkAska = true;
             SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         }
+        else if(SceneManager.GetActiveScene().name == "NerbuzScene")
+        {
+            FindObjectOfType<NerbuzAI>().ActualState = State.Enter;
+        }
+
         bgDialogue.SetActive(false);
-        FindObjectOfType<PlayerController2>().isOnKinematic = false;
+        player.isOnKinematic = false;
     }
 }
