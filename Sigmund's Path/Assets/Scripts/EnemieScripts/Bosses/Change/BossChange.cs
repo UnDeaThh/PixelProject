@@ -82,6 +82,8 @@ public class BossChange : BossBase
 
         cntTimeFreeze = timeFreeze;
         cntTimeShaking = timeShaking;
+        AudioManager.instanceAudio.StartBossSong = false;
+        AudioManager.instanceAudio.PlayedFirstBossSong = false;
     }
 
     private void Update()

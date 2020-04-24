@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4950,7 +4950,7 @@ Transform:
   - {fileID: 535783431}
   - {fileID: 1583139223}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &481199609 stripped
 Transform:
@@ -13410,7 +13410,7 @@ PrefabInstance:
     - target: {fileID: 2537755993463140465, guid: a5bced178f003a74f8c818830392ed44,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 2537755993463140465, guid: a5bced178f003a74f8c818830392ed44,
         type: 3}
@@ -15525,7 +15525,7 @@ PrefabInstance:
     - target: {fileID: 1806338654979003574, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1806338654979003574, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
@@ -17794,7 +17794,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1933229677
 MonoBehaviour:
@@ -18895,7 +18895,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &2050207469
 PolygonCollider2D:
@@ -38302,7 +38302,7 @@ PrefabInstance:
     - target: {fileID: 6412116304497087588, guid: 182569db9a00abe4db14b9ad7f8b9566,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6412116304497087588, guid: 182569db9a00abe4db14b9ad7f8b9566,
         type: 3}

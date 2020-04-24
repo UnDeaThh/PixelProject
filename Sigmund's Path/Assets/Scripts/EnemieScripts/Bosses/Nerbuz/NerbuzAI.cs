@@ -16,6 +16,9 @@ public class NerbuzAI : BossBase
     public bool H2AttackAnim1 { get => H2AttackAnim; set => H2AttackAnim = value; }
     public bool IsCrazy { get => isCrazy; set => isCrazy = value; }
     public bool MakingH3 { get => makingH3; set => makingH3 = value; }
+    public bool MakingH4 { get => makingH4; set => makingH4 = value; }
+    public GameObject LaserH4 { get => laserH4; set => laserH4 = value; }
+    public Transform PlayerPos { get => playerPos; set => playerPos = value; }
 
     private Vector2 movDir;
     private Transform playerPos;
@@ -81,10 +84,33 @@ public class NerbuzAI : BossBase
     [SerializeField] int seriesH3;
     private int cntSeriesH3;
 
+    [Header("H4")]
+    [SerializeField] Transform h4Pos;
+    private bool rechedH4Pos;
+    [SerializeField] float timeStillH4;
+    private float cntTimeStillH4;
+    [SerializeField] float timeToH4;
+    private float cntTimeToH4;
+    private bool makingH4;
+    [SerializeField] GameObject laserH4;
+    [SerializeField] int attacksH4;
+    private int cntAttacksH4;
+
     [Header("CAMERA SHAKE")]
     [SerializeField] float shakeAmplitude;
     [SerializeField] float shakeFrequency;
     [SerializeField] float shakeTime;
+
+    [Header("DEAD")]
+    [SerializeField] float timeFreeze;
+    private float cntTimeFreeze;
+    [SerializeField] float deadAmplitudeShaking;
+    [SerializeField] float deadFrequencyShaking;
+    [SerializeField] float deadTimeShaking;
+    float cntTimeShaking;
+    bool oneShake = false;
+    [SerializeField] AudioSource earthquakeSound;
+    private Animator anim;
     void Start()
     {
         actualState = State.Nothing;
@@ -105,12 +131,16 @@ public class NerbuzAI : BossBase
 
         tiredPos = new Vector2(centerPos.position.x, centerPos.position.y - cansadaAltitude);
         cameraFight.SetActive(false);
+        facingDir = -1;
 
         for (int i = 0; i < particlesH3.Length; i++)
         {
             ParticleSystem.EmissionModule emidMod = particlesH3[i].emission;
             emidMod.enabled = false;
         }
+        anim = GetComponentInChildren<Animator>();
+        cntTimeFreeze = timeFreeze;
+        cntTimeShaking = deadTimeShaking;
     }
     void Update()
     {
@@ -352,6 +382,29 @@ public class NerbuzAI : BossBase
                     }
                     break;
                 case State.H4:
+                    if(cntAttacksH4 < attacksH4)
+                    {
+                        if (!makingH4)
+                        {
+                            if(cntTimeToH4 > 0)
+                            {
+                                cntTimeToH4 -= Time.deltaTime;
+                            }
+                            else
+                            {
+                                makingH4 = true;
+                                cntAttacksH4++;
+                                cntTimeToH4 = timeToH4;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        cntParticlesH1 = 0;
+                        movDir = GetRandomDirection(0);
+                        cntTimeToSpawnH1 = timeToSpawnH1;
+                        actualState = State.H1;
+                    }
                     break;
                 case State.Transition:
                     if(transition == 1)
@@ -428,15 +481,57 @@ public class NerbuzAI : BossBase
                     }
                     else if(transition == 3)
                     {
-                        if (isTired)
+                        if(transitionState == 1)
                         {
-                            if(cntTiredTime > 0)
+                            if (isTired)
                             {
-                                cntTiredTime -= Time.deltaTime;
+                                if(cntTiredTime > 0)
+                                {
+                                    cntTiredTime -= Time.deltaTime;
+                                }
+                                else
+                                {
+                                    IsCrazy = true;
+                                    rechedH4Pos = false;
+                                    Debug.Log("gotrans2");
+                                    transitionState = 2;
+                                }
+                            }
+                        }
+                        else if(transitionState == 2)
+                        {
+                            if (!isCrazy)
+                            {
+                                if (!rechedH4Pos)
+                                {
+                                    if(transform.position.y > h4Pos.position.y - 0.05f && transform.position.y < h4Pos.position.y + 0.1f && transform.position.x > h4Pos.position.x - 0.05f
+                                    && transform.position.x < h4Pos.position.x + 0.1f)
+                                    {
+                                        rechedH4Pos = true;
+                                        Flip();
+                                        cntTimeStillH4 = timeStillH4;
+                                        transitionState = 3;
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("Moving");
+                                        Vector2 dir;
+                                        dir = new Vector2(h4Pos.position.x - transform.position.x, h4Pos.position.y - transform.position.y).normalized;
+                                        movDir = dir;
+                                    }
+                                }
+                            }
+                        }
+                        else if (transitionState == 3)
+                        {
+                            if (cntTimeStillH4 > 0)
+                            {
+                                cntTimeStillH4 -= Time.deltaTime;
                             }
                             else
                             {
-                                IsCrazy = true;
+                                cntTimeToH4 = 0.1f;
+                                cntAttacksH4 = 0;
                                 actualState = State.H4;
                             }
                         }
@@ -450,90 +545,164 @@ public class NerbuzAI : BossBase
                     break;
             }
         }
+        else
+        {
+            if (cntTimeFreeze > 0)
+            {
+                AudioManager.instanceAudio.EndBossSong = true;
+                cntTimeFreeze -= Time.deltaTime;
+                col.enabled = false;
+                anim.speed = 0;
+                if (cntTimeFreeze < 0.15f)
+                {
+                    cameraFight.SetActive(false);
+                }
+            }
+            else
+            {
+                if (!oneShake)
+                {
+
+                    earthquakeSound.Play();
+                    CameraController.cameraController.GenerateCamerashake(deadAmplitudeShaking, deadFrequencyShaking, deadTimeShaking);
+                    oneShake = true;
+                }
+                if(cntTimeShaking > 0)
+                {
+                    cntTimeShaking -= Time.deltaTime;
+                    if (cntTimeShaking < deadTimeShaking / 3)
+                    {
+                        if (!oneCallDead)
+                        {
+                            anim.speed = 1;
+                            anim.SetBool("isDead", true);
+                            oneCallDead = true;
+                        }
+                        if (earthquakeSound.volume > 0)
+                        {
+                            earthquakeSound.volume -= 0.008f;
+                        }
+                    }
+                }
+                Dead();
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        switch (actualState)
+        if(nLifes > 0)
         {
-            case State.Enter:
-                break;
-            case State.H1:
-                rb.velocity = movDir * speedH1 * Time.deltaTime;
-                break;
-            case State.H2:
-                if (!isTired)
-                {
-                    rb.velocity = Vector2.zero;
-                }
-                else
-                {
-                    if (!reachedTiredPos)
+            switch (actualState)
+            {
+                case State.Enter:
+                    break;
+                case State.H1:
+                    rb.velocity = movDir * speedH1 * Time.deltaTime;
+                    break;
+                case State.H2:
+                    if (!isTired)
                     {
-                        rb.velocity = movDir * tiredSpeed * Time.deltaTime;
+                        rb.velocity = Vector2.zero;
                     }
                     else
                     {
-                        rb.velocity = Vector2.zero;
+                        if (!reachedTiredPos)
+                        {
+                            rb.velocity = movDir * tiredSpeed * Time.deltaTime;
+                        }
+                        else
+                        {
+                            rb.velocity = Vector2.zero;
+                        }
                     }
-                }
-                break;
-            case State.H3:
-                if (!isTired)
-                {
-                    rb.velocity = Vector2.zero;
-                }
-                else
-                {
-                    if (!reachedTiredPos)
+                    break;
+                case State.H3:
+                    if (!isTired)
                     {
-                        rb.velocity = movDir * tiredSpeed * Time.deltaTime;
+                        rb.velocity = Vector2.zero;
                     }
                     else
                     {
-                        rb.velocity = Vector2.zero;
+                        if (!reachedTiredPos)
+                        {
+                            rb.velocity = movDir * tiredSpeed * Time.deltaTime;
+                        }
+                        else
+                        {
+                            rb.velocity = Vector2.zero;
+                        }
                     }
-                }
-                break;
-            case State.H4:
-                break;
-            case State.Transition:
-                if(transition == 1)
-                {
-                    if(transitionState == 1)
+                    break;
+                case State.H4:
+                    rb.velocity = Vector2.zero;
+                    break;
+                case State.Transition:
+                    if(transition == 1)
                     {
-                        rb.velocity = movDir * transitionSpeed * Time.deltaTime;
+                        if(transitionState == 1)
+                        {
+                            rb.velocity = movDir * transitionSpeed * Time.deltaTime;
+                        }
+                        else if(transitionState == 2)
+                        {
+                            rb.velocity = Vector2.zero;
+                        }
                     }
-                    else if(transitionState == 2)
+                    else if(transition == 2)
                     {
-                        rb.velocity = Vector2.zero;
+                        if(transitionState == 1)
+                        {
+                            rb.velocity = Vector2.zero;
+                        }
+                        else if(transitionState == 2)
+                        {
+                            rb.velocity = movDir * transitionSpeed * Time.deltaTime;
+                        }
                     }
-                }
-                else if(transition == 2)
-                {
-                    if(transitionState == 1)
+                    else if(transition == 3)
                     {
-                        rb.velocity = Vector2.zero;
+                        if(transitionState == 1)
+                        {
+
+                            rb.velocity = Vector2.zero;
+                        
+                        }
+                        else if(transitionState == 2)
+                        {
+                            if (!isCrazy)
+                            {
+                                if (rechedH4Pos)
+                                {
+                                    rb.velocity = Vector2.zero;
+                                }
+                                else
+                                {
+                                    rb.velocity = movDir * transitionSpeed * Time.deltaTime;
+                                }
+                            }
+                            else
+                            {
+                                rb.velocity = Vector2.zero;
+                            }
+                        }
+                        else if(transitionState == 3)
+                        {
+                            rb.velocity = Vector2.zero;
+                        }
                     }
-                    else if(transitionState == 2)
-                    {
-                        rb.velocity = movDir * transitionSpeed * Time.deltaTime;
-                    }
-                }
-                else if(transition == 3)
-                {
-                    if (isTired)
-                    {
-                        rb.velocity = Vector2.zero;
-                    }
-                }
-                break;
-            case State.Dead:
-                break;
-            case State.Nothing:
-                break;
-            default:
-                break;
+                    break;
+                case State.Dead:
+                    break;
+                case State.Nothing:
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
     }
     private Vector2 GetRandomDirection(int number)
@@ -543,7 +712,14 @@ public class NerbuzAI : BossBase
         switch (number)
         {
             case 0: //FULL RANDOM
-                movDir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1, 1));
+                if(facingDir < 0)
+                {
+                    movDir = new Vector2(Random.Range(-1f, -0.2f), Random.Range(-1, 1));
+                }
+                else
+                {
+                    movDir = new Vector2(Random.Range(0.2f, 1f), Random.Range(-1, 1));
+                }
                 break;
             case 1: //LIMIT LEFT
                 movDir = new Vector2(Random.Range(0.1f, 1f), Random.Range(-1f, 1f));
@@ -571,18 +747,28 @@ public class NerbuzAI : BossBase
                 if(other.transform.name == "LimitDown")
                 {
                     movDir = GetRandomDirection(3);
+                    if(movDir.x > 0 && facingDir < 0 || movDir.x < 0 && facingDir > 0)
+                    {
+                        Flip();
+                    }
                 }
                 else if(other.transform.name == "LimitUp")
                 {
                     movDir = GetRandomDirection(4);
+                    if (movDir.x > 0 && facingDir < 0 || movDir.x < 0 && facingDir > 0)
+                    {
+                        Flip();
+                    }
                 }
                 else if (other.transform.name == "LimitRight")
                 {
                     movDir = GetRandomDirection(2);
+                    Flip();
                 }
                 else if (other.transform.name == "LimitLeft")
                 {
                     movDir = GetRandomDirection(1);
+                    Flip();
                 }
             }
         }

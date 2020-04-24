@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     private bool startBossSong;
     private bool endBossSong;
     private bool playedFirstBossSong = false;
+    private PlayerController2 player;
 
 
     [SerializeField] float reductionSpeed = 0.01f;
@@ -22,6 +23,9 @@ public class AudioManager : MonoBehaviour
     public bool FfScene { get => ffScene; set => ffScene = value; }
     public bool StartBossSong { get => startBossSong; set => startBossSong = value; }
     public bool EndBossSong { get => endBossSong; set => endBossSong = value; }
+    public PlayerController2 Player { get => player; set => player = value; }
+    public AudioSource[] BossSongSource { get => bossSongSource; set => bossSongSource = value; }
+    public bool PlayedFirstBossSong { get => playedFirstBossSong; set => playedFirstBossSong = value; }
 
     private void Awake()
     {
@@ -52,8 +56,6 @@ public class AudioManager : MonoBehaviour
     }
     private void Update()
     {
-
-        
         if(SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene")
         {
             if (!instanceAudio.songSource[0].isPlaying && instanceAudio.playedFirstSong)
@@ -66,6 +68,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
+            FadeVolumeOnDead();
             if(startBossSong && !endBossSong)
             {
                 if(!instanceAudio.bossSongSource[0].isPlaying && !instanceAudio.playedFirstBossSong)
@@ -96,6 +99,35 @@ public class AudioManager : MonoBehaviour
                     if (bossSongSource[1].volume > 0f)
                     {
                         bossSongSource[1].volume -= reductionSpeed;
+                    }
+                }
+            }
+        }
+    }
+
+
+    void FadeVolumeOnDead()
+    {
+        if(player != null)
+        {
+            if(player.health <= 0)
+            {
+                if(bossSongSource[0].volume > 0f)
+                {
+                    if (bossSongSource[0].isPlaying)
+                    {
+                        bossSongSource[0].volume -= reductionSpeed + 0.005f;
+                        playedFirstBossSong = false;
+                    }
+                }
+                else if (bossSongSource[1].isPlaying)
+                {
+                    if (bossSongSource[1].volume > 0f)
+                    {
+                        {
+                            bossSongSource[1].volume -= reductionSpeed + 0.005f;
+                            playedFirstBossSong = false;
+                        }
                     }
                 }
             }

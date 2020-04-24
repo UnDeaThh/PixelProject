@@ -27,6 +27,7 @@ public class NerbuzAnimController : MonoBehaviour
         anim.SetBool("isTired", nerbuzBrain.IsTired);
         anim.SetBool("isCrazy", nerbuzBrain.IsCrazy);
         anim.SetBool("makingH3", nerbuzBrain.MakingH3);
+        anim.SetBool("makingH4", nerbuzBrain.MakingH4);
     }
     public void StopH2Attack()
     {
@@ -37,5 +38,20 @@ public class NerbuzAnimController : MonoBehaviour
     {
         nerbuzBrain.IsCrazy = false;
         nerbuzBrain.IsTired = false;
+    }
+
+    public void ThrowH4()
+    {
+        Instantiate(nerbuzBrain.LaserH4, nerbuzBrain.PlayerPos.position, Quaternion.identity);
+    }
+
+    public void StopH4()
+    {
+        nerbuzBrain.MakingH4 = false;
+    }
+
+    void CallDead()
+    {
+        nerbuzBrain.isDisolve = true;
     }
 }

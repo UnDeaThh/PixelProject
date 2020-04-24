@@ -229,6 +229,8 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("Primera vez que entra al juego");
         }
+
+        ResetAudioManager();
     }
 
     private void Update()
@@ -331,6 +333,15 @@ public class LevelManager : MonoBehaviour
         else
         {
             Time.timeScale = 0.5f;
+        }
+    }
+
+    void ResetAudioManager()
+    {
+        for (int i = 0; i < AudioManager.instanceAudio.BossSongSource.Length; i++)
+        {
+            AudioManager.instanceAudio.BossSongSource[i].Stop();
+            AudioManager.instanceAudio.BossSongSource[i].volume = 1;
         }
     }
 }

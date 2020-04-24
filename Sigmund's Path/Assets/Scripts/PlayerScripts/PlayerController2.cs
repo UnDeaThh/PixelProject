@@ -194,6 +194,8 @@ public class PlayerController2 : MonoBehaviour
         {
             Debug.Log(rb.velocity);
         }
+
+        AudioManager.instanceAudio.Player = this;
     }
 
     private void FixedUpdate()
