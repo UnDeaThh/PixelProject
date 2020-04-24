@@ -21,6 +21,7 @@ public class Palanca : MonoBehaviour
     [SerializeField] int numberOfPalanca;
     private Animator anim;
     [SerializeField] AudioSource openSound;
+    [SerializeField] AudioSource palancaSound;
     [SerializeField] ParticleSystem moveGroundParticle;
     [SerializeField] ParticleSystem polvoParticle;
     private bool hasSounded = false;
@@ -102,6 +103,7 @@ public class Palanca : MonoBehaviour
             if(door != null)
             {
                 anim.SetTrigger("PalancaActivated");
+                palancaSound.Play();
                 isOpen = true;
                 Debug.Log("Save");
                 ScenesManager.scenesManager.palancasState[numberOfPalanca] = true;

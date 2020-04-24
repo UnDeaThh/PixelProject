@@ -40,6 +40,11 @@ public class LevelManager : MonoBehaviour
         PlayerPosition();
     }
 
+    private void Start()
+    {
+        ResetAudioManager();
+    }
+
     void PlayerPosition()
     {
         
@@ -229,8 +234,6 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("Primera vez que entra al juego");
         }
-
-        ResetAudioManager();
     }
 
     private void Update()

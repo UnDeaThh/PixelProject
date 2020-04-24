@@ -36,6 +36,7 @@ public class BermonchAI : BaseEnemy
     private Transform player;
     private PlayerParry plParry;
     private float distance;
+    [SerializeField] AudioSource buildSound;
 
     private Rigidbody2D rb;
 
@@ -245,13 +246,13 @@ public class BermonchAI : BaseEnemy
         if(other.CompareTag("Player"))
         {
             playerFound = true;
+            buildSound.Play();
             CntTimeBtwAttack = timeBtwAttack;
         }
     }
 
     public override void Dead()
     {
-        //base.Dead();
         if (nLifes <= 0 && !oneCallDead)
         {
             //Instantiate Soul desde el Animation Event
