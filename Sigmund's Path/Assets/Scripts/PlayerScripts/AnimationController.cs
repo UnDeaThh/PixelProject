@@ -31,6 +31,21 @@ public class AnimationController : MonoBehaviour
 
 	void Update()
 	{
+        if (player.IsDamaged)
+        {
+            if (plAttack.isAttacking)
+            {
+                plAttack.CanSecondAttack = false;
+                plAttack.isAttacking = false;
+                plAttack.gndAttackingFront = false;
+                plAttack.gndAttackingUp = false;
+                plAttack.airAttackingFront = false;
+                plAttack.airAttackingUp = false;
+                plAttack.nClicks = 0;
+            }
+            player.IsDamaged = false;
+        }
+
         if(Mathf.Abs(player.rb.velocity.x) > 0.2)
         {
             isRuning = true;

@@ -246,7 +246,10 @@ public class BermonchAI : BaseEnemy
         if(other.CompareTag("Player"))
         {
             playerFound = true;
-            buildSound.Play();
+            if (!buildSound.isPlaying)
+            {
+                buildSound.Play();
+            }
             CntTimeBtwAttack = timeBtwAttack;
         }
     }

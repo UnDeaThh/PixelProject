@@ -269,7 +269,7 @@ public class LevelManager : MonoBehaviour
             plAttack.haveSword = data.haveSword;
             player.dashUnlocked = data.dashUnlocked;
             player.dobleJumpUnlocked = data.highJumpUnlocked;
-            player.wallJumpUnlocked = data.highJumpUnlocked;
+            player.wallJumpUnlocked = data.wallJumpUnlocked;
             inventory.waterPasive = data.waterPasive;
             inventory.swordPasive = data.swordPasive;
         }

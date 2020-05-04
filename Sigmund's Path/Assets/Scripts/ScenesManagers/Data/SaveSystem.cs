@@ -8,7 +8,7 @@ public static class SaveSystem
     public static void SavePlayerData(PlayerController2 player, Inventory2 inventory,  PlayerAttack plAttack)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/player.info";
+        string path = Application.persistentDataPath + "/playerdata.info";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         PlayerData data = new PlayerData(player, inventory, plAttack);
@@ -20,7 +20,7 @@ public static class SaveSystem
     //CARGAR LOS DATOS DEL PLAYER
     public static PlayerData LoadPlayerData()
     {
-        string path = Application.persistentDataPath + "/player.info";
+        string path = Application.persistentDataPath + "/playerdata.info";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();

@@ -10,6 +10,7 @@ public class PlayerController2 : MonoBehaviour
     private Gamepad gamepad = Gamepad.current;
     public Gamepad Gamepad { get => gamepad;}
     public bool IsGrounded { get => isGrounded; set => isGrounded = value; }
+    public bool IsDamaged { get => isDamaged; set => isDamaged = value; }
 
     private PauseManager pauseManager;
     private Inventory2 inventory;
@@ -17,6 +18,7 @@ public class PlayerController2 : MonoBehaviour
     private PlayerAttack plAttack;
     private PlayerParry plParry;
     [SerializeField] AudioSource hitSource;
+    private Animator anim;
 
     public int health = 5;
     public int maxHealth = 5;
@@ -77,7 +79,7 @@ public class PlayerController2 : MonoBehaviour
     private bool shiftPressed;
     public bool isDashing;
     private bool bombPressed;
-   // private bool isDamaged;
+    private bool isDamaged;
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
 
@@ -137,6 +139,7 @@ public class PlayerController2 : MonoBehaviour
         plParry = GetComponent<PlayerParry>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         plCollider = GetComponent<Collider2D>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -765,7 +768,7 @@ public class PlayerController2 : MonoBehaviour
                 plAttack.airAttackingUp = false;
             }
             isInvencible = true;
-            //isDamaged = true;
+            isDamaged = true;
             cntinvencibilityTime = 0;
             health -= damage;
             rb.velocity = Vector2.zero;

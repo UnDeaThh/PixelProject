@@ -40,9 +40,13 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        if(SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene")
+
+    }
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene")
         {
-            if(!instanceAudio.songSource[0].isPlaying && !instanceAudio.songSource[1].isPlaying)
+            if (!songSource[0].isPlaying && !songSource[1].isPlaying)
             {
                 instanceAudio.songSource[0].Play();
                 playedFirstSong = true;
@@ -58,16 +62,29 @@ public class AudioManager : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene")
         {
-            if (!instanceAudio.songSource[0].isPlaying && instanceAudio.playedFirstSong)
+            if (!songSource[0].isPlaying && playedFirstSong)
             {
                 if (!instanceAudio.songSource[1].isPlaying)
                 {
                     instanceAudio.songSource[1].Play();
                 }
             }
+            else if(!songSource[0].isPlaying && !playedFirstSong)
+            {
+                if(!songSource[0].isPlaying && !songSource[1].isPlaying)
+                {
+                    instanceAudio.songSource[0].Play();
+                    playedFirstSong = true;
+                }
+            }
         }
+
+
+
+
         else
         {
+            DesconectNormalSongOnBossScene();
             FadeVolumeOnDead();
             if(startBossSong && !endBossSong)
             {
@@ -131,6 +148,23 @@ public class AudioManager : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    void DesconectNormalSongOnBossScene()
+    {
+        if (songSource[0].isPlaying)
+        {
+            songSource[0].Stop();
+        }
+        else if (songSource[1].isPlaying)
+        {
+            songSource[1].Stop();
+        }
+
+        if (playedFirstSong)
+        {
+            playedFirstSong = false;
         }
     }
 }

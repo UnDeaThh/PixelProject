@@ -19,7 +19,7 @@ public class MainMenuManager : MonoBehaviour
     private void OnEnable()
     {
         sceneDataPath = Application.persistentDataPath + "/scenesdata.info";
-        playerDataPath = Application.persistentDataPath + "/player.info";
+        playerDataPath = Application.persistentDataPath + "/playerdata.info";
         panelDeleteData.SetActive(false);
 
         if (File.Exists(sceneDataPath))

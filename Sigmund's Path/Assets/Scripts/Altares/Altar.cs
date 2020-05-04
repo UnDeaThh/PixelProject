@@ -241,6 +241,8 @@ public class Altar : MonoBehaviour
         }
         emidMod.rateOverTime = 0;
         onKinematic = false;
+        SaveSystem.SavePlayerData(player, player.gameObject.transform.GetComponentInChildren<Inventory2>(), player.gameObject.GetComponent<PlayerAttack>());
+        SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         player.isOnKinematic = false;
     }
 
