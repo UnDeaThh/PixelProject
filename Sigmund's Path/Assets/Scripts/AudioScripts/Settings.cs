@@ -152,9 +152,33 @@ public class Settings : MonoBehaviour
 
     #region Button's SettingsTab
 
-    public void ClcikOnResume()
+
+    public void Pause()
     {
-        pauseManager.Resume();
+        pauseManager.isPaused = true;
+        player.heedArrows = false;
+        blackFade.SetActive(true);
+        Time.timeScale = 0f;
+        bookContainer.SetActive(true);
+
+        InventoryTab();
+    }
+
+    public void Resume()
+    {
+        pauseManager.isPaused = false;
+        pauseManager.EventSystem.ffPause = false;
+        player.heedArrows = true;
+        blackFade.SetActive(false);
+        bookContainer.SetActive(false);
+        pauseManager.IsOnInventory = false;
+        pauseManager.IsOnSettings = false;
+        pauseManager.IsOnMap = false;
+        rightOptions.SetActive(false);
+        exitGameQuest.SetActive(false);
+        goToMainMenuQuest.SetActive(false);
+        Time.timeScale = 1f;
+        bookContainer.SetActive(false);
     }
     public void ClickOnSettings()
     {

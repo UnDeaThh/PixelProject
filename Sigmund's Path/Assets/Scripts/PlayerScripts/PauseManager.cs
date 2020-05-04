@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
+    Settings settings;
     //SINGLETON
     PlayerInputs inputs;
     private PlayerController2 player;
@@ -21,20 +22,9 @@ public class PauseManager : MonoBehaviour
     private bool isOnSettings = false;
     private bool isOnMap = false;
     public bool inShop = false;
-    [SerializeField] GameObject blackFade;
-    
-    [SerializeField] GameObject bookContainer;
-    [SerializeField] GameObject settingsPanel;
-    [SerializeField] GameObject inventoryPanel;
-    [SerializeField] GameObject mapPanel;
-
-	[Header("PAUSE SETTINGS")]
 
     //[SerializeField] Dropdown qualityDropdown;
 
-    [SerializeField] GameObject rightOptions;
-    [SerializeField] GameObject goToMainMenuQuest;
-    [SerializeField] GameObject exitGameQuest;
 
     public EventSystemManager EventSystem { get => eventSystem; set => eventSystem = value; }
     public bool IsOnSettings { get => isOnSettings; set => isOnSettings = value; }
@@ -59,6 +49,7 @@ public class PauseManager : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        settings = GameObject.FindObjectOfType<Settings>();
     }
 
     private void Update()
@@ -81,11 +72,11 @@ public class PauseManager : MonoBehaviour
             {
                 if (isPaused)
                 {
-                    Resume();
+                    settings.Resume();
                 }
                 else
                 {
-                    Pause();
+                    settings.Pause();
 				
                 }
             }
@@ -96,48 +87,6 @@ public class PauseManager : MonoBehaviour
         }
         else 
             Time.timeScale = 1f;
-    }
-
-    public void Resume()
-    {
-        isPaused = false;
-        eventSystem.ffPause = false;
-        player.heedArrows = true;
-        blackFade.SetActive(false);
-        bookContainer.SetActive(false);
-        isOnSettings = false;
-        isOnInventory = false;
-		isOnMap = false;
-        rightOptions.SetActive(false);
-        exitGameQuest.SetActive(false);
-        goToMainMenuQuest.SetActive(false);
-        Time.timeScale = 1f;
-		bookContainer.SetActive(false);
-    }
-
-    public void Pause()
-    {
-        isPaused = true;
-        player.heedArrows = false;
-        blackFade.SetActive(true);
-		Time.timeScale = 0f;
-        bookContainer.SetActive(true);
-
-        OpenInventory();
-    }
-
-    public void OpenInventory()
-    {
-        eventSystem.ffPause = false;
-        isOnSettings = false;
-        rightOptions.SetActive(false);
-        exitGameQuest.SetActive(false);
-        goToMainMenuQuest.SetActive(false);
-        isOnMap = false;
-        isOnInventory = true;
-        settingsPanel.SetActive(false);
-		mapPanel.SetActive(false);
-        inventoryPanel.SetActive(true);
     }
     #region Ajustes
 
