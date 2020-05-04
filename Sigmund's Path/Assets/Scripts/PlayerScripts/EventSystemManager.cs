@@ -38,15 +38,15 @@ public class EventSystemManager : MonoBehaviour
 
     void SelectedButton()
     {
-        if(pauseManager.isOnInventory && !ffPause)
+        if(pauseManager.IsOnInventory && !ffPause)
         {
             HighlightedFirstButton(0);
         }
-        if(pauseManager.isOnMap && !ffPause)
+        if(pauseManager.IsOnMap && !ffPause)
         {
             HighlightedFirstButton(1);
         }
-        if(pauseManager.isOnSettings && !ffPause)
+        if(pauseManager.IsOnSettings && !ffPause)
         {
             HighlightedFirstButton(2);
         }

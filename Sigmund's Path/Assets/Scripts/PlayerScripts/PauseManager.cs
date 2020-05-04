@@ -11,19 +11,16 @@ public class PauseManager : MonoBehaviour
     //SINGLETON
     PlayerInputs inputs;
     private PlayerController2 player;
-    private Inventory2 inventory;
-    private PlayerAttack plAttack;
     [SerializeField] EventSystemManager eventSystem;
     [SerializeField] DialogueManager dialogueManager;
 
     [SerializeField] GameObject dadCanvas;
 
     public bool isPaused = false;
-    public bool isOnInventory = false;
-    public bool isOnSettings = false;
-	public bool isOnMap = false;
+    private bool isOnInventory = false;
+    private bool isOnSettings = false;
+    private bool isOnMap = false;
     public bool inShop = false;
-    [Header("UI PAUSE")]
     [SerializeField] GameObject blackFade;
     
     [SerializeField] GameObject bookContainer;
@@ -32,16 +29,17 @@ public class PauseManager : MonoBehaviour
     [SerializeField] GameObject mapPanel;
 
 	[Header("PAUSE SETTINGS")]
-    [SerializeField] AudioMixer audioMixer;
-    [SerializeField] Slider sliderVolumen;
-    [SerializeField] Toggle fullScreenToggle;
-    [SerializeField] Dropdown qualityDropdown;
-    [SerializeField] Dropdown resolutionDropdown;
-    private Resolution[] resolutions = new Resolution[3];
+
+    //[SerializeField] Dropdown qualityDropdown;
 
     [SerializeField] GameObject rightOptions;
     [SerializeField] GameObject goToMainMenuQuest;
     [SerializeField] GameObject exitGameQuest;
+
+    public EventSystemManager EventSystem { get => eventSystem; set => eventSystem = value; }
+    public bool IsOnSettings { get => isOnSettings; set => isOnSettings = value; }
+    public bool IsOnInventory { get => isOnInventory; set => isOnInventory = value; }
+    public bool IsOnMap { get => isOnMap; set => isOnMap = value; }
 
     private void OnEnable()
     {
@@ -56,45 +54,11 @@ public class PauseManager : MonoBehaviour
         inputs = new PlayerInputs();
         dadCanvas.SetActive(true);
         isPaused = false;
-
-
-        blackFade.SetActive(false);
-		settingsPanel.SetActive(false);
-        rightOptions.SetActive(false);
-        exitGameQuest.SetActive(false);
-        goToMainMenuQuest.SetActive(false);
-        bookContainer.SetActive(false);
-		mapPanel.SetActive(false);
-
-        QualitySettings.SetQualityLevel(3); //Empezamos en Ultra
-
-        sliderVolumen.value = PlayerPrefs.GetFloat("volume", 0);
-        qualityDropdown.value = PlayerPrefs.GetInt("quality", 3);
-        fullScreenToggle.isOn = intToBool(PlayerPrefs.GetInt("isFullScreen", 1));
     }
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
-        inventory = GameObject.FindGameObjectWithTag("Inventory").GetComponent<Inventory2>();
-        plAttack = player.gameObject.GetComponent<PlayerAttack>();
-
-        resolutions[0] = Screen.resolutions[0]; //640 x 480
-        resolutions[1] = Screen.resolutions[6]; //1280 x 720
-        resolutions[2] = Screen.resolutions[Screen.resolutions.Length - 1]; // La Maxima resolucion
-        resolutionDropdown.ClearOptions();
-
-        List<string> options = new List<string>();
-        for(int i = 0; i < resolutions.Length; i++)
-        {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
-
-        }
-
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = PlayerPrefs.GetInt("resolution", 2);
-        resolutionDropdown.RefreshShownValue();
     }
 
     private void Update()
@@ -110,7 +74,7 @@ public class PauseManager : MonoBehaviour
                 dadCanvas.SetActive(true);
             }
         }
-
+        //PAUSE MANAGEMENT
         if (!player.isOnKinematic)
         {
             if (inputs.Controls.Pause.triggered)
@@ -126,7 +90,6 @@ public class PauseManager : MonoBehaviour
                 }
             }
         }
-        
         if (isPaused)
         {
             Time.timeScale = 0f;
@@ -160,10 +123,10 @@ public class PauseManager : MonoBehaviour
 		Time.timeScale = 0f;
         bookContainer.SetActive(true);
 
-        InventoryTab();
+        OpenInventory();
     }
 
-    public void InventoryTab()
+    public void OpenInventory()
     {
         eventSystem.ffPause = false;
         isOnSettings = false;
@@ -176,128 +139,13 @@ public class PauseManager : MonoBehaviour
 		mapPanel.SetActive(false);
         inventoryPanel.SetActive(true);
     }
-
-    public void PauseTab()
-    {
-        eventSystem.ffPause = false;
-        isOnInventory = false;
-		isOnMap = false;
-        isOnSettings = true;
-        inventoryPanel.SetActive(false);
-		mapPanel.SetActive(false);
-        settingsPanel.SetActive(true);
-    }
-
-	public void MapTab(){
-        eventSystem.ffPause = false;
-        isOnInventory = false;
-		isOnSettings =  false;
-        rightOptions.SetActive(false);
-        exitGameQuest.SetActive(false);
-        goToMainMenuQuest.SetActive(false);
-        isOnMap = true;
-		inventoryPanel.SetActive(false);
-		settingsPanel.SetActive(false);
-		mapPanel.SetActive(true);
-	}
-
-    #region SettingsButtons
-    public void ClickOnSettings()
-    {
-        rightOptions.SetActive(true);
-        for (int i = 0; i < rightOptions.transform.childCount; i++)
-        {
-            rightOptions.transform.GetChild(i).gameObject.SetActive(true);
-        }
-        goToMainMenuQuest.SetActive(false);
-        exitGameQuest.SetActive(false);
-    }
-
-    public void ClickOnMainMenu()
-    {
-        rightOptions.SetActive(false);
-        exitGameQuest.SetActive(false);
-        goToMainMenuQuest.SetActive(true);
-
-    }
-
-    public void ClickOnExitGame()
-    {
-        rightOptions.SetActive(false);
-        goToMainMenuQuest.SetActive(false);
-        exitGameQuest.SetActive(true);
-    }
-    #endregion
-
     #region Ajustes
-    public void SetVolume (Slider slider)
-	{
-		audioMixer.SetFloat("volume", slider.value);
-        PlayerPrefs.SetFloat("volume", slider.value);
-	}
 
-	public void SetFullScreen(bool isFullScreen)
-	{
-        Screen.fullScreen = isFullScreen;
-        fullScreenToggle.isOn = isFullScreen;
-        PlayerPrefs.SetInt("isFullScreen", boolToInt(fullScreenToggle.isOn));
-    }
-
-    public void SetResolution(Dropdown dropdown)
-    {
-        Resolution resolution = resolutions[dropdown.value];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        PlayerPrefs.SetInt("resolution", resolutionDropdown.value);
-
-    }
 
     public void SetQuality(Dropdown dropdown)
     {
         QualitySettings.SetQualityLevel(dropdown.value);
         PlayerPrefs.SetInt("quality", dropdown.value);
-    }
-    #endregion
-
-    public void YesMainMenu()
-    {
-        isPaused = false;
-        SaveSystem.SavePlayerData(player, inventory, plAttack);
-        SceneManager.LoadScene("MainMenuScene");
-    }
-
-    public void NoMainMenu()
-    {
-        goToMainMenuQuest.SetActive(false);
-    }
-
-    public void YesExitGame()
-    {
-        isPaused = false;
-        SaveSystem.SavePlayerData(player, inventory, plAttack);
-        Application.Quit();
-    }
-
-    public void NoExitGame()
-    {
-        exitGameQuest.SetActive(false);
-    }
-
-
-    #region Transforming bools and ints
-    int boolToInt(bool val)
-    {
-        if (val)
-            return 1;
-        else
-            return 0;
-    }
-
-    bool intToBool(int val)
-    {
-        if(val != 0)
-            return true;
-        else
-            return false;
     }
     #endregion
 }
