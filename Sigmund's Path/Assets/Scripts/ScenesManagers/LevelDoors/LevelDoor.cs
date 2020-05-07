@@ -11,12 +11,13 @@ public class LevelDoor : MonoBehaviour
     public LevelManager levelManager;
     private Animator anim;
     [SerializeField] GameObject canvasDoor;
+    [SerializeField] SpriteRenderer spriteRenderer;
     private bool alreadyEntered;
 
     public int sceneToLoad;
     private void Start()
     {
-        
+        spriteRenderer.enabled = false;
         if(canvasDoor == null)
         {
             canvasDoor = transform.Find("CanvasDoor").gameObject;

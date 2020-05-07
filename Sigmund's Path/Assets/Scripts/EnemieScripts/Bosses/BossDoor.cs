@@ -24,7 +24,7 @@ public class BossDoor : MonoBehaviour
         {
             doorGO = transform.GetChild(0).gameObject;
         }
-
+        bossNumber = bossNumber - 1;
         if (ScenesManager.scenesManager.BossKilled[bossNumber])
         {
             Destroy(gameObject);

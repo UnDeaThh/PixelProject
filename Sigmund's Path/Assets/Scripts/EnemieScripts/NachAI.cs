@@ -71,7 +71,10 @@ public class NachAI : BaseEnemy
             else
             {
                 makeJump = true;
-                cntTimeToJump = timeToJump;
+                if (isGrounded)
+                {
+                    cntTimeToJump = timeToJump;
+                }
             }
         }
         else
@@ -79,6 +82,7 @@ public class NachAI : BaseEnemy
             if (isGrounded)
             {
                 Flip();
+                cntTimeToJump = timeToJump;
             }
         }
     }
@@ -103,6 +107,7 @@ public class NachAI : BaseEnemy
                 {
                     rb.AddForce(new Vector2(-jumpDirection.x, jumpDirection.y) * movSpeed, ForceMode2D.Impulse);
                 }
+                makeJump = false;
             }
         }
         else
