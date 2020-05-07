@@ -8,7 +8,7 @@ public class FountainController : MonoBehaviour
     [SerializeField] private float timeHealOne;
     private float currentTimeHealOne;
 
-    public int sceneFountain;
+    private int sceneFountain;
     [Header("PARTICLES")]
     [SerializeField] ParticleSystem ps;
     [SerializeField] float enterParticlesSpeed = 1.5f;

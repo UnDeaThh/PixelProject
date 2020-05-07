@@ -39,6 +39,7 @@ public class NeckAI : BaseEnemy
 
     [HideInInspector] public Rigidbody2D rb;
     private Transform player;
+    [SerializeField] ParticleSystem ps;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -239,6 +240,8 @@ public class NeckAI : BaseEnemy
             sprite.enabled = true;
             anim.SetTrigger("playerAbove");
             colTrigger.enabled = false;
+            ParticleSystem.EmissionModule em = ps.emission;
+            em.enabled = false;
         }
     }
 

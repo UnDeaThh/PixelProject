@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
-    private float speedReduced;
     [SerializeField] float percentReducction;
+    private float speedReduced;
     private float normalSpeed;
 
     private void Start()
@@ -15,7 +15,7 @@ public class Water : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        if(collision)
         if (collision.CompareTag("Player"))
         {
             if (!collision.GetComponentInChildren<Inventory2>().waterPasive)
@@ -24,6 +24,17 @@ public class Water : MonoBehaviour
             }
             else
                 return;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (!collision.GetComponentInChildren<Inventory2>().waterPasive)
+            {
+                collision.GetComponent<PlayerController2>().speedMov = speedReduced;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
