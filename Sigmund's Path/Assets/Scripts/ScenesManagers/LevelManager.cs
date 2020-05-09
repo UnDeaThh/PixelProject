@@ -54,7 +54,8 @@ public class LevelManager : MonoBehaviour
             {
                 if (fountainPos)
                 {
-                    player.gameObject.transform.position = fountainPos.position;
+                    player.gameObject.transform.position = fountainPos.position;  //Si usamos el TP aparecemos en la fuente;
+                    player.facingDir = 1;
                     ScenesManager.scenesManager.apearsOnFountain = false;
                 }
             }
@@ -147,6 +148,96 @@ public class LevelManager : MonoBehaviour
                                 break;
                             case 13:
                                 player.gameObject.transform.position = apearsPos[2].position;
+                                player.facingDir = 1;
+                                break;
+                            default:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = -1;
+                                break;
+                        }
+                    }
+                    else if(levelScene == 12)
+                    {
+                        switch (player.lastScene)
+                        {
+                            case 9:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                                break;
+                            case 22:
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = -1;
+                                break;
+                            case 27:
+                                break;
+                            default:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                                break;
+                        }
+                    }
+                    else if(levelScene == 16)
+                    {
+                        switch (player.lastScene)
+                        {
+                            case 15:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                                break;
+                            case 17:
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = -1;
+                                break;
+                            case 21:
+                                player.gameObject.transform.position = apearsPos[2].position;
+                                player.facingDir = -1;
+                                break;
+                            default:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                                break;
+                        }
+                    }
+                    else if(levelScene == 18)
+                    {
+                        switch (player.lastScene)
+                        {
+                            case 17:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                                break;
+                            case 19:
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = -1;
+                                break;
+                            case 21:
+                                player.gameObject.transform.position = apearsPos[2].position;
+                                player.facingDir = 1;
+                                break;
+                            default:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                                break;
+                        }
+                    }
+                    else if(levelScene == 21)
+                    {
+                        switch (player.lastScene)
+                        {
+                            case 20:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = -1;
+                                break;
+                            case 18:
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = -1;
+                                break;
+                            case 16:
+                                player.gameObject.transform.position = apearsPos[2].position;
+                                player.facingDir = 1;
+                                break;
+                            case 23:
+                                player.gameObject.transform.position = apearsPos[3].position;
                                 player.facingDir = 1;
                                 break;
                             default:

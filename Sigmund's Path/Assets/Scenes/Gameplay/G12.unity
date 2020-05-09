@@ -2842,6 +2842,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2.47
       objectReference: {fileID: 0}
+    - target: {fileID: 1806338655533097322, guid: 0c268aad0780ce44985b78b12180e52d,
+        type: 3}
+      propertyPath: m_Name
+      value: apearsPos2
+      objectReference: {fileID: 0}
     - target: {fileID: 2464999961671954574, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
       propertyPath: canvasDoor
@@ -4685,6 +4690,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -4.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806338655533097322, guid: 0c268aad0780ce44985b78b12180e52d,
+        type: 3}
+      propertyPath: m_Name
+      value: apearsPos4
       objectReference: {fileID: 0}
     - target: {fileID: 2464999961671954574, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
@@ -7569,6 +7579,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806338655533097322, guid: 0c268aad0780ce44985b78b12180e52d,
+        type: 3}
+      propertyPath: m_Name
+      value: apearsPos3
       objectReference: {fileID: 0}
     - target: {fileID: 2464999961671954574, guid: 0c268aad0780ce44985b78b12180e52d,
         type: 3}
@@ -30539,9 +30554,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apearsPos:
   - {fileID: 455969670}
-  - {fileID: 994726425}
+  - {fileID: 652271527}
   - {fileID: 1578833244}
-  fountainPos: {fileID: 652271527}
+  fountainPos: {fileID: 994726425}
   levelScene: 18
 --- !u!4 &2144834167
 Transform:
