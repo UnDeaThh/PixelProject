@@ -268,6 +268,28 @@ public class LevelManager : MonoBehaviour
                                 break;
                         }
                     }
+                    else if(levelScene == 24)
+                    {
+                        switch (player.lastScene)
+                        {
+                            case 23:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                                break;
+                            case 25:
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = -1;
+                                break;
+                            case 26:
+                                player.gameObject.transform.position = apearsPos[2].position;
+                                player.facingDir = 1;
+                                break;
+                            default:
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                                break;
+                        }
+                    }
                 }
             }
             #region Old Appears System
