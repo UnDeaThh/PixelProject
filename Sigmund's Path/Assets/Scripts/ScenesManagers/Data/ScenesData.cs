@@ -10,7 +10,7 @@ public class ScenesData
     public bool[] palancasState = new bool[10];
     public bool[] heartsPickUp = new bool[10];
     public bool[] cumuloState = new bool[20];
-    public bool[] unlokedZone = new bool[20];
+    public bool[] unlokedZone = new bool[26];
     public bool[] destruibleWall = new bool[50];
     public bool[] bossKilled = new bool[3];
 
@@ -34,9 +34,9 @@ public class ScenesData
         {
             cumuloState[i] = SM.cumuloState[i];
         }
-        for (int i = 0; i < SM.unlokedZone.Length; i++)
+        for (int i = 0; i < SM.UnlokedZone.Length; i++)
         {
-            unlokedZone[i] = SM.unlokedZone[i];
+            unlokedZone[i] = SM.UnlokedZone[i];
         }
         for (int i = 0; i < SM.DestruibleWall.Length; i++)
         {

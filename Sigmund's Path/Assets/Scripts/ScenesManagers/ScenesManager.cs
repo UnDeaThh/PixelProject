@@ -18,7 +18,7 @@ public class ScenesManager : MonoBehaviour
     public bool[] palancasState = new bool[10];
     public bool[] heartsPickUp = new bool[10];
     public bool[] cumuloState = new bool[20];
-    public bool[] unlokedZone = new bool[20];
+    private bool[] unlokedZone = new bool[26];
     private bool[] bossKilled = new bool[3];
     private bool[] destruibleWall = new bool[50];
     public bool cutSceneDone = false;
@@ -29,6 +29,7 @@ public class ScenesManager : MonoBehaviour
     public bool FirstTalkAska { get => firstTalkAska; set => firstTalkAska = value; }
     public bool[] DestruibleWall { get => destruibleWall; set => destruibleWall = value; }
     public bool[] BossKilled { get => bossKilled; set => bossKilled = value; }
+    public bool[] UnlokedZone { get => unlokedZone; set => unlokedZone = value; }
 
     private void Awake()
     {
@@ -96,6 +97,7 @@ public class ScenesManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Scene data empty");
             for (int i = 0; i < palancasState.Length; i++)
             {
                 palancasState[i] = false;

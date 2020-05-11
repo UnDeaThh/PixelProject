@@ -69,9 +69,9 @@ public class MainMenuManager : MonoBehaviour
         {
             ScenesManager.scenesManager.cumuloState[i] = false;
         }
-        for (int i = 0; i < ScenesManager.scenesManager.unlokedZone.Length; i++)
+        for (int i = 0; i < ScenesManager.scenesManager.UnlokedZone.Length; i++)
         {
-            ScenesManager.scenesManager.unlokedZone[i] = false;
+            ScenesManager.scenesManager.UnlokedZone[i] = false;
         }
         for (int i = 0; i < ScenesManager.scenesManager.DestruibleWall.Length; i++)
         {

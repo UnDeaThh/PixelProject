@@ -151,7 +151,11 @@ public class PlayerAttack : MonoBehaviour
         }
         if (inventory.swordPasive)
         {
-            damage *= 2;
+            damage = 2;
+        }
+        else
+        {
+            damage = 1;
         }
 
         if (canAttack)

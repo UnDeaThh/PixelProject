@@ -759,6 +759,7 @@ public class PlayerController2 : MonoBehaviour
     {
         if (!isInvencible)
         {
+            isDamaged = true;
             if (plAttack.isAttacking)
             {
                 plAttack.isAttacking = false;
@@ -768,7 +769,6 @@ public class PlayerController2 : MonoBehaviour
                 plAttack.airAttackingUp = false;
             }
             isInvencible = true;
-            isDamaged = true;
             cntinvencibilityTime = 0;
             health -= damage;
             rb.velocity = Vector2.zero;

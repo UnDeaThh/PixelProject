@@ -10,9 +10,9 @@ public class MapSystem : MonoBehaviour
     void Start()
     {
         levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
-        if(levelManager.levelScene -3 < masks.Length)
+        if(levelManager.levelScene -4 < masks.Length)
         {
-            ScenesManager.scenesManager.unlokedZone[levelManager.levelScene - 3] = true;
+            ScenesManager.scenesManager.UnlokedZone[levelManager.levelScene - 4] = true;
             LoadMap();
         }
     }
@@ -22,7 +22,7 @@ public class MapSystem : MonoBehaviour
         for (int i = 0; i < masks.Length; i++)
         {
             
-            if (ScenesManager.scenesManager.unlokedZone[i])
+            if (ScenesManager.scenesManager.UnlokedZone[i])
             {
                 masks[i].SetActive(false);
             }
