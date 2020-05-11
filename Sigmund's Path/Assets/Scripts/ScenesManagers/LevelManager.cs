@@ -169,6 +169,8 @@ public class LevelManager : MonoBehaviour
                                 player.facingDir = -1;
                                 break;
                             case 27:
+                                player.gameObject.transform.position = apearsPos[2].position;
+                                player.facingDir = 1;
                                 break;
                             default:
                                 player.gameObject.transform.position = apearsPos[0].position;

@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -13282,6 +13282,12 @@ PrefabInstance:
 --- !u!1 &671932556 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1806338654436073140, guid: 0c268aad0780ce44985b78b12180e52d,
+    type: 3}
+  m_PrefabInstance: {fileID: 671932555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &671932557 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1806338655533097321, guid: 0c268aad0780ce44985b78b12180e52d,
     type: 3}
   m_PrefabInstance: {fileID: 671932555}
   m_PrefabAsset: {fileID: 0}
@@ -37163,10 +37169,10 @@ Transform:
   - {fileID: 1119890398}
   - {fileID: 298483736}
   - {fileID: 1942727811}
-  - {fileID: 839130948}
-  - {fileID: 485085709}
-  - {fileID: 1573048465}
   - {fileID: 400627053}
+  - {fileID: 485085709}
+  - {fileID: 839130948}
+  - {fileID: 1573048465}
   - {fileID: 2139897127}
   - {fileID: 685210601}
   - {fileID: 2145968449}
@@ -85186,6 +85192,7 @@ MonoBehaviour:
   apearsPos:
   - {fileID: 455969670}
   - {fileID: 631243530}
+  - {fileID: 671932557}
   fountainPos: {fileID: 0}
   levelScene: 9
 --- !u!4 &2144834167

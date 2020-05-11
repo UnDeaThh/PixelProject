@@ -131,7 +131,7 @@ public class NerbuzAI : BossBase
 
         tiredPos = new Vector2(centerPos.position.x, centerPos.position.y - cansadaAltitude);
         cameraFight.SetActive(false);
-        facingDir = -1;
+        facingDir = 1;
 
         for (int i = 0; i < particlesH3.Length; i++)
         {
