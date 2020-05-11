@@ -65,20 +65,49 @@ public class LevelManager : MonoBehaviour
                 {
                     if(apearsPos.Length == 1)
                     {
-                        player.gameObject.transform.position = apearsPos[0].position;
-                        player.facingDir = -1;
-                    }
-                    else
-                    {
-                        if (player.lastScene <= levelScene)
+                        if(levelScene == 29) // Nerbuz Scene
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                            player.facingDir = -1;
+
+                        }
+                        else if(levelScene == 25) // Blemmis Scene
                         {
                             player.gameObject.transform.position = apearsPos[0].position;
                             player.facingDir = 1;
+
+                        }
+                    }
+                    else
+                    {
+                        //HAY UNA UNICA EXCEPCION EN G18 AL PASAR A G17
+                        if(levelScene == 26)
+                        {
+                            if(player.lastScene <= levelScene)
+                            {
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = -1;
+                            }
+                            else
+                            {
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = 1;
+                            }
                         }
                         else
                         {
-                            player.gameObject.transform.position = apearsPos[1].position;
-                            player.facingDir = -1;
+                            if (player.lastScene <= levelScene)
+                            {
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = 1;
+                            }
+                            else
+                            {
+                                if(player.lastScene == 27) { 
+                                }
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = -1;
+                            }
                         }
                     }
                 }
