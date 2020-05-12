@@ -74,8 +74,7 @@ public class LevelManager : MonoBehaviour
                         else if(levelScene == 25) // Blemmis Scene
                         {
                             player.gameObject.transform.position = apearsPos[0].position;
-                            player.facingDir = 1;
-
+                            player.facingDir = 1; 
                         }
                     }
                     else

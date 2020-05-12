@@ -21,6 +21,7 @@ public class ScenesManager : MonoBehaviour
     private bool[] unlokedZone = new bool[26];
     private bool[] bossKilled = new bool[3];
     private bool[] destruibleWall = new bool[50];
+    private bool[] fountainUnlocked = new bool[5];
     public bool cutSceneDone = false;
     private bool swordPicked;
     private bool firstTalkAska;
@@ -30,6 +31,7 @@ public class ScenesManager : MonoBehaviour
     public bool[] DestruibleWall { get => destruibleWall; set => destruibleWall = value; }
     public bool[] BossKilled { get => bossKilled; set => bossKilled = value; }
     public bool[] UnlokedZone { get => unlokedZone; set => unlokedZone = value; }
+    public bool[] FountainUnlocked { get => fountainUnlocked; set => fountainUnlocked = value; }
 
     private void Awake()
     {
@@ -83,6 +85,10 @@ public class ScenesManager : MonoBehaviour
             {
                 unlokedZone[i] = data.unlokedZone[i];
             }
+            for (int i = 0; i < fountainUnlocked.Length; i++)
+            {
+                fountainUnlocked[i] = data.fountainUnlocked[i];
+            }
             for (int i = 0; i < destruibleWall.Length; i++)
             {
                 destruibleWall[i] = data.destruibleWall[i];
@@ -113,6 +119,10 @@ public class ScenesManager : MonoBehaviour
             for (int i = 0; i < unlokedZone.Length; i++)
             {
                 unlokedZone[i] = false;
+            }
+            for (int i = 0; i < fountainUnlocked.Length; i++)
+            {
+                fountainUnlocked[i] = false;
             }
             for (int i = 0; i < destruibleWall.Length; i++)
             {

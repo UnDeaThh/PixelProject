@@ -11,6 +11,7 @@ public class ScenesData
     public bool[] heartsPickUp = new bool[10];
     public bool[] cumuloState = new bool[20];
     public bool[] unlokedZone = new bool[26];
+    public bool[] fountainUnlocked = new bool[5];
     public bool[] destruibleWall = new bool[50];
     public bool[] bossKilled = new bool[3];
 
@@ -37,6 +38,10 @@ public class ScenesData
         for (int i = 0; i < SM.UnlokedZone.Length; i++)
         {
             unlokedZone[i] = SM.UnlokedZone[i];
+        }
+        for (int i = 0; i < SM.FountainUnlocked.Length; i++)
+        {
+            fountainUnlocked[i] = SM.FountainUnlocked[i];
         }
         for (int i = 0; i < SM.DestruibleWall.Length; i++)
         {

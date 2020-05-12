@@ -11,6 +11,7 @@ public class PlayerController2 : MonoBehaviour
     public Gamepad Gamepad { get => gamepad;}
     public bool IsGrounded { get => isGrounded; set => isGrounded = value; }
     public bool IsDamaged { get => isDamaged; set => isDamaged = value; }
+    public bool StartTP { get => startTP; set => startTP = value; }
 
     private PauseManager pauseManager;
     private Inventory2 inventory;
@@ -82,6 +83,9 @@ public class PlayerController2 : MonoBehaviour
     private bool isDamaged;
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
+
+    //TP
+    private bool startTP = false;
 
     //ABILITIES
     public bool dashUnlocked = false;

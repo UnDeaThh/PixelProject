@@ -15,6 +15,9 @@ public class LevelDoor : MonoBehaviour
     private bool alreadyEntered;
 
     public int sceneToLoad;
+
+    public Animator Anim { get => anim; set => anim = value; }
+
     private void Start()
     {
         spriteRenderer.enabled = false;

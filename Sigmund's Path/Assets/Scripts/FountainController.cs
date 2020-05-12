@@ -17,8 +17,12 @@ public class FountainController : MonoBehaviour
     private LevelManager levelManager;
     private PlayerController2 plController2;
 
+    private bool isUnlocked = false;
+    [SerializeField] int fountainNumber;
+
     private void Start()
     {
+        isUnlocked = ScenesManager.scenesManager.FountainUnlocked[fountainNumber];
         plController2 = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
 
@@ -47,6 +51,11 @@ public class FountainController : MonoBehaviour
     {
         if(other.transform.tag == "Player")
         {
+            if (!isUnlocked)
+            {
+                isUnlocked = true;
+                ScenesManager.scenesManager.FountainUnlocked[fountainNumber] = true;
+            }
             playerIn = true;
             currentTimeHealOne = timeHealOne;
             ParticleSystem.EmissionModule emidMod = ps.emission;
