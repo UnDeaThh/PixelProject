@@ -7,6 +7,8 @@ public class MapSystem : MonoBehaviour
 {
     private LevelManager levelManager;
     [SerializeField] private GameObject[] masks;
+    [SerializeField] GameObject playerIcon;
+    [SerializeField] Transform[] scenesPositions;
     void Start()
     {
         levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
@@ -15,6 +17,8 @@ public class MapSystem : MonoBehaviour
             ScenesManager.scenesManager.UnlokedZone[levelManager.levelScene - 4] = true;
             LoadMap();
         }
+
+        playerIcon.transform.position = scenesPositions[levelManager.levelScene - 4].position;
     }
 
     void LoadMap()
