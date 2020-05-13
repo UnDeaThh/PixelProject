@@ -13,6 +13,8 @@ public class IconoFuente : MonoBehaviour
     private Image image;
     private Button button;
 
+    [SerializeField] AudioSource clickSound;
+
     private void Start()
     {
         image = GetComponent<Image>();
@@ -46,14 +48,12 @@ public class IconoFuente : MonoBehaviour
     }
     public void InicilizeTP()
     {
-        //El player pierde el control
         player.isOnKinematic = true;
         transform.parent = null;
         settings.Resume();
+        clickSound.Play();
         StartCoroutine(TP());
-        //Sprite Player desaparece
-        //El speramos 0.5f segundos
-        //Cargamos siguiente escena
+
     }
 
     IEnumerator TP()

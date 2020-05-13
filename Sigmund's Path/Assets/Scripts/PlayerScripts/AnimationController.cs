@@ -115,6 +115,12 @@ public class AnimationController : MonoBehaviour
         player.cntTimeNextDrink = 0;
     }
 
+
+    void TeleportSound()
+    {
+        plAudio.TeleportSound();
+    }
+
     void UpdateAnimations()
     {
         Anim.SetFloat("velocityY", player.rb.velocity.y);

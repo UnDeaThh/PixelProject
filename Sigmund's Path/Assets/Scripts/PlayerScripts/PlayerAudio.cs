@@ -13,6 +13,7 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip[] attackClips;
     public AudioSource dashSound;
     public AudioSource[] healingSound;
+    [SerializeField] AudioSource teleportSound;
     private void Awake()
     {
         plController = GetComponentInParent<PlayerController2>();
@@ -35,7 +36,10 @@ public class PlayerAudio : MonoBehaviour
         {
             walkSound.Stop();
         }
-        
+    }
 
+    public void TeleportSound()
+    {
+        teleportSound.Play();
     }
 }

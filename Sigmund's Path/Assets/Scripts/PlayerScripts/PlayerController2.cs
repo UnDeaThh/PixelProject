@@ -83,8 +83,6 @@ public class PlayerController2 : MonoBehaviour
     private bool isDamaged;
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
-
-    //TP
     private bool startTP = false;
 
     //ABILITIES
