@@ -79,10 +79,10 @@ public class LevelManager : MonoBehaviour
                     }
                     else
                     {
-                        //HAY UNA UNICA EXCEPCION EN G18 AL PASAR A G17
-                        if(levelScene == 26)
+                        //HAY EXCEPCION EN G17 Y G19
+                        if (levelScene == 26) //G17
                         {
-                            if(player.lastScene <= levelScene)
+                            if (player.lastScene <= levelScene)
                             {
                                 player.gameObject.transform.position = apearsPos[0].position;
                                 player.facingDir = -1;
@@ -93,6 +93,20 @@ public class LevelManager : MonoBehaviour
                                 player.facingDir = 1;
                             }
                         }
+                        else if (levelScene == 28) // G19
+                        {
+                            if (player.lastScene <= levelScene)
+                            {
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = -1;
+                            }
+                            else
+                            {
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = 1;
+                            }
+                        }
+
                         else
                         {
                             if (player.lastScene <= levelScene)
@@ -102,8 +116,6 @@ public class LevelManager : MonoBehaviour
                             }
                             else
                             {
-                                if(player.lastScene == 27) { 
-                                }
                                 player.gameObject.transform.position = apearsPos[1].position;
                                 player.facingDir = -1;
                             }
@@ -333,12 +345,12 @@ public class LevelManager : MonoBehaviour
                                 player.facingDir = -1;
                                 break;
                             case 28:
-                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.gameObject.transform.position = apearsPos[2].position;
                                 player.facingDir = 1;
                                 break;
                             default:
                                 player.gameObject.transform.position = apearsPos[0].position;
-                                player.facingDir = 1;
+                                player.facingDir = -1;
                                 break;
                         }
                     }
