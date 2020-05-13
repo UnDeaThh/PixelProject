@@ -18,6 +18,8 @@ public class Settings : MonoBehaviour
     string fxVolume = "fxVolume";
 
     [SerializeField] Slider masterSlider;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider fxSlider;
 
 
     [SerializeField] Toggle fullScreenToggle;
@@ -52,6 +54,10 @@ public class Settings : MonoBehaviour
         mapPanel.SetActive(false);
 
         masterSlider.value = PlayerPrefs.GetFloat(masterVolume, 0);
+        musicSlider.value = PlayerPrefs.GetFloat(musicVolume, 0);
+        fxSlider.value = PlayerPrefs.GetFloat(fxVolume, 0);
+
+
         fullScreenToggle.isOn = intToBool(PlayerPrefs.GetInt("isFullScreen", 1));
     }
 
@@ -73,20 +79,30 @@ public class Settings : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = PlayerPrefs.GetInt("resolution", 2);
         resolutionDropdown.RefreshShownValue();
+
+
+        audioMixer.SetFloat(masterVolume, masterSlider.value);
+        audioMixer.SetFloat(musicVolume, musicSlider.value);
+        audioMixer.SetFloat(fxVolume, fxSlider.value);
     }
 
     public void SetMasterVolume(float value)
     {
         audioMixer.SetFloat(masterVolume, value);
         PlayerPrefs.SetFloat(masterVolume, value);
+        PlayerPrefs.Save();
     }
     public void SetMusicVolume(float value)
     {
         audioMixer.SetFloat(musicVolume, value);
+        PlayerPrefs.SetFloat(musicVolume, value);
+        PlayerPrefs.Save();
     }
     public void SetFXVolume(float value)
     {
         audioMixer.SetFloat(fxVolume, value);
+        PlayerPrefs.SetFloat(fxVolume, value);
+        PlayerPrefs.Save();
     }
 
     public void SetResolution(int resolutionIndex)

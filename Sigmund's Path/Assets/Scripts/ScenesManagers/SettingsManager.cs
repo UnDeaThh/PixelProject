@@ -7,25 +7,43 @@ using UnityEngine.SceneManagement;
 
 public class SettingsManager : MonoBehaviour
 {
-    public AudioMixer audioMixer;
-    public Slider slider;
-    public Dropdown qualityDropdown;
-    public Toggle fullScreenToggle;
+
+    //AUDIO
+    [SerializeField] AudioMixer audioMixer;
+    [SerializeField] Slider masterSlider;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider fxSlider;
+    string masterVolume = "masterVolume";
+    string musicVolume = "musicVolume";
+    string fxVolume = "fxVolume";
+
+    [SerializeField] Toggle fullScreenToggle;
 
     [Header("RESOLUTION ATRIBUTES")]
+    [SerializeField] Dropdown resolutionDropdown;
     private Resolution[] resolutions = new Resolution[3];
-    public Dropdown resolutionDropdown;
    // private int currentResolutionIndex = 0;
     private void Awake()
     {
-        slider.value = PlayerPrefs.GetFloat("volume", 0);
-        qualityDropdown.value = PlayerPrefs.GetInt("quality", 3);
-        fullScreenToggle.isOn = intToBool(PlayerPrefs.GetInt("isFullScreen", 1));
-
-
         ResolutionsForDropdown();
         Debug.Log(Screen.currentResolution);
 
+    }
+
+    private void Start()
+    {
+        masterSlider.value = PlayerPrefs.GetFloat(masterVolume, 0);
+        musicSlider.value = PlayerPrefs.GetFloat(musicVolume, 0);
+        fxSlider.value = PlayerPrefs.GetFloat(fxVolume, 0);
+
+        audioMixer.SetFloat(masterVolume, masterSlider.value);
+        audioMixer.SetFloat(musicVolume, musicSlider.value);
+        audioMixer.SetFloat(fxVolume, fxSlider.value);
+
+        resolutionDropdown.value = PlayerPrefs.GetInt("resolution", 2);
+
+        fullScreenToggle.isOn = intToBool(PlayerPrefs.GetInt("isFullScreen", 1));
+        Debug.Log(resolutionDropdown.value);
     }
     private void ResolutionsForDropdown()
     {
@@ -43,36 +61,38 @@ public class SettingsManager : MonoBehaviour
         }
 
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = PlayerPrefs.GetInt("resolution", 2);
+        resolutionDropdown.value = PlayerPrefs.GetInt("resolution", resolutions.Length - 1);
         resolutionDropdown.RefreshShownValue();
     }
 
-    public void SetResolution(Dropdown dropdown)
+    public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[dropdown.value];
+        Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         PlayerPrefs.SetInt("resolution", resolutionDropdown.value);
-        Debug.Log(Screen.currentResolution);
-
 
     }
-
 
     public void BackMenuButton()
     {
+        PlayerPrefs.Save();
         SceneManager.LoadScene("MainMenuScene");
     }
 
-    public void SetVolume(Slider slider)
+    public void SetMasterVolume(float value)
     {
-        audioMixer.SetFloat("volume", slider.value);
-        PlayerPrefs.SetFloat("volume", slider.value);
+        audioMixer.SetFloat(masterVolume, value);
+        PlayerPrefs.SetFloat(masterVolume, value);
     }
-
-    public void SetQuality(Dropdown dropdown)
+    public void SetMusicVolume(float value)
     {
-        QualitySettings.SetQualityLevel(dropdown.value);
-        PlayerPrefs.SetInt("quality", dropdown.value);
+        audioMixer.SetFloat(musicVolume, value);
+        PlayerPrefs.SetFloat(musicVolume, value);
+    }
+    public void SetFXVolume(float value)
+    {
+        audioMixer.SetFloat(fxVolume, value);
+        PlayerPrefs.SetFloat(fxVolume, value);
     }
 
     public void SetFullScreen(bool isFullScreen)
