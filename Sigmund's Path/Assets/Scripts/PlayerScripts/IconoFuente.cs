@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class IconoFuente : MonoBehaviour
@@ -9,24 +10,40 @@ public class IconoFuente : MonoBehaviour
     [SerializeField] int sceneToLoad;
     private PlayerController2 player;
     [SerializeField] Settings settings;
+    private Image image;
+    private Button button;
 
     private void Start()
     {
+        image = GetComponent<Image>();
+        button = GetComponent<Button>();
+
         if(ScenesManager.scenesManager.FountainUnlocked[iconNumber])
         {
-            gameObject.SetActive(true);
+            image.enabled = true;
+            button.enabled = true;
         }
         else
         {
-            gameObject.SetActive(false);
+            image.enabled = false;
+            button.enabled = false;
         }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
 
         sceneToLoad += 3;
     }
 
-
-
+    private void Update()
+    {
+        if (!image.enabled)
+        {
+            if (ScenesManager.scenesManager.FountainUnlocked[iconNumber])
+            {
+                button.enabled = true;
+                image.enabled = true;
+            }
+        }
+    }
     public void InicilizeTP()
     {
         //El player pierde el control
