@@ -50,13 +50,13 @@ public class LevelManager : MonoBehaviour
         
         if (ScenesManager.scenesManager.cutSceneDone)
         {
-            if (ScenesManager.scenesManager.apearsOnFountain)
+            if (ScenesManager.scenesManager.ApearsOnFountain)
             {
                 if (fountainPos)
                 {
                     player.gameObject.transform.position = fountainPos.position;  //Si usamos el TP aparecemos en la fuente;
                     player.facingDir = 1;
-                    ScenesManager.scenesManager.apearsOnFountain = false;
+                    ScenesManager.scenesManager.ApearsOnFountain = false;
                 }
             }
             else

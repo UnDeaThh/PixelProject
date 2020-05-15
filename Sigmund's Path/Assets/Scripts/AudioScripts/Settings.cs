@@ -58,7 +58,7 @@ public class Settings : MonoBehaviour
         fxSlider.value = PlayerPrefs.GetFloat(fxVolume, 0);
 
 
-        fullScreenToggle.isOn = intToBool(PlayerPrefs.GetInt("isFullScreen", 1));
+        
     }
 
     private void Start()
@@ -84,6 +84,8 @@ public class Settings : MonoBehaviour
         audioMixer.SetFloat(masterVolume, masterSlider.value);
         audioMixer.SetFloat(musicVolume, musicSlider.value);
         audioMixer.SetFloat(fxVolume, fxSlider.value);
+
+        fullScreenToggle.isOn = intToBool(PlayerPrefs.GetInt("isFullScreen", 1));
     }
 
     public void SetMasterVolume(float value)

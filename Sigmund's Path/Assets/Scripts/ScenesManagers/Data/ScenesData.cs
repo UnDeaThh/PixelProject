@@ -16,12 +16,14 @@ public class ScenesData
     public bool[] bossKilled = new bool[3];
 
     public bool cutSceneDone;
+    public bool apearsOnFountain;
     public bool swordPicked;
     public bool firstTalkAska;
     public ScenesData(ScenesManager SM)
     {
         toLoadScene = SM.toLoadScene;
         cutSceneDone = SM.cutSceneDone;
+        apearsOnFountain = SM.ApearsOnFountain;
 
         for (int i = 0; i < SM.palancasState.Length; i++)
         {

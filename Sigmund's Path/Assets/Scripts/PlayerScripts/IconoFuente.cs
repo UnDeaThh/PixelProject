@@ -60,7 +60,7 @@ public class IconoFuente : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         player.StartTP = true;
-        ScenesManager.scenesManager.apearsOnFountain = true;
+        ScenesManager.scenesManager.ApearsOnFountain = true;
         yield return new WaitForSeconds(1f);
         GameObject.FindObjectOfType<LevelDoor>().Anim.SetTrigger("FadeIn");
         yield return new WaitForSeconds(1.2f);

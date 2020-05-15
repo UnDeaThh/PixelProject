@@ -13,7 +13,7 @@ public class ScenesManager : MonoBehaviour
     public int toLoadScene = 0;
 
     public bool comeFromDead = false;
-    public bool apearsOnFountain = false;
+    private bool apearsOnFountain = false;
 
     public bool[] palancasState = new bool[10];
     public bool[] heartsPickUp = new bool[10];
@@ -32,6 +32,7 @@ public class ScenesManager : MonoBehaviour
     public bool[] BossKilled { get => bossKilled; set => bossKilled = value; }
     public bool[] UnlokedZone { get => unlokedZone; set => unlokedZone = value; }
     public bool[] FountainUnlocked { get => fountainUnlocked; set => fountainUnlocked = value; }
+    public bool ApearsOnFountain { get => apearsOnFountain; set => apearsOnFountain = value; }
 
     private void Awake()
     {
