@@ -66,6 +66,7 @@ public class AnimationController : MonoBehaviour
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("AirFrontAttack2"))
         {
+            Debug.Log("NYa");
             if (player.IsGrounded)
             {
                 plAttack.nClicks = 0;
