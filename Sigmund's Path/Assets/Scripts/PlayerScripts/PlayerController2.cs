@@ -12,6 +12,7 @@ public class PlayerController2 : MonoBehaviour
     public bool IsGrounded { get => isGrounded; set => isGrounded = value; }
     public bool IsDamaged { get => isDamaged; set => isDamaged = value; }
     public bool StartTP { get => startTP; set => startTP = value; }
+    public float MovDir { get => movDir; set => movDir = value; }
 
     private PauseManager pauseManager;
     private Inventory2 inventory;

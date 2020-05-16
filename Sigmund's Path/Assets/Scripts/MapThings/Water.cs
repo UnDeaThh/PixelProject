@@ -7,33 +7,38 @@ public class Water : MonoBehaviour
     [SerializeField] float percentReducction;
     private float speedReduced;
     private float normalSpeed;
+    private PlayerController2 player;
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         normalSpeed = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>().speedMov;
         speedReduced = normalSpeed * percentReducction;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision)
-        if (collision.CompareTag("Player"))
-        {
-            if (!collision.GetComponentInChildren<Inventory2>().waterPasive)
-            {
-                collision.GetComponent<PlayerController2>().speedMov = speedReduced;
-            }
-            else
-                return;
-        }
-    }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            if (!collision.GetComponentInChildren<Inventory2>().waterPasive)
+
+            if (player.MovDir < -0.1f || player.MovDir > 0.1f)
             {
-                collision.GetComponent<PlayerController2>().speedMov = speedReduced;
+                if (!player.GetComponentInChildren<Inventory2>().waterPasive)
+                {
+                    player.speedMov = speedReduced;
+                }
+            }
+            else
+            {
+                if (!player.IsGrounded)
+                {
+                    player.rb.velocity = new Vector2(0f, player.rb.velocity.y);
+                }
+                else
+                {
+                    player.rb.velocity = Vector2.zero;
+                }
             }
         }
     }

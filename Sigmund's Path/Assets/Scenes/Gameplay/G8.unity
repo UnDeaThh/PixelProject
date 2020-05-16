@@ -3316,6 +3316,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48909da61bab5544cb45430c788875a2, type: 3}
+--- !u!4 &970656694 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6406112716821978283, guid: 48909da61bab5544cb45430c788875a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 970656693}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &975365107 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6412116304081100478, guid: 182569db9a00abe4db14b9ad7f8b9566,
@@ -24753,7 +24759,7 @@ MonoBehaviour:
   - {fileID: 455969670}
   - {fileID: 1515284896}
   - {fileID: 906901180}
-  fountainPos: {fileID: 0}
+  fountainPos: {fileID: 970656694}
   levelScene: 13
 --- !u!4 &2144834167
 Transform:

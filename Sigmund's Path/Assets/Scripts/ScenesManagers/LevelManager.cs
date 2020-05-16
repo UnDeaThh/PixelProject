@@ -76,6 +76,16 @@ public class LevelManager : MonoBehaviour
                             player.gameObject.transform.position = apearsPos[0].position;
                             player.facingDir = 1; 
                         }
+                        else if(levelScene == 11)
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                            player.facingDir = -1;
+                        }
+                        else if(levelScene == 13) // Primer Boss
+                        {
+                            player.gameObject.transform.position = apearsPos[0].position;
+                            player.facingDir = -1;
+                        }
                     }
                     else
                     {
