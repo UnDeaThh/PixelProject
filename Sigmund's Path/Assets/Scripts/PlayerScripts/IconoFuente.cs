@@ -9,11 +9,13 @@ public class IconoFuente : MonoBehaviour
     [SerializeField] int iconNumber;
     [SerializeField] int sceneToLoad;
     private PlayerController2 player;
+    private Inventory2 inventory;
     [SerializeField] Settings settings;
     private Image image;
     private Button button;
 
     [SerializeField] AudioSource clickSound;
+    [SerializeField] AudioClip denegateSound;
 
     private void Start()
     {
@@ -31,6 +33,7 @@ public class IconoFuente : MonoBehaviour
             button.enabled = false;
         }
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        inventory = player.GetComponentInChildren<Inventory2>();
 
         sceneToLoad += 3;
     }
@@ -48,11 +51,19 @@ public class IconoFuente : MonoBehaviour
     }
     public void InicilizeTP()
     {
-        player.isOnKinematic = true;
-        transform.parent = null;
-        settings.Resume();
-        clickSound.Play();
-        StartCoroutine(TP());
+        if (inventory.nTP > 0)
+        {
+            player.isOnKinematic = true;
+            transform.parent = null;
+            settings.Resume();
+            clickSound.Play();
+            StartCoroutine(TP());
+        }
+        else
+        {
+            clickSound.clip = denegateSound;
+            clickSound.Play();
+        }
 
     }
 

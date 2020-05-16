@@ -43,6 +43,7 @@ public class ShopController : MonoBehaviour
     [SerializeField] EventSystem eventSystem;
     private bool ffShop = false;
     [SerializeField] GameObject firstSelected;
+    [SerializeField] Scrollbar scrollbar;
     private void Awake()
     {
         questionFadeBG.SetActive(false);
@@ -86,6 +87,14 @@ public class ShopController : MonoBehaviour
         UpdateUI();
         ConfirmationQuestion();
         MoneyToSpend();
+        if(scrollbar.value >= 1)
+        {
+            scrollbar.value = 1;
+        }
+        else if(scrollbar.value <= 0)
+        {
+            scrollbar.value = 0;
+        }
     }
 
     void FillList()
