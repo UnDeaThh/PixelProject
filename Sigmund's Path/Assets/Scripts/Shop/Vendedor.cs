@@ -24,6 +24,10 @@ public class Vendedor : MonoBehaviour
     public bool inShop = false;
     private bool playerClose = false;
 
+    //Audio
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip exitClipSound;
+
     #region EventSystem Variables
     [SerializeField] EventSystem eventSystem;
     [SerializeField] GameObject fatherContent;
@@ -160,6 +164,8 @@ public class Vendedor : MonoBehaviour
     {
         pauseManager.inShop = false;
         player.isOnKinematic = false;
+        source.clip = exitClipSound;
+        source.Play();
         inShop = false;
     }
 }

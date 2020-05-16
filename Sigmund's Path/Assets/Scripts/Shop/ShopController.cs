@@ -44,6 +44,12 @@ public class ShopController : MonoBehaviour
     private bool ffShop = false;
     [SerializeField] GameObject firstSelected;
     [SerializeField] Scrollbar scrollbar;
+
+    //AUDIO
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip moneyClipSound;
+    [SerializeField] AudioClip buttonClipSound;
+    [SerializeField] AudioClip refuseClipSound;
     private void Awake()
     {
         questionFadeBG.SetActive(false);
@@ -262,6 +268,8 @@ public class ShopController : MonoBehaviour
     #region BuyingButtonsMethods
     public void ClickOnBuy()
     {
+        source.clip = buttonClipSound;
+        source.Play();
         if(itemSelecteID == 1)
         {
             if(player.potions < 5)
@@ -319,6 +327,8 @@ public class ShopController : MonoBehaviour
     {
         itemsToBuy = 1;
         eventSystem.SetSelectedGameObject(vendedor.FirstSelected);
+        source.clip = buttonClipSound;
+        source.Play();
         buyingItem = false;
     }
 
@@ -344,6 +354,8 @@ public class ShopController : MonoBehaviour
             Inventory2.inventory.LoseMoney(moneyToSpend);
             //Sonido de Compra
             itemsToBuy = 1;
+            source.clip = moneyClipSound;
+            source.Play();
             eventSystem.SetSelectedGameObject(vendedor.FirstSelected);
             buyingItem = false;
         }
@@ -351,6 +363,8 @@ public class ShopController : MonoBehaviour
         {
             Debug.Log("PUTO POBRE");
             //Sonido de que falta dinero
+            source.clip = refuseClipSound;
+            source.Play();
         }
 
     }
