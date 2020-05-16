@@ -9,7 +9,7 @@ public class CumuloEsencia : MonoBehaviour
     private SpriteRenderer sr;
     private AudioSource crashSound;
     public AudioClip bigCrashSound;
-    public Sprite[] brokenSprites = new Sprite[3];
+    public Sprite[] brokenSprites = new Sprite[4];
     public ParticleSystem[] ps = new ParticleSystem[3];
     public GameObject souls;
     private Collider2D col;
@@ -44,33 +44,31 @@ public class CumuloEsencia : MonoBehaviour
 
         if (isDestroyed)
         {
-            Destroy(gameObject);
+            sr.sprite = brokenSprites[3];
+            col.enabled = false;
+            purpleLight.enabled = false;
+            lifes = 0;
         }
     }
 
     private void Update()
     {
-        switch (lifes)
+        if (!isDestroyed)
         {
-            case 3:
-                sr.sprite = brokenSprites[0];
-                break;
-            case 2:
-                sr.sprite = brokenSprites[1];
-                break;
-            case 1:
-                sr.sprite = brokenSprites[2];
-                break;
-            case 0:
-                sr.enabled = false;
-                break;
-        }
-
-        if(lifes <= 0)
-        {
-            if (!crashSound.isPlaying)
+            switch (lifes)
             {
-                Destroy(gameObject);
+                case 3:
+                    sr.sprite = brokenSprites[0];
+                    break;
+                case 2:
+                    sr.sprite = brokenSprites[1];
+                    break;
+                case 1:
+                    sr.sprite = brokenSprites[2];
+                    break;
+                case 0:
+                    sr.sprite = brokenSprites[3];
+                    break;
             }
         }
         ActiveLightBehindWall();
@@ -111,6 +109,7 @@ public class CumuloEsencia : MonoBehaviour
             crashSound.Play();
             ps[0].Emit(5);
         }
+
         else
         {
             crashSound.clip = bigCrashSound;
@@ -121,7 +120,9 @@ public class CumuloEsencia : MonoBehaviour
                 ps[i].Emit(7);
             }
             GetComponent<Collider2D>().enabled = false;
+            sr.sprite = brokenSprites[3];
             RandomInstantiateSouls();
+            isDestroyed = true;
             ScenesManager.scenesManager.cumuloState[numberOfCumulo] = true;
 
             SaveSystem.SavePlayerData(player.GetComponent<PlayerController2>(), player.GetComponentInChildren<Inventory2>(), player.GetComponent<PlayerAttack>());

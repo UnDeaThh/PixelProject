@@ -20,6 +20,24 @@ TextureImporter:
   - first:
       213: 1315734376196210728
     second: CumuloEsencia_5
+  - first:
+      213: 1052253725155361985
+    second: CumuloEsencia_6
+  - first:
+      213: -4173637985751070819
+    second: CumuloEsencia_7
+  - first:
+      213: -601737262849241707
+    second: CumuloEsencia_8
+  - first:
+      213: -4420316590891175612
+    second: CumuloEsencia_9
+  - first:
+      213: 7898560213969306136
+    second: CumuloEsencia_10
+  - first:
+      213: -6922342104276839037
+    second: CumuloEsencia_11
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -78,7 +96,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -90,7 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -119,18 +137,18 @@ TextureImporter:
       name: CumuloEsencia_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
         width: 76
         height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05080525cee59464ebbc6f424eb18fd6
+      spriteID: 0e73523977f8f9249b66f56f3fd879d5
       internalID: 7356892654843301993
       vertices: []
       indices: 
@@ -140,18 +158,18 @@ TextureImporter:
       name: CumuloEsencia_1
       rect:
         serializedVersion: 2
-        x: 82
+        x: 80
         y: 0
         width: 76
         height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5f17b1ecb1792b4d81d095662eda6eb
+      spriteID: a671d48cfcd71a74c8f6e3b5e6fa127c
       internalID: -6472240775130084840
       vertices: []
       indices: 
@@ -161,18 +179,18 @@ TextureImporter:
       name: CumuloEsencia_2
       rect:
         serializedVersion: 2
-        x: 162
+        x: 160
         y: 0
         width: 76
         height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b410be690f2261c4bb3c7daefcbd1518
+      spriteID: f62bc4a770f303242806a9bf11ca0c50
       internalID: -7256268746174419504
       vertices: []
       indices: 
@@ -182,18 +200,18 @@ TextureImporter:
       name: CumuloEsencia_3
       rect:
         serializedVersion: 2
-        x: 252
+        x: 250
         y: 44
         width: 11
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e704ec9b7681f404abf4e237c470b5e1
+      spriteID: 500329f9172e4fd4bab83d50f1678d65
       internalID: 8287190345314672646
       vertices: []
       indices: 
@@ -203,18 +221,18 @@ TextureImporter:
       name: CumuloEsencia_4
       rect:
         serializedVersion: 2
-        x: 244
+        x: 242
         y: 37
         width: 5
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8ace4c66ddeab84789d3ce42701c2f9
+      spriteID: 85b618370c8f9ad41876243cabe2de0f
       internalID: -4115086741678670597
       vertices: []
       indices: 
@@ -224,19 +242,40 @@ TextureImporter:
       name: CumuloEsencia_5
       rect:
         serializedVersion: 2
-        x: 251
+        x: 249
         y: 24
         width: 8
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 198ff60b5b2ff6e42b76248e57269b89
+      spriteID: 3282c3c7d5f4c664880711f6cee08446
       internalID: 1315734376196210728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CumuloEsencia_6
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 0
+        width: 41
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75e44ffec5979004fb3e3fa895d610d1
+      internalID: 1052253725155361985
       vertices: []
       indices: 
       edges: []

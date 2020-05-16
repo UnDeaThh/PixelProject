@@ -28,6 +28,10 @@ public class Water : MonoBehaviour
                 {
                     player.speedMov = speedReduced;
                 }
+                if (player.GetComponent<PlayerAttack>().isAttacking)
+                {
+                    player.rb.velocity = Vector2.zero;
+                }
             }
             else
             {
