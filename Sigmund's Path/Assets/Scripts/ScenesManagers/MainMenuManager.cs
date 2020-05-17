@@ -108,7 +108,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ClickOnCredits()
     {
-		
+        SceneManager.LoadScene("CreditsScene");
     }
 
     public void ClickOnExit()

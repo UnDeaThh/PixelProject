@@ -25,6 +25,7 @@ public class ScenesManager : MonoBehaviour
     public bool cutSceneDone = false;
     private bool swordPicked;
     private bool firstTalkAska;
+    private bool[] shopUnlocked = new bool[3];
 
     public bool SwordPicked { get => swordPicked; set => swordPicked = value; }
     public bool FirstTalkAska { get => firstTalkAska; set => firstTalkAska = value; }
@@ -33,6 +34,7 @@ public class ScenesManager : MonoBehaviour
     public bool[] UnlokedZone { get => unlokedZone; set => unlokedZone = value; }
     public bool[] FountainUnlocked { get => fountainUnlocked; set => fountainUnlocked = value; }
     public bool ApearsOnFountain { get => apearsOnFountain; set => apearsOnFountain = value; }
+    public bool[] ShopUnlocked { get => shopUnlocked; set => shopUnlocked = value; }
 
     private void Awake()
     {
@@ -98,7 +100,10 @@ public class ScenesManager : MonoBehaviour
             {
                 bossKilled[i] = data.bossKilled[i];
             }
-
+            for (int i = 0; i < shopUnlocked.Length; i++)
+            {
+                shopUnlocked[i] = data.shopUnlocked[i];
+            }
             SwordPicked = data.swordPicked;
             FirstTalkAska = data.firstTalkAska;
         }
@@ -132,6 +137,10 @@ public class ScenesManager : MonoBehaviour
             for (int i = 0; i < bossKilled.Length; i++)
             {
                 bossKilled[i] = false;
+            }
+            for (int i = 0; i < shopUnlocked.Length; i++)
+            {
+                shopUnlocked[i] = false;
             }
 
             SwordPicked = false;

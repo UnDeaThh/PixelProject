@@ -50,6 +50,7 @@ public class ShopController : MonoBehaviour
     [SerializeField] AudioClip moneyClipSound;
     [SerializeField] AudioClip buttonClipSound;
     [SerializeField] AudioClip refuseClipSound;
+    [SerializeField] AudioClip arrowClip;
     private void Awake()
     {
         questionFadeBG.SetActive(false);
@@ -292,9 +293,12 @@ public class ShopController : MonoBehaviour
 
     public void IncreaseItemsToBuy()
     {
+      
         if(itemSelecteID != 4 && itemSelecteID != 5)
         {
-            if(itemSelecteID == 1)
+            source.clip = arrowClip;
+            source.Play();
+            if (itemSelecteID == 1)
             {
                 if(player.potions + itemsToBuy < 5)
                 {
@@ -319,6 +323,8 @@ public class ShopController : MonoBehaviour
     {
         if(itemsToBuy > 1)
         {
+            source.clip = arrowClip;
+            source.Play();
             itemsToBuy--;
         }
     }

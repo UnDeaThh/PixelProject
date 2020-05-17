@@ -3,9 +3,11 @@
 public class BuyButton : MonoBehaviour
 {
     public int itemID;
+    [SerializeField] AudioSource source;
 
     public void BuyItem()
     {
-         ShopController.shopController.itemSelecteID = itemID;  
+        source.Play();
+        ShopController.shopController.itemSelecteID = itemID;  
     }
 }

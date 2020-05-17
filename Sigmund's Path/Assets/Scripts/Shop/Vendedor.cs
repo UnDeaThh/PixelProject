@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 
 public class Vendedor : MonoBehaviour
 {
+    [SerializeField] int vendedorNumber;
+    private bool alreadyTalk = false;
     private PlayerInputs inputs;
 
     public Canvas canvasVendedor;
@@ -27,6 +29,7 @@ public class Vendedor : MonoBehaviour
     //Audio
     [SerializeField] AudioSource source;
     [SerializeField] AudioClip exitClipSound;
+    [SerializeField] AudioClip enterSound;
 
     #region EventSystem Variables
     [SerializeField] EventSystem eventSystem;
@@ -45,6 +48,8 @@ public class Vendedor : MonoBehaviour
     }
     private void Start()
     {
+        alreadyTalk = ScenesManager.scenesManager.ShopUnlocked[vendedorNumber];
+
         inputs = new PlayerInputs();
         if(eventSystem == null)
         {
@@ -144,7 +149,13 @@ public class Vendedor : MonoBehaviour
                 playerClose = true;
                 if (player.inputs.Controls.Interact.triggered)
                 {
+                    alreadyTalk = true;
+                    ScenesManager.scenesManager.ShopUnlocked[vendedorNumber] = true;
+                    SaveSystem.SaveSceneData(ScenesManager.scenesManager);
+
                     inShop = true;
+                    source.clip = enterSound;
+                    source.Play();
                     ffShop = true;
                     pauseManager.inShop = true;
                 }

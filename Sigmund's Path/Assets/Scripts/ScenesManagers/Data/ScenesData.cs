@@ -14,6 +14,7 @@ public class ScenesData
     public bool[] fountainUnlocked = new bool[5];
     public bool[] destruibleWall = new bool[50];
     public bool[] bossKilled = new bool[3];
+    public bool[] shopUnlocked = new bool[3];
 
     public bool cutSceneDone;
     public bool apearsOnFountain;
@@ -52,6 +53,11 @@ public class ScenesData
         for (int i = 0; i < SM.BossKilled.Length; i++)
         {
             bossKilled[i] = SM.BossKilled[i];
+        }
+
+        for (int i = 0; i < SM.ShopUnlocked.Length; i++)
+        {
+            shopUnlocked[i] = SM.ShopUnlocked[i];
         }
         
         swordPicked = SM.SwordPicked;
