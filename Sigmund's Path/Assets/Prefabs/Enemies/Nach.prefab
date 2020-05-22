@@ -137,7 +137,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 3416743973668741314}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2620452d3a2d08b40b41b8af0bfee235, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -195,6 +195,9 @@ MonoBehaviour:
   edgeLocatorPos: {fileID: 3416743973538242330}
   wallLocatorPos: {fileID: 3416743973359901816}
   groundCheckerPos: {fileID: 700127047035280608}
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!50 &3416743973668741326
 Rigidbody2D:
   serializedVersion: 4
@@ -211,7 +214,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2620452d3a2d08b40b41b8af0bfee235, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

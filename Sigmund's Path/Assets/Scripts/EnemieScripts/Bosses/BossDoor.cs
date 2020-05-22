@@ -55,6 +55,10 @@ public class BossDoor : MonoBehaviour
                     {
                         boss.ActualState = State.Enter;
                     }
+                    else if(theBoss.TryGetComponent(out BossNeck neck))
+                    {
+                        neck.ActualState = State.Enter;
+                    }
                 }
             }
         }

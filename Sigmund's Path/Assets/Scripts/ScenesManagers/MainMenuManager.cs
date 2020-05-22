@@ -77,9 +77,17 @@ public class MainMenuManager : MonoBehaviour
         {
             ScenesManager.scenesManager.DestruibleWall[i] = false;
         }
-        for (int i = 0; i < ScenesManager.scenesManager.DestruibleWall.Length; i++)
+        for (int i = 0; i < ScenesManager.scenesManager.BossKilled.Length; i++)
         {
-            ScenesManager.scenesManager.DestruibleWall[i] = false;
+            ScenesManager.scenesManager.BossKilled[i] = false;
+        }
+        for (int i = 0; i < ScenesManager.scenesManager.ShopUnlocked.Length; i++)
+        {
+            ScenesManager.scenesManager.ShopUnlocked[i] = false;
+        }
+        for (int i = 0; i < ScenesManager.scenesManager.FountainUnlocked.Length; i++)
+        {
+            ScenesManager.scenesManager.FountainUnlocked[i] = false;
         }
 
         SceneManager.LoadScene("T1");

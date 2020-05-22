@@ -16,6 +16,7 @@ public class NachAI : BaseEnemy
     public bool groundFound;
     private bool isGrounded;
     public bool wallFound;
+    private bool waterFound;
     private bool makeJump;
     private bool ffStuned;
 
@@ -27,6 +28,7 @@ public class NachAI : BaseEnemy
     public Transform groundCheckerPos;
     private Transform player;
 
+    [SerializeField] LayerMask waterLayer;
 
     private void Start()
     {
@@ -57,11 +59,12 @@ public class NachAI : BaseEnemy
         groundFound = Physics2D.Raycast(edgeLocatorPos.position, Vector2.down, edgeDistance, whatIsDetected);
         wallFound = Physics2D.Raycast(wallLocatorPos.position, transform.right, wallDistance, whatIsDetected);
         isGrounded = Physics2D.Raycast(groundCheckerPos.position, Vector2.down, groundDistance, whatIsDetected);
+        waterFound = Physics2D.Raycast(edgeLocatorPos.position, Vector2.down, edgeDistance, waterLayer);
     }
 
     void MovementLogic()
     {
-        if (groundFound && !wallFound)
+        if (groundFound && !wallFound && !waterFound)
         {
             if(cntTimeToJump > 0)
             {
