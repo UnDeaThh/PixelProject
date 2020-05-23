@@ -48,8 +48,22 @@ public class BossNeck : BossBase
 
     [SerializeField] float timeFreez;
     private float cntTimeFreze;
+    [SerializeField] GameObject cameraFight;
+    private bool oneShake;
+    private float cntTimeShaking;
+
+
+
     [Header("Sonidos")]
-    [SerializeField] AudioSource sourceSFX;
+    [SerializeField] AudioSource stepSounds;
+
+    private void Awake()
+    {
+        if (ScenesManager.scenesManager.BossKilled[nBoss])
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -64,7 +78,9 @@ public class BossNeck : BossBase
         cntTimeToAttack = timeToAttack;
         cntTimeToRangeAttack = timeToRangeAttack;
         Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), playePos.GetComponent<Collider2D>());
+
         cntTimeFreze = timeFreez;
+        cntTimeShaking = timeShaking;
     }
 
     // Update is called once per frame
@@ -190,11 +206,34 @@ public class BossNeck : BossBase
                 AudioManager.instanceAudio.EndBossSong = true;
                 cntTimeFreze -= Time.deltaTime;
                 col.enabled = false;
+                rb.gravityScale = 0f;
                 anim.speed = 0;
+                if(cntTimeFreze < 0.15f)
+                {
+                    cameraFight.SetActive(false);
+                }
             }
             else
             {
-
+                if (!oneShake)
+                {
+                    CameraController.cameraController.GenerateCamerashake(amplitudeShaking, frequencyShaking, timeShaking);
+                    oneShake = true;
+                }
+                if(cntTimeShaking > 0)
+                {
+                    cntTimeShaking -= Time.deltaTime;
+                    if(cntTimeShaking < timeShaking / 3)
+                    {
+                        if (!oneCallDead)
+                        {
+                            anim.speed = 1;
+                            anim.SetBool("isDead", true);
+                            oneCallDead = true;
+                        }
+                    }
+                }
+                Dead();
             }
         }
         UpdateSounds();
@@ -241,10 +280,10 @@ public class BossNeck : BossBase
     {
         if(Mathf.Abs(rb.velocity.x) > 0.1f)
         {
-            sourceSFX.pitch = Random.Range(0.8f, 1.15f);
-            if (!sourceSFX.isPlaying)
+            stepSounds.pitch = Random.Range(0.8f, 1.15f);
+            if (!stepSounds.isPlaying)
             {
-                sourceSFX.Play();
+                stepSounds.Play();
             }
         }
     }

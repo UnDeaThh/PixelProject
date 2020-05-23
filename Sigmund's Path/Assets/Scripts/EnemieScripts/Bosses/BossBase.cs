@@ -11,6 +11,9 @@ public class BossBase : MonoBehaviour
     protected Collider2D col;
     protected Rigidbody2D rb;
     [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected float amplitudeShaking;
+    [SerializeField] protected float frequencyShaking;
+    [SerializeField] protected float timeShaking;
 
     public bool isDisolve;
     protected bool oneCallDead = false;

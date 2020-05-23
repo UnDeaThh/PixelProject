@@ -4381,8 +4381,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nBoss: 1
-  nLifes: 20
+  nLifes: 1
   audioSource: {fileID: 0}
+  amplitudeShaking: 2
+  frequencyShaking: 3
+  timeShaking: 2
   isDisolve: 0
   playerLayer:
     serializedVersion: 2
@@ -4397,8 +4400,9 @@ MonoBehaviour:
   atackArea: {x: 4.97, y: 2.19}
   atackPos: {fileID: 845775626}
   handPos: {fileID: 882666586}
-  timeFreez: 0
-  sourceSFX: {fileID: 1009572928}
+  timeFreez: 3
+  cameraFight: {fileID: 497764729}
+  stepSounds: {fileID: 1009572928}
 --- !u!4 &1009572927
 Transform:
   m_ObjectHideFlags: 0

@@ -36,13 +36,20 @@ public class BossNeckAnims : MonoBehaviour
     void SalplicaduraSound()
     {
         source.clip = atackSounds[1];
+        source.volume = 0.5f;
         source.Play();
     }
 
     void DobleSound()
     {
         source.clip = atackSounds[0];
+        source.volume = 1f;
         source.pitch = Random.Range(0.85f, 1.15f);
         source.Play();
+    }
+
+    void CallDead()
+    {
+        neckBrain.isDisolve = true;
     }
 }

@@ -54,9 +54,7 @@ public class BossChange : BossBase
     [Header("DEAD")]
     [SerializeField] float timeFreeze;
     private float cntTimeFreeze;
-    [SerializeField] float amplitudeShaking;
-    [SerializeField] float frequencyShaking;
-    [SerializeField] float timeShaking;
+
     float cntTimeShaking;
     bool oneShake = false;
     [SerializeField] AudioSource earthquakeSound;
