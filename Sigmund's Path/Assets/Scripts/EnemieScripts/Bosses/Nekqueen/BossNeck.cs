@@ -10,26 +10,37 @@ public class BossNeck : BossBase
     private Animator anim;
     private Transform playePos;
     [SerializeField] LayerMask playerLayer;
+    [SerializeField] GameObject water;
+
+    private int consecutiveDoble;
+    private int consecutivePunch;
 
     private float distancePlayer;
 
     private float distanceAtack;
+    private float distanceRangeAttack;
     [SerializeField] float movSpeed;
     [SerializeField] float minDistanceDobleAttack;
-    [SerializeField] float maxDistanceDobleAttack;
+    [SerializeField] float plusDistanceRA;
     [SerializeField] float timeToAttack;
     private float cntTimeToAttack;
     [SerializeField] float timeStill;
     private float cntTimeStill;
 
+    [SerializeField] float timeToRangeAttack;
+    private float cntTimeToRangeAttack;
+
     [SerializeField] Vector2 atackArea;
     [SerializeField] Transform atackPos;
+    [SerializeField] Transform handPos;
 
     private bool playerInFront;
-    private bool doDobleAttack = false;
     private bool canWalk;
+    private bool doDobleAttack = false;
+    private bool doRangeAttack;
     public State ActualState { get => actualState; set => actualState = value; }
     public bool DoDobleAttack { get => doDobleAttack; set => doDobleAttack = value; }
+    public bool DoRangeAttack { get => doRangeAttack; set => doRangeAttack = value; }
 
     void Start()
     {
@@ -43,6 +54,7 @@ public class BossNeck : BossBase
 
         facingDir = -1;
         cntTimeToAttack = timeToAttack;
+        cntTimeToRangeAttack = timeToRangeAttack;
         Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), playePos.GetComponent<Collider2D>());
     }
 
@@ -69,10 +81,12 @@ public class BossNeck : BossBase
                 if (facingDir > 0)
                 {
                     distanceAtack = Vector2.Distance(transform.position, new Vector3(atackPos.position.x + atackArea.x / 2, transform.position.y, atackPos.position.z));
+                    distanceRangeAttack = Vector2.Distance(transform.position, new Vector2(atackPos.position.x + atackArea.x + plusDistanceRA, transform.position.y));
                 }
                 else if (facingDir < 0)
                 {
                     distanceAtack = Vector2.Distance(transform.position, new Vector3(atackPos.position.x - atackArea.x / 2, transform.position.y, atackPos.position.z));
+                    distanceRangeAttack = Vector2.Distance(transform.position, new Vector2(atackPos.position.x - atackArea.x - plusDistanceRA, transform.position.y));
                 }
 
                 if (distancePlayer <= distanceAtack)
@@ -99,6 +113,22 @@ public class BossNeck : BossBase
                 else
                 {
                     playerInFront = false;
+                    if(distancePlayer >= distanceRangeAttack)
+                    {
+                        if (!doRangeAttack)
+                        {
+                            if(cntTimeToRangeAttack > 0)
+                            {
+                                cntTimeToRangeAttack -= Time.deltaTime;
+                            }
+                            else
+                            {
+                                doRangeAttack = true;
+                                cntTimeToRangeAttack = timeToRangeAttack;
+                            }
+                        }
+                    }
+/*
                     if (!doDobleAttack) // El player esta lejos y no estamos atacando
                     {
                         if(cntTimeStill > 0)
@@ -110,6 +140,7 @@ public class BossNeck : BossBase
                              canWalk = true;
                         }
                     }
+                    */
                 }
                 break;
         }
@@ -146,10 +177,17 @@ public class BossNeck : BossBase
         }
     }
 
+    public void ThrowWater()
+    {
+        Quaternion rotacionWater =  facingDir > 0 ?  Quaternion.identity :  new Quaternion(0f, 180f, 0f, 0f);
+        Instantiate(water, handPos.position, rotacionWater);
+    }
+
     private void UpdateAnims()
     {
         anim.SetBool("dobleAttack", doDobleAttack);
         anim.SetFloat("velocityX", Mathf.Abs(rb.velocity.x));
+        anim.SetBool("rangeAttack", doRangeAttack);
     }
     private void OnDrawGizmos()
     {
@@ -158,10 +196,12 @@ public class BossNeck : BossBase
         if(facingDir > 0)
         {
             Gizmos.DrawLine(transform.position, new Vector3(atackPos.position.x + atackArea.x/2, transform.position.y, atackPos.position.z));
+            Gizmos.DrawLine(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), new Vector3(atackPos.position.x + atackArea.x + plusDistanceRA, transform.position.y + 1, atackPos.position.z));
         }
         else if(facingDir < 0)
         {
             Gizmos.DrawLine(transform.position, new Vector3(atackPos.position.x - atackArea.x/2, transform.position.y, atackPos.position.z));
+            Gizmos.DrawLine(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), new Vector3(atackPos.position.x - atackArea.x - plusDistanceRA, transform.position.y + 1 , atackPos.position.z));
         }
     }
 }

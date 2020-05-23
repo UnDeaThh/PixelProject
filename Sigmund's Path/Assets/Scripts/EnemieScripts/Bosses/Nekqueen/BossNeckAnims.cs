@@ -11,8 +11,18 @@ public class BossNeckAnims : MonoBehaviour
         neckBrain.DoDobleAttack = false;
     }
 
+    void StopSalpicadura()
+    {
+        neckBrain.DoRangeAttack = false;
+    }
+
     void ExecuteAttack()
     {
         neckBrain.CloseAttack();
+    }
+
+    void ThrowWater()
+    {
+        neckBrain.ThrowWater();
     }
 }
