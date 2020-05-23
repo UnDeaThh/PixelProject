@@ -14,6 +14,7 @@ public class BossNeck : BossBase
 
     private int consecutiveDoble;
     private int consecutivePunch;
+    private int attackType;
 
     private float distancePlayer;
 
@@ -37,11 +38,18 @@ public class BossNeck : BossBase
     private bool playerInFront;
     private bool canWalk;
     private bool doDobleAttack = false;
+    private bool punchAttack;
     private bool doRangeAttack;
     public State ActualState { get => actualState; set => actualState = value; }
     public bool DoDobleAttack { get => doDobleAttack; set => doDobleAttack = value; }
     public bool DoRangeAttack { get => doRangeAttack; set => doRangeAttack = value; }
+    public bool PunchAttack { get => punchAttack; set => punchAttack = value; }
 
+
+    [SerializeField] float timeFreez;
+    private float cntTimeFreze;
+    [Header("Sonidos")]
+    [SerializeField] AudioSource sourceSFX;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -56,94 +64,140 @@ public class BossNeck : BossBase
         cntTimeToAttack = timeToAttack;
         cntTimeToRangeAttack = timeToRangeAttack;
         Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), playePos.GetComponent<Collider2D>());
+        cntTimeFreze = timeFreez;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (actualState)
+        if(nLifes > 0)
         {
-            case State.Enter: // La animacion al entrar en la sala
-                actualState = State.H1;
-                break;
-            case State.H1: // Aqui meteremos todo el comportamiento del NeckBoss ya que no va por fases, sino por situaciones
-
-                if(facingDir < 0 && playePos.position.x > transform.position.x)
-                {
-                    Flip();
-                }
-                else if(facingDir > 0 && playePos.position.x < transform.position.x)
-                {
-                    Flip();
-                }
-
-                distancePlayer = Vector2.Distance(transform.position, playePos.position);
-                if (facingDir > 0)
-                {
-                    distanceAtack = Vector2.Distance(transform.position, new Vector3(atackPos.position.x + atackArea.x / 2, transform.position.y, atackPos.position.z));
-                    distanceRangeAttack = Vector2.Distance(transform.position, new Vector2(atackPos.position.x + atackArea.x + plusDistanceRA, transform.position.y));
-                }
-                else if (facingDir < 0)
-                {
-                    distanceAtack = Vector2.Distance(transform.position, new Vector3(atackPos.position.x - atackArea.x / 2, transform.position.y, atackPos.position.z));
-                    distanceRangeAttack = Vector2.Distance(transform.position, new Vector2(atackPos.position.x - atackArea.x - plusDistanceRA, transform.position.y));
-                }
-
-                if (distancePlayer <= distanceAtack)
-                {
-                    canWalk = false;
-                    if(cntTimeStill != timeStill)
+            switch (actualState)
+            {
+                case State.Enter: // La animacion al entrar en la sala
+                    actualState = State.H1;
+                    break;
+                case State.H1: // Aqui meteremos todo el comportamiento del NeckBoss ya que no va por fases, sino por situaciones
+                    if(!doDobleAttack && !doRangeAttack)
                     {
-                        cntTimeStill = timeStill;
-                    }
-                    playerInFront = true;
-                    if (!doDobleAttack)
-                    {
-                        if (cntTimeToAttack > 0)
+                        if(facingDir < 0 && playePos.position.x > transform.position.x)
                         {
-                            cntTimeToAttack -= Time.deltaTime;
+                            Flip();
                         }
-                        else
+                        else if(facingDir > 0 && playePos.position.x < transform.position.x)
                         {
-                            doDobleAttack = true;
-                            cntTimeToAttack = timeToAttack;
+                            Flip();
                         }
                     }
-                }
-                else
-                {
-                    playerInFront = false;
-                    if(distancePlayer >= distanceRangeAttack)
+
+                    distancePlayer = Vector2.Distance(transform.position, playePos.position);
+
+
+                    if (facingDir > 0)
                     {
-                        if (!doRangeAttack)
+                        distanceAtack = Vector2.Distance(transform.position, new Vector3(atackPos.position.x + atackArea.x / 2, transform.position.y, atackPos.position.z));
+                        distanceRangeAttack = Vector2.Distance(transform.position, new Vector2(atackPos.position.x + atackArea.x + plusDistanceRA, transform.position.y));
+                    }
+                    else if (facingDir < 0)
+                    {
+                        distanceAtack = Vector2.Distance(transform.position, new Vector3(atackPos.position.x - atackArea.x / 2, transform.position.y, atackPos.position.z));
+                        distanceRangeAttack = Vector2.Distance(transform.position, new Vector2(atackPos.position.x - atackArea.x - plusDistanceRA, transform.position.y));
+                    }
+
+                    if (distancePlayer <= distanceAtack)
+                    {
+                        canWalk = false;
+                        if(cntTimeStill != timeStill)
                         {
-                            if(cntTimeToRangeAttack > 0)
+                            cntTimeStill = timeStill;
+                        }
+                        playerInFront = true;
+                        if (!doDobleAttack && !punchAttack)
+                        {
+                            if (cntTimeToAttack > 0)
                             {
-                                cntTimeToRangeAttack -= Time.deltaTime;
+                                cntTimeToAttack -= Time.deltaTime;
                             }
                             else
                             {
-                                doRangeAttack = true;
-                                cntTimeToRangeAttack = timeToRangeAttack;
+                                attackType = Random.Range(1, 3);
+                                if(attackType == 1 && consecutiveDoble > 3)
+                                {
+                                    attackType = 2;
+                                }
+                                else if( attackType == 2 && consecutivePunch > 2)
+                                {
+                                    attackType = 1;
+                                }
+
+                                if(attackType == 1)
+                                {
+                                    doDobleAttack = true;
+                                    consecutiveDoble++;
+                                    consecutivePunch = 0;
+                                }
+                                else if(attackType == 2)
+                                {
+                                    punchAttack = true;
+                                    consecutivePunch++;
+                                    consecutiveDoble = 0;
+                                }
+                                cntTimeToAttack = timeToAttack;
                             }
                         }
                     }
-/*
-                    if (!doDobleAttack) // El player esta lejos y no estamos atacando
+                    else
                     {
-                        if(cntTimeStill > 0)
+                        playerInFront = false;
+                        if(distancePlayer >= distanceRangeAttack)
                         {
-                            cntTimeStill -= Time.deltaTime;
+                            if (!doRangeAttack)
+                            {
+                                if(cntTimeToRangeAttack > 0)
+                                {
+                                    cntTimeToRangeAttack -= Time.deltaTime;
+                                }
+                                else
+                                {
+                                    doRangeAttack = true;
+                                    cntTimeToRangeAttack = timeToRangeAttack;
+                                }
+                            }
                         }
-                        else
+
+                        else // distancia mayor que closeRange pero menor que highRange
                         {
-                             canWalk = true;
+                            if(!doDobleAttack && !doRangeAttack)
+                            {
+                                if(cntTimeStill > 0)
+                                {
+                                    cntTimeStill -= Time.deltaTime;
+                                }
+                                else
+                                {
+                                    canWalk = true;
+                                }
+                            }
                         }
                     }
-                    */
-                }
-                break;
+                    break;
+            }
         }
+        else
+        {
+            if(cntTimeFreze > 0)
+            {
+                AudioManager.instanceAudio.EndBossSong = true;
+                cntTimeFreze -= Time.deltaTime;
+                col.enabled = false;
+                anim.speed = 0;
+            }
+            else
+            {
+
+            }
+        }
+        UpdateSounds();
         UpdateAnims();
     }
 
@@ -183,11 +237,23 @@ public class BossNeck : BossBase
         Instantiate(water, handPos.position, rotacionWater);
     }
 
+    private void UpdateSounds()
+    {
+        if(Mathf.Abs(rb.velocity.x) > 0.1f)
+        {
+            sourceSFX.pitch = Random.Range(0.8f, 1.15f);
+            if (!sourceSFX.isPlaying)
+            {
+                sourceSFX.Play();
+            }
+        }
+    }
     private void UpdateAnims()
     {
         anim.SetBool("dobleAttack", doDobleAttack);
         anim.SetFloat("velocityX", Mathf.Abs(rb.velocity.x));
         anim.SetBool("rangeAttack", doRangeAttack);
+        anim.SetBool("punchAttack", punchAttack);
     }
     private void OnDrawGizmos()
     {

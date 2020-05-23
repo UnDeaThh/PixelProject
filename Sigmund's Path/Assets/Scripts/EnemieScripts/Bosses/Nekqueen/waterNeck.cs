@@ -9,4 +9,12 @@ public class waterNeck : MonoBehaviour
     {
         transform.localPosition += transform.right * Time.deltaTime * speed;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            collision.GetComponent<PlayerController2>().PlayerDamaged(1, transform.position);
+        }
+    }
 }

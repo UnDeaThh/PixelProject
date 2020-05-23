@@ -5,6 +5,8 @@ using UnityEngine;
 public class BossNeckAnims : MonoBehaviour
 {
     [SerializeField] BossNeck neckBrain;
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip[] atackSounds;
 
     void StopDobleAttack()
     {
@@ -24,5 +26,23 @@ public class BossNeckAnims : MonoBehaviour
     void ThrowWater()
     {
         neckBrain.ThrowWater();
+    }
+
+    void StopPunch()
+    {
+        neckBrain.PunchAttack = false;
+    }
+
+    void SalplicaduraSound()
+    {
+        source.clip = atackSounds[1];
+        source.Play();
+    }
+
+    void DobleSound()
+    {
+        source.clip = atackSounds[0];
+        source.pitch = Random.Range(0.85f, 1.15f);
+        source.Play();
     }
 }
