@@ -135,7 +135,8 @@ public class CumuloEsencia : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             Vector2 randomPosition = colCenter + new Vector2(Random.Range(-colSize.x/2, colSize.x/2), Random.Range(-colSize.y/2, colSize.y/2));
-            Instantiate(souls, randomPosition, Quaternion.identity);
+            GameObject go = Instantiate(souls, randomPosition, Quaternion.identity);
+            go.GetComponent<SoulPickUp>().MoneyValor(default);
         }
     }
     private void OnDrawGizmos()

@@ -13313,8 +13313,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nBoss: 0
-  nLifes: 3
+  nLifes: 30
   audioSource: {fileID: 1708710714}
+  amplitudeShaking: 7
+  frequencyShaking: 2
+  timeShaking: 4
   isDisolve: 0
   clips:
   - {fileID: 8300000, guid: 55955f456434ef146ae2d68d52da3071, type: 3}
@@ -13341,9 +13344,6 @@ MonoBehaviour:
     type: 3}
   maxBallsH3: 8
   timeFreeze: 3
-  amplitudeShaking: 7
-  frequencyShaking: 2
-  timeShaking: 4
   earthquakeSound: {fileID: 333349360}
 --- !u!50 &1900451065
 Rigidbody2D:

@@ -79,8 +79,8 @@ public class BaseEnemy : MonoBehaviour
     }
     public void InstantiateSoul(EnemyClass enemyTipo)
     {
-        soulColectable.GetComponent<SoulPickUp>().MoneyValor(enemyTipo);
-        Instantiate(soulColectable, transform.position, Quaternion.identity);
+        GameObject go = Instantiate(soulColectable, transform.position, Quaternion.identity);
+        go.GetComponent<SoulPickUp>().MoneyValor(enemyType);
     }
     public virtual void TakeDamage(int damage, Vector2 playerPos)
     {

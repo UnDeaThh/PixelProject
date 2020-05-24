@@ -9,6 +9,7 @@ public class ColectableSword : MonoBehaviour
     [SerializeField] Sprite[] devicesSprites;
     [SerializeField] GameObject[] texts;
     [SerializeField] float timeInstructions = 2f;
+    [SerializeField] AudioSource source;
 
     private PlayerController2 player;
     private void Start()
@@ -36,6 +37,7 @@ public class ColectableSword : MonoBehaviour
            
             player.gameObject.GetComponent<PlayerAttack>().haveSword = true;
             FindObjectOfType<NpcDialogue>().TriggerDialogue();
+            source.Play();
             ScenesManager.scenesManager.SwordPicked = true;
             SaveSystem.SavePlayerData(player.GetComponent<PlayerController2>(), player.GetComponentInChildren<Inventory2>(), player.GetComponent<PlayerAttack>());
             GetComponent<Collider2D>().enabled = false;

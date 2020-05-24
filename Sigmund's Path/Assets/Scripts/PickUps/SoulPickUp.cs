@@ -11,7 +11,6 @@ public class SoulPickUp : MonoBehaviour
 
     private void Awake()
     {
-        moneyToAdd = Random.Range(10, 20);
         sound = GetComponent<AudioSource>();
         Physics2D.IgnoreLayerCollision(11, 11);
         Physics2D.IgnoreLayerCollision(11, 9);
@@ -40,7 +39,24 @@ public class SoulPickUp : MonoBehaviour
         switch (enemyType)
         {
             case EnemyClass.Changeling:
-                moneyToAdd = 50;
+                moneyToAdd = Random.Range(2, 7);
+                Debug.Log(moneyToAdd);
+                break;
+            case EnemyClass.Nach:
+                moneyToAdd = Random.Range(2, 6);
+                break;
+            case EnemyClass.Bermonch:
+                moneyToAdd = Random.Range(4, 11);
+                break;
+            case EnemyClass.Tatzel:
+                moneyToAdd = Random.Range(3, 10);
+                break;
+            case EnemyClass.Neck:
+                moneyToAdd = Random.Range(4, 12);
+                break;
+            default:
+                moneyToAdd = Random.Range(2, 15);
+                Debug.Log("DEFAULTR");
                 break;
         }
     }
