@@ -27,6 +27,9 @@ public class ChangelingAI : BaseEnemy
 
     public Color damagedColor;
     private Color normalColor;
+
+    private bool ffStuned;
+    [SerializeField] float stunedForce;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,9 +45,12 @@ public class ChangelingAI : BaseEnemy
         CheckMaxSpeed();
         if(nLifes > 0)
         {
-            Flip();
+            if (!isStuned)
+            {
+                Flip();
+            }
         }
-        base.Stuned();
+        Stuned();
         Dead();
     }
 
@@ -95,7 +101,19 @@ public class ChangelingAI : BaseEnemy
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            if (!ffStuned)
+            {
+                rb.velocity = Vector2.zero;
+                if (transform.position.x >= target.position.x)
+                {
+                    rb.AddForce(Vector2.right * stunedForce );
+                }
+                else
+                {
+                    rb.AddForce(Vector2.left * stunedForce);
+                }
+                ffStuned = true;
+            }
         }
     }
 
@@ -161,6 +179,14 @@ public class ChangelingAI : BaseEnemy
         {
             collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
         }
+    }
+
+    public override void StartStun()
+    {
+        isStuned = true;
+        cntTimeStuned = timeStuned;
+        ffStuned = false;
+        Debug.Log("Parry to Change");
     }
 
     public override void Dead()

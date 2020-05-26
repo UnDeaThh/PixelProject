@@ -112,6 +112,7 @@ public class AnimationController : MonoBehaviour
         player.isDrinking = false;
         player.heedArrows = true;
         plAudio.healingSound[1].Play();
+        plAudio.HeartObtained();
         player.cntTimeNextDrink = 0;
     }
 

@@ -20,6 +20,9 @@ public class FountainController : MonoBehaviour
     private bool isUnlocked = false;
     [SerializeField] int fountainNumber;
 
+    private PlayerAudio playerAudio;
+    [SerializeField] AudioSource source;
+
     private void Start()
     {
         isUnlocked = ScenesManager.scenesManager.FountainUnlocked[fountainNumber];
@@ -27,6 +30,7 @@ public class FountainController : MonoBehaviour
         levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
 
         sceneFountain = levelManager.levelScene;
+        playerAudio = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerAudio>();
     }
 
     private void Update()
@@ -42,6 +46,7 @@ public class FountainController : MonoBehaviour
                 if(plController2.health < plController2.maxHealth)
                 {
                     plController2.health++;
+                    playerAudio.HeartObtained();
                     currentTimeHealOne = timeHealOne;
                 }
             }

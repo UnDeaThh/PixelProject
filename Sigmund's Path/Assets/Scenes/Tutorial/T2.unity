@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -37476,6 +37476,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 170933758}
     - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: buttonPotionDeviceImage
+      value: 
+      objectReference: {fileID: 1918018677328066216}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
+      propertyPath: buttonBombDeviceImage
+      value: 
+      objectReference: {fileID: 1918018677328066215}
+    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
       propertyPath: utilityItems.Array.data[0].slotPosition
       value: 
       objectReference: {fileID: 339279239}
@@ -37511,14 +37519,6 @@ PrefabInstance:
       propertyPath: utilityItems.Array.data[2].filledSlot
       value: 
       objectReference: {fileID: 930659190}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: buttonPotionDeviceImage
-      value: 
-      objectReference: {fileID: 1918018677328066216}
-    - target: {fileID: 794645255, guid: 3f32e89eb2d6ea148884c6a8357c65da, type: 3}
-      propertyPath: buttonBombDeviceImage
-      value: 
-      objectReference: {fileID: 1918018677328066215}
     - target: {fileID: 2851571069916491046, guid: 3f32e89eb2d6ea148884c6a8357c65da,
         type: 3}
       propertyPath: m_Name

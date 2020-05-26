@@ -174,7 +174,7 @@ MonoBehaviour:
   sprite: {fileID: 3416743974818929560}
   deadSound: {fileID: 175789354083840117}
   mat: {fileID: 0}
-  movSpeed: 5
+  movSpeed: 7
   timeStuned: 1
   detectionRange: 0
   whatIsDetected:
@@ -188,7 +188,7 @@ MonoBehaviour:
   edgeDistance: 1
   wallDistance: 1
   groundDistance: 0.15
-  stunedForce: 10
+  stunedForce: 300
   groundFound: 0
   wallFound: 0
   jumpDirection: {x: 1, y: 2}

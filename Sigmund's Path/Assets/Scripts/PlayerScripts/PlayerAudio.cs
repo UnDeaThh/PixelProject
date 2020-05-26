@@ -13,6 +13,7 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip[] attackClips;
     public AudioSource dashSound;
     public AudioSource[] healingSound;
+    [SerializeField] AudioSource heartSound;
     [SerializeField] AudioSource teleportSound;
     private void Awake()
     {
@@ -41,5 +42,10 @@ public class PlayerAudio : MonoBehaviour
     public void TeleportSound()
     {
         teleportSound.Play();
+    }
+
+    public void HeartObtained()
+    {
+        heartSound.Play();
     }
 }

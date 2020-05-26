@@ -196,6 +196,7 @@ public class PlayerController2 : MonoBehaviour
 
             Dead();
         }
+
         //AudioManager.instanceAudio.Player = this;
     }
 
