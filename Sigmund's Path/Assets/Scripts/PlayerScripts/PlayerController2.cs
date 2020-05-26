@@ -196,12 +196,7 @@ public class PlayerController2 : MonoBehaviour
 
             Dead();
         }
-        if (isDrinking)
-        {
-            Debug.Log(rb.velocity);
-        }
-
-        AudioManager.instanceAudio.Player = this;
+        //AudioManager.instanceAudio.Player = this;
     }
 
     private void FixedUpdate()

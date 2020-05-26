@@ -44,6 +44,7 @@ public class AudioManager : MonoBehaviour
     }
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         if (SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene" && SceneManager.GetActiveScene().name != "Boss2Scene")
         {
             if (!songSource[0].isPlaying && !songSource[1].isPlaying)

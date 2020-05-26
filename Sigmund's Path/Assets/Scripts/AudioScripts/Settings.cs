@@ -100,6 +100,13 @@ public class Settings : MonoBehaviour
             {
                 source.Play();
             }
+            else
+            {
+                if (!source.isPlaying)
+                {
+                    source.Play();
+                }
+            }
         }
         PlayerPrefs.SetFloat(masterVolume, value);
         PlayerPrefs.Save();
@@ -113,6 +120,13 @@ public class Settings : MonoBehaviour
             {
                 source.Play();
             }
+            else
+            {
+                if (!source.isPlaying)
+                {
+                    source.Play();
+                }
+            }
         }
         PlayerPrefs.SetFloat(musicVolume, value);
         PlayerPrefs.Save();
@@ -125,6 +139,13 @@ public class Settings : MonoBehaviour
             if (player.Gamepad != null)
             {
                 source.Play();
+            }
+            else
+            {
+                if (!source.isPlaying)
+                {
+                    source.Play();
+                }
             }
         }
         PlayerPrefs.SetFloat(fxVolume, value);
