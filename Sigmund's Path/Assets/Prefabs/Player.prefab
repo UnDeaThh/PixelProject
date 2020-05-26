@@ -1087,7 +1087,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2189721344988084301}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.333, y: 0, z: 0}
+  m_LocalPosition: {x: 1.431, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851571069916491050}
@@ -1260,7 +1260,6 @@ MonoBehaviour:
     m_Bits: 256
   bombPrefab: {fileID: 8510034027146057706, guid: 12151b63c6ae3dd4f9ffaef48f708971,
     type: 3}
-  source: {fileID: 0}
 --- !u!114 &3730924781311067699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,10 +1274,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   nClicks: 0
-  attackRangeFront: {x: 2.75, y: 2.53}
+  attackRangeFront: {x: 3.05, y: 2.53}
   attackDirection: {x: 0, y: 0}
-  attackUpDistance: 1.5
-  attackRangeUp: 1.26
+  attackUpDistance: 1.7
+  attackRangeUp: 1.4
   gndAttackingUp: 0
   gndAttackingFront: 0
   airAttackingUp: 0

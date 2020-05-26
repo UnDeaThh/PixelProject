@@ -96,6 +96,17 @@ public class AnimationController : MonoBehaviour
         
     }
 
+    public void StopUpAttack()
+    {
+        plAttack.CanSecondAttack = false;
+        plAttack.isAttacking = false;
+        plAttack.gndAttackingFront = false;
+        plAttack.gndAttackingUp = false;
+        plAttack.airAttackingFront = false;
+        plAttack.airAttackingUp = false;
+        plAttack.nClicks = 0;
+    }
+
     public void StopSecondAttack()
     {
         plAttack.CanSecondAttack = false;

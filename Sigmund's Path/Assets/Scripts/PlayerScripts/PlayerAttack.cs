@@ -49,6 +49,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject[] hitParticle;
     [SerializeField] GameObject bigHitParticle;
 
+    private Vector3 pos;
     private void OnEnable()
     {
         inputs.Controls.Enable();
