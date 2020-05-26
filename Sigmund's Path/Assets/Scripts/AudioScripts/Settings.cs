@@ -37,6 +37,9 @@ public class Settings : MonoBehaviour
     [SerializeField] GameObject rightOptions;
     [SerializeField] GameObject goToMainMenuQuest;
     [SerializeField] GameObject exitGameQuest;
+    [SerializeField] AudioSource source;
+
+    private bool onAwake = true;
     void Awake()
     {
         pauseManager = GameObject.FindGameObjectWithTag("PauseManager").GetComponent<PauseManager>();
@@ -58,7 +61,7 @@ public class Settings : MonoBehaviour
         fxSlider.value = PlayerPrefs.GetFloat(fxVolume, 0);
 
 
-        
+        onAwake = false;
     }
 
     private void Start()
@@ -91,18 +94,39 @@ public class Settings : MonoBehaviour
     public void SetMasterVolume(float value)
     {
         audioMixer.SetFloat(masterVolume, value);
+        if (!onAwake)
+        {
+            if(player.Gamepad != null)
+            {
+                source.Play();
+            }
+        }
         PlayerPrefs.SetFloat(masterVolume, value);
         PlayerPrefs.Save();
     }
     public void SetMusicVolume(float value)
     {
         audioMixer.SetFloat(musicVolume, value);
+        if (!onAwake)
+        {
+            if (player.Gamepad != null)
+            {
+                source.Play();
+            }
+        }
         PlayerPrefs.SetFloat(musicVolume, value);
         PlayerPrefs.Save();
     }
     public void SetFXVolume(float value)
     {
         audioMixer.SetFloat(fxVolume, value);
+        if (!onAwake)
+        {
+            if (player.Gamepad != null)
+            {
+                source.Play();
+            }
+        }
         PlayerPrefs.SetFloat(fxVolume, value);
         PlayerPrefs.Save();
     }
