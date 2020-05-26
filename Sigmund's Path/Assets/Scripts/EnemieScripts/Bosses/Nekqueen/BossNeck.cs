@@ -273,7 +273,7 @@ public class BossNeck : BossBase
     public void ThrowWater()
     {
         Quaternion rotacionWater =  facingDir > 0 ?  Quaternion.identity :  new Quaternion(0f, 180f, 0f, 0f);
-        Instantiate(water, handPos.position, rotacionWater);
+        Instantiate(water, new Vector2(handPos.position.x, -18.032f), rotacionWater);
     }
 
     private void UpdateSounds()

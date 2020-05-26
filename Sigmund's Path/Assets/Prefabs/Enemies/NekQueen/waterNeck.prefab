@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 1415595233161402920}
   - component: {fileID: 1415595233161402903}
   - component: {fileID: 1415595233161402902}
-  - component: {fileID: 1975905076556688042}
+  - component: {fileID: 3569119831729935247}
+  - component: {fileID: 2925746032926051204}
+  - component: {fileID: 2736818672476381698}
   m_Layer: 9
   m_Name: waterNeck
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415595233161402901}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 495.13, y: -13.309999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -71,9 +73,9 @@ SpriteRenderer:
   m_SortingLayerID: 2082739441
   m_SortingLayer: 4
   m_SortingOrder: 2
-  m_Sprite: {fileID: -7234840331738561800, guid: c24c5bdc086e84e4dbdbd6e3098499ff,
+  m_Sprite: {fileID: -7070870489747384180, guid: 0cd5e2b54d973c14bb2e6aba3c8f07a8,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4405482, g: 0.83639324, b: 0.9433962, a: 0.56078434}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,8 +98,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
---- !u!58 &1975905076556688042
-CircleCollider2D:
+--- !u!50 &3569119831729935247
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415595233161402901}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &2925746032926051204
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -110,5 +133,40 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 3.96
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.8125, y: 2.1875}
+    newSize: {x: 8.695652, y: 8.695652}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.9526367, y: 0.1891079}
+      - {x: 1.6836548, y: 0.96209335}
+      - {x: 0.4830017, y: 0.8854084}
+      - {x: -1.4358215, y: -0.813591}
+      - {x: -2.1534424, y: -1.0664196}
+      - {x: 1.8596497, y: -1.0732517}
+      - {x: 1.0380249, y: -0.71463585}
+--- !u!95 &2736818672476381698
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415595233161402901}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 36cab505c115eb04896da9c56743e750, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

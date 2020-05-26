@@ -15,6 +15,13 @@ public class waterNeck : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerController2>().PlayerDamaged(1, transform.position);
+            Debug.Log("BRU");
+        }
+        else if (collision.CompareTag("Floor"))
+        {
+            //Sonido choque ola
+            //particulas explosion ola
+            Destroy(gameObject);   
         }
     }
 }
