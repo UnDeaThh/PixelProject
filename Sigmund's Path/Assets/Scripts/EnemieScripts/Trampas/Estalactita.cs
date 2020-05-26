@@ -11,7 +11,8 @@ public class Estalactita : MonoBehaviour
     private SpriteRenderer sprite;
     private bool launched;
     private bool playerDetected;
-    private AudioSource sound;
+    [SerializeField] AudioSource sound;
+    [SerializeField] AudioSource balanceSound;
     [SerializeField] float timeToLaunch;
     float cntTimeToLaunch;
     [SerializeField] ParticleSystem polvo;
@@ -22,7 +23,6 @@ public class Estalactita : MonoBehaviour
         sprite = GetComponentInChildren<SpriteRenderer>();
         col.enabled = false;
         rb.gravityScale = 0;
-        sound = GetComponent<AudioSource>();
         cntTimeToLaunch = timeToLaunch;
         polvo.gameObject.transform.parent = null;
     }
@@ -36,6 +36,8 @@ public class Estalactita : MonoBehaviour
                 if(hit.transform.CompareTag("Player"))
                 {
                     playerDetected = true;
+                    balanceSound.pitch = Random.Range(0.8f, 1.5f);
+                    balanceSound.Play();
                     polvo.Play();
                 }
             }
@@ -65,6 +67,7 @@ public class Estalactita : MonoBehaviour
         {
             if (launched)
             {
+                sound.pitch = Random.Range(0.85f, 1.15f);
                 sound.Play();
                 col.enabled = false;
                 sprite.enabled = false;
