@@ -231,6 +231,7 @@ public class PlayerAttack : MonoBehaviour
                         {
                             enemiesToDamage[i].GetComponent<BossBase>().TakeDamage(damage);
 
+                            //INSTANCIAR PARTICULA
                             Vector3 randomPosParticle = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
                             if (plParry.ParrySuccesful)
                             {
@@ -319,6 +320,7 @@ public class PlayerAttack : MonoBehaviour
                         else if (enemiesToDamage[i].GetComponent<BossBase>())
                         {
                             enemiesToDamage[i].GetComponent<BossBase>().TakeDamage(damage);
+
 
                             Vector3 randomPosParticle = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
                             if (plParry.ParrySuccesful)

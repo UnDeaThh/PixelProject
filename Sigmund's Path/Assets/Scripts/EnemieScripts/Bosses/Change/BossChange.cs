@@ -73,7 +73,6 @@ public class BossChange : BossBase
         sprite = GetComponentInChildren<SpriteRenderer>();
         mat = sprite.material;
         col = GetComponent<Collider2D>();
-        col.enabled = false;
         anim = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         cameraFight.SetActive(false);
@@ -115,7 +114,10 @@ public class BossChange : BossBase
                         AudioManager.instanceAudio.StartBossSong = true;
                         Debug.Log("Start");
                         cntTime = timeH1;
-                        col.enabled = true;
+                        if(nLifes > 30)
+                        {
+                            nLifes = 30;
+                        }
                         actualState = State.H1;
                     }
                     break;
