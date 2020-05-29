@@ -20,7 +20,7 @@ public class HeartPickUp : MonoBehaviour
         col = GetComponent<Collider2D>();
         sound = GetComponent<AudioSource>();
 
-        alreadyPicked = ScenesManager.scenesManager.heartsPickUp[numberOfHeart];
+        alreadyPicked = ScenesManager.scenesManager.HeartsPickUp[numberOfHeart];
         if (alreadyPicked)
         {
             Destroy(gameObject);
@@ -77,7 +77,9 @@ public class HeartPickUp : MonoBehaviour
                     alreadyPicked = true;
                     col.enabled = false;
                     sound.Play();
-                    ScenesManager.scenesManager.heartsPickUp.SetValue(true, numberOfHeart);
+                    ScenesManager.scenesManager.HeartsPickUp.SetValue(true, numberOfHeart);
+                    SaveSystem.SavePlayerData(player, player.gameObject.GetComponentInChildren<Inventory2>(), player.gameObject.GetComponent<PlayerAttack>());
+                    SaveSystem.SaveSceneData(ScenesManager.scenesManager);
                 }
             }
         }

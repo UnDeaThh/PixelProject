@@ -57,17 +57,17 @@ public class MainMenuManager : MonoBehaviour
         ScenesManager.scenesManager.FirstTalkAska = false;
         ScenesManager.scenesManager.SwordPicked = false;
 
-        for (int i = 0; i < ScenesManager.scenesManager.palancasState.Length; i++)
+        for (int i = 0; i < ScenesManager.scenesManager.PalancasState.Length; i++)
         {
-                ScenesManager.scenesManager.palancasState[i] = false;
+                ScenesManager.scenesManager.PalancasState[i] = false;
         }
-        for (int i = 0; i < ScenesManager.scenesManager.heartsPickUp.Length; i++)
+        for (int i = 0; i < ScenesManager.scenesManager.HeartsPickUp.Length; i++)
         {
-            ScenesManager.scenesManager.heartsPickUp[i] = false;
+            ScenesManager.scenesManager.HeartsPickUp[i] = false;
         }
-        for (int i = 0; i < ScenesManager.scenesManager.cumuloState.Length; i++)
+        for (int i = 0; i < ScenesManager.scenesManager.CumuloState.Length; i++)
         {
-            ScenesManager.scenesManager.cumuloState[i] = false;
+            ScenesManager.scenesManager.CumuloState[i] = false;
         }
         for (int i = 0; i < ScenesManager.scenesManager.UnlokedZone.Length; i++)
         {

@@ -26,17 +26,17 @@ public class ScenesData
         cutSceneDone = SM.cutSceneDone;
         apearsOnFountain = SM.ApearsOnFountain;
 
-        for (int i = 0; i < SM.palancasState.Length; i++)
+        for (int i = 0; i < SM.PalancasState.Length; i++)
         {
-            palancasState[i] = SM.palancasState[i];
+            palancasState[i] = SM.PalancasState[i];
         }     
-        for (int i = 0; i < SM.heartsPickUp.Length; i++)
+        for (int i = 0; i < SM.HeartsPickUp.Length; i++)
         {
-            heartsPickUp[i] = SM.heartsPickUp[i];
+            heartsPickUp[i] = SM.HeartsPickUp[i];
         }
-        for (int i = 0; i < SM.cumuloState.Length; i++)
+        for (int i = 0; i < SM.CumuloState.Length; i++)
         {
-            cumuloState[i] = SM.cumuloState[i];
+            cumuloState[i] = SM.CumuloState[i];
         }
         for (int i = 0; i < SM.UnlokedZone.Length; i++)
         {

@@ -16,6 +16,8 @@ public class Bombs : MonoBehaviour
     public SpriteRenderer spriteBomb;
     private Collider2D col;
     private Rigidbody2D rb;
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip[] clips = new AudioClip[2];
     private void Awake()
     {
         Physics2D.IgnoreLayerCollision(13, 10);
@@ -24,6 +26,12 @@ public class Bombs : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        source.clip = clips[0];
+        source.volume = 0.2f;
+        source.Play();
+    }
     private void Update()
     {
         if(cntTimeToExplode  > 0)
@@ -53,6 +61,9 @@ public class Bombs : MonoBehaviour
 
             exploding = false;
             alreadyExploted = true;
+            source.clip = clips[1];
+            source.Play();
+            source.volume = 1f;
             Destroy(gameObject, 0.5f);
         }
     }

@@ -112,7 +112,6 @@ public class BossChange : BossBase
                     {
                         cameraFight.SetActive(true);
                         AudioManager.instanceAudio.StartBossSong = true;
-                        Debug.Log("Start");
                         cntTime = timeH1;
                         if(nLifes > 30)
                         {
@@ -218,7 +217,7 @@ public class BossChange : BossBase
                     {
                         if(comeFrom != 3)
                         {
-                            if(transform.position.y > altitudeForH2.position.y - 1f && transform.position.y < altitudeForH2.position.y + 1f)
+                            if(transform.position.y > altitudeForH2.position.y - 0.3 && transform.position.y < altitudeForH2.position.y + 0.3f)
                             {
                                 if(comeFrom == 1)
                                 {
@@ -351,7 +350,7 @@ public class BossChange : BossBase
                     {
                         if(comeFrom != 3)
                         {
-                            if(transform.position.y > altitudeForH2.position.y - 1f && transform.position.y < altitudeForH2.position.y + 1f)
+                            if(transform.position.y > altitudeForH2.position.y - 0.3f && transform.position.y < altitudeForH2.position.y + 0.3f)
                             {
                                 rb.velocity = Vector2.zero;
                             }

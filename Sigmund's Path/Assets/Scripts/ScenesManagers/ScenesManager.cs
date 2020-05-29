@@ -15,9 +15,9 @@ public class ScenesManager : MonoBehaviour
     public bool comeFromDead = false;
     private bool apearsOnFountain = false;
 
-    public bool[] palancasState = new bool[10];
-    public bool[] heartsPickUp = new bool[10];
-    public bool[] cumuloState = new bool[20];
+    private bool[] palancasState = new bool[10];
+    private bool[] heartsPickUp = new bool[10];
+    private bool[] cumuloState = new bool[20];
     private bool[] unlokedZone = new bool[26];
     private bool[] bossKilled = new bool[3];
     private bool[] destruibleWall = new bool[50];
@@ -35,6 +35,9 @@ public class ScenesManager : MonoBehaviour
     public bool[] FountainUnlocked { get => fountainUnlocked; set => fountainUnlocked = value; }
     public bool ApearsOnFountain { get => apearsOnFountain; set => apearsOnFountain = value; }
     public bool[] ShopUnlocked { get => shopUnlocked; set => shopUnlocked = value; }
+    public bool[] PalancasState { get => palancasState; set => palancasState = value; }
+    public bool[] HeartsPickUp { get => heartsPickUp; set => heartsPickUp = value; }
+    public bool[] CumuloState { get => cumuloState; set => cumuloState = value; }
 
     private void Awake()
     {

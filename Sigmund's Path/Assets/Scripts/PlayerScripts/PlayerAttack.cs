@@ -216,12 +216,12 @@ public class PlayerAttack : MonoBehaviour
                                 if (plParry.ParrySuccesful)
                                 {
                                     cameraController.CallHitAfterParry();
-                                    Instantiate(bigHitParticle, particlePos.position + randomPosParticle, Quaternion.identity);
+                                    Instantiate(bigHitParticle, enemiesToDamage[i].transform.position + randomPosParticle, Quaternion.identity);
                                 }
                                 else
                                 {
                                     int randomParticle = Random.Range(0, 2);
-                                    Instantiate(hitParticle[randomParticle], particlePos.position + randomPosParticle, Quaternion.identity);
+                                    Instantiate(hitParticle[randomParticle], enemiesToDamage[i].transform.position + randomPosParticle, Quaternion.identity);
                                 }
                                 plParry.ParrySuccesful = false;
                             }
@@ -236,12 +236,12 @@ public class PlayerAttack : MonoBehaviour
                             if (plParry.ParrySuccesful)
                             {
                                 cameraController.CallHitAfterParry();
-                                Instantiate(bigHitParticle, particlePos.position + randomPosParticle, Quaternion.identity);
+                                Instantiate(bigHitParticle, enemiesToDamage[i].transform.position + randomPosParticle, Quaternion.identity);
                             }
                             else
                             {
                                 int randomParticle = Random.Range(0, 2);
-                                Instantiate(hitParticle[randomParticle], particlePos.position + randomPosParticle, Quaternion.identity);
+                                Instantiate(hitParticle[randomParticle], enemiesToDamage[i].transform.position + randomPosParticle, Quaternion.identity);
                             }
                             plParry.ParrySuccesful = false;
                         }
@@ -313,6 +313,18 @@ public class PlayerAttack : MonoBehaviour
                             if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                             {
                                 enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
+                                //INSTANCIAR PARTICULA
+                                Vector3 randomPosParticle = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
+                                if (plParry.ParrySuccesful)
+                                {
+                                    cameraController.CallHitAfterParry();
+                                    Instantiate(bigHitParticle, enemiesToDamage[i].transform.position + randomPosParticle, Quaternion.identity);
+                                }
+                                else
+                                {
+                                    int randomParticle = Random.Range(0, 2);
+                                    Instantiate(hitParticle[randomParticle], enemiesToDamage[i].transform.position + randomPosParticle, Quaternion.identity);
+                                }
                                 plParry.ParrySuccesful = false;
                             }
                         }
@@ -322,16 +334,17 @@ public class PlayerAttack : MonoBehaviour
                             enemiesToDamage[i].GetComponent<BossBase>().TakeDamage(damage);
 
 
+                            //INSTANCIAR PARTICULA
                             Vector3 randomPosParticle = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
                             if (plParry.ParrySuccesful)
                             {
                                 cameraController.CallHitAfterParry();
-                                Instantiate(bigHitParticle, attackPos.position + randomPosParticle, Quaternion.identity);
+                                Instantiate(bigHitParticle, enemiesToDamage[i].transform.position + randomPosParticle, Quaternion.identity);
                             }
                             else
                             {
                                 int randomParticle = Random.Range(0, 2);
-                                Instantiate(hitParticle[randomParticle], particlePos.position + randomPosParticle, Quaternion.identity);
+                                Instantiate(hitParticle[randomParticle], enemiesToDamage[i].transform.position + randomPosParticle, Quaternion.identity);
                             }
                             plParry.ParrySuccesful = false;
                         }

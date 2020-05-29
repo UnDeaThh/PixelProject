@@ -40,7 +40,7 @@ public class CumuloEsencia : MonoBehaviour
 
     private void Start()
     {
-        isDestroyed = ScenesManager.scenesManager.cumuloState[numberOfCumulo];
+        isDestroyed = ScenesManager.scenesManager.CumuloState[numberOfCumulo];
 
         if (isDestroyed)
         {
@@ -123,7 +123,7 @@ public class CumuloEsencia : MonoBehaviour
             sr.sprite = brokenSprites[3];
             RandomInstantiateSouls();
             isDestroyed = true;
-            ScenesManager.scenesManager.cumuloState[numberOfCumulo] = true;
+            ScenesManager.scenesManager.CumuloState[numberOfCumulo] = true;
 
             SaveSystem.SavePlayerData(player.GetComponent<PlayerController2>(), player.GetComponentInChildren<Inventory2>(), player.GetComponent<PlayerAttack>());
             SaveSystem.SaveSceneData(ScenesManager.scenesManager);

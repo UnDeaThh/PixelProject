@@ -39,7 +39,7 @@ public class Palanca : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
-        isOpen = ScenesManager.scenesManager.palancasState[numberOfPalanca];
+        isOpen = ScenesManager.scenesManager.PalancasState[numberOfPalanca];
         if (isOpen)
         {
             isDoorDown = true;
@@ -106,7 +106,7 @@ public class Palanca : MonoBehaviour
                 palancaSound.Play();
                 isOpen = true;
                 Debug.Log("Save");
-                ScenesManager.scenesManager.palancasState[numberOfPalanca] = true;
+                ScenesManager.scenesManager.PalancasState[numberOfPalanca] = true;
                 SaveSystem.SaveSceneData(ScenesManager.scenesManager);
             }
         }
