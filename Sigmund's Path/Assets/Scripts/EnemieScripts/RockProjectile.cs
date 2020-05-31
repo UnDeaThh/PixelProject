@@ -10,8 +10,8 @@ public class RockProjectile : MonoBehaviour
     public float speed;
     public int damage = 1;
     public float angularSpeed;
-    [SerializeField] GameObject ps;
     [SerializeField] AudioSource destroySound;
+    [SerializeField] ParticleSystem particle;
     private SpriteRenderer sprite;
     void Start()
     {
@@ -24,7 +24,7 @@ public class RockProjectile : MonoBehaviour
     }
 
     void Update(){
-        transform.Rotate(new Vector3(0f, 0f, angularSpeed));
+       // transform.Rotate(new Vector3(0f, 0f, angularSpeed));
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -44,8 +44,10 @@ public class RockProjectile : MonoBehaviour
         Collider2D col = GetComponent<Collider2D>();
         col.enabled = false;
         sprite.enabled = false;
+        destroySound.pitch = Random.Range(0.85f, 1.15f);
+        rb.velocity = Vector2.zero;
         destroySound.Play();
-        Instantiate(ps, transform.position, Quaternion.identity);
-        Destroy(gameObject, 0.1f);
+        particle.Play();
+        Destroy(gameObject, 0.3f);
     }
 }
