@@ -81,12 +81,6 @@ public class PauseManager : MonoBehaviour
                 }
             }
         }
-        if (isPaused)
-        {
-            Time.timeScale = 0f;
-        }
-        else 
-            Time.timeScale = 1f;
     }
     #region Ajustes
 

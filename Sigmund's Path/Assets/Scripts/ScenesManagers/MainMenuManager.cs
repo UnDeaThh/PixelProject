@@ -16,6 +16,8 @@ public class MainMenuManager : MonoBehaviour
     private string sceneDataPath;
     private string playerDataPath;
 
+    [SerializeField] AudioSource source;
+
     private void OnEnable()
     {
         sceneDataPath = Application.persistentDataPath + "/scenesdata.info";
@@ -33,6 +35,7 @@ public class MainMenuManager : MonoBehaviour
     }
     public void ClickOnNewGame()
     {
+        source.Play();
         if (File.Exists(sceneDataPath))
         {
             panelDeleteData.SetActive(true);
@@ -46,6 +49,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void YesDeleteData()
     {
+        source.Play();
         File.Delete(sceneDataPath);
         if (File.Exists(playerDataPath))
         {
@@ -94,12 +98,14 @@ public class MainMenuManager : MonoBehaviour
     }
     public void NoDeleteData()
     {
+        source.Play();
         panelDeleteData.SetActive(false);
         eventSystem.SetSelectedGameObject(eventSystem.firstSelectedGameObject);
     }
     public void ClickOnPlay()
     {
-        if(ScenesManager.scenesManager.toLoadScene == 0)
+        source.Play();
+        if (ScenesManager.scenesManager.toLoadScene == 0)
         {
             SceneManager.LoadScene("T1");
         }
@@ -111,16 +117,19 @@ public class MainMenuManager : MonoBehaviour
 
     public void ClickOnSettings()
     {
+        source.Play();
         SceneManager.LoadScene("SettingsScene");
     }
 
     public void ClickOnCredits()
     {
+        source.Play();
         SceneManager.LoadScene("CreditsScene");
     }
 
     public void ClickOnExit()
     {
+        source.Play();
         Application.Quit();
     }
 }

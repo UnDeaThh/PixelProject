@@ -51,4 +51,9 @@ public class EventSystemManager : MonoBehaviour
             HighlightedFirstButton(2);
         }
     }
+
+    public void SetearSelectedButton(GameObject boton)
+    {
+        eventSystem.SetSelectedGameObject(boton);
+    }
 }

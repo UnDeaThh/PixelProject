@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ public class ScenesManager : MonoBehaviour
 {
     public static ScenesManager scenesManager;
 
- 
+    private Gamepad gamepad = Gamepad.current;
     public int actualScene;
     public int toLoadScene = 0;
 
@@ -154,12 +155,35 @@ public class ScenesManager : MonoBehaviour
 
     }
 
-    private void CursorController()
+    public void CursorController()
     {
         if(actualScene == 1 || actualScene == 2)
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            InputSystem.onDeviceChange +=
+            (device, change) =>
+            {
+                switch (change)
+                {
+                    case InputDeviceChange.Added:
+                        gamepad = Gamepad.current;
+                        Debug.Log("New device added: " + device);
+                        break;
+
+                    case InputDeviceChange.Removed:
+                        gamepad = Gamepad.current;
+                        Debug.Log("Device removed: " + device);
+                        break;
+                }
+            };
+
+            if(gamepad != null)
+            {
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.visible = true;
+            }
         }
     }
 }

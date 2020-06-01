@@ -39,6 +39,11 @@ public class Settings : MonoBehaviour
     [SerializeField] GameObject exitGameQuest;
     [SerializeField] AudioSource source;
 
+    [SerializeField] AudioClip[] audioClips; //El 0 es para el click de los botones, 
+
+
+    [SerializeField] GameObject[] askButtons;
+
     private bool onAwake = true;
     void Awake()
     {
@@ -66,6 +71,7 @@ public class Settings : MonoBehaviour
 
     private void Start()
     {
+
         resolutions[0] = Screen.resolutions[0]; //640 x 480
         resolutions[1] = Screen.resolutions[6]; //1280 x 720
         resolutions[2] = Screen.resolutions[Screen.resolutions.Length - 1]; // La Maxima resolucion
@@ -98,12 +104,14 @@ public class Settings : MonoBehaviour
         {
             if(player.Gamepad != null)
             {
+                source.clip = audioClips[1];
                 source.Play();
             }
             else
             {
                 if (!source.isPlaying)
                 {
+                    source.clip = audioClips[1];
                     source.Play();
                 }
             }
@@ -118,12 +126,14 @@ public class Settings : MonoBehaviour
         {
             if (player.Gamepad != null)
             {
+                source.clip = audioClips[1];
                 source.Play();
             }
             else
             {
                 if (!source.isPlaying)
                 {
+                    source.clip = audioClips[1];
                     source.Play();
                 }
             }
@@ -138,12 +148,14 @@ public class Settings : MonoBehaviour
         {
             if (player.Gamepad != null)
             {
+                source.clip = audioClips[1];
                 source.Play();
             }
             else
             {
                 if (!source.isPlaying)
                 {
+                    source.clip = audioClips[1];
                     source.Play();
                 }
             }
@@ -174,6 +186,9 @@ public class Settings : MonoBehaviour
         exitGameQuest.SetActive(false);
         goToMainMenuQuest.SetActive(false);
 
+        source.clip = audioClips[0];
+        source.Play();
+
         pauseManager.IsOnSettings = false;
         pauseManager.IsOnMap = false;
         pauseManager.IsOnInventory = true;
@@ -190,6 +205,9 @@ public class Settings : MonoBehaviour
         rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
         goToMainMenuQuest.SetActive(false);
+
+        source.clip = audioClips[0];
+        source.Play();
 
         pauseManager.IsOnInventory = false;
         pauseManager.IsOnSettings = false;
@@ -208,6 +226,9 @@ public class Settings : MonoBehaviour
         pauseManager.IsOnMap = false;
         pauseManager.IsOnSettings = true;
 
+        source.clip = audioClips[0];
+        source.Play();
+
         inventoryPanel.SetActive(false);
         mapPanel.SetActive(false);
         settingsPanel.SetActive(true);
@@ -221,7 +242,6 @@ public class Settings : MonoBehaviour
         pauseManager.isPaused = true;
         player.heedArrows = false;
         blackFade.SetActive(true);
-        Time.timeScale = 0f;
         bookContainer.SetActive(true);
 
         InventoryTab();
@@ -240,8 +260,10 @@ public class Settings : MonoBehaviour
         rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
         goToMainMenuQuest.SetActive(false);
-        Time.timeScale = 1f;
         bookContainer.SetActive(false);
+
+        source.clip = audioClips[0];
+        source.Play();
     }
     public void ClickOnSettings()
     {
@@ -250,6 +272,10 @@ public class Settings : MonoBehaviour
         {
             rightOptions.transform.GetChild(i).gameObject.SetActive(true);
         }
+
+        source.clip = audioClips[0];
+        source.Play();
+
         goToMainMenuQuest.SetActive(false);
         exitGameQuest.SetActive(false);
     }
@@ -258,12 +284,18 @@ public class Settings : MonoBehaviour
         rightOptions.SetActive(false);
         exitGameQuest.SetActive(false);
         goToMainMenuQuest.SetActive(true);
+
+        source.clip = audioClips[0];
+        source.Play();
     }
     public void ClickOnExit()
     {
         rightOptions.SetActive(false);
         goToMainMenuQuest.SetActive(false);
         exitGameQuest.SetActive(true);
+
+        source.clip = audioClips[0];
+        source.Play();
     }
 
     public void YesMainMenu()
@@ -271,10 +303,16 @@ public class Settings : MonoBehaviour
         pauseManager.isPaused = false;
         SaveSystem.SavePlayerData(player, inventory, plAttack);
         SceneManager.LoadScene("MainMenuScene");
+
+
     }
     public void NoMainMenu()
     {
         goToMainMenuQuest.SetActive(false);
+        pauseManager.EventSystem.SetearSelectedButton(askButtons[0]);
+
+        source.clip = audioClips[0];
+        source.Play();
     }
 
     public void YesExitGame()
@@ -287,6 +325,10 @@ public class Settings : MonoBehaviour
     public void NoExitGame()
     {
         exitGameQuest.SetActive(false);
+
+        pauseManager.EventSystem.SetearSelectedButton(askButtons[1]);
+        source.clip = audioClips[0];
+        source.Play();
     }
     #endregion
 

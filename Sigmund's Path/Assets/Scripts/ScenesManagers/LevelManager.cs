@@ -523,16 +523,23 @@ public class LevelManager : MonoBehaviour
 
     void CursorController()
     {
-        if (!pauseManager.isPaused && !pauseManager.inShop)
+        if(player.Gamepad != null)
         {
-            //Lockea el cursor en medio de la pantalla y lo deja invisible
             Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if (!pauseManager.isPaused && !pauseManager.inShop)
+            {
+                //Lockea el cursor en medio de la pantalla y lo deja invisible
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
 
