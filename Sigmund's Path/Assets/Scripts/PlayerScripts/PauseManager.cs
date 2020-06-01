@@ -24,7 +24,8 @@ public class PauseManager : MonoBehaviour
     public bool inShop = false;
 
     //[SerializeField] Dropdown qualityDropdown;
-
+    [SerializeField] AudioMixerSnapshot unPausedSnapshot;
+    [SerializeField] AudioMixerSnapshot pausedSnapshot;
 
     public EventSystemManager EventSystem { get => eventSystem; set => eventSystem = value; }
     public bool IsOnSettings { get => isOnSettings; set => isOnSettings = value; }
@@ -72,12 +73,13 @@ public class PauseManager : MonoBehaviour
             {
                 if (isPaused)
                 {
+                    unPausedSnapshot.TransitionTo(0.1f);
                     settings.Resume();
                 }
                 else
                 {
                     settings.Pause();
-				
+                    pausedSnapshot.TransitionTo(0.1f);
                 }
             }
         }

@@ -48,23 +48,10 @@ MonoBehaviour:
   dialogueManager: {fileID: 0}
   dadCanvas: {fileID: 0}
   isPaused: 0
-  isOnInventory: 0
-  isOnSettings: 0
-  isOnMap: 0
   inShop: 0
-  blackFade: {fileID: 0}
-  bookContainer: {fileID: 0}
-  settingsPanel: {fileID: 0}
-  inventoryPanel: {fileID: 0}
-  mapPanel: {fileID: 0}
-  audioMixer: {fileID: 24100000, guid: 00540112acf1861459478fc445d2ea9a, type: 2}
-  sliderVolumen: {fileID: 0}
-  fullScreenToggle: {fileID: 0}
-  qualityDropdown: {fileID: 0}
-  resolutionDropdown: {fileID: 0}
-  rightOptions: {fileID: 0}
-  goToMainMenuQuest: {fileID: 0}
-  exitGameQuest: {fileID: 0}
+  unPausedSnapshot: {fileID: 24500006, guid: 00540112acf1861459478fc445d2ea9a, type: 2}
+  pausedSnapshot: {fileID: -1925473925854412828, guid: 00540112acf1861459478fc445d2ea9a,
+    type: 2}
 --- !u!114 &183552294
 MonoBehaviour:
   m_ObjectHideFlags: 0
