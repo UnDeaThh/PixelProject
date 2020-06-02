@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4218456238238905231}
   - component: {fileID: 123818600755681690}
   - component: {fileID: 1424392399492327685}
+  - component: {fileID: 270067434601723159}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Untagged
@@ -100,3 +101,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &270067434601723159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028030883103138137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e32d52c13f8f040a5ae24b089e77a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

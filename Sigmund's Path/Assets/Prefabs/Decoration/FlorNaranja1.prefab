@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3022001946639273072}
   - component: {fileID: 6610686103906232515}
   - component: {fileID: 3874462888300715146}
+  - component: {fileID: 5941208855556518113}
   m_Layer: 0
   m_Name: FlorNaranja1
   m_TagString: Untagged
@@ -102,6 +103,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5941208855556518113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568871513400206131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e32d52c13f8f040a5ae24b089e77a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6279807159651004757
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 59539731481885380}
   - component: {fileID: 59539731481885381}
   - component: {fileID: 4206337767333948541}
+  - component: {fileID: 70531153105261186}
   m_Layer: 0
   m_Name: Hierbajo2
   m_TagString: Untagged
@@ -100,3 +101,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &70531153105261186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59539731481885402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e32d52c13f8f040a5ae24b089e77a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

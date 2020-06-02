@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 938530908358805287}
   - component: {fileID: 7018319914311925875}
   - component: {fileID: 9086386086800979600}
+  - component: {fileID: 4780061809071518768}
   m_Layer: 0
   m_Name: FlorRosa1
   m_TagString: Untagged
@@ -102,6 +103,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4780061809071518768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2438553089479917535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e32d52c13f8f040a5ae24b089e77a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5722015413264752892
 GameObject:
   m_ObjectHideFlags: 0
