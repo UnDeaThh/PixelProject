@@ -126,6 +126,16 @@ public class Altar : MonoBehaviour
                         }
                         break;
                     case AltarType.WallJump:
+                        imageInstructions.transform.localScale = Vector3.one;
+                        imageInstructions.SetNativeSize();
+                        if (player.Gamepad != null)
+                        {
+                            imageInstructions.sprite = jumpDeviceSprite[1];
+                        }
+                        else
+                        {
+                            imageInstructions.sprite = jumpDeviceSprite[0];
+                        }
                         break;
                     default:
                         break;
