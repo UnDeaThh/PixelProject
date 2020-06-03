@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -27462,6 +27462,8 @@ MonoBehaviour:
   - {fileID: 455969670}
   - {fileID: 702030731}
   fountainPos: {fileID: 0}
+  listener: {fileID: 6353522947714438168, guid: 970d03d2016ed9949aaf279664c78e96,
+    type: 3}
   levelScene: 23
 --- !u!4 &2144834167
 Transform:
@@ -28062,6 +28064,56 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1138649956131322477, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1138649956131322477, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1138649956131322477, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772724365487250244, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772724365487250244, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3242740091284680314, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3242740091284680314, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4250395055372062456, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4250395055372062456, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4250395055372062456, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6412116302991377880, guid: 182569db9a00abe4db14b9ad7f8b9566,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -28700,6 +28752,31 @@ PrefabInstance:
     - target: {fileID: 6412116305076527097, guid: 182569db9a00abe4db14b9ad7f8b9566,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7835106580133955313, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7835106580133955313, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7835106580133955313, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880322917294105453, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880322917294105453, guid: 182569db9a00abe4db14b9ad7f8b9566,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

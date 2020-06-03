@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -31488,6 +31488,8 @@ MonoBehaviour:
   - {fileID: 1515284896}
   - {fileID: 906901180}
   fountainPos: {fileID: 970656694}
+  listener: {fileID: 6353522947714438168, guid: 970d03d2016ed9949aaf279664c78e96,
+    type: 3}
   levelScene: 13
 --- !u!4 &2144834167
 Transform:

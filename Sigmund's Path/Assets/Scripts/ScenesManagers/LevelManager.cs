@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Transform[] apearsPos;
     private PauseManager pauseManager;
     public Transform fountainPos;
+    [SerializeField] GameObject listener;
 
     public int levelScene;
 
@@ -42,6 +43,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        Instantiate(listener, player.transform.position, Quaternion.identity);
         ResetAudioManager();
     }
 

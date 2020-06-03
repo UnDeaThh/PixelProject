@@ -1108,7 +1108,6 @@ GameObject:
   - component: {fileID: 3730924781311067699}
   - component: {fileID: 3944529619844876993}
   - component: {fileID: 8299661826070670118}
-  - component: {fileID: 2460550204698833763}
   - component: {fileID: 199585660}
   - component: {fileID: 3934952846867236418}
   m_Layer: 10
@@ -1331,14 +1330,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.43, y: 2.95}
   m_Direction: 0
---- !u!81 &2460550204698833763
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2851571069916491046}
-  m_Enabled: 1
 --- !u!95 &199585660
 Animator:
   serializedVersion: 3
