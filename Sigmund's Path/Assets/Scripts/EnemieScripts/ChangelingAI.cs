@@ -38,6 +38,7 @@ public class ChangelingAI : BaseEnemy
         graphic = GetComponentInChildren<SpriteRenderer>();
         mat = graphic.material;
         anim = GetComponentInChildren<Animator>();
+        anim.SetFloat("randomStart", Random.Range(0.00f, 1.00f));
         normalColor = graphic.color;
     }
     private void Update()

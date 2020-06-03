@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8431980089389678630}
   - component: {fileID: 3192554149929552994}
   - component: {fileID: 286096548030539138}
+  - component: {fileID: 8503155879602202397}
   m_Layer: 0
   m_Name: Brocoli Grande
   m_TagString: Untagged
@@ -94,3 +95,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e32d52c13f8f040a5ae24b089e77a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &8503155879602202397
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013216678599741534}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e8c84813ff1cfa64f835f40ea39f9ad2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
