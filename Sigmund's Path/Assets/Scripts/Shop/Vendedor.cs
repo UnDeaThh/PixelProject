@@ -26,6 +26,8 @@ public class Vendedor : MonoBehaviour
     public bool inShop = false;
     private bool playerClose = false;
 
+    [SerializeField] GameObject talkIcon;
+
     //Audio
     [SerializeField] AudioSource source;
     [SerializeField] AudioClip exitClipSound;
@@ -77,6 +79,7 @@ public class Vendedor : MonoBehaviour
     {
         if (playerClose)
         {
+            talkIcon.SetActive(true);
             buttonImage.SetNativeSize();
             pressText.SetActive(true);
             if(player.Gamepad != null)
@@ -89,7 +92,10 @@ public class Vendedor : MonoBehaviour
             }
         }
         else
+        {
+            talkIcon.SetActive(false);
             pressText.SetActive(false);
+        }
     }
     void ActiveShopUi()
     {

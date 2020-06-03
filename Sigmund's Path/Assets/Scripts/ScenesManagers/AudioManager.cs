@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
@@ -9,6 +10,9 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] AudioSource[] songSource;
     [SerializeField] AudioSource[] bossSongSource;
+
+    [SerializeField] AudioSource ambientSound;
+    [SerializeField] AudioSource rainSound;
 
     private bool playedFirstSong = false;
     private bool ffScene;
@@ -45,6 +49,7 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+
         if (SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene" && SceneManager.GetActiveScene().name != "Boss2Scene")
         {
             if (!songSource[0].isPlaying && !songSource[1].isPlaying)
@@ -52,16 +57,43 @@ public class AudioManager : MonoBehaviour
                 instanceAudio.songSource[0].Play();
                 playedFirstSong = true;
             }
+
+            if (!ambientSound.isPlaying)
+            {
+                ambientSound.Play();
+            }
         }
         else
         {
             instanceAudio.songSource[0].Stop();
             instanceAudio.songSource[0].Stop();
+            ambientSound.Stop();
         }
     }
     private void Update()
     {
-        if(SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene" && SceneManager.GetActiveScene().name != "Boss2Scene")
+
+        #region RainSound
+        if(SceneManager.GetActiveScene().buildIndex >= 14 && SceneManager.GetActiveScene().buildIndex <= 23)
+        {
+            if(SceneManager.GetActiveScene().buildIndex == 22)
+            {
+                rainSound.Stop();
+            }
+            else
+            {
+                if (!rainSound.isPlaying)
+                {
+                    rainSound.Play();
+                }
+            }
+        }
+        else
+        {
+            rainSound.Stop();
+        }
+        #endregion
+        if (SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene" && SceneManager.GetActiveScene().name != "Boss2Scene")
         {
             if (!songSource[0].isPlaying && playedFirstSong)
             {
@@ -78,13 +110,22 @@ public class AudioManager : MonoBehaviour
                     playedFirstSong = true;
                 }
             }
+
+            if (!ambientSound.isPlaying)
+            {
+                ambientSound.Play();
+            }
         }
-
-
 
 
         else
         {
+
+            if (ambientSound.isPlaying)
+            {
+                ambientSound.Stop();
+            }
+
             DesconectNormalSongOnBossScene();
             FadeVolumeOnDead();
             if(startBossSong && !endBossSong)
