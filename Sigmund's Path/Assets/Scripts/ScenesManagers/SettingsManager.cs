@@ -22,7 +22,12 @@ public class SettingsManager : MonoBehaviour
     [Header("RESOLUTION ATRIBUTES")]
     [SerializeField] Dropdown resolutionDropdown;
     private Resolution[] resolutions = new Resolution[3];
-   // private int currentResolutionIndex = 0;
+    // private int currentResolutionIndex = 0;
+
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip[] audioClips;
+
+    private bool onAwake = true;
     private void Awake()
     {
         ResolutionsForDropdown();
@@ -44,7 +49,10 @@ public class SettingsManager : MonoBehaviour
 
         fullScreenToggle.isOn = intToBool(PlayerPrefs.GetInt("isFullScreen", 1));
         Debug.Log(resolutionDropdown.value);
+
+        onAwake = false;
     }
+
     private void ResolutionsForDropdown()
     {
         resolutions[0] = Screen.resolutions[0]; //640 x 480
@@ -76,22 +84,72 @@ public class SettingsManager : MonoBehaviour
     public void BackMenuButton()
     {
         PlayerPrefs.Save();
+        source.clip = audioClips[0];
+        source.Play();
         SceneManager.LoadScene("MainMenuScene");
     }
 
     public void SetMasterVolume(float value)
     {
         audioMixer.SetFloat(masterVolume, value);
+        if (!onAwake)
+        {
+            if (ScenesManager.scenesManager.Gamepad != null)
+            {
+                source.clip = audioClips[1];
+                source.Play();
+            }
+            else
+            {
+                if (!source.isPlaying)
+                {
+                    source.clip = audioClips[1];
+                    source.Play();
+                }
+            }
+        }
         PlayerPrefs.SetFloat(masterVolume, value);
     }
     public void SetMusicVolume(float value)
     {
         audioMixer.SetFloat(musicVolume, value);
+        if (!onAwake)
+        {
+            if (ScenesManager.scenesManager.Gamepad != null)
+            {
+                source.clip = audioClips[1];
+                source.Play();
+            }
+            else
+            {
+                if (!source.isPlaying)
+                {
+                    source.clip = audioClips[1];
+                    source.Play();
+                }
+            }
+        }
         PlayerPrefs.SetFloat(musicVolume, value);
     }
     public void SetFXVolume(float value)
     {
         audioMixer.SetFloat(fxVolume, value);
+        if (!onAwake)
+        {
+            if (ScenesManager.scenesManager.Gamepad != null)
+            {
+                source.clip = audioClips[1];
+                source.Play();
+            }
+            else
+            {
+                if (!source.isPlaying)
+                {
+                    source.clip = audioClips[1];
+                    source.Play();
+                }
+            }
+        }
         PlayerPrefs.SetFloat(fxVolume, value);
     }
 

@@ -39,6 +39,7 @@ public class ScenesManager : MonoBehaviour
     public bool[] PalancasState { get => palancasState; set => palancasState = value; }
     public bool[] HeartsPickUp { get => heartsPickUp; set => heartsPickUp = value; }
     public bool[] CumuloState { get => cumuloState; set => cumuloState = value; }
+    public Gamepad Gamepad { get => gamepad; set => gamepad = value; }
 
     private void Awake()
     {
@@ -52,7 +53,6 @@ public class ScenesManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         LoadSceneManager();
-        
     }
     private void Update()
     {
@@ -157,7 +157,7 @@ public class ScenesManager : MonoBehaviour
 
     public void CursorController()
     {
-        if(actualScene == 1 || actualScene == 2)
+        if(actualScene == 2 || actualScene == 3)
         {
             InputSystem.onDeviceChange +=
             (device, change) =>

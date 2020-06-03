@@ -39,7 +39,7 @@ public class Settings : MonoBehaviour
     [SerializeField] GameObject exitGameQuest;
     [SerializeField] AudioSource source;
 
-    [SerializeField] AudioClip[] audioClips; //El 0 es para el click de los botones, 
+    [SerializeField] AudioClip[] audioClips; //El 0 es para el click de los botones, el 1 para los sliders 
 
 
     [SerializeField] GameObject[] askButtons;
