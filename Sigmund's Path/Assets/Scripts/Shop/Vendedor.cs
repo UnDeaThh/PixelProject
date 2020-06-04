@@ -10,6 +10,7 @@ public class Vendedor : MonoBehaviour
 {
     [SerializeField] int vendedorNumber;
     private bool alreadyTalk = false;
+    [SerializeField] NpcDialogue npcDialogue;
     private PlayerInputs inputs;
 
     public Canvas canvasVendedor;
@@ -40,6 +41,7 @@ public class Vendedor : MonoBehaviour
     private bool ffShop = false;
 
     public GameObject FirstSelected { get => firstSelected; set => firstSelected = value; }
+    public bool AlreadyTalk { get => alreadyTalk; set => alreadyTalk = value; }
     #endregion
     private void Awake()
     {
@@ -155,18 +157,28 @@ public class Vendedor : MonoBehaviour
                 playerClose = true;
                 if (player.inputs.Controls.Interact.triggered)
                 {
-                    alreadyTalk = true;
-                    ScenesManager.scenesManager.ShopUnlocked[vendedorNumber] = true;
-                    SaveSystem.SaveSceneData(ScenesManager.scenesManager);
-
-                    inShop = true;
-                    source.clip = enterSound;
-                    source.Play();
-                    ffShop = true;
-                    pauseManager.inShop = true;
+                    if (alreadyTalk)
+                    {
+                        EnterShop();
+                    }
+                    else
+                    {
+                        npcDialogue.TriggerDialogue();
+                        ScenesManager.scenesManager.ShopUnlocked[vendedorNumber] = true;
+                        SaveSystem.SaveSceneData(ScenesManager.scenesManager);
+                    }
                 }
             }
         }
+    }
+
+    public void EnterShop()
+    {
+        inShop = true;
+        source.clip = enterSound;
+        source.Play();
+        ffShop = true;
+        pauseManager.inShop = true;
     }
 
     private void OnTriggerExit2D(Collider2D other)
