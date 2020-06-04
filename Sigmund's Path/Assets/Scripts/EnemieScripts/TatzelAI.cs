@@ -14,9 +14,6 @@ public class TatzelAI : BaseEnemy
     private bool playerFounded;
     private bool playerJustInFront;
 
-
-
-
     private bool canAttack = false;
     private bool attack;
 
@@ -30,6 +27,7 @@ public class TatzelAI : BaseEnemy
     [SerializeField] float maxDistanceToPlayer;
     [SerializeField] float groundDistance;
     [SerializeField] float checkDistance;
+    [SerializeField] float maxHeight;
 
     [SerializeField] float timeBtwAttacks = 2f;
     [SerializeField] float cntTimeBtwAttacks;
@@ -38,8 +36,10 @@ public class TatzelAI : BaseEnemy
     [SerializeField] Transform groundCheckerPos;
     [SerializeField] Transform frontCheckerPos;
     [SerializeField] Transform backChecker;
+    [SerializeField] Transform frontChecker;
     [SerializeField] Transform attackPos;
 
+    [SerializeField] Vector2 frontArea;
     [SerializeField] Vector2 backArea;
     [SerializeField] Vector2 attackRange;
     [SerializeField] LayerMask playerMask;
@@ -116,12 +116,15 @@ public class TatzelAI : BaseEnemy
         groundFound = Physics2D.Raycast(frontCheckerPos.position, Vector2.down, checkDistance, whatIsDetected);
         wallFound = Physics2D.Raycast(frontCheckerPos.position, transform.right, checkDistance, whatIsDetected);
 
+
+        playerFoundedFront = Physics2D.OverlapBox(frontChecker.position, frontArea, 0, playerMask);
+
         playerFoundedBack = Physics2D.OverlapBox(backChecker.position, backArea, 0, playerMask);
         if (playerFoundedBack)
         {
             ffBack = true;
         }
- 
+ /*
         if(facingDir > 0)
         {
             if(player.position.x > transform.position.x && player.position.x <= transform.position.x + frontDistance)
@@ -144,6 +147,7 @@ public class TatzelAI : BaseEnemy
                 playerFoundedFront = false;
             }
         }
+        */
 
         if (playerFoundedBack || playerFoundedFront)
         {
@@ -202,12 +206,18 @@ public class TatzelAI : BaseEnemy
                     Flip();
                     ffBack = false;
                 }
-
                 if (playerFoundedFront && !playerJustInFront)
                 {
-                    if (!attack)
+                    if(!wallFound && groundFound)
                     {
-                        rb.velocity = new Vector2(facingDir * runingSpeed * Time.deltaTime, rb.velocity.y);
+                        if (!attack)
+                        {
+                            rb.velocity = new Vector2(facingDir * runingSpeed * Time.deltaTime, rb.velocity.y);
+                        }
+                    }
+                    else
+                    {
+                        rb.velocity = Vector2.zero;
                     }
                 }
 
@@ -319,11 +329,14 @@ public class TatzelAI : BaseEnemy
         }
 
 
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + frontDistance * facingDir, transform.position.y, 0));
+      //  Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + frontDistance * facingDir, transform.position.y, 0));
         
 
         Gizmos.DrawWireCube(backChecker.position, backArea);
+        Gizmos.DrawWireCube(frontChecker.position, frontArea);
 
         Gizmos.DrawWireCube(attackPos.position, attackRange);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y + maxHeight));
     }
 }
