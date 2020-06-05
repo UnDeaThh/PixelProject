@@ -29,6 +29,7 @@ public class NachAI : BaseEnemy
     private Transform player;
 
     [SerializeField] LayerMask waterLayer;
+    [SerializeField] AudioSource jumpSource;
 
     private void Start()
     {
@@ -101,6 +102,8 @@ public class NachAI : BaseEnemy
         {
             if (makeJump)
             {
+                jumpSource.pitch = Random.Range(0.7f, 1.2f);
+                jumpSource.Play();
                 anim.SetTrigger("isJump");
                 if(facingDir == 1)
                 {

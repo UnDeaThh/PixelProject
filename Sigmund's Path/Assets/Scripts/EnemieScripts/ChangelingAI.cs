@@ -30,6 +30,9 @@ public class ChangelingAI : BaseEnemy
 
     private bool ffStuned;
     [SerializeField] float stunedForce;
+    [SerializeField] AudioSource aleteoSource;
+    [SerializeField] AudioSource screamSource;
+    private bool oneScream = false;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -169,8 +172,13 @@ public class ChangelingAI : BaseEnemy
     {
         if (collision.CompareTag("Player"))
         {
-             isChasing = true;
-             InvokeRepeating("UpdatePath", 0f, .5f);
+            isChasing = true;
+            if (!oneScream)
+            {
+                screamSource.Play();
+                oneScream = true;
+            }
+            InvokeRepeating("UpdatePath", 0f, .5f);
         }
     }     
 
@@ -195,4 +203,9 @@ public class ChangelingAI : BaseEnemy
         base.Dead();
     }
 
+    public void MakeAleteoSound()
+    {
+        aleteoSource.pitch = Random.Range(0.8f, 1.2f);
+        aleteoSource.Play();
+    }
 }

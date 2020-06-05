@@ -17,4 +17,8 @@ public class ChangelingEvent : MonoBehaviour
         changelingBrain.InstantiateSoul(changelingBrain.enemyType);
     }
     
+    void AleteoSound()
+    {
+        changelingBrain.MakeAleteoSound();
+    }
 }
