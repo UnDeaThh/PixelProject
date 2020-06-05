@@ -61,6 +61,7 @@ public class BossBase : MonoBehaviour
                 ScenesManager.scenesManager.BossKilled[nBoss] = true;
                 SaveSystem.SaveSceneData(ScenesManager.scenesManager);
                 isDisolve = false;
+                Debug.Log("YaEstaria");
             }
             mat.SetFloat("_Fade", fade);
         }

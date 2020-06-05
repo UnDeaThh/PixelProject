@@ -25,7 +25,7 @@ public class BossDoor : MonoBehaviour
             doorGO = transform.GetChild(0).gameObject;
         }
         bossNumber = bossNumber - 1;
-        if (ScenesManager.scenesManager.BossKilled[bossNumber])
+        if (ScenesManager.scenesManager.BossKilled[bossNumber] && bossNumber != 2)
         {
             Destroy(gameObject);
         }
@@ -76,7 +76,7 @@ public class BossDoor : MonoBehaviour
                 }
             }
         }
-        else
+        else if(ScenesManager.scenesManager.BossKilled[bossNumber])
         {
             if (doorGO.transform.position.y > doorOpenPos.y)
             {

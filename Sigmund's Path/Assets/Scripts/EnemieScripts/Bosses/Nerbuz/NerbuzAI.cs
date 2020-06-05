@@ -111,6 +111,14 @@ public class NerbuzAI : BossBase
     bool oneShake = false;
     [SerializeField] AudioSource earthquakeSound;
     private Animator anim;
+
+    private void Awake()
+    {
+        if (ScenesManager.scenesManager.BossKilled[nBoss])
+        {
+            Debug.Log("Esta Muerta");
+        }
+    }
     void Start()
     {
         actualState = State.Nothing;
@@ -251,6 +259,7 @@ public class NerbuzAI : BossBase
                                 {
                                     Shield shield = FindObjectOfType<Shield>();
                                     shield.IsDisolve = true;
+                                    col.enabled = true;
                                     deactivateShield = true;
                                 }
                                 if (!reachedTiredPos)
@@ -430,6 +439,7 @@ public class NerbuzAI : BossBase
                             {
                                 Instantiate(shield, transform.position, Quaternion.identity);
                                 shieldActivated = true;
+                                col.enabled = false;
                                 if(cntSeriesH2 == seriesH2)
                                 {
                                     cntSeriesH2 = 0;
@@ -691,8 +701,6 @@ public class NerbuzAI : BossBase
                             rb.velocity = Vector2.zero;
                         }
                     }
-                    break;
-                case State.Dead:
                     break;
                 case State.Nothing:
                     break;

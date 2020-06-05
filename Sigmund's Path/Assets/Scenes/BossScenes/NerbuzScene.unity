@@ -7401,7 +7401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nBoss: 2
-  nLifes: 35
+  nLifes: 1
   audioSource: {fileID: 1984770783}
   amplitudeShaking: 0
   frequencyShaking: 0
@@ -7529,13 +7529,12 @@ MonoBehaviour:
   dialogue:
     name: Nerbuz
     sentences:
-    - Malditos humano siempre destruyendolo todo, creyendose que todo les pertence.
-    - Legas demasiado tarde, ya no puedes hacer nada
-    - "En cuanto el ritual este completo ella ascendera y acabar\xE1 con todos vosotros."
-    - "Tantos a\xF1os esperando este momento..."
-    - "No dejar\xE9 que te entrometas mas, esto se ha acabado para ti y los de tu
-      especie!"
-    - Aqui se acaba tu camino!
+    - "Damn humans, always destroying everything, thinking that all belongs to them.\r\n"
+    - You are too late, there is nothing you can do now.
+    - "Once the ritual is complete, she will rise and put an end to all of you.\r\n"
+    - "So many years waiting for this moment\u2026\r\n"
+    - "I will not let you interfere with my plan, this is the end for you and your
+      species.\r\n"
 --- !u!114 &694569788 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9102231519660464523, guid: 3f32e89eb2d6ea148884c6a8357c65da,
@@ -8287,7 +8286,7 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.82278514, g: 0.8156863, b: 0.90588236, a: 1}
+  m_Color: {r: 0.85800004, g: 0.34234202, b: 0.4131185, a: 1}
   m_Intensity: 1.2
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: a356dce0
@@ -10656,6 +10655,76 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1540114223}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1558430108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1558430109}
+  - component: {fileID: 1558430110}
+  m_Layer: 0
+  m_Name: Point Light 2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1558430109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558430108}
+  m_LocalRotation: {x: -0, y: -0, z: -0.07130527, w: 0.9974546}
+  m_LocalPosition: {x: 340.83, y: -28.04, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1617753287}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1558430110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558430108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.542
+  m_Color: {r: 1, g: 0.8162689, b: 0.0047169924, a: 1}
+  m_Intensity: 1.32
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000a356dce02d7735697761412ef114247c41024a9f
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 9.018146
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 16.65
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -1.8334581, y: -3.2174375, z: 0}
+  - {x: 3.2290425, y: -2.3329232, z: 0}
+  - {x: 2.436312, y: 3.6248226, z: 0}
+  - {x: -3.0080523, y: 3.0262167, z: 0}
 --- !u!114 &1581019197 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6412116303609335152, guid: 182569db9a00abe4db14b9ad7f8b9566,
@@ -10758,12 +10827,12 @@ PrefabInstance:
     - target: {fileID: 3961730025825050005, guid: bf970b261ad852d41a66a22f24503989,
         type: 3}
       propertyPath: m_Size.x
-      value: 19.5
+      value: 17.569464
       objectReference: {fileID: 0}
     - target: {fileID: 3961730025825050005, guid: bf970b261ad852d41a66a22f24503989,
         type: 3}
       propertyPath: m_Offset.x
-      value: 10.6
+      value: 9.634732
       objectReference: {fileID: 0}
     - target: {fileID: 3961730025825050005, guid: bf970b261ad852d41a66a22f24503989,
         type: 3}
@@ -10778,7 +10847,7 @@ PrefabInstance:
     - target: {fileID: 3961730025825050006, guid: bf970b261ad852d41a66a22f24503989,
         type: 3}
       propertyPath: bossNumber
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf970b261ad852d41a66a22f24503989, type: 3}
@@ -10901,6 +10970,7 @@ Transform:
   - {fileID: 1020258589}
   - {fileID: 412016650}
   - {fileID: 2005650335}
+  - {fileID: 1558430109}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10960,6 +11030,96 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 24.6, y: 13.38}
+  m_EdgeRadius: 0
+--- !u!1 &1639701887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639701889}
+  - component: {fileID: 1639701888}
+  - component: {fileID: 1639701891}
+  - component: {fileID: 1639701890}
+  m_Layer: 0
+  m_Name: Daughter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1639701888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639701887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7213264449c7cb418edd3f1c3464a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    name: ???
+    sentences:
+    - Dady?
+    - '......'
+    - '......'
+    - is it you?
+--- !u!4 &1639701889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639701887}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 324.5, y: -15.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1639701890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639701887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902b60fc3916179469e7ff37e057448f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &1639701891
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639701887}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -3.55542, y: 0.49228764}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.1262817, y: 8.001379}
   m_EdgeRadius: 0
 --- !u!1001 &1647445875
 PrefabInstance:
@@ -16967,7 +17127,7 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.7830189, g: 0.6832948, b: 0.6832948, a: 1}
+  m_Color: {r: 0.8509804, g: 0.22636077, b: 0.34937093, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 000000002d7735697761412ef114247c41024a9f

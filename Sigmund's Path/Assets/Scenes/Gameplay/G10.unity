@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -24194,6 +24194,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470893260127851332, guid: 7ec21239574adc546ba4b720de214090,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470893260127851332, guid: 7ec21239574adc546ba4b720de214090,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[3]
+      value: "y esta ser\xE1 la ultima frase de dicho texto, bro"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470893260127851332, guid: 7ec21239574adc546ba4b720de214090,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[4]
+      value: "it\u2019s probably the cause of all these weather changes"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470893260127851332, guid: 7ec21239574adc546ba4b720de214090,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[5]
+      value: "That\u2019s a cool hat! Although it wouldn\u2019t look as good on me.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470893260127851332, guid: 7ec21239574adc546ba4b720de214090,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[0]
+      value: "Oh you\u2019re still here?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470893260127851332, guid: 7ec21239574adc546ba4b720de214090,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[1]
+      value: Things are really getting serious now
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470893260127851332, guid: 7ec21239574adc546ba4b720de214090,
+        type: 3}
+      propertyPath: dialogue.sentences.Array.data[2]
+      value: "I\u2019ve heard that the ritual has already begun"
       objectReference: {fileID: 0}
     - target: {fileID: 3741624809869396154, guid: 7ec21239574adc546ba4b720de214090,
         type: 3}
