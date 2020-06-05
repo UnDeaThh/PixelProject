@@ -179,10 +179,12 @@ public class ScenesManager : MonoBehaviour
             if(gamepad != null)
             {
                 Cursor.visible = false;
+                
             }
             else
             {
                 Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }

@@ -72,24 +72,31 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         talking = false;
-        if(SceneManager.GetActiveScene().name == "T2") //HABLANDO CON EL ASKA
+        if(dialogo.name != "???")
         {
-            FindObjectOfType<Askafroa>().isSleeping = true;
-            ScenesManager.scenesManager.FirstTalkAska = true;
-            SaveSystem.SaveSceneData(ScenesManager.scenesManager);
-        }
-        else if(SceneManager.GetActiveScene().name == "NerbuzScene") // Al acabar de hablar con nerbuz
-        {
-            FindObjectOfType<NerbuzAI>().ActualState = State.Enter;
-            AudioManager.instanceAudio.StartBossSong = true;
-        }
-        if(dialogo.name == "Blemmis")
-        {
-            GameObject.FindGameObjectWithTag("Vendedor").GetComponent<Vendedor>().AlreadyTalk = true;
-            GameObject.FindGameObjectWithTag("Vendedor").GetComponent<Vendedor>().EnterShop();
-        }
+            if(SceneManager.GetActiveScene().name == "T2") //HABLANDO CON EL ASKA
+            {
+                FindObjectOfType<Askafroa>().isSleeping = true;
+                ScenesManager.scenesManager.FirstTalkAska = true;
+                SaveSystem.SaveSceneData(ScenesManager.scenesManager);
+            }
+            else if(SceneManager.GetActiveScene().name == "NerbuzScene") // Al acabar de hablar con nerbuz
+            {
+                FindObjectOfType<NerbuzAI>().ActualState = State.Enter;
+                AudioManager.instanceAudio.StartBossSong = true;
+            }
+            if(dialogo.name == "Blemmis")
+            {
+                GameObject.FindGameObjectWithTag("Vendedor").GetComponent<Vendedor>().AlreadyTalk = true;
+                GameObject.FindGameObjectWithTag("Vendedor").GetComponent<Vendedor>().EnterShop();
+            }
 
-        bgDialogue.SetActive(false);
-        player.isOnKinematic = false;
+            bgDialogue.SetActive(false);
+            player.isOnKinematic = false;
+        }
+        else
+        {
+
+        }
     }
 }

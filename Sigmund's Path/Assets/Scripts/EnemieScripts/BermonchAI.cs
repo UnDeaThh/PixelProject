@@ -250,7 +250,7 @@ public class BermonchAI : BaseEnemy
             {
                 buildSound.Play();
             }
-            CntTimeBtwAttack = timeBtwAttack;
+            CntTimeBtwAttack = 0.5f;
         }
     }
 

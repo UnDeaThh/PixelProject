@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.LWRP;
+using UnityEngine.UI;
 
 public class HeartPickUp : MonoBehaviour
 {
@@ -14,12 +15,16 @@ public class HeartPickUp : MonoBehaviour
     private AudioSource sound;
     public int numberOfHeart = 0;
     private bool alreadyPicked;
+    [SerializeField] Image image;
+    [SerializeField] Sprite[] deviceButtons;
+    [SerializeField] GameObject canvasObject;
     private void Start()
     {
         mat = GetComponent<SpriteRenderer>().material;
         col = GetComponent<Collider2D>();
         sound = GetComponent<AudioSource>();
 
+        canvasObject.SetActive(false);
         alreadyPicked = ScenesManager.scenesManager.HeartsPickUp[numberOfHeart];
         if (alreadyPicked)
         {
@@ -53,14 +58,28 @@ public class HeartPickUp : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        CanvasController();
     }
 
+    void CanvasController()
+    {
+        if(player.Gamepad != null)
+        {
+            image.sprite = deviceButtons[1];
+        }
+        else
+        {
+            image.sprite = deviceButtons[0];
+        }
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!alreadyPicked)
         {
             if (other.CompareTag("Player"))
             {
+                canvasObject.SetActive(true);
                 player = other.GetComponent<PlayerController2>();
             }
         }
@@ -75,6 +94,7 @@ public class HeartPickUp : MonoBehaviour
                 {
                     disolve = true;
                     alreadyPicked = true;
+                    canvasObject.SetActive(false);
                     col.enabled = false;
                     sound.Play();
                     ScenesManager.scenesManager.HeartsPickUp.SetValue(true, numberOfHeart);
@@ -82,6 +102,14 @@ public class HeartPickUp : MonoBehaviour
                     SaveSystem.SaveSceneData(ScenesManager.scenesManager);
                 }
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            canvasObject.SetActive(false);
         }
     }
 }
