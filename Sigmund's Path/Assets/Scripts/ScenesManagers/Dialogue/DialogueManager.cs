@@ -96,7 +96,8 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-
+            bgDialogue.SetActive(false);
+            GameObject.FindObjectOfType<Daughter>().DialogueEnded = true;
         }
     }
 }
