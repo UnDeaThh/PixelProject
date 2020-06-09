@@ -160,4 +160,11 @@ public class AnimationController : MonoBehaviour
             ffDead = true;
         }
     }
+
+
+    void WalkSounds()
+    {
+        plAudio.walkSound.pitch = Random.Range(0.75f, 1.3f);
+        plAudio.walkSound.Play();
+    }
 }

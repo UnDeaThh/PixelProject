@@ -16,14 +16,14 @@ public class ScenesManager : MonoBehaviour
     public bool comeFromDead = false;
     private bool apearsOnFountain = false;
 
-    private bool[] palancasState = new bool[10];
-    private bool[] heartsPickUp = new bool[10];
-    private bool[] cumuloState = new bool[20];
+    private bool[] palancasState = new bool[7];
+    private bool[] heartsPickUp = new bool[5];
+    private bool[] cumuloState = new bool[12];
     private bool[] unlokedZone = new bool[26];
     private bool[] bossKilled = new bool[3];
-    private bool[] destruibleWall = new bool[50];
+    private bool[] destruibleWall = new bool[10];
     private bool[] fountainUnlocked = new bool[5];
-    public bool cutSceneDone = false;
+    private bool cutSceneDone = false;
     private bool swordPicked;
     private bool firstTalkAska;
     private bool[] shopUnlocked = new bool[3];
@@ -40,6 +40,7 @@ public class ScenesManager : MonoBehaviour
     public bool[] HeartsPickUp { get => heartsPickUp; set => heartsPickUp = value; }
     public bool[] CumuloState { get => cumuloState; set => cumuloState = value; }
     public Gamepad Gamepad { get => gamepad; set => gamepad = value; }
+    public bool CutSceneDone { get => cutSceneDone; set => cutSceneDone = value; }
 
     private void Awake()
     {

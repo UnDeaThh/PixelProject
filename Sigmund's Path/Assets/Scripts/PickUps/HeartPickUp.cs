@@ -20,6 +20,7 @@ public class HeartPickUp : MonoBehaviour
     [SerializeField] GameObject canvasObject;
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         mat = GetComponent<SpriteRenderer>().material;
         col = GetComponent<Collider2D>();
         sound = GetComponent<AudioSource>();
@@ -80,7 +81,6 @@ public class HeartPickUp : MonoBehaviour
             if (other.CompareTag("Player"))
             {
                 canvasObject.SetActive(true);
-                player = other.GetComponent<PlayerController2>();
             }
         }
     }

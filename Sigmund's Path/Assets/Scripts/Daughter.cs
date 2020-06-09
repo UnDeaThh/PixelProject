@@ -10,12 +10,16 @@ public class Daughter : MonoBehaviour
     [SerializeField] Image blackImage;
     [SerializeField] float alphaGain;
     float alpha = 0.0f;
+    [SerializeField] GameObject logo;
+
+    private bool justOneEnd;
 
     public bool DialogueEnded { get => dialogueEnded; set => dialogueEnded = value; }
 
 
     private void Start()
     {
+        logo.SetActive(false);
         blackImage.color = new Color(0f, 0f, 0f, 0f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,8 +41,20 @@ public class Daughter : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("CreditsScene");
+                if (!justOneEnd)
+                {
+                    StartCoroutine(EndGame());
+                    justOneEnd = false;
+                }
             }
         }
+    }
+
+    IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(1f);
+        logo.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("CreditsScene");
     }
 }

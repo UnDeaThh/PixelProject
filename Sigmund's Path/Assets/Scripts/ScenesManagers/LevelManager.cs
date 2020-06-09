@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
     void PlayerPosition()
     {
         
-        if (ScenesManager.scenesManager.cutSceneDone)
+        if (ScenesManager.scenesManager.CutSceneDone)
         {
             if (ScenesManager.scenesManager.ApearsOnFountain)
             {

@@ -287,6 +287,7 @@ MonoBehaviour:
   - {fileID: 8580557716333100210}
   heartSound: {fileID: 9107280279503310402}
   teleportSound: {fileID: 7214369649884709704}
+  walkGrassSound: {fileID: 8300000, guid: 18ae087bae938ea4bbf59119c56b59d5, type: 3}
 --- !u!82 &3578369436385979389
 AudioSource:
   m_ObjectHideFlags: 0
@@ -399,7 +400,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

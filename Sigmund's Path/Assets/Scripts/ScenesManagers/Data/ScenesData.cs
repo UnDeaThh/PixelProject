@@ -23,7 +23,7 @@ public class ScenesData
     public ScenesData(ScenesManager SM)
     {
         toLoadScene = SM.toLoadScene;
-        cutSceneDone = SM.cutSceneDone;
+        cutSceneDone = SM.CutSceneDone;
         apearsOnFountain = SM.ApearsOnFountain;
 
         for (int i = 0; i < SM.PalancasState.Length; i++)

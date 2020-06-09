@@ -356,6 +356,9 @@ public class ShopController : MonoBehaviour
                 case 4:
                     Inventory2.inventory.swordPasive = true;
                     break;
+                case 5:
+                    Inventory2.inventory.waterPasive = true;
+                    break;
             }
             Inventory2.inventory.LoseMoney(moneyToSpend);
             //Sonido de Compra

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
@@ -15,6 +16,7 @@ public class PlayerAudio : MonoBehaviour
     public AudioSource[] healingSound;
     [SerializeField] AudioSource heartSound;
     [SerializeField] AudioSource teleportSound;
+    [SerializeField] AudioClip walkGrassSound;
     private void Awake()
     {
         plController = GetComponentInParent<PlayerController2>();
@@ -24,6 +26,7 @@ public class PlayerAudio : MonoBehaviour
 
     private void Update()
     {
+        /*
         //WALKSOUND
         if(Mathf.Abs(plController.rb.velocity.x) > 0.1f && plController.IsGrounded)
         {
@@ -37,6 +40,7 @@ public class PlayerAudio : MonoBehaviour
         {
             walkSound.Stop();
         }
+        */
     }
 
     public void TeleportSound()

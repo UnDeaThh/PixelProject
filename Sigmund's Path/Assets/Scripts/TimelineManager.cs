@@ -14,7 +14,7 @@ public class TimelineManager : MonoBehaviour
     void Start()
     {
         playerAnim = playerAnimator.runtimeAnimatorController;
-        if (!ScenesManager.scenesManager.cutSceneDone)
+        if (!ScenesManager.scenesManager.CutSceneDone)
         {
             playerAnimator.runtimeAnimatorController = null;
             player.isOnKinematic = true;
@@ -29,14 +29,14 @@ public class TimelineManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!ScenesManager.scenesManager.cutSceneDone)
+        if (!ScenesManager.scenesManager.CutSceneDone)
         {
             if(director.state != PlayState.Playing && !fix)
             {
                 fix = true;
                 playerAnimator.runtimeAnimatorController = playerAnim;
                 player.isOnKinematic = false;
-                ScenesManager.scenesManager.cutSceneDone = true;
+                ScenesManager.scenesManager.CutSceneDone = true;
                 nachCutSceneGO.SetActive(false);
                 SaveSystem.SaveSceneData(ScenesManager.scenesManager);
                 player.facingDir = 1;

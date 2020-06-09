@@ -57,9 +57,10 @@ public class MainMenuManager : MonoBehaviour
         }
         //REINICIAMOS EL SCENEMANAGER
         ScenesManager.scenesManager.toLoadScene = 0;
-        ScenesManager.scenesManager.cutSceneDone = false;
+        ScenesManager.scenesManager.CutSceneDone = false;
         ScenesManager.scenesManager.FirstTalkAska = false;
         ScenesManager.scenesManager.SwordPicked = false;
+        ScenesManager.scenesManager.ApearsOnFountain = false;
 
         for (int i = 0; i < ScenesManager.scenesManager.PalancasState.Length; i++)
         {
