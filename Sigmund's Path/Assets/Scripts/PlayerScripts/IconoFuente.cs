@@ -76,6 +76,7 @@ public class IconoFuente : MonoBehaviour
         GameObject.FindObjectOfType<LevelDoor>().Anim.SetTrigger("FadeIn");
         yield return new WaitForSeconds(1.2f);
         inventory.nTP--;
+        SaveSystem.SavePlayerData(player, inventory, player.GetComponent<PlayerAttack>());
         SceneManager.LoadScene(sceneToLoad);
     }
 }

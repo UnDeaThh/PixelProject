@@ -21,6 +21,11 @@ public class LevelManager : MonoBehaviour
         {
             apearsPos[i].parent.transform.gameObject.SetActive(true);
         }
+        DestructibleWalls[] walls = GameObject.FindObjectsOfType<DestructibleWalls>();
+        for (int i = 0; i < walls.Length; i++)
+        {
+            walls[i].gameObject.SetActive(true);
+        }
 
         levelScene += 3;
 
@@ -34,7 +39,7 @@ public class LevelManager : MonoBehaviour
 
         if (ScenesManager.scenesManager.comeFromDead)
         {
-            player.health = player.maxHealth;
+            inventory.actualMoney = inventory.actualMoney / 2;
             ScenesManager.scenesManager.comeFromDead = false;
         }
         //POSICIONA AL PLAYER
@@ -459,6 +464,7 @@ public class LevelManager : MonoBehaviour
             if (player.pasSceneDead)
             {
                 player.pasSceneDead = false;
+                SaveSystem.SavePlayerData(player, inventory, plAttack);
                 SceneManager.LoadScene(levelScene);
             }
         }
@@ -468,7 +474,14 @@ public class LevelManager : MonoBehaviour
         PlayerData data = SaveSystem.LoadPlayerData();
         if(data != null)
         {
-            player.health = data.health;
+            if(data.health > 0)
+            {
+                player.health = data.health;
+            }
+            else
+            {
+                player.health = player.maxHealth;
+            }
             player.maxHealth = data.maxHealth;
             player.potions = data.potions;
             player.maxPotions = data.maxPotions;

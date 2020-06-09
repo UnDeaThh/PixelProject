@@ -113,9 +113,9 @@ public class BossChange : BossBase
                         cameraFight.SetActive(true);
                         AudioManager.instanceAudio.StartBossSong = true;
                         cntTime = timeH1;
-                        if(nLifes > 30)
+                        if(nLifes > 20)
                         {
-                            nLifes = 30;
+                            nLifes = 20;
                         }
                         actualState = State.H1;
                     }

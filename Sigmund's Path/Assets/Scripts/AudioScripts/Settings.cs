@@ -237,14 +237,21 @@ public class Settings : MonoBehaviour
     #region Button's SettingsTab
 
 
-    public void Pause()
+    public void Pause(int num)
     {
         pauseManager.isPaused = true;
         player.heedArrows = false;
         blackFade.SetActive(true);
         bookContainer.SetActive(true);
 
-        InventoryTab();
+        if(num == 1)
+        {
+            InventoryTab();
+        }
+        else
+        {
+            MapTab();
+        }
     }
 
     public void Resume()

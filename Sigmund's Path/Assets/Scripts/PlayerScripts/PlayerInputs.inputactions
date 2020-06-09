@@ -92,6 +92,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Map",
+                    "type": "Button",
+                    "id": "7e834b53-de06-4850-a2d8-a561cc00b7f4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -372,6 +380,17 @@
                 },
                 {
                     "name": "",
+                    "id": "bed7c550-9a1c-49e3-9baa-2cbadf15f778",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a282ec38-2e67-427f-9c72-60a17b2cdae7",
                     "path": "<Keyboard>/c",
                     "interactions": "",
@@ -389,6 +408,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Bomb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "804b5926-3beb-4823-9d0c-e28715cf6c44",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "87451899-9202-4c87-8bd2-a921d795e3b8",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

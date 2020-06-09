@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class PauseManager : MonoBehaviour
 {
@@ -78,7 +79,20 @@ public class PauseManager : MonoBehaviour
                 }
                 else
                 {
-                    settings.Pause();
+                    settings.Pause(1);
+                    pausedSnapshot.TransitionTo(0.1f);
+                }
+            }
+            if (inputs.Controls.Map.triggered)
+            {
+                if (isPaused)
+                {
+                    unPausedSnapshot.TransitionTo(0.1f);
+                    settings.Resume();
+                }
+                else
+                {
+                    settings.Pause(2);
                     pausedSnapshot.TransitionTo(0.1f);
                 }
             }

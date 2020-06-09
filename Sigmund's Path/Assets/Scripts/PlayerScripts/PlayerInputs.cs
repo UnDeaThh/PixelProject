@@ -105,6 +105,14 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e834b53-de06-4850-a2d8-a561cc00b7f4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -385,6 +393,17 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""bed7c550-9a1c-49e3-9baa-2cbadf15f778"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a282ec38-2e67-427f-9c72-60a17b2cdae7"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
@@ -402,6 +421,28 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Bomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""804b5926-3beb-4823-9d0c-e28715cf6c44"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87451899-9202-4c87-8bd2-a921d795e3b8"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Map"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -543,6 +584,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_Controls_Interact = m_Controls.FindAction("Interact", throwIfNotFound: true);
         m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
         m_Controls_Bomb = m_Controls.FindAction("Bomb", throwIfNotFound: true);
+        m_Controls_Map = m_Controls.FindAction("Map", throwIfNotFound: true);
         // LogoControls
         m_LogoControls = asset.FindActionMap("LogoControls", throwIfNotFound: true);
         m_LogoControls_Exit = m_LogoControls.FindAction("Exit", throwIfNotFound: true);
@@ -609,6 +651,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Controls_Interact;
     private readonly InputAction m_Controls_Pause;
     private readonly InputAction m_Controls_Bomb;
+    private readonly InputAction m_Controls_Map;
     public struct ControlsActions
     {
         private @PlayerInputs m_Wrapper;
@@ -624,6 +667,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         public InputAction @Interact => m_Wrapper.m_Controls_Interact;
         public InputAction @Pause => m_Wrapper.m_Controls_Pause;
         public InputAction @Bomb => m_Wrapper.m_Controls_Bomb;
+        public InputAction @Map => m_Wrapper.m_Controls_Map;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -666,6 +710,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Bomb.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnBomb;
                 @Bomb.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnBomb;
                 @Bomb.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnBomb;
+                @Map.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnMap;
+                @Map.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnMap;
+                @Map.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnMap;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -703,6 +750,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @Bomb.started += instance.OnBomb;
                 @Bomb.performed += instance.OnBomb;
                 @Bomb.canceled += instance.OnBomb;
+                @Map.started += instance.OnMap;
+                @Map.performed += instance.OnMap;
+                @Map.canceled += instance.OnMap;
             }
         }
     }
@@ -804,6 +854,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnBomb(InputAction.CallbackContext context);
+        void OnMap(InputAction.CallbackContext context);
     }
     public interface ILogoControlsActions
     {
