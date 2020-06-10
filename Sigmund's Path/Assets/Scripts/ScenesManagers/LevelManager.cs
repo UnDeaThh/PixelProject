@@ -21,11 +21,6 @@ public class LevelManager : MonoBehaviour
         {
             apearsPos[i].parent.transform.gameObject.SetActive(true);
         }
-        DestructibleWalls[] walls = GameObject.FindObjectsOfType<DestructibleWalls>();
-        for (int i = 0; i < walls.Length; i++)
-        {
-            walls[i].gameObject.SetActive(true);
-        }
 
         levelScene += 3;
 

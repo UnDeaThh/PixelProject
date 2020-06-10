@@ -15,6 +15,7 @@ public class BossNeck : BossBase
     private int consecutiveDoble;
     private int consecutivePunch;
     private int attackType;
+    [SerializeField] int pushForce;
 
     private float distancePlayer;
 
@@ -40,6 +41,8 @@ public class BossNeck : BossBase
     private bool doDobleAttack = false;
     private bool punchAttack;
     private bool doRangeAttack;
+
+    [SerializeField] GameObject parryParticle;
     public State ActualState { get => actualState; set => actualState = value; }
     public bool DoDobleAttack { get => doDobleAttack; set => doDobleAttack = value; }
     public bool DoRangeAttack { get => doRangeAttack; set => doRangeAttack = value; }
@@ -259,9 +262,24 @@ public class BossNeck : BossBase
         Collider2D col = Physics2D.OverlapBox(atackPos.position, atackArea, 0, playerLayer);
         if (col != null)
         {
-            if (playePos.GetComponent<PlayerParry>().IsParry)
+            PlayerController2 player = playePos.GetComponent<PlayerController2>();
+            PlayerParry plParry = playePos.GetComponent<PlayerParry>();
+            if (plParry.IsParry)
             {
-                //StartStun();
+                if(facingDir < 0)
+                {
+                    Vector2 pushDir = new Vector2(-1, 1f).normalized;
+                    player.rb.AddForce( pushDir * pushForce);
+                    PlayerParry();
+
+                }
+                else
+                {
+                    Vector2 pushDir = new Vector2(1, 1f).normalized;
+                    player.rb.AddForce(pushDir * pushForce);
+                    PlayerParry();
+                }
+                
             }
             else
             {
@@ -308,5 +326,10 @@ public class BossNeck : BossBase
             Gizmos.DrawLine(transform.position, new Vector3(atackPos.position.x - atackArea.x/2, transform.position.y, atackPos.position.z));
             Gizmos.DrawLine(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), new Vector3(atackPos.position.x - atackArea.x - plusDistanceRA, transform.position.y + 1 , atackPos.position.z));
         }
+    }
+
+    private void PlayerParry()
+    {
+        Instantiate(parryParticle, playePos.position, Quaternion.identity);
     }
 }

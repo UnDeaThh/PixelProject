@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3545,6 +3545,7 @@ GameObject:
   - component: {fileID: 547145862}
   - component: {fileID: 547145865}
   - component: {fileID: 547145864}
+  - component: {fileID: 547145866}
   m_Layer: 0
   m_Name: CharcoBoss
   m_TagString: Untagged
@@ -3724,10 +3725,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540b0c069ca4e3145a6d0f729fffb954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  percentReducction: 0.4
+  percentReducction: 0.3
   gotas: {fileID: 4387448214180184573, guid: 4c152fd5509b55642abac0da17888ae7, type: 3}
-  source: {fileID: 0}
-  soundSteps: []
+  source: {fileID: 547145864}
+  soundSteps:
+  - {fileID: 8300000, guid: 632357e45554c7d4196711c4e656189f, type: 3}
+  - {fileID: 8300000, guid: 18ae087bae938ea4bbf59119c56b59d5, type: 3}
+--- !u!61 &547145866
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547145861}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 32.84375, y: 0.75}
+    newSize: {x: 32.84375, y: 0.75}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 32.84375, y: 0.75}
+  m_EdgeRadius: 0
 --- !u!1001 &551686271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7543,7 +7572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nBoss: 1
-  nLifes: 30
+  nLifes: 40
   audioSource: {fileID: 0}
   amplitudeShaking: 2
   frequencyShaking: 3
@@ -7553,15 +7582,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   water: {fileID: 1415595233161402901, guid: 31eacc3a92c8d0a4cbf0ba6817a80885, type: 3}
+  pushForce: 900
   movSpeed: 100
   minDistanceDobleAttack: 0
   plusDistanceRA: 0.6
-  timeToAttack: 1.5
+  timeToAttack: 0.7
   timeStill: 1.2
   timeToRangeAttack: 2
   atackArea: {x: 4.97, y: 2.19}
   atackPos: {fileID: 845775626}
   handPos: {fileID: 882666586}
+  parryParticle: {fileID: 7653774854683568875, guid: 66ef440f29378b149915656d5acf36aa,
+    type: 3}
   timeFreez: 3
   cameraFight: {fileID: 497764729}
   stepSounds: {fileID: 1009572928}

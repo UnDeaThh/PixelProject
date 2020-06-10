@@ -210,6 +210,17 @@ public class PlayerAttack : MonoBehaviour
                             cameraController.GenerateCamerashake(0.3f, 0.5f, 0.3f);
                             if (enemiesToDamage[i].GetComponent<BaseEnemy>())
                             {
+                                if(enemiesToDamage[i].TryGetComponent<BermonchAI>(out BermonchAI berm))
+                                {
+                                    if (!berm.bermBuild)
+                                    {
+                                        sound.attackSound.clip = sound.attackClips[0];
+                                        sound.attackSound.pitch = Random.Range(0.80f, 1.15f);
+                                        sound.attackSound.volume = Random.Range(0.80f, 1.1f);
+                                        sound.attackSound.Play();
+                                        return;
+                                    }
+                                }
                                 enemiesToDamage[i].GetComponent<BaseEnemy>().TakeDamage(damage, transform.position);
 
                                 Vector3 randomPosParticle = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.3f, 0.3f), 0f);
@@ -225,6 +236,7 @@ public class PlayerAttack : MonoBehaviour
                                 }
                                 plParry.ParrySuccesful = false;
                             }
+                            Debug.Log("Base Enemy");
                         }
 
                         else if (enemiesToDamage[i].GetComponent<BossBase>())

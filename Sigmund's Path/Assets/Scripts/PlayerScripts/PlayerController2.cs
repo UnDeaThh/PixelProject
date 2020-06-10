@@ -85,6 +85,7 @@ public class PlayerController2 : MonoBehaviour
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
     private bool startTP = false;
+    public bool stopByWater = true;
 
     //ABILITIES
     public bool dashUnlocked = false;
@@ -759,6 +760,7 @@ public class PlayerController2 : MonoBehaviour
         if (!isInvencible)
         {
             isDamaged = true;
+            stopByWater = false;
             if (plAttack.isAttacking)
             {
                 plAttack.isAttacking = false;
