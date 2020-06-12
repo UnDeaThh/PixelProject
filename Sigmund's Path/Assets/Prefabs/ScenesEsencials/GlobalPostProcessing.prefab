@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2913839510780324845}
   - component: {fileID: 1955847560749553350}
   - component: {fileID: 3765142118933526149}
+  - component: {fileID: 4612674137384026457}
   m_Layer: 16
   m_Name: GlobalPostProcessing
   m_TagString: Untagged
@@ -164,3 +165,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4612674137384026457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757526295520285911}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69afac2dc4a5cb54db377c8b8a4d8dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  insideColor: {r: 0, g: 0, b: 0, a: 0}
+  ci:
+    overrideState: 0
+    value: {r: 0, g: 0, b: 0, a: 1}

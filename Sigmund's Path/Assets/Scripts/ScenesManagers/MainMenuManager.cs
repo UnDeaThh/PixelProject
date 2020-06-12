@@ -43,7 +43,7 @@ public class MainMenuManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("T1");
+            SceneManager.LoadScene("IntroScene");
         }
     }
 
@@ -95,7 +95,7 @@ public class MainMenuManager : MonoBehaviour
             ScenesManager.scenesManager.FountainUnlocked[i] = false;
         }
 
-        SceneManager.LoadScene("T1");
+        SceneManager.LoadScene("IntroScene");
     }
     public void NoDeleteData()
     {

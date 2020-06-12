@@ -29,7 +29,7 @@ public class Water : MonoBehaviour
         {
             if (!player.GetComponent<PlayerParry>().IsParry)
             {
-                player.stopByWater = true;
+                player.StopByWater = true;
                 Vector2 pos = new Vector2(other.transform.position.x, col.bounds.max.y);
                 var salpicadura = Instantiate(gotas, pos, Quaternion.Euler(-90, 0f, 0f));
                 Destroy(salpicadura, 0.5f);
@@ -44,7 +44,7 @@ public class Water : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (player.stopByWater)
+            if (player.StopByWater)
             {
                 if (player.MovDir < -0.1f || player.MovDir > 0.1f)
                 {

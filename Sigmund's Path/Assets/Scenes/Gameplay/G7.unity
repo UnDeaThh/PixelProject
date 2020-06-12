@@ -3070,11 +3070,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8566334876850593963, guid: 0bce15004490df94095c13c6aa8951ac,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9520febbeebda2342acd4b90dd063582, type: 2}
     - target: {fileID: 8566334877487090338, guid: 0bce15004490df94095c13c6aa8951ac,
         type: 3}
       propertyPath: m_Name
@@ -3481,6 +3476,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BigCharco
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332115426350309759, guid: 84dea6450b782a44c8c7bfef15c8cee9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 24ef155947f484a4bbf608ad135b3152, type: 2}
+    - target: {fileID: 3332115426350309759, guid: 84dea6450b782a44c8c7bfef15c8cee9,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332115426350309759, guid: 84dea6450b782a44c8c7bfef15c8cee9,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332115426350309759, guid: 84dea6450b782a44c8c7bfef15c8cee9,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332115426350309759, guid: 84dea6450b782a44c8c7bfef15c8cee9,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3638693159064857627, guid: 84dea6450b782a44c8c7bfef15c8cee9,
         type: 3}

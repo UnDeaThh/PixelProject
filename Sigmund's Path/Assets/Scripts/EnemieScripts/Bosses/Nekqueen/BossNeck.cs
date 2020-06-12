@@ -266,6 +266,7 @@ public class BossNeck : BossBase
             PlayerParry plParry = playePos.GetComponent<PlayerParry>();
             if (plParry.IsParry)
             {
+                player.StopByWater = false;
                 if(facingDir < 0)
                 {
                     Vector2 pushDir = new Vector2(-1, 1f).normalized;

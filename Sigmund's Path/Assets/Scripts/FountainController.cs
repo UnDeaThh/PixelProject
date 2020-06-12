@@ -23,6 +23,8 @@ public class FountainController : MonoBehaviour
     private PlayerAudio playerAudio;
     [SerializeField] AudioSource source;
 
+    public bool PlayerIn { get => playerIn; set => playerIn = value; }
+
     private void Start()
     {
         isUnlocked = ScenesManager.scenesManager.FountainUnlocked[fountainNumber];

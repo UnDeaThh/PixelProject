@@ -13,6 +13,7 @@ public class PlayerController2 : MonoBehaviour
     public bool IsDamaged { get => isDamaged; set => isDamaged = value; }
     public bool StartTP { get => startTP; set => startTP = value; }
     public float MovDir { get => movDir; set => movDir = value; }
+    public bool StopByWater { get => stopByWater; set => stopByWater = value; }
 
     private PauseManager pauseManager;
     private Inventory2 inventory;
@@ -85,7 +86,7 @@ public class PlayerController2 : MonoBehaviour
     private bool isInvencible;
     private bool shiftAlreadyPressed = false;
     private bool startTP = false;
-    public bool stopByWater = true;
+    private bool stopByWater = true;
 
     //ABILITIES
     public bool dashUnlocked = false;
