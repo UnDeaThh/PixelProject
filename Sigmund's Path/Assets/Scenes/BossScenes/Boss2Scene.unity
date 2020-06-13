@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -7535,8 +7535,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.122543335, y: 0.042892456}
-  m_Size: {x: 1.2629089, y: 7.166527}
+  m_Offset: {x: 0.122543335, y: 0.21314907}
+  m_Size: {x: 1.2629089, y: 6.8260136}
   m_Direction: 0
 --- !u!50 &1009572925
 Rigidbody2D:
@@ -7605,7 +7605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009572923}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 498.46, y: -13.15, z: 0}
+  m_LocalPosition: {x: 503.98, y: -16.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1493138764}
@@ -10846,6 +10846,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c162eab980503d64786320886fcec70c, type: 3}
   - {fileID: 8300000, guid: 8f3c761b3405fb64290a5faf4a664daa, type: 3}
   - {fileID: 8300000, guid: bec3493d06ad7b94eb3ebc2c104cad2a, type: 3}
+  growl: {fileID: 8300000, guid: 492443810f6c2224a9487d73b2822d53, type: 3}
 --- !u!82 &1493138768
 AudioSource:
   m_ObjectHideFlags: 0

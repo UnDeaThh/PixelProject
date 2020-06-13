@@ -7,6 +7,7 @@ public class BossNeckAnims : MonoBehaviour
     [SerializeField] BossNeck neckBrain;
     [SerializeField] AudioSource source;
     [SerializeField] AudioClip[] atackSounds;
+    [SerializeField] AudioClip growl;
 
     void StopDobleAttack()
     {
@@ -51,5 +52,19 @@ public class BossNeckAnims : MonoBehaviour
     void CallDead()
     {
         neckBrain.isDisolve = true;
+    }
+
+    void IsStanding()
+    {
+        neckBrain.ActualState = State.H1;
+        AudioManager.instanceAudio.StartBossSong = true;
+    }
+
+    void InitialGrowl()
+    {
+        source.clip = growl;
+        CameraController.cameraController.IsGenerateCS = true;
+        CameraController.cameraController.GenerateCamerashake(8, 3, growl.length - 0.05f);
+        source.Play();
     }
 }

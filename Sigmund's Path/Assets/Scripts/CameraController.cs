@@ -31,8 +31,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] CinemachineBrain cinemaBrain;
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin virtualCameraNoise;
+    public ICinemachineCamera cinemachineCamera;
     private CinemachineConfiner confiner;
     private Collider2D bounds;
+
+    CinemachineVirtualCamera actualCamera;
 
     [SerializeField] PostProcessVolume volume;
     [SerializeField] float damagedBloomIntensity;
@@ -47,6 +50,7 @@ public class CameraController : MonoBehaviour
 
     private void Awake()
     {
+        
         if(cameraController == null)
         {
             cameraController = this;

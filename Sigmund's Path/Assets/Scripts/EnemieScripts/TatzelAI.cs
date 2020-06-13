@@ -49,6 +49,8 @@ public class TatzelAI : BaseEnemy
 
     private int facingDir;
 
+    [SerializeField] AudioSource source;
+
     public bool Attack1 { get => attack; set => attack = value; }
    
 
@@ -82,6 +84,8 @@ public class TatzelAI : BaseEnemy
 
             if (makeOneattack)
             {
+                source.pitch = Random.Range(0.8f, 1.15f);
+                source.Play();
                 Collider2D col = Physics2D.OverlapBox(attackPos.position, attackRange, 0, playerMask);
                 if (col != null)
                 {

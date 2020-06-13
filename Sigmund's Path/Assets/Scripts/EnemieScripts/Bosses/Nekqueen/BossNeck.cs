@@ -36,6 +36,8 @@ public class BossNeck : BossBase
     [SerializeField] Transform atackPos;
     [SerializeField] Transform handPos;
 
+    private bool standUp = false;
+
     private bool playerInFront;
     private bool canWalk;
     private bool doDobleAttack = false;
@@ -47,7 +49,6 @@ public class BossNeck : BossBase
     public bool DoDobleAttack { get => doDobleAttack; set => doDobleAttack = value; }
     public bool DoRangeAttack { get => doRangeAttack; set => doRangeAttack = value; }
     public bool PunchAttack { get => punchAttack; set => punchAttack = value; }
-
 
     [SerializeField] float timeFreez;
     private float cntTimeFreze;
@@ -66,6 +67,8 @@ public class BossNeck : BossBase
         {
             Destroy(gameObject);
         }
+        AudioManager.instanceAudio.StartBossSong = false;
+        AudioManager.instanceAudio.PlayedFirstBossSong = false;
     }
     void Start()
     {
@@ -84,6 +87,7 @@ public class BossNeck : BossBase
 
         cntTimeFreze = timeFreez;
         cntTimeShaking = timeShaking;
+        cameraFight.SetActive(false);
     }
 
     // Update is called once per frame
@@ -94,9 +98,18 @@ public class BossNeck : BossBase
             switch (actualState)
             {
                 case State.Enter: // La animacion al entrar en la sala
-                    actualState = State.H1;
+                    if (!standUp)
+                    {
+                        standUp = true;
+                    }
+                    
                     break;
                 case State.H1: // Aqui meteremos todo el comportamiento del NeckBoss ya que no va por fases, sino por situaciones
+                    if (!cameraFight.activeSelf)
+                    {
+                        cameraFight.SetActive(true);
+                    }
+
                     if(!doDobleAttack && !doRangeAttack)
                     {
                         if(facingDir < 0 && playePos.position.x > transform.position.x)
@@ -312,6 +325,7 @@ public class BossNeck : BossBase
         anim.SetFloat("velocityX", Mathf.Abs(rb.velocity.x));
         anim.SetBool("rangeAttack", doRangeAttack);
         anim.SetBool("punchAttack", punchAttack);
+        anim.SetBool("standUp", standUp);
     }
     private void OnDrawGizmos()
     {
