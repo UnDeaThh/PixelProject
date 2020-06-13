@@ -1997,8 +1997,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.67498}
-  m_SizeDelta: {x: -41.9, y: -197.35}
+  m_AnchoredPosition: {x: 2.5, y: -98.67498}
+  m_SizeDelta: {x: -16.1, y: -197.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3026593302921612450
 CanvasRenderer:
@@ -2026,8 +2026,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "These boots will allow you to mantain your speed in water.\n\nThey were
-    a gift from the villagers of Tinea to \r\na soldier of the court of king Clemens."
+  m_text: 'These boots will allow you to mantain your speed in water.
+
+
+    They were a gift from the villagers of Tinea to
+
+    a soldier of the court of king Clemens.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3c3522b524cff7f44b4ba2170520bddb, type: 2}
   m_sharedMaterial: {fileID: -3439793414800159869, guid: 3c3522b524cff7f44b4ba2170520bddb,
@@ -2097,9 +2101,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3026593302921612449}
-    characterCount: 149
+    characterCount: 147
     spriteCount: 0
-    spaceCount: 30
+    spaceCount: 29
     wordCount: 29
     linkCount: 0
     lineCount: 7
@@ -2829,7 +2833,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5471029996645307961}
+  - {fileID: 3026593303292527111}
   m_Father: {fileID: 3026593303186741726}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4103,7 +4107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4996fa090e2b68f4a91f84b6f69046e6, type: 3}
---- !u!224 &5471029996645307961 stripped
+--- !u!224 &3026593303292527111 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7056470298192713106, guid: 4996fa090e2b68f4a91f84b6f69046e6,
     type: 3}

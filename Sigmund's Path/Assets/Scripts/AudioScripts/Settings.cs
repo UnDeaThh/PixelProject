@@ -309,6 +309,7 @@ public class Settings : MonoBehaviour
     {
         pauseManager.isPaused = false;
         SaveSystem.SavePlayerData(player, inventory, plAttack);
+        SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         SceneManager.LoadScene("MainMenuScene");
 
 
@@ -326,6 +327,7 @@ public class Settings : MonoBehaviour
     {
         pauseManager.isPaused = false;
         SaveSystem.SavePlayerData(player, inventory, plAttack);
+        SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         Application.Quit();
     }
 

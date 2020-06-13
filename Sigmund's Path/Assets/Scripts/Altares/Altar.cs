@@ -42,6 +42,7 @@ public class Altar : MonoBehaviour
         canvasObject.SetActive(true);
         pressEText.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        abilitiesInstructions.gameObject.SetActive(true);
         abilitiesInstructions.SetText("");
         imageInstructions.enabled = false;
 

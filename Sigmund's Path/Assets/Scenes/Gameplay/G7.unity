@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3070,41 +3070,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8545674595040321247, guid: 0bce15004490df94095c13c6aa8951ac,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.38823524
-      objectReference: {fileID: 0}
-    - target: {fileID: 8545674595040321247, guid: 0bce15004490df94095c13c6aa8951ac,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.81385034
-      objectReference: {fileID: 0}
-    - target: {fileID: 8545674595040321247, guid: 0bce15004490df94095c13c6aa8951ac,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.9254902
-      objectReference: {fileID: 0}
-    - target: {fileID: 8545674595040321247, guid: 0bce15004490df94095c13c6aa8951ac,
-        type: 3}
-      propertyPath: InitialModule.startColor.minMaxState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8545674595040321247, guid: 0bce15004490df94095c13c6aa8951ac,
-        type: 3}
-      propertyPath: InitialModule.startColor.minColor.r
-      value: 0.38823524
-      objectReference: {fileID: 0}
-    - target: {fileID: 8545674595040321247, guid: 0bce15004490df94095c13c6aa8951ac,
-        type: 3}
-      propertyPath: InitialModule.startColor.minColor.g
-      value: 0.7131295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8545674595040321247, guid: 0bce15004490df94095c13c6aa8951ac,
-        type: 3}
-      propertyPath: InitialModule.startColor.minColor.b
-      value: 0.9254902
-      objectReference: {fileID: 0}
     - target: {fileID: 8566334877487090338, guid: 0bce15004490df94095c13c6aa8951ac,
         type: 3}
       propertyPath: m_Name
@@ -3511,11 +3476,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BigCharco
-      objectReference: {fileID: 0}
-    - target: {fileID: 3332115426350309759, guid: 84dea6450b782a44c8c7bfef15c8cee9,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.62352943
       objectReference: {fileID: 0}
     - target: {fileID: 3638693159064857627, guid: 84dea6450b782a44c8c7bfef15c8cee9,
         type: 3}

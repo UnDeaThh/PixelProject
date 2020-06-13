@@ -69,6 +69,7 @@ public class BossNeck : BossBase
         }
         AudioManager.instanceAudio.StartBossSong = false;
         AudioManager.instanceAudio.PlayedFirstBossSong = false;
+        AudioManager.instanceAudio.EndBossSong = false;
     }
     void Start()
     {
@@ -110,7 +111,7 @@ public class BossNeck : BossBase
                         cameraFight.SetActive(true);
                     }
 
-                    if(!doDobleAttack && !doRangeAttack)
+                    if(!doDobleAttack && !punchAttack && !doRangeAttack)
                     {
                         if(facingDir < 0 && playePos.position.x > transform.position.x)
                         {

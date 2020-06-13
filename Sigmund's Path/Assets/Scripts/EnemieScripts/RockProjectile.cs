@@ -13,6 +13,7 @@ public class RockProjectile : MonoBehaviour
     [SerializeField] AudioSource destroySound;
     [SerializeField] ParticleSystem particle;
     private SpriteRenderer sprite;
+    private PlayerController2 player;
     void Start()
     {
         Physics2D.IgnoreLayerCollision(9, 9);
@@ -20,6 +21,7 @@ public class RockProjectile : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         direction = (target.position - transform.position).normalized;
         sprite = GetComponent<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
         rb.AddForce(direction * speed, ForceMode2D.Impulse);
     }
 
@@ -28,9 +30,26 @@ public class RockProjectile : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.tag == "Player"){
-          
-            collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
+        if(collision.transform.tag == "Player")
+        {
+            if (collision.transform.GetComponent<PlayerParry>().IsParry)
+            {
+                if (rb.velocity.x < 0)
+                {
+                    Vector2 pushDir = new Vector2(-1, 1f).normalized;
+                    player.rb.AddForce(pushDir * 20);
+
+                }
+                else
+                {
+                    Vector2 pushDir = new Vector2(1, 1f).normalized;
+                    player.rb.AddForce(pushDir * 20);
+                }
+            }
+            else
+            {
+                collision.gameObject.GetComponent<PlayerController2>().PlayerDamaged(damage, transform.position);
+            }
             DeactivateObject();
         }
         else if (collision.transform.CompareTag("Floor"))
