@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8942360557670865692}
   - component: {fileID: 5109068474603749003}
   m_Layer: 0
-  m_Name: SecondAbilitiePS
+  m_Name: ThirdAbilitiePS 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3936,7 +3936,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     ratio: 0.4
     lifetime:
@@ -4767,8 +4767,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3c90c9b7ed64e0f4c97b80dbded8c72b, type: 2}
-  - {fileID: 2100000, guid: 3c90c9b7ed64e0f4c97b80dbded8c72b, type: 2}
+  - {fileID: 2100000, guid: 5a1e515082aaf9c4fb4627efe56dd8b1, type: 2}
+  - {fileID: 2100000, guid: 5a1e515082aaf9c4fb4627efe56dd8b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

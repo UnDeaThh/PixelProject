@@ -125,7 +125,8 @@ public class PlayerController2 : MonoBehaviour
     [Header("Particulas Habilidades")]
     [SerializeField] GameObject jumpParticles;
     [SerializeField] ParticleSystem dashParticles;
-
+    [SerializeField] GameObject wallJumpParticles;
+    [SerializeField] ParticleSystem wallSlideSmoke;
   
 
     private void OnEnable()
@@ -167,6 +168,11 @@ public class PlayerController2 : MonoBehaviour
 
         ParticleSystem.EmissionModule emidMod = dashParticles.emission;
         dashParticles.Play();
+        emidMod.enabled = false;
+
+
+        ParticleSystem.EmissionModule emMod = wallSlideSmoke.emission;
+        wallSlideSmoke.Play();
         emidMod.enabled = false;
     }
     private void Update()
@@ -534,18 +540,34 @@ public class PlayerController2 : MonoBehaviour
     {
         if (isWallSliding)
         {
+            ParticleSystem.EmissionModule emidMod = wallSlideSmoke.emission;
             cntHeedTime = 0;
             if (rb.velocity.y < -0.1)
             {
                 if ((facingDir == 1 && movDir > 0) || (facingDir == -1 && movDir < 0)) //Misma Pared que flecha
                 {
                     rb.velocity = new Vector2(0f, -wallSlideSpeed);
+                    wallSlideSmoke.Play();
+                    emidMod.enabled = true;
                 }
                 else if ((facingDir == 1 && movDir < 0) || (facingDir == -1 && movDir > 0)) // Contraria Pared que flecha
                 {
                     cntStickyTime += Time.deltaTime;
+                    wallSlideSmoke.Stop();
+                    emidMod.enabled = false;
                 }
+                else
+                {
+                    emidMod.enabled = false;
+                }
+
             }
+            else
+            {
+                emidMod.enabled = false;
+            }
+
+
             //Desengancharse
             if (cntStickyTime >= stickyTime)
             {
@@ -553,6 +575,11 @@ public class PlayerController2 : MonoBehaviour
                 Flip();
                 cntStickyTime = 0;
             }
+        }
+        else
+        {
+            ParticleSystem.EmissionModule emidMod = wallSlideSmoke.emission;
+            emidMod.enabled = false;
         }
     }
     void FacingDirection()
@@ -614,7 +641,8 @@ public class PlayerController2 : MonoBehaviour
 
                 if(cntJumps == 2)
                 {
-                    Instantiate(jumpParticles, new Vector2(transform.position.x, plCollider.bounds.min.y + 1f), Quaternion.identity);
+                    GameObject instance = Instantiate(jumpParticles, new Vector2(transform.position.x, plCollider.bounds.min.y + 1f), Quaternion.identity);
+                    Destroy(instance, 1f);
                 }
 
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
@@ -668,6 +696,8 @@ public class PlayerController2 : MonoBehaviour
                 heedArrows = false; //Mientras 
                 rb.velocity = new Vector2(rb.velocity.x, 0f);
                 rb.AddForce(new Vector2(wallJumpDir.x * wallJumpForce * -facingDir, wallJumpDir.y * wallJumpForce));
+                GameObject instance = Instantiate(wallJumpParticles, new Vector2(transform.position.x, plCollider.bounds.min.y + 1f), Quaternion.identity);
+                Destroy(instance, 1f);
                 canFlip = true;
                 Flip();
                 cntStickyTime = 0;
