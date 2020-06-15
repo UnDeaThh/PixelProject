@@ -122,6 +122,10 @@ public class PlayerController2 : MonoBehaviour
     private Collider2D plCollider;
     public GameObject bombPrefab;
 
+    [Header("Particulas Habilidades")]
+    [SerializeField] GameObject jumpParticles;
+    [SerializeField] ParticleSystem dashParticles;
+
   
 
     private void OnEnable()
@@ -160,6 +164,10 @@ public class PlayerController2 : MonoBehaviour
             transform.rotation = rotation;
         }
         Physics2D.IgnoreLayerCollision(9, 10, false);
+
+        ParticleSystem.EmissionModule emidMod = dashParticles.emission;
+        dashParticles.Play();
+        emidMod.enabled = false;
     }
     private void Update()
     {
@@ -603,6 +611,12 @@ public class PlayerController2 : MonoBehaviour
                 isJumping = true;
                 cntJumpTime = jumpTime;
                 cntJumps++;
+
+                if(cntJumps == 2)
+                {
+                    Instantiate(jumpParticles, new Vector2(transform.position.x, plCollider.bounds.min.y + 1f), Quaternion.identity);
+                }
+
                 rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 if (!plAudio.jumpSound.isPlaying)
                 {
@@ -697,6 +711,7 @@ public class PlayerController2 : MonoBehaviour
     {
         if (canDash || isDashing)
         {
+            ParticleSystem.EmissionModule emidMod = dashParticles.emission;
             if (shiftPressed && !shiftAlreadyPressed)
             {
                 shiftAlreadyPressed = true;
@@ -707,6 +722,8 @@ public class PlayerController2 : MonoBehaviour
                 {
                     plAudio.dashSound.Play();
                 }
+                emidMod.enabled = true;
+                dashParticles.Play();
             }
             if (isDashing && cntDashDuration < dashDuration) // tiempo que esta dasheando
             {
@@ -720,6 +737,7 @@ public class PlayerController2 : MonoBehaviour
                 isDashing = false;
                 shiftPressed = false;
                 cntDashDuration = 0;
+                emidMod.enabled = false;
             }
             if(cntDashDuration > dashDuration)
             {
