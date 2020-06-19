@@ -83,6 +83,9 @@ public class NerbuzAI : BossBase
     private float cntTimeH3;
     [SerializeField] int seriesH3;
     private int cntSeriesH3;
+    [SerializeField] AudioSource soundH3;
+    [SerializeField] float timeSoundH3;
+    float cntTimeSoundH3;
 
     [Header("H4")]
     [SerializeField] Transform h4Pos;
@@ -149,6 +152,10 @@ public class NerbuzAI : BossBase
         anim = GetComponentInChildren<Animator>();
         cntTimeFreeze = timeFreeze;
         cntTimeShaking = deadTimeShaking;
+
+        AudioManager.instanceAudio.StartBossSong = false;
+        AudioManager.instanceAudio.PlayedFirstBossSong = false;
+        AudioManager.instanceAudio.EndBossSong = false;
     }
     void Update()
     {
@@ -165,8 +172,8 @@ public class NerbuzAI : BossBase
                     else
                     {
                         actualState = State.H1;
-                        cntParticlesH1 = 0;
                         movDir = GetRandomDirection(0);
+                        cntParticlesH1 = 0;
                         cntTimeToSpawnH1 = timeToSpawnH1;
                     }
                     break;
@@ -286,6 +293,7 @@ public class NerbuzAI : BossBase
                                     else
                                     {
                                         isCrazy = true;
+                                        cntSeriesH3 = 0;
                                         transition = 1;
                                         transitionState = 1;
                                         actualState = State.Transition;
@@ -321,11 +329,23 @@ public class NerbuzAI : BossBase
                                     ParticleSystem.EmissionModule emidMod = particlesH3[i].emission;
                                     emidMod.enabled = true;
                                 }
+                                cntTimeSoundH3 = timeSoundH3;
                                 h3Activated = true;
                             }
+
                             if(cntTimeH3 > 0)
                             {
                                 cntTimeH3 -= Time.deltaTime;
+
+                                if(cntTimeSoundH3 > 0)
+                                {
+                                    cntTimeSoundH3 -= Time.deltaTime;
+                                }
+                                else
+                                {
+                                    soundH3.Play();
+                                    cntTimeSoundH3 = timeSoundH3;
+                                }
                             }
                             else
                             {
@@ -348,7 +368,6 @@ public class NerbuzAI : BossBase
                                     Vector2 dir;
                                     dir = new Vector2(tiredPos.x - transform.position.x, tiredPos.y - transform.position.y).normalized;
                                     movDir = dir;
-                                    Debug.Log("incoming");
                                 }
                                 else
                                 {
@@ -409,8 +428,8 @@ public class NerbuzAI : BossBase
                     }
                     else
                     {
-                        cntParticlesH1 = 0;
                         movDir = GetRandomDirection(0);
+                        cntParticlesH1 = 0;
                         cntTimeToSpawnH1 = timeToSpawnH1;
                         actualState = State.H1;
                     }
@@ -477,7 +496,6 @@ public class NerbuzAI : BossBase
                                 reachedTiredPos = false;
                                 if(cntSeriesH3 != seriesH3)
                                 {
-                                    Debug.Log("cargarH3");
                                     actualState = State.H3;
                                 }
                             }
@@ -503,7 +521,6 @@ public class NerbuzAI : BossBase
                                 {
                                     IsCrazy = true;
                                     rechedH4Pos = false;
-                                    Debug.Log("gotrans2");
                                     transitionState = 2;
                                 }
                             }
@@ -518,13 +535,15 @@ public class NerbuzAI : BossBase
                                     && transform.position.x < h4Pos.position.x + 0.1f)
                                     {
                                         rechedH4Pos = true;
-                                        Flip();
+                                        if(facingDir < 0)
+                                        {
+                                            Flip();
+                                        }
                                         cntTimeStillH4 = timeStillH4;
                                         transitionState = 3;
                                     }
                                     else
                                     {
-                                        Debug.Log("Moving");
                                         Vector2 dir;
                                         dir = new Vector2(h4Pos.position.x - transform.position.x, h4Pos.position.y - transform.position.y).normalized;
                                         movDir = dir;

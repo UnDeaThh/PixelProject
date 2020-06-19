@@ -8,12 +8,16 @@ public class SoulPickUp : MonoBehaviour
     private AudioSource sound;
     private bool picked;
     private AddingPickUp addingPickUp;
+    float alphaReduce = 1;
+    bool touchPinchos;
 
+    SpriteRenderer GFX;
     private void Awake()
     {
         sound = GetComponent<AudioSource>();
         Physics2D.IgnoreLayerCollision(11, 11);
         Physics2D.IgnoreLayerCollision(11, 9);
+        GFX = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -33,6 +37,16 @@ public class SoulPickUp : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        if (touchPinchos)
+        {
+            alphaReduce -= 0.02f;
+            GFX.material.SetFloat("_SmoothFade", alphaReduce);
+            if(alphaReduce <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
     public void MoneyValor(EnemyClass enemyType)
     {
@@ -40,7 +54,6 @@ public class SoulPickUp : MonoBehaviour
         {
             case EnemyClass.Changeling:
                 moneyToAdd = Random.Range(2, 7);
-                Debug.Log(moneyToAdd);
                 break;
             case EnemyClass.Nach:
                 moneyToAdd = Random.Range(2, 6);
@@ -55,8 +68,7 @@ public class SoulPickUp : MonoBehaviour
                 moneyToAdd = Random.Range(4, 12);
                 break;
             default:
-                moneyToAdd = Random.Range(2, 15);
-                Debug.Log("DEFAULTR");
+                moneyToAdd = Random.Range(15,20);
                 break;
         }
     }
@@ -68,7 +80,6 @@ public class SoulPickUp : MonoBehaviour
             picked = true;
             Collider2D col = GetComponent<Collider2D>();
             col.enabled = false;
-            SpriteRenderer GFX = GetComponentInChildren<SpriteRenderer>();
             GFX.enabled = false;
 
             Inventory2 inventory = collision.transform.GetComponentInChildren<Inventory2>();
@@ -77,6 +88,10 @@ public class SoulPickUp : MonoBehaviour
 
 
             addingPickUp.PrintPickUpInfo(GFX.sprite, moneyToAdd);
+        }
+        else if (collision.transform.CompareTag("Pinchos"))
+        {
+            touchPinchos = true;
         }
     }
 }

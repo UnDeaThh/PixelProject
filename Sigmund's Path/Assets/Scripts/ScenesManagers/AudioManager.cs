@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] AudioSource[] songSource;
     [SerializeField] AudioSource[] bossSongSource;
+    [SerializeField] AudioSource[] menuSongs;
 
     [SerializeField] AudioSource ambientSound;
     [SerializeField] AudioSource rainSound;
@@ -19,6 +20,7 @@ public class AudioManager : MonoBehaviour
     private bool startBossSong;
     private bool endBossSong;
     private bool playedFirstBossSong = false;
+    private bool playerFirstMenuSong = false;
     private PlayerController2 player;
 
 
@@ -30,6 +32,7 @@ public class AudioManager : MonoBehaviour
     public PlayerController2 Player { get => player; set => player = value; }
     public AudioSource[] BossSongSource { get => bossSongSource; set => bossSongSource = value; }
     public bool PlayedFirstBossSong { get => playedFirstBossSong; set => playedFirstBossSong = value; }
+    public bool PlayerFirstMenuSong { get => playerFirstMenuSong; set => playerFirstMenuSong = value; }
 
     private void Awake()
     {
@@ -48,31 +51,164 @@ public class AudioManager : MonoBehaviour
     }
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
-
-        if (SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene" && SceneManager.GetActiveScene().name != "Boss2Scene")
+        if(SceneManager.GetActiveScene().name != "MainMenuScene" && SceneManager.GetActiveScene().name != "SettingsScene" && SceneManager.GetActiveScene().name != "IntroScene")
         {
-            if (!songSource[0].isPlaying && !songSource[1].isPlaying)
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+        }
+    }
+
+    void StopMenuSongs()
+    {
+        if(menuSongs[0].isPlaying || menuSongs[1].isPlaying)
+        {
+            menuSongs[1].Stop();
+            menuSongs[0].Stop();
+        }
+        
+    }
+    private void Update()
+    {
+        //____________________________________
+        if(SceneManager.GetActiveScene().name == "MainMenuScene" || SceneManager.GetActiveScene().name == "SettingsScene") // Estas en el menu
+        {
+            if (!menuSongs[0].isPlaying && !playerFirstMenuSong)
             {
-                instanceAudio.songSource[0].Play();
-                playedFirstSong = true;
+                menuSongs[0].Play();
+                playerFirstMenuSong = true;
+            }
+            else if (!menuSongs[0].isPlaying && playerFirstMenuSong)
+            {
+                if (!menuSongs[1].isPlaying)
+                {
+                    menuSongs[1].Play();
+                }
             }
 
-            if (!ambientSound.isPlaying)
+            if(!bossSongSource[0].isPlaying || !bossSongSource[1].isPlaying)
             {
-                ambientSound.Play();
+                bossSongSource[0].Stop();
+                bossSongSource[1].Stop();
+            }
+        }
+        else if ( SceneManager.GetActiveScene().name == "CreditsScene")
+        {
+            StopMenuSongs();
+            if (!bossSongSource[1].isPlaying)
+            {
+                bossSongSource[1].Play();
             }
         }
         else
         {
-            instanceAudio.songSource[0].Stop();
-            instanceAudio.songSource[0].Stop();
-            ambientSound.Stop();
-        }
-    }
-    private void Update()
-    {
+            StopMenuSongs();
+            if (SceneManager.GetActiveScene().name != "IntroScene")
+            {
+                if(player == null)
+                {
+                    player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+                }
 
+
+                if(SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene" && SceneManager.GetActiveScene().name != "Boss2Scene") //Gameplay Normal
+                {
+                    #region RainSound
+                    if (SceneManager.GetActiveScene().buildIndex >= 14 && SceneManager.GetActiveScene().buildIndex <= 23)
+                    {
+                        if (SceneManager.GetActiveScene().buildIndex == 22)
+                        {
+                            rainSound.Stop();
+                        }
+                        else
+                        {
+                            if (!rainSound.isPlaying)
+                            {
+                                rainSound.Play();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        rainSound.Stop();
+                    }
+                    #endregion
+
+                    if (!ambientSound.isPlaying) // Soindo Ambiente
+                    {
+                        ambientSound.Play();
+                    }
+
+                    if (!songSource[0].isPlaying && playedFirstSong)
+                    {
+                        if (!instanceAudio.songSource[1].isPlaying)
+                        {
+                            instanceAudio.songSource[1].Play();
+                        }
+                    }
+                    else if (!songSource[0].isPlaying && !playedFirstSong)
+                    {
+                        if (!songSource[0].isPlaying && !songSource[1].isPlaying)
+                        {
+                            instanceAudio.songSource[0].Play();
+                            playedFirstSong = true;
+                        }
+                    }
+                }
+                else //Bosses
+                {
+                    if (ambientSound.isPlaying)
+                    {
+                        ambientSound.Stop();
+                    }
+
+                    DesconectNormalSongOnBossScene();
+                    FadeVolumeOnDead();
+                    if (startBossSong && !endBossSong)
+                    {
+                        if (!instanceAudio.bossSongSource[0].isPlaying && !instanceAudio.playedFirstBossSong)
+                        {
+                            bossSongSource[0].Play();
+                            playedFirstBossSong = true;
+                        }
+
+                        if (!instanceAudio.bossSongSource[0].isPlaying && instanceAudio.playedFirstBossSong)
+                        {
+                            if (!instanceAudio.bossSongSource[1].isPlaying)
+                            {
+                                bossSongSource[1].Play();
+                            }
+                        }
+                    }
+                    else if (startBossSong && endBossSong)
+                    {
+                        if (bossSongSource[0].isPlaying)
+                        {
+                            if (bossSongSource[0].volume > 0f)
+                            {
+                                bossSongSource[0].volume -= reductionSpeed;
+                            }
+                        }
+                        else if (bossSongSource[1].isPlaying)
+                        {
+                            if (bossSongSource[1].volume > 0f)
+                            {
+                                bossSongSource[1].volume -= reductionSpeed;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //_____________________________________
+
+        /*
+
+        if (SceneManager.GetActiveScene().name != "MainMenuScene" && SceneManager.GetActiveScene().name != "SettingsScene" && SceneManager.GetActiveScene().name != "IntroScene")
+        {
+            if(player == null)
+            {
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2>();
+            }
+        }
         #region RainSound
         if(SceneManager.GetActiveScene().buildIndex >= 14 && SceneManager.GetActiveScene().buildIndex <= 23)
         {
@@ -95,26 +231,43 @@ public class AudioManager : MonoBehaviour
         #endregion
         if (SceneManager.GetActiveScene().name != "Boss1Scene" && SceneManager.GetActiveScene().name != "NerbuzScene" && SceneManager.GetActiveScene().name != "Boss2Scene")
         {
-            if (!songSource[0].isPlaying && playedFirstSong)
+            if (SceneManager.GetActiveScene().name == "MainMenuScene" || SceneManager.GetActiveScene().name == "SettingsScene" )
             {
-                if (!instanceAudio.songSource[1].isPlaying)
+                if (!menuSongs[0].isPlaying && !playerFirstMenuSong)
                 {
-                    instanceAudio.songSource[1].Play();
+                    menuSongs[0].Play();
+                    playerFirstMenuSong = true;
+                }
+                else if (!menuSongs[0].isPlaying && playerFirstMenuSong)
+                {
+                    if (!menuSongs[1].isPlaying)
+                    {
+                        menuSongs[1].Play();
+                    }
                 }
             }
-            else if(!songSource[0].isPlaying && !playedFirstSong)
+            else
             {
-                if(!songSource[0].isPlaying && !songSource[1].isPlaying)
+                if (!songSource[0].isPlaying && playedFirstSong)
                 {
-                    instanceAudio.songSource[0].Play();
-                    playedFirstSong = true;
+                    if (!instanceAudio.songSource[1].isPlaying)
+                    {
+                        instanceAudio.songSource[1].Play();
+                    }
+                }
+                else if(!songSource[0].isPlaying && !playedFirstSong)
+                {
+                    if(!songSource[0].isPlaying && !songSource[1].isPlaying)
+                    {
+                        instanceAudio.songSource[0].Play();
+                        playedFirstSong = true;
+                    }
                 }
             }
-
-            if (!ambientSound.isPlaying)
-            {
-                ambientSound.Play();
-            }
+                if (!ambientSound.isPlaying)
+                {
+                    ambientSound.Play();
+                }
         }
 
 
@@ -162,6 +315,7 @@ public class AudioManager : MonoBehaviour
                 }
             }
         }
+        */
     }
 
 

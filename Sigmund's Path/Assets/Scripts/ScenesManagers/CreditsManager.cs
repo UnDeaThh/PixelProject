@@ -27,6 +27,7 @@ public class CreditsManager : MonoBehaviour
     {
         if (inputs.LogoControls.Exit.triggered)
         {
+            AudioManager.instanceAudio.PlayerFirstMenuSong = false;
             SceneManager.LoadScene("MainMenuScene");
         }
     }
@@ -34,6 +35,7 @@ public class CreditsManager : MonoBehaviour
     IEnumerator EndCredits()
     {
         yield return new WaitForSeconds(time);
+        AudioManager.instanceAudio.PlayerFirstMenuSong = false;
         SceneManager.LoadScene("MainMenuScene");
     }
 }

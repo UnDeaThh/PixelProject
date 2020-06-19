@@ -308,6 +308,7 @@ public class Settings : MonoBehaviour
     public void YesMainMenu()
     {
         pauseManager.isPaused = false;
+        AudioManager.instanceAudio.PlayerFirstMenuSong = false;
         SaveSystem.SavePlayerData(player, inventory, plAttack);
         SaveSystem.SaveSceneData(ScenesManager.scenesManager);
         SceneManager.LoadScene("MainMenuScene");

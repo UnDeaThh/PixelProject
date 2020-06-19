@@ -639,7 +639,7 @@ public class PlayerController2 : MonoBehaviour
                 cntJumpTime = jumpTime;
                 cntJumps++;
 
-                if(cntJumps == 2)
+                if(cntJumps == 2 && dobleJumpUnlocked)
                 {
                     GameObject instance = Instantiate(jumpParticles, new Vector2(transform.position.x, plCollider.bounds.min.y + 1f), Quaternion.identity);
                     Destroy(instance, 1f);

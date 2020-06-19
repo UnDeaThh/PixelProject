@@ -136,7 +136,7 @@ public class CumuloEsencia : MonoBehaviour
         {
             Vector2 randomPosition = colCenter + new Vector2(Random.Range(-colSize.x/2, colSize.x/2), Random.Range(-colSize.y/2, colSize.y/2));
             GameObject go = Instantiate(souls, randomPosition, Quaternion.identity);
-            go.GetComponent<SoulPickUp>().MoneyValor(default);
+            go.GetComponent<SoulPickUp>().MoneyValor(EnemyClass.Cumulo);
         }
     }
     private void OnDrawGizmos()

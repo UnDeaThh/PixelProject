@@ -4,7 +4,7 @@ using UnityEngine;
 
     public enum EnemyClass
     {
-        Changeling, Bermonch, Tatzel, Nach, Neck
+        Changeling, Bermonch, Tatzel, Nach, Neck, Cumulo
     }
 public class BaseEnemy : MonoBehaviour
 {

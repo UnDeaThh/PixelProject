@@ -118,6 +118,19 @@ public class LevelManager : MonoBehaviour
                                 player.facingDir = 1;
                             }
                         }
+                        else if(levelScene  == 20)
+                        {
+                            if(player.lastScene <= levelScene)
+                            {
+                                player.gameObject.transform.position = apearsPos[0].position;
+                                player.facingDir = -1;
+                            }
+                            else
+                            {
+                                player.gameObject.transform.position = apearsPos[1].position;
+                                player.facingDir = 1;
+                            }
+                        }
 
                         else
                         {
