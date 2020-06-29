@@ -462,7 +462,7 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        AbilitiesGODControl();
+        //AbilitiesGODControl();
         TimeScaleMethod();
         CursorController();
 
@@ -542,6 +542,41 @@ public class LevelManager : MonoBehaviour
         {
             plAttack.haveSword = !plAttack.haveSword;
         }
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            //CARGAR CHECKPOINT1
+            player.lastScene = levelScene;
+            SaveSystem.SavePlayerData(player, inventory, plAttack);
+            SaveSystem.SaveSceneData(ScenesManager.scenesManager);
+            SceneManager.LoadScene(14);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            //CARGAR CHECKPOINT2
+            player.lastScene = levelScene;
+            SaveSystem.SavePlayerData(player, inventory, plAttack);
+            SaveSystem.SaveSceneData(ScenesManager.scenesManager);
+            SceneManager.LoadScene(18);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            //Crargar checkpoint 3
+            player.lastScene = levelScene;
+            SaveSystem.SavePlayerData(player, inventory, plAttack);
+            SaveSystem.SaveSceneData(ScenesManager.scenesManager);
+            SceneManager.LoadScene(28);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            //Crargar checkpoint 3
+            player.lastScene = levelScene;
+            SaveSystem.SavePlayerData(player, inventory, plAttack);
+            SaveSystem.SaveSceneData(ScenesManager.scenesManager);
+            SceneManager.LoadScene(10);
+        }
+
     }
 
     void CursorController()

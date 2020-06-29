@@ -194,7 +194,7 @@ public class PlayerController2 : MonoBehaviour
                         break;
                 }
             };
-        GODmode();
+        //GODmode();
         ApplyInputsToPlayer();
 
         CheckLife();

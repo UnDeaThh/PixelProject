@@ -10,4 +10,12 @@ public class IntroManager : MonoBehaviour
     {
         SceneManager.LoadScene("T1");
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("T1");
+        }
+    }
 }
